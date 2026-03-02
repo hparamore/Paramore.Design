@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramore.Design — Design Director & UX Designer</title>
+  <meta name="description" content="Portfolio of Hunter Paramore — Design Director and UX Designer specializing in mobile apps, design systems, and user experience.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero section">
+    <div class="container">
+      <div class="hero__content">
+        <span class="label hero__label">Design Director & UX Designer</span>
+        <h1 class="display-xl hero__title">
+          Crafting digital<br>
+          experiences that<br>
+          <span class="accent-text">ship.</span>
+        </h1>
+        <p class="hero__subtitle">
+          I design and build apps across iOS, Android, and web — from
+          concept through production. Currently focused on mobile-first
+          products and design systems.
+        </p>
+        <div class="hero__cta">
+          <a href="/work.html" class="btn btn--primary">
+            View Work <span class="btn__arrow">&rarr;</span>
+          </a>
+          <a href="/about.html" class="btn btn--secondary">About Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Work -->
+  <section class="section" aria-labelledby="featured-heading">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2xl);">
+        <h2 id="featured-heading">Selected Work</h2>
+        <a href="/work.html" class="btn btn--ghost">
+          All Projects <span class="btn__arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="project-grid">
+
+        <!-- Featured Project -->
+        <a href="/projects/checkin.html" class="project-card project-card--featured">
+          <div class="project-card__image project-card__image--placeholder">
+            <!-- Replace with: <img src="assets/images/projects/checkin-cover.jpg" alt="Checkin app screens"> -->
+            PROJECT IMAGE
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Mobile App // iOS & Android</span>
+            <h3 class="project-card__title">Checkin</h3>
+            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins.</p>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="/projects/project-2.html" class="project-card">
+          <div class="project-card__image project-card__image--placeholder">
+            PROJECT IMAGE
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Category</span>
+            <h3 class="project-card__title">Project Name</h3>
+            <p class="project-card__description">Brief description of the project and your role.</p>
+          </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="/projects/project-3.html" class="project-card">
+          <div class="project-card__image project-card__image--placeholder">
+            PROJECT IMAGE
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Category</span>
+            <h3 class="project-card__title">Project Name</h3>
+            <p class="project-card__description">Brief description of the project and your role.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

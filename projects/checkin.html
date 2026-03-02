@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkin — Paramore.Design</title>
+  <meta name="description" content="Case study: Checkin — a social coordination app for friend groups, built with SwiftUI and Firebase.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Project Hero -->
+  <section class="project-hero">
+    <div class="container">
+      <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
+      </a>
+      <span class="label project-hero__label" style="display: block;">Mobile App // iOS & Android</span>
+      <h1 class="display-lg project-hero__title">Checkin</h1>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Role</span>
+          <span class="project-hero__meta-value">Design & Development</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Platform</span>
+          <span class="project-hero__meta-value">iOS, Android, Web</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Timeline</span>
+          <span class="project-hero__meta-value">2024 — Present</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Stack</span>
+          <span class="project-hero__meta-value">SwiftUI, Kotlin, Firebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image -->
+  <div class="container">
+    <div class="project-image">
+      <div class="project-card__image--placeholder" style="aspect-ratio: 21/9; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: var(--tracking-display);">
+        <!-- Replace with: <img src="../assets/images/projects/checkin-hero.jpg" alt="Checkin app hero image"> -->
+        HERO IMAGE
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Content -->
+  <section class="section">
+    <div class="container project-content">
+
+      <h2>The Problem</h2>
+      <p>
+        Coordinating plans with friends is surprisingly hard. Group chats get noisy,
+        nobody wants to be the first to commit, and by the time everyone figures out
+        who's available, the moment has passed.
+      </p>
+      <p>
+        Checkin solves this with a simple concept: light your campfire when you're
+        ready, and see who shows up.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Full-width image example -->
+  <div class="container">
+    <div class="project-image">
+      <div class="project-card__image--placeholder" style="aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: var(--tracking-display);">
+        <!-- Replace with: <img src="../assets/images/projects/checkin-screens.jpg" alt="Checkin app screens overview"> -->
+        APP SCREENS
+      </div>
+    </div>
+  </div>
+
+  <!-- Split: image + text -->
+  <section class="section">
+    <div class="container">
+      <div class="project-split">
+        <div class="project-split__image">
+          <div class="project-card__image--placeholder" style="aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); font-family: var(--font-display); font-size: var(--text-xl); letter-spacing: var(--tracking-display);">
+            <!-- Replace with: <img src="../assets/images/projects/checkin-detail-1.jpg" alt="Status check-in screen"> -->
+            PHONE MOCKUP
+          </div>
+        </div>
+        <div class="project-split__text">
+          <h3>Simple Status Updates</h3>
+          <p>
+            Users can check in with one of four statuses — available now, arriving soon,
+            maybe later, or not today. Each status includes an optional message and
+            automatic expiration so nothing goes stale.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-split project-split--reverse">
+        <div class="project-split__image">
+          <div class="project-card__image--placeholder" style="aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); font-family: var(--font-display); font-size: var(--text-xl); letter-spacing: var(--tracking-display);">
+            <!-- Replace with: <img src="../assets/images/projects/checkin-detail-2.jpg" alt="Campfire group view"> -->
+            PHONE MOCKUP
+          </div>
+        </div>
+        <div class="project-split__text">
+          <h3>Campfire Groups</h3>
+          <p>
+            Each group is a campfire. Members see each other's status at a glance —
+            who's checked in, who's coming, who's not around. Real-time updates
+            powered by Firestore snapshot listeners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More content -->
+  <section class="section--sm">
+    <div class="container project-content">
+
+      <h2>Design System</h2>
+      <p>
+        Built a comprehensive design system with semantic color tokens, typography
+        scale, standardized spacing, and reusable components. The system supports
+        customizable card backgrounds, themed groups, and consistent interactions
+        across iOS, Android, and widgets.
+      </p>
+
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="project-image">
+      <div class="project-card__image--placeholder" style="aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: var(--tracking-display);">
+        <!-- Replace with: <img src="../assets/images/projects/checkin-design-system.jpg" alt="Checkin design system overview"> -->
+        DESIGN SYSTEM IMAGE
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container project-content">
+
+      <h2>Outcome</h2>
+      <p>
+        Checkin is live on the App Store with an active user base of friend groups
+        and gaming communities. The app handles real-time status coordination,
+        push notifications, iOS widgets, and a companion Discord bot.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <section class="section" style="border-top: 1px solid var(--color-border);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <span class="label">Next Project</span>
+      <a href="/projects/project-2.html" class="btn btn--ghost" style="font-size: var(--text-xl);">
+        Project Name <span class="btn__arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

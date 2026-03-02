@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Paramore.Design</title>
+  <meta name="description" content="Thoughts on design, development, and building products — by Hunter Paramore.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link active">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="section" style="padding-top: calc(var(--space-4xl) + 80px); padding-bottom: var(--space-2xl);">
+    <div class="container container--narrow">
+      <span class="label mb-md" style="display: block;">Blog</span>
+      <h1 class="display-lg">Thoughts & Writing</h1>
+      <p class="mt-lg">
+        Notes on design, building products, and things I'm learning along the way.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="section--sm">
+    <div class="container container--narrow">
+      <div class="blog-list">
+
+        <!--
+          To add a new blog post:
+          1. Create a new HTML file in blog/posts/ (e.g., blog/posts/my-post.html)
+          2. Add a link here following the pattern below
+          3. Push to GitHub
+        -->
+
+        <a href="/blog/posts/hello-world.html" class="blog-post-link">
+          <span class="blog-post-link__title">Hello World</span>
+          <span class="blog-post-link__date">Mar 2, 2026</span>
+        </a>
+
+        <!--
+        <a href="/blog/posts/next-post.html" class="blog-post-link">
+          <span class="blog-post-link__title">Your Next Post Title</span>
+          <span class="blog-post-link__date">Mar 10, 2026</span>
+        </a>
+        -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: var(--space-4xl);">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

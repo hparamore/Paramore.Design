@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World — Paramore.Design</title>
+  <meta name="description" content="First post — why I'm starting this blog and what to expect.">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link active">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Post Header -->
+  <article>
+    <header class="blog-post__header">
+      <div class="container container--narrow">
+        <a href="/blog/" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+          <span style="margin-right: var(--space-sm);">&larr;</span> All Posts
+        </a>
+        <span class="label blog-post__date" style="display: block;">March 2, 2026</span>
+        <h1 class="display-lg">Hello World</h1>
+      </div>
+    </header>
+
+    <!-- Post Body -->
+    <div class="blog-post__body section--sm">
+      <div class="container container--narrow">
+
+        <p>
+          This is the first post on Paramore.Design. I've been meaning to start
+          writing for a while — about design, about building products, about the
+          weird overlap between being a designer who also writes code.
+        </p>
+
+        <p>
+          Consider this a placeholder. Replace it with whatever you actually
+          want to say. The structure is here, the styling works, and adding a
+          new post is as simple as duplicating this file and updating the content.
+        </p>
+
+        <h2>How to Add a New Post</h2>
+
+        <ol>
+          <li>Duplicate this file in <code>blog/posts/</code></li>
+          <li>Rename it (e.g., <code>2026-03-10-your-post-title.html</code>)</li>
+          <li>Update the title, date, meta description, and body content</li>
+          <li>Add a link to it in <code>blog/index.html</code></li>
+          <li>Push to GitHub</li>
+        </ol>
+
+        <p>
+          That's it. No build step, no CMS, no dependencies. Just HTML files
+          and git push.
+        </p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: var(--space-4xl);">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>
