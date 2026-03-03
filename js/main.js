@@ -108,8 +108,9 @@
       // Smooth lerp for slight trailing feel
       glowX += (mouseX - glowX) * 0.12;
       glowY += (mouseY - glowY) * 0.12;
-      glow.style.background =
-        `radial-gradient(400px circle at ${glowX}px ${glowY}px, rgba(255, 107, 0, 0.15), transparent 70%)`;
+      const mask = `radial-gradient(350px circle at ${glowX}px ${glowY}px, black, transparent 70%)`;
+      glow.style.webkitMaskImage = mask;
+      glow.style.maskImage = mask;
       requestAnimationFrame(animateGlow);
     }
 

@@ -108,6 +108,7 @@ body {
   background-color: var(--color-bg);
   background-image: radial-gradient(circle, #242424 1px, transparent 1px);
   background-size: 28px 28px;
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 
@@ -969,8 +970,10 @@ p {
 }
 
 /* ---------- Dot Grid Effects ---------- */
+/* Both effects use an orange dot grid (matching body grid) revealed through masks,
+   so only the dots themselves light up — no color wash on the background. */
 
-/* Cursor glow — soft radial light follows mouse on desktop */
+/* Cursor glow — orange dots revealed in a radial mask around cursor */
 .cursor-glow {
   position: fixed;
   top: 0;
@@ -979,9 +982,15 @@ p {
   height: 100%;
   pointer-events: none;
   z-index: 1;
+  background-image: radial-gradient(circle, rgba(255, 107, 0, 0.5) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+  /* Mask set dynamically via JS */
+  -webkit-mask-image: radial-gradient(1px circle at -500px -500px, black, transparent);
+  mask-image: radial-gradient(1px circle at -500px -500px, black, transparent);
 }
 
-/* Diagonal shine sweep — periodic light band across dot grid */
+/* Diagonal shine sweep — orange dots revealed in a sweeping diagonal band */
 .dot-shine {
   position: fixed;
   top: 0;
@@ -990,47 +999,52 @@ p {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
-}
-
-.dot-shine::before {
-  content: '';
-  position: absolute;
-  width: 250%;
-  height: 250%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(
+  background-image: radial-gradient(circle, rgba(255, 107, 0, 0.5) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+  -webkit-mask-image: linear-gradient(
     135deg,
     transparent 40%,
-    rgba(255, 107, 0, 0.08) 47%,
-    rgba(255, 107, 0, 0.15) 50%,
-    rgba(255, 107, 0, 0.08) 53%,
+    black 48%,
+    black 52%,
     transparent 60%
   );
+  mask-image: linear-gradient(
+    135deg,
+    transparent 40%,
+    black 48%,
+    black 52%,
+    transparent 60%
+  );
+  -webkit-mask-size: 300% 300%;
+  mask-size: 300% 300%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   opacity: 0;
-  transform: translate(-80%, -80%);
   animation: shine-sweep 22s ease-in-out infinite;
   animation-delay: 6s;
 }
 
 @keyframes shine-sweep {
   0% {
-    transform: translate(-80%, -80%);
+    -webkit-mask-position: -50% -50%;
+    mask-position: -50% -50%;
     opacity: 0;
   }
   3% {
     opacity: 1;
   }
   10% {
-    transform: translate(10%, 10%);
+    -webkit-mask-position: 100% 100%;
+    mask-position: 100% 100%;
     opacity: 1;
   }
   13% {
     opacity: 0;
   }
   13.1%, 100% {
-    transform: translate(-80%, -80%);
+    -webkit-mask-position: -50% -50%;
+    mask-position: -50% -50%;
     opacity: 0;
   }
 }
