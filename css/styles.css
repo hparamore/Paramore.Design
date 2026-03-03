@@ -442,9 +442,14 @@ p {
   font-size: var(--text-lg);
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-md);
   opacity: 0;
   animation: hero-fade-in 0.5s ease-out 0.55s forwards;
+}
+
+.hero__subtitle--closer {
+  margin-bottom: var(--space-2xl);
+  animation-delay: 0.65s;
 }
 
 .hero__cta {
@@ -1046,7 +1051,7 @@ p {
   .hero__subtitle {
     font-size: var(--text-md);
     line-height: 1.4;
-    max-width: 80%;
+    max-width: 85%;
   }
 
   .footer__inner {
