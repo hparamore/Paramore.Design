@@ -97,6 +97,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg);
 }
 
 body {
@@ -105,7 +106,7 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-text-primary);
-  background-color: var(--color-bg);
+  background-color: transparent;
   overflow-x: hidden;
 }
 
