@@ -106,7 +106,7 @@ body {
   line-height: var(--leading-normal);
   color: var(--color-text-primary);
   background-color: var(--color-bg);
-  background-image: radial-gradient(circle, var(--color-border-subtle) 1px, transparent 1px);
+  background-image: radial-gradient(circle, #242424 1px, transparent 1px);
   background-size: 28px 28px;
   overflow-x: hidden;
 }
