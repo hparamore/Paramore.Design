@@ -403,8 +403,8 @@ p {
 .hero {
   display: flex;
   align-items: flex-start;
-  padding-top: 16vh;
-  padding-bottom: var(--space-3xl);
+  padding-top: 12vh;
+  padding-bottom: var(--space-2xl);
   position: relative;
 }
 
@@ -1055,8 +1055,8 @@ p {
   }
 
   .hero {
-    padding-top: calc(var(--space-2xl) + 48px);
-    padding-bottom: var(--space-lg);
+    padding-top: calc(var(--space-2xl) + 32px);
+    padding-bottom: var(--space-md);
   }
 
   .hero__subtitle {
