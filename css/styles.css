@@ -1116,6 +1116,11 @@ p {
   .hero {
     padding-top: calc(var(--space-2xl) + 32px);
     padding-bottom: var(--space-md);
+    text-align: left;
+  }
+
+  .hero__content {
+    max-width: none;
   }
 
   .hero__subtitle {
