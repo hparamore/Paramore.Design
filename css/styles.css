@@ -322,6 +322,8 @@ p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--content-padding);
+  opacity: 0;
+  animation: hero-fade-in 0.5s ease-out 0.1s forwards;
 }
 
 .nav__logo {
@@ -458,6 +460,17 @@ p {
   flex-wrap: wrap;
   opacity: 0;
   animation: hero-fade-in 0.5s ease-out 0.7s forwards;
+}
+
+/* Selected Work section fade-in (continues the hero stagger) */
+.section-header {
+  opacity: 0;
+  animation: hero-fade-in 0.5s ease-out 0.85s forwards;
+}
+
+.section-content {
+  opacity: 0;
+  animation: hero-fade-in 0.5s ease-out 0.95s forwards;
 }
 
 
