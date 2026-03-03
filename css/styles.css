@@ -1043,6 +1043,11 @@ p {
     padding-bottom: var(--space-xl);
   }
 
+  .hero__subtitle {
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+  }
+
   .footer__inner {
     flex-direction: column;
     gap: var(--space-lg);
