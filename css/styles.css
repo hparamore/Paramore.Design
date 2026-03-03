@@ -1045,7 +1045,7 @@ p {
   .hero {
     min-height: auto;
     padding-top: calc(var(--space-3xl) + 40px);
-    padding-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
   }
 
   .hero__subtitle {
@@ -1060,8 +1060,7 @@ p {
   }
 
   .hero__cta {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
   }
 
   .project-hero__meta {
