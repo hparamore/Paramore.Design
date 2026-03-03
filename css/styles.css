@@ -323,7 +323,13 @@ p {
   margin: 0 auto;
   padding: 0 var(--content-padding);
   opacity: 0;
-  animation: hero-fade-in 0.5s ease-out 0.1s forwards;
+  animation: nav-fade-in 0.5s ease-out 0.1s forwards;
+}
+
+/* Nav uses opacity-only fade — transform would break fixed-position mobile menu */
+@keyframes nav-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .nav__logo {
@@ -1000,34 +1006,80 @@ p {
     padding: var(--space-sm) 0;
   }
 
+  /* --- Slide-out drawer (from right) --- */
   .nav__links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 75%;
+    max-width: 300px;
+    background: var(--color-surface);
+    border-left: 1px solid var(--color-border);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+    padding: calc(var(--space-4xl) + 16px) var(--space-xl) var(--space-xl);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+    list-style: none;
+  }
+
+  .nav__links.open {
+    transform: translateX(0);
+  }
+
+  .nav__links .nav__link {
+    display: block;
+    width: 100%;
+    font-size: var(--text-lg);
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .nav__links li {
+    width: 100%;
+  }
+
+  .nav__links li:last-child .nav__link {
+    border-bottom: none;
+  }
+
+  .nav__link.active::after {
+    display: none;
+  }
+
+  .nav__link.active {
+    color: var(--color-accent);
+  }
+
+  /* Backdrop overlay */
+  .nav__overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--color-bg);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2xl);
-    z-index: 99;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 199;
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-out);
   }
 
-  .nav__links.open {
-    display: flex;
-  }
-
-  .nav__links.open .nav__link {
-    font-size: var(--text-2xl);
-    font-family: var(--font-display);
-    letter-spacing: var(--tracking-display);
+  .nav__overlay.visible {
+    display: block;
+    opacity: 1;
   }
 
   .nav__toggle {
     display: block;
-    z-index: 101;
+    z-index: 201;
   }
 
   .project-grid {
