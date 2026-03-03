@@ -1051,7 +1051,6 @@ p {
   .hero__subtitle {
     font-size: var(--text-md);
     line-height: 1.4;
-    max-width: 85%;
   }
 
   .footer__inner {
