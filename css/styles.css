@@ -968,6 +968,11 @@ p {
   border: 0;
 }
 
+/* Mobile-only line break */
+.mobile-break {
+  display: none;
+}
+
 .text-center { text-align: center; }
 .text-accent { color: var(--color-accent); }
 .mt-sm { margin-top: var(--space-sm); }
@@ -1068,7 +1073,7 @@ p {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 199;
+    z-index: 150;
     opacity: 0;
     transition: opacity var(--duration-normal) var(--ease-out);
   }
@@ -1116,6 +1121,10 @@ p {
   .hero__subtitle {
     font-size: var(--text-md);
     line-height: 1.4;
+  }
+
+  .mobile-break {
+    display: block;
   }
 
   .footer__inner {
