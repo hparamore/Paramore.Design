@@ -978,6 +978,10 @@ p {
     --content-padding: var(--space-lg);
   }
 
+  .nav {
+    padding: var(--space-sm) 0;
+  }
+
   .nav__links {
     display: none;
     position: fixed;
