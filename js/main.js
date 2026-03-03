@@ -1,6 +1,6 @@
 /* ==========================================================================
    Paramore.Design — Main JavaScript
-   Nav scroll behavior, mobile menu, and minimal interactions
+   Nav scroll behavior, mobile menu, dot grid effects, easter eggs
    ========================================================================== */
 
 (function () {
@@ -39,7 +39,7 @@
     spans[1].style.opacity = '0';
     spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
 
-    // Show overlay (slight delay so display:block is set before opacity transition)
+    // Show overlay
     if (navOverlay) {
       navOverlay.style.display = 'block';
       requestAnimationFrame(() => {
@@ -62,7 +62,6 @@
     // Hide overlay
     if (navOverlay) {
       navOverlay.classList.remove('visible');
-      // Wait for fade-out transition before hiding
       setTimeout(() => {
         if (!navOverlay.classList.contains('visible')) {
           navOverlay.style.display = '';
@@ -81,15 +80,59 @@
       }
     });
 
-    // Close when overlay is tapped
     if (navOverlay) {
       navOverlay.addEventListener('click', closeNav);
     }
 
-    // Close when a link is clicked
     navLinks.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', closeNav);
     });
   }
+
+
+  /* ---------- Dot grid cursor glow (desktop only) ---------- */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+
+    let mouseX = -500, mouseY = -500;
+    let glowX = -500, glowY = -500;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateGlow() {
+      // Smooth lerp for slight trailing feel
+      glowX += (mouseX - glowX) * 0.12;
+      glowY += (mouseY - glowY) * 0.12;
+      glow.style.background =
+        `radial-gradient(350px circle at ${glowX}px ${glowY}px, rgba(255, 107, 0, 0.06), transparent 70%)`;
+      requestAnimationFrame(animateGlow);
+    }
+
+    animateGlow();
+  }
+
+
+  /* ---------- Dot grid shine sweep ---------- */
+  const shine = document.createElement('div');
+  shine.className = 'dot-shine';
+  document.body.appendChild(shine);
+
+
+  /* ---------- Console easter egg 🔥 ---------- */
+  console.log(
+    '%c🔥 Paramore.Design',
+    'color: #FF6B00; font-size: 20px; font-weight: bold; padding: 10px 0;'
+  );
+  console.log(
+    '%cBuilt with craft, not with templates.\n' +
+    'You check the console? We should talk.\n\n' +
+    '→ hunter@paramore.design',
+    'color: #AAAAAA; font-size: 13px; line-height: 1.8; padding-bottom: 10px;'
+  );
 
 })();
