@@ -246,10 +246,8 @@
 
   /* ---------- Console Easter Egg 🔥 ---------- */
   var f = 'font-size:14px;line-height:1.15;';
-  var yellow = f + 'color:#FFD700;';
-  var orange = f + 'color:#FF6B00;';
-  var dkOrange = f + 'color:#CC5500;';
-  var brown = f + 'color:#8B4513;';
+  var fire = f + 'color:#FF6B00;';
+  var logs = f + 'color:#8B4513;';
   console.log(
     '%c⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
     '%c⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⢱⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
@@ -266,21 +264,10 @@
     '%c⠀⠀⠀⠀⢸⣿⣿⣿⣿⢿⣿⠇⢰⡟⣫⣦⠙⢷⡀⣿⣿⣯⣍⣛⠛⠋⠀⠀⠀⠀\n' +
     '%c⠀⠀⠀⠀⠀⠛⢋⣡⡾⠟⠋⠀⠸⣧⣙⡟⢁⡾⠁⠿⢿⣿⣿⣭⡉⠁⠀⠀⠀⠀\n' +
     '%c⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠈⠙⠛⠋⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠀',
-    yellow,       // blank spacer
-    yellow,       // flame tip
-    yellow,       // flame tip
-    yellow,       // upper flame
-    orange,       // flame body
-    orange,       // flame body
-    orange,       // flame body
-    orange,       // flame body
-    dkOrange,     // lower flame
-    dkOrange,     // lower flame
-    dkOrange,     // ember base
-    brown,        // logs
-    brown,        // logs
-    brown,        // logs
-    brown         // logs base
+    fire,  fire,  fire,  fire,   // flame tips
+    fire,  fire,  fire,  fire,   // flame body
+    fire,  fire,  fire,          // lower flame / embers
+    logs,  logs,  logs,  logs    // logs
   );
   console.log(
     '%c  Paramore.Design',
