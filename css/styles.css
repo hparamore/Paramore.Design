@@ -399,10 +399,10 @@ p {
 
 /* ---------- Hero ---------- */
 .hero {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
-  padding-top: var(--space-4xl);
+  padding-top: var(--space-2xl);
   position: relative;
   overflow: hidden;
 }
