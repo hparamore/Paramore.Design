@@ -1044,8 +1044,9 @@ p {
   }
 
   .hero__subtitle {
-    font-size: var(--text-base);
-    line-height: var(--leading-snug);
+    font-size: var(--text-md);
+    line-height: 1.4;
+    max-width: 80%;
   }
 
   .footer__inner {
