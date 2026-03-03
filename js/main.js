@@ -88,7 +88,7 @@
      ========================================================================== */
 
   const dotCanvas = document.createElement('canvas');
-  dotCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0';
+  dotCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1';
   document.body.appendChild(dotCanvas);
   const ctx = dotCanvas.getContext('2d');
 
