@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#111111"/>
+
+  <!-- Grid texture -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="0.8" fill="#222222"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#dots)"/>
+
+  <!-- Desktop browser window -->
+  <g transform="translate(100, 60)">
+    <rect x="0" y="0" width="600" height="380" rx="8" fill="#1A1A1A" stroke="#333333" stroke-width="1"/>
+    <!-- Title bar -->
+    <rect x="0" y="0" width="600" height="32" rx="8" fill="#1E1E1E"/>
+    <rect x="0" y="20" width="600" height="12" fill="#1E1E1E"/>
+    <!-- Window dots -->
+    <circle cx="18" cy="16" r="5" fill="#333333"/>
+    <circle cx="36" cy="16" r="5" fill="#333333"/>
+    <circle cx="54" cy="16" r="5" fill="#333333"/>
+    <!-- URL bar -->
+    <rect x="120" y="9" width="360" height="14" rx="7" fill="#141414"/>
+    <!-- Page content -->
+    <rect x="24" y="52" width="200" height="16" rx="4" fill="#333333"/>
+    <rect x="24" y="80" width="260" height="8" rx="4" fill="#222222"/>
+    <rect x="24" y="96" width="220" height="8" rx="4" fill="#222222"/>
+    <rect x="24" y="112" width="240" height="8" rx="4" fill="#222222"/>
+    <!-- Hero image area -->
+    <rect x="24" y="140" width="552" height="160" rx="6" fill="#141414"/>
+    <rect x="200" y="200" width="200" height="40" rx="20" fill="#FF6B00" opacity="0.15"/>
+    <rect x="240" y="214" width="120" height="12" rx="6" fill="#FF6B00" opacity="0.3"/>
+    <!-- Bottom content blocks -->
+    <rect x="24" y="316" width="170" height="44" rx="6" fill="#141414"/>
+    <rect x="210" y="316" width="170" height="44" rx="6" fill="#141414"/>
+    <rect x="396" y="316" width="170" height="44" rx="6" fill="#141414"/>
+  </g>
+</svg>

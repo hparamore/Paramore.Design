@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#111111"/>
+
+  <!-- Grid texture -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="0.8" fill="#222222"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#dots)"/>
+
+  <!-- Phone on left -->
+  <g transform="translate(140, 50)">
+    <rect x="0" y="0" width="180" height="390" rx="22" fill="#1A1A1A" stroke="#333333" stroke-width="1.5"/>
+    <rect x="10" y="40" width="160" height="310" rx="4" fill="#0A0A0A"/>
+    <rect x="55" y="8" width="70" height="20" rx="10" fill="#0A0A0A"/>
+    <!-- App content -->
+    <rect x="24" y="56" width="80" height="10" rx="5" fill="#444444"/>
+    <rect x="24" y="80" width="132" height="80" rx="8" fill="#141414"/>
+    <rect x="24" y="172" width="132" height="28" rx="6" fill="#141414"/>
+    <rect x="24" y="208" width="132" height="28" rx="6" fill="#141414"/>
+    <rect x="24" y="244" width="132" height="28" rx="6" fill="#141414"/>
+    <!-- Accent element -->
+    <rect x="24" y="290" width="132" height="36" rx="18" fill="#FF6B00" opacity="0.2"/>
+    <rect x="52" y="303" width="76" height="10" rx="5" fill="#FF6B00" opacity="0.35"/>
+  </g>
+
+  <!-- Floating UI component cards -->
+  <g transform="translate(400, 80)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="260" height="100" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+    <circle cx="36" cy="50" r="20" fill="#222222"/>
+    <rect x="68" y="32" width="120" height="12" rx="6" fill="#333333"/>
+    <rect x="68" y="52" width="160" height="8" rx="4" fill="#222222"/>
+    <rect x="68" y="68" width="100" height="8" rx="4" fill="#222222"/>
+
+    <!-- Card 2 -->
+    <rect x="30" y="120" width="260" height="100" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+    <circle cx="66" cy="170" r="20" fill="#222222"/>
+    <rect x="98" y="152" width="100" height="12" rx="6" fill="#333333"/>
+    <rect x="98" y="172" width="140" height="8" rx="4" fill="#222222"/>
+    <rect x="98" y="188" width="80" height="8" rx="4" fill="#222222"/>
+
+    <!-- Card 3 -->
+    <rect x="10" y="240" width="260" height="100" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+    <circle cx="46" cy="290" r="20" fill="#222222"/>
+    <rect x="78" y="272" width="110" height="12" rx="6" fill="#333333"/>
+    <rect x="78" y="292" width="150" height="8" rx="4" fill="#222222"/>
+    <rect x="78" y="308" width="90" height="8" rx="4" fill="#222222"/>
+  </g>
+</svg>
