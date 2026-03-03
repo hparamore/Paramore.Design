@@ -245,14 +245,51 @@
 
 
   /* ---------- Console Easter Egg 🔥 ---------- */
+  var f = 'font-size:14px;line-height:1.15;';
+  var yellow = f + 'color:#FFD700;';
+  var orange = f + 'color:#FF6B00;';
+  var dkOrange = f + 'color:#CC5500;';
+  var brown = f + 'color:#8B4513;';
   console.log(
-    '%c🔥 Paramore.Design',
-    'color: #FF6B00; font-size: 20px; font-weight: bold; padding: 10px 0;'
+    '%c⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⢱⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡄⠀⠀⡀⠀⠀⠀⢸⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⠇⠀⠀⣷⣦⣤⣴⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⢠⣾⣷⡀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣷⣿⣿⣿⡟⢿⠿⠋⣿⣿⠀⠀⠀⠀⠰⣄⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⣿⣿⣦⡀⠀⠀⢀⣿⣧⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⢹⣿⣿⣿⠙⠻⠟⠋⠁⠀⠀⠀⠀⢿⣿⣿⣿⣶⣶⣿⣿⣿⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠈⣿⣿⣿⡆⠀⠀⢀⣠⡤⠀⠀⠀⠈⠻⣿⡿⣿⣿⣿⣿⡟⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠘⠟⠋⣁⣤⡾⢟⣩⣴⣶⣆⠀⠀⠀⠀⢠⣿⣿⣿⠟⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⠟⢉⣁⣀⣉⠀⢹⣶⣶⣤⣄⣈⡁⠀⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⢸⣿⣿⣿⣿⢿⣿⠇⢰⡟⣫⣦⠙⢷⡀⣿⣿⣯⣍⣛⠛⠋⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠛⢋⣡⡾⠟⠋⠀⠸⣧⣙⡟⢁⡾⠁⠿⢿⣿⣿⣭⡉⠁⠀⠀⠀⠀\n' +
+    '%c⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠈⠙⠛⠋⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠀',
+    yellow,       // blank spacer
+    yellow,       // flame tip
+    yellow,       // flame tip
+    yellow,       // upper flame
+    orange,       // flame body
+    orange,       // flame body
+    orange,       // flame body
+    orange,       // flame body
+    dkOrange,     // lower flame
+    dkOrange,     // lower flame
+    dkOrange,     // ember base
+    brown,        // logs
+    brown,        // logs
+    brown,        // logs
+    brown         // logs base
+  );
+  console.log(
+    '%c  Paramore.Design',
+    'color: #FF6B00; font-size: 18px; font-weight: bold; font-family: monospace; padding: 8px 0 4px;'
   );
   console.log(
     '%cBuilt with craft, not with templates.\n' +
     'You check the console? We should talk.\n\n' +
-    '→ hunter@paramore.design',
+    '→ hparamore@gmail.com',
     'color: #AAAAAA; font-size: 13px; line-height: 1.8; padding-bottom: 10px;'
   );
 
