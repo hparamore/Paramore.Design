@@ -406,7 +406,6 @@ p {
   padding-top: 16vh;
   padding-bottom: var(--space-3xl);
   position: relative;
-  overflow: hidden;
 }
 
 .hero__content {
