@@ -1038,6 +1038,7 @@ p {
     font-family: var(--font-display);
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
+    color: var(--color-text-primary);
     padding: var(--space-md) 0;
     border-bottom: 1px solid var(--color-border-subtle);
   }
