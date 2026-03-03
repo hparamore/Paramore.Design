@@ -30,6 +30,46 @@
 
   <!-- Hero -->
   <section class="hero section">
+    <!-- Geometric background art -->
+    <div class="hero__bg" aria-hidden="true">
+      <svg class="hero__geo" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Dot grid -->
+        <pattern id="hero-dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+          <circle cx="16" cy="16" r="1.2" fill="currentColor"/>
+        </pattern>
+        <rect x="0" y="0" width="900" height="900" fill="url(#hero-dots)" opacity="0.35"/>
+
+        <!-- Large angular lines — architectural/structural feel -->
+        <line x1="140" y1="0" x2="750" y2="900" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+        <line x1="300" y1="0" x2="900" y2="820" stroke="currentColor" stroke-width="0.5" opacity="0.12"/>
+        <line x1="0" y1="350" x2="900" y2="200" stroke="currentColor" stroke-width="0.5" opacity="0.1"/>
+        <line x1="0" y1="600" x2="900" y2="500" stroke="currentColor" stroke-width="0.5" opacity="0.08"/>
+
+        <!-- Geometric shapes -->
+        <!-- Large diamond -->
+        <polygon points="500,120 680,340 500,560 320,340" stroke="currentColor" stroke-width="0.7" opacity="0.1" fill="none"/>
+        <!-- Smaller rotated square -->
+        <rect x="380" y="280" width="160" height="160" rx="2" transform="rotate(15, 460, 360)" stroke="currentColor" stroke-width="0.5" opacity="0.12" fill="none"/>
+        <!-- Circle -->
+        <circle cx="550" cy="450" r="120" stroke="currentColor" stroke-width="0.5" opacity="0.08" fill="none"/>
+        <!-- Smaller circle -->
+        <circle cx="400" cy="300" r="40" stroke="currentColor" stroke-width="0.5" opacity="0.15" fill="none"/>
+        <!-- Accent circle with orange -->
+        <circle cx="620" cy="280" r="6" fill="#FF6B00" opacity="0.25"/>
+        <circle cx="620" cy="280" r="16" stroke="#FF6B00" stroke-width="0.5" opacity="0.12" fill="none"/>
+        <!-- Corner accent dots -->
+        <circle cx="350" cy="180" r="3" fill="currentColor" opacity="0.2"/>
+        <circle cx="680" cy="520" r="3" fill="currentColor" opacity="0.15"/>
+        <circle cx="450" cy="650" r="2.5" fill="currentColor" opacity="0.12"/>
+
+        <!-- Intersecting triangle -->
+        <polygon points="580,150 750,480 410,480" stroke="currentColor" stroke-width="0.5" opacity="0.07" fill="none"/>
+
+        <!-- Short accent line segments -->
+        <line x1="340" y1="175" x2="365" y2="175" stroke="#FF6B00" stroke-width="1" opacity="0.2"/>
+        <line x1="670" y1="515" x2="695" y2="515" stroke="#FF6B00" stroke-width="1" opacity="0.15"/>
+      </svg>
+    </div>
     <div class="container">
       <div class="hero__content">
         <span class="label hero__label">Hunter Paramore</span>
