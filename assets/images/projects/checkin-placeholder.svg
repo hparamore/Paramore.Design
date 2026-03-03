@@ -1,11 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 540" fill="none">
   <rect width="1260" height="540" fill="#111111"/>
 
-  <!-- Subtle grid dots for texture -->
-  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-    <circle cx="20" cy="20" r="0.8" fill="#222222"/>
-  </pattern>
-  <rect width="1260" height="540" fill="url(#dots)"/>
 
   <!-- Phone 1 (left, tilted back slightly) -->
   <g transform="translate(280, 60) rotate(-5, 90, 210)">

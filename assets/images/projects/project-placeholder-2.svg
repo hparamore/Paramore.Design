@@ -1,11 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
   <rect width="800" height="500" fill="#111111"/>
 
-  <!-- Grid texture -->
-  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-    <circle cx="20" cy="20" r="0.8" fill="#222222"/>
-  </pattern>
-  <rect width="800" height="500" fill="url(#dots)"/>
 
   <!-- Phone on left -->
   <g transform="translate(140, 50)">
