@@ -109,7 +109,7 @@
       glowX += (mouseX - glowX) * 0.12;
       glowY += (mouseY - glowY) * 0.12;
       glow.style.background =
-        `radial-gradient(350px circle at ${glowX}px ${glowY}px, rgba(255, 107, 0, 0.06), transparent 70%)`;
+        `radial-gradient(400px circle at ${glowX}px ${glowY}px, rgba(255, 107, 0, 0.15), transparent 70%)`;
       requestAnimationFrame(animateGlow);
     }
 
