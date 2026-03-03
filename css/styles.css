@@ -399,10 +399,10 @@ p {
 
 /* ---------- Hero ---------- */
 .hero {
-  min-height: 85vh;
   display: flex;
-  align-items: center;
-  padding-top: var(--space-2xl);
+  align-items: flex-start;
+  padding-top: 16vh;
+  padding-bottom: var(--space-3xl);
   position: relative;
   overflow: hidden;
 }
@@ -1043,9 +1043,8 @@ p {
   }
 
   .hero {
-    min-height: auto;
-    padding-top: calc(var(--space-3xl) + 40px);
-    padding-bottom: var(--space-md);
+    padding-top: calc(var(--space-2xl) + 48px);
+    padding-bottom: var(--space-lg);
   }
 
   .hero__subtitle {
