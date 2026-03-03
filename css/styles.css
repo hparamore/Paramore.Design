@@ -441,15 +441,16 @@ p {
 
 .hero__subtitle {
   font-size: var(--text-lg);
+  line-height: 1.45;
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   opacity: 0;
   animation: hero-fade-in 0.5s ease-out 0.55s forwards;
 }
 
 .hero__subtitle--closer {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
   animation-delay: 0.65s;
 }
 
