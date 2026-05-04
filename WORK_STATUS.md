@@ -1,5 +1,38 @@
 # Work Status — Paramore.Design Portfolio
 
+## 2026-05-03 — Homepage Repositioning: AI for Small Businesses
+
+### Summary
+Rewrote `index.html` to reposition the site from a general design portfolio to a focused
+small-business AI consultancy pitch. Portfolio remains accessible at `/work.html`.
+
+### What changed
+- **`index.html`** — Full rewrite. New sections:
+  1. Hero — "AI Tools, Built For The Way Your Business Actually Runs" with "Now booking" pill
+  2. Problem strip — subscription bloat, spreadsheet sprawl, built-for-someone-else
+  3. What I Do — 4 cards (Replace The Stack, AI That Earns Its Keep, Designed Not Just Built, You Own It)
+  4. Built For — 6 industry tiles (trades, yard/property, real estate, events/magazines, restaurants, founders)
+  5. Recent Builds — Brandon's Tree Co., Utah Bridal magazine workflow, Checkin
+  6. Process — Talk → Map → Build → Ship
+  7. Trust strip — text logos for Paramore Real Estate, Mutual, Ark, Nu Skin, Stotion, Angel Studios, Tech9
+  8. Big CTA — "Tell me what's eating your week"
+- Hero headline forced onto 3 lines on wide screens (≥1100px) via `white-space: nowrap`, falls back to natural wrap below.
+- Brandon's Tree Co. and Utah Bridal cards use grey-box placeholders (`.project-card__image--blank`) until real screenshots are ready.
+
+### Decisions
+- **Scoped CSS in a `<style>` block in `index.html`** rather than `css/styles.css` — keeps iteration cheap while the new sections are still being tuned. Move into the main stylesheet once the layout is locked.
+- **Kept `/work.html`, `/about.html`, `/blog/` untouched** — portfolio takes a back seat in nav messaging but full content is still live.
+- **Industry tiles use emoji icons** as cheap placeholders. Replace with proper SVG icons when the visual direction is set.
+
+### Open questions / next steps
+- Replace placeholder grey boxes on Brandon's Tree Co. and Utah Bridal cards with real screenshots/mockups.
+- Wire up actual booking link (Cal.com / Calendly) — currently `mailto:hunter@paramore.design`.
+- Decide whether to keep the existing `craft-flicker` C/K easter egg somewhere on the new site.
+- Move scoped homepage CSS into `css/styles.css` once layout is approved.
+- Consider building a dedicated `/services` or `/ai` page if homepage gets too long.
+
+---
+
 ## 2026-03-02 — Initial Scaffold
 
 ### Summary
