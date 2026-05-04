@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hunter Paramore — Resume</title>
+  <meta name="description" content="Hunter Paramore — 12+ years designing and building products. Resume.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+  <style>
+    /* ---------- Fonts (mirrors the site) ---------- */
+    @font-face {
+      font-family: 'Bebas Neue';
+      src: url('fonts/BebasNeue-Bold.ttf') format('truetype');
+      font-weight: 400 700;
+      font-display: swap;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+    /* ---------- Tokens (mirror the site) ---------- */
+    :root {
+      --bg:            #0A0A0A;
+      --surface:       #111111;
+      --border:        #2A2A2A;
+      --border-subtle: #1E1E1E;
+      --text:          #FFFFFF;
+      --text-2:        #AAAAAA;
+      --text-3:        #666666;
+      --accent:        #FF6B00;
+
+      --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-body:    'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+      --tracking-wide:   0.05em;
+      --tracking-wider:  0.1em;
+    }
+
+    /* ---------- Page setup (US Letter PDF) ---------- */
+    @page {
+      size: Letter;
+      margin: 0;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      padding: 0.55in 0.6in 0.5in;
+      box-sizing: border-box;
+      margin: 0 auto;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* ---------- Header ---------- */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 56pt;
+      line-height: 0.92;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .name .dot { color: var(--accent); }
+    .role {
+      font-family: var(--font-body);
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--text-2);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      margin: 6px 0 0;
+    }
+    .contact {
+      text-align: right;
+      font-size: 8.5pt;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .contact a { color: var(--text); text-decoration: none; }
+    .contact .accent { color: var(--accent); font-weight: 600; }
+
+    /* ---------- Pitch statement ---------- */
+    .pitch {
+      font-size: 10pt;
+      line-height: 1.5;
+      color: var(--text);
+      max-width: 100%;
+      margin: 0 0 18px;
+    }
+    .pitch em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+    /* ---------- Section frame ---------- */
+    section { margin-bottom: 16px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14pt;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--accent);
+      margin: 0 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* ---------- Experience ---------- */
+    .job {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 16px;
+      margin-bottom: 10px;
+    }
+    .job__company {
+      font-family: var(--font-body);
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+    .job__role {
+      font-size: 9pt;
+      color: var(--text-2);
+      margin: 0;
+    }
+    .job__meta {
+      font-family: var(--font-body);
+      font-size: 8.5pt;
+      color: var(--text-3);
+      text-align: right;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      align-self: start;
+    }
+    .job__bullets {
+      grid-column: 1 / -1;
+      margin: 4px 0 0;
+      padding-left: 14px;
+      color: var(--text-2);
+    }
+    .job__bullets li {
+      font-size: 9pt;
+      line-height: 1.45;
+      margin-bottom: 2px;
+    }
+    .job__bullets li::marker { color: var(--accent); }
+
+    /* ---------- Two-column tail (skills + education) ---------- */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+    }
+
+    .skill-group { margin-bottom: 10px; }
+    .skill-label {
+      font-family: var(--font-body);
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+      color: var(--text-3);
+      margin-bottom: 3px;
+    }
+    .skill-line {
+      font-size: 9.5pt;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ---------- Selected Projects (compact) ---------- */
+    .project {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2px 16px;
+      margin-bottom: 8px;
+    }
+    .project__name {
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+    .project__tag {
+      font-size: 8pt;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+    }
+    .project__desc {
+      grid-column: 1 / -1;
+      font-size: 9pt;
+      line-height: 1.45;
+      color: var(--text-2);
+      margin: 0;
+    }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.5pt;
+      color: var(--text-3);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+    .footer .accent { color: var(--accent); font-weight: 600; }
+
+    /* ---------- Web-only chrome (link bar above the page) ---------- */
+    @media screen {
+      body {
+        padding: 32px 16px;
+      }
+      .page {
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        border: 1px solid var(--border-subtle);
+      }
+      .web-bar {
+        max-width: 8.5in;
+        margin: 0 auto 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: var(--text-2);
+      }
+      .web-bar a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: var(--tracking-wide);
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .web-bar a:hover { text-decoration: underline; }
+    }
+    @media print {
+      .web-bar { display: none; }
+      body { padding: 0; }
+      .page { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Web-only nav (hidden in PDF) -->
+  <div class="web-bar">
+    <span>Hunter Paramore — Resume</span>
+    <span>
+      <a href="/">← Back to Paramore.Design</a>
+      &nbsp;&nbsp;
+      <a href="/assets/Hunter-Paramore-Resume.pdf">Download PDF</a>
+    </span>
+  </div>
+
+  <article class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <div>
+        <h1 class="name">Hunter Paramore<span class="dot">.</span></h1>
+        <p class="role">Design Director · UX Designer · AI Tools for Small Business</p>
+      </div>
+      <div class="contact">
+        <div><span class="accent">paramore.design</span></div>
+        <div><a href="mailto:hunter@paramore.design">hunter@paramore.design</a></div>
+        <div><a href="https://linkedin.com">LinkedIn</a> · <a href="https://github.com/hparamore">GitHub</a> · <a href="https://dribbble.com/HunterParamore">Dribbble</a></div>
+      </div>
+    </header>
+
+    <!-- Pitch -->
+    <p class="pitch">
+      12+ years of product design across consumer, enterprise, and mobile. Now building <em>custom AI-powered tools for small businesses</em> — replacing the stack of half-used SaaS subscriptions that nickel-and-dime owners with one tool, designed and shipped by one person.
+    </p>
+
+    <!-- Experience -->
+    <section>
+      <h2 class="section-title">Experience</h2>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Paramore.Design</p>
+          <p class="job__role">Founder · Designer-Developer</p>
+        </div>
+        <p class="job__meta">[YEAR] — Present</p>
+        <ul class="job__bullets">
+          <li>Designing and building custom AI-powered tools for small businesses — operations, scheduling, intake, and reporting that replace 4–6 SaaS subscriptions per client.</li>
+          <li>Recent builds: field-ops tool for Brandon's Tree Co. (equipment, fuel, AI-parsed receipts) and a magazine submissions platform for Utah Bridal.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Mutual Dating</p>
+          <p class="job__role">[ROLE — e.g. Senior Product Designer]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — what you owned, scope, outcome. e.g. "Led redesign of onboarding, lifting D1 retention by X%."]</li>
+          <li>[Bullet — system or feature you shipped.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Ark Dating</p>
+          <p class="job__role">[ROLE]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — what you owned, scope, outcome.]</li>
+          <li>[Bullet — design system, platform, or launch.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Nu Skin</p>
+          <p class="job__role">[ROLE]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — what you owned at this scale of company.]</li>
+          <li>[Bullet — cross-functional partnership, region/market, etc.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Angel Studios</p>
+          <p class="job__role">[ROLE]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — entertainment platform, viewer experience, etc.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Tech 9</p>
+          <p class="job__role">[ROLE]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — agency / client work scope.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Stotion</p>
+          <p class="job__role">[ROLE]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — product or platform you contributed to.]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div>
+          <p class="job__company">Paramore Real Estate</p>
+          <p class="job__role">[ROLE — e.g. Brand & Product Design]</p>
+        </div>
+        <p class="job__meta">[YEAR] — [YEAR]</p>
+        <ul class="job__bullets">
+          <li>[Bullet — branding, web, internal tools.]</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Selected Projects -->
+    <section>
+      <h2 class="section-title">Selected Projects</h2>
+
+      <div class="project">
+        <p class="project__name">Brandon's Tree Co. — Field Ops Tool</p>
+        <span class="project__tag">Trades · Operations</span>
+        <p class="project__desc">Replaced four separate SaaS subscriptions with one tool for equipment tracking, fuel logs, AI-parsed receipts, and crew scheduling — built around how the crew actually works in the truck.</p>
+      </div>
+
+      <div class="project">
+        <p class="project__name">Utah Bridal — Magazine Workflow</p>
+        <span class="project__tag">Publishing · Operations</span>
+        <p class="project__desc">Submissions, status, payments, scheduling, and designer handoff — collapsed from a tangle of spreadsheets into one tool the whole team uses.</p>
+      </div>
+
+      <div class="project">
+        <p class="project__name">Checkin</p>
+        <span class="project__tag">Personal · iOS &amp; Android</span>
+        <p class="project__desc">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy — start to ship.</p>
+      </div>
+    </section>
+
+    <!-- Skills + Education -->
+    <div class="grid-2">
+      <section>
+        <h2 class="section-title">Craft</h2>
+
+        <div class="skill-group">
+          <div class="skill-label">Design</div>
+          <div class="skill-line">Product · UX · Visual · Design Systems · Prototyping · Figma · Motion</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Engineering</div>
+          <div class="skill-line">SwiftUI · Kotlin / Jetpack Compose · React · HTML/CSS · Unity · SpriteKit</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Data &amp; AI</div>
+          <div class="skill-line">Firebase · Supabase · Anthropic API · OpenAI API · Tool-use &amp; agents</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Practice</div>
+          <div class="skill-line">User research · Workshop facilitation · Cross-functional leadership · Mentoring</div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Education</h2>
+        <div class="job" style="margin-bottom: 6px;">
+          <div>
+            <p class="job__company">[School Name]</p>
+            <p class="job__role">[Degree / Program]</p>
+          </div>
+          <p class="job__meta">[YEAR]</p>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 14px;">Recognition</h2>
+        <ul class="job__bullets" style="padding-left: 14px; margin-top: 0;">
+          <li>[Award, talk, publication, or mention.]</li>
+          <li>[Add or remove as relevant.]</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Hunter Paramore <span class="accent">·</span> Paramore.Design</span>
+      <span>Updated [MONTH YEAR]</span>
+    </footer>
+
+  </article>
+
+</body>
+</html>
