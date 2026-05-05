@@ -17,7 +17,7 @@
     }
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-    /* ---------- Tokens (mirror the site) ---------- */
+    /* ---------- Tokens (dark / web theme) ---------- */
     :root {
       --bg:            #0A0A0A;
       --surface:       #111111;
@@ -123,6 +123,7 @@
       padding-bottom: 4px;
       border-bottom: 1px solid var(--border-subtle);
     }
+    .section-title .dot { color: var(--accent); }
 
     /* ---------- Experience ---------- */
     .job {
@@ -139,9 +140,12 @@
       margin: 0;
     }
     .job__role {
-      font-size: 9pt;
+      font-size: 8.5pt;
       color: var(--text-2);
       margin: 0;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      font-weight: 600;
     }
     .job__meta {
       font-family: var(--font-body);
@@ -154,7 +158,7 @@
     }
     .job__bullets {
       grid-column: 1 / -1;
-      margin: 4px 0 0;
+      margin: 0;
       padding-left: 14px;
       color: var(--text-2);
     }
@@ -260,9 +264,53 @@
       .web-bar a:hover { text-decoration: underline; }
     }
     @media print {
+      /* Light theme override for print/PDF */
+      :root {
+        --bg:            #FFFFFF;
+        --surface:       #F5F5F5;
+        --border:        #CCCCCC;
+        --border-subtle: #E5E5E5;
+        --text:          #0A0A0A;
+        --text-2:        #555555;
+        --text-3:        #888888;
+      }
+
       .web-bar { display: none; }
-      body { padding: 0; }
-      .page { box-shadow: none; border: 0; }
+      body { padding: 0; background: var(--bg); color: var(--text); }
+      .page {
+        box-shadow: none;
+        border: 0;
+        background: var(--bg);
+        padding-bottom: 0.75in; /* clear fixed footer */
+      }
+
+      /* Page-2 hero treatment for Selected Projects */
+      .page-2-hero {
+        page-break-before: always;
+        break-before: page;
+        padding-top: 0.1in;
+      }
+      .page-2-hero > .section-title {
+        font-size: 56pt;
+        line-height: 0.92;
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 14px;
+        margin-bottom: 22px;
+        letter-spacing: 0;
+      }
+
+      /* Footer repeats on every printed page */
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 8px 0.6in;
+        background: var(--bg);
+        border-top: 1px solid var(--border-subtle);
+      }
     }
   </style>
 </head>
@@ -309,8 +357,7 @@
         </div>
         <p class="job__meta">2025 – Present</p>
         <ul class="job__bullets">
-          <li>Design and build custom AI-powered web and mobile tools for small businesses – operations, scheduling, intake, and reporting. One tool typically replaces 4–6 SaaS subscriptions and ships in weeks, for a fraction of what used to take a full dev team.</li>
-          <li>Recent builds: field ops for The Tree Service (equipment, fuel, AI-parsed receipts and bids, crew scheduling); magazine submissions and content tools for Utah Valley Bridal; internal client / task / payment tooling used across my own consulting work.</li>
+          <li>Design and build custom AI-powered web and mobile tools for small businesses – field operations, scheduling, intake, reporting, client management, and payment processing. One tool typically replaces 4–6 SaaS subscriptions and ships in weeks, for a fraction of what used to take a full dev team and tens of thousands of dollars.</li>
         </ul>
       </div>
 
@@ -321,9 +368,8 @@
         </div>
         <p class="job__meta">2015 – 2026</p>
         <ul class="job__bullets">
-          <li>Built the #1 LDS dating app in the world – responsible for 40,000+ marriages and counting. Humbling, and fills me with joy.</li>
+          <li>Built the #1 LDS dating app in the world – responsible for 40,000+ marriages and counting. Was in charge of all design end-to-end (UI, product and user research, design system, brand identity) and was greatly involved in product direction, strategy, and success. Humbling, and fills me with joy.</li>
           <li>Sole designer-founder. Grew Mutual from a scrappy startup into a multi-million-dollar business – part-time from day one, full-time since 2021.</li>
-          <li>Owned every surface end-to-end: UI design, product and user research, design system, brand identity, and product strategy.</li>
         </ul>
       </div>
 
@@ -335,7 +381,7 @@
         <p class="job__meta">2023 – 2026</p>
         <ul class="job__bullets">
           <li>Spun up a second dating app by white-labeling Mutual – built and ran dual design systems, each feeding a parallel clone of the same codebase.</li>
-          <li>Owned user research, brand identity, and product design end-to-end.</li>
+          <li>Was in charge of user research, brand identity, and product design end-to-end.</li>
         </ul>
       </div>
 
@@ -346,7 +392,7 @@
         </div>
         <p class="job__meta">2019 – 2021</p>
         <ul class="job__bullets">
-          <li>Product design and research on the web team – payment processing, discount codes, and analytics. Shipped work that moved the whole business: more completed checkouts, earned discounts applied faster.</li>
+          <li>Product design and research on the web team – payment processing, discount codes, and analytics. Streamlined the checkout and discount flows so customers were more likely to complete their orders and actually receive the deals they had earned, lifting completion rates across the business.</li>
           <li>Built Nu Skin's first Figma design system and led the design team through the full migration off Sketch.</li>
         </ul>
       </div>
@@ -363,9 +409,9 @@
       </div>
     </section>
 
-    <!-- Selected Projects -->
-    <section>
-      <h2 class="section-title">Selected Projects</h2>
+    <!-- Selected Projects (becomes page-2 hero in print) -->
+    <section class="page-2-hero">
+      <h2 class="section-title">Selected<span class="dot">.</span>Projects</h2>
 
       <div class="project">
         <p class="project__name">Tech 9 – Sr. Product Designer</p>
