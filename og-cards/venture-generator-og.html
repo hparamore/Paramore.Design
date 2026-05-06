@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Venture Generator OG card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0A0A0A;
+      --surface:   #141414;
+      --border:    #2A2A2A;
+      --soft:      #1E1E1E;
+      --text:      #FFFFFF;
+      --text-2:    #B7B7B7;
+      --text-3:    #777777;
+      --accent:    #FF6B00;
+      --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-body:    'Space Grotesk', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1200px;
+      height: 630px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow: hidden;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,107,0,0.10) 0%, transparent 35%),
+        radial-gradient(circle at 90% 90%, rgba(255,107,0,0.08) 0%, transparent 35%);
+    }
+    .frame {
+      width: 1200px;
+      height: 630px;
+      padding: 56px 64px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+    }
+    /* Top brand strip */
+    .topbar {
+      position: absolute;
+      top: 36px; left: 64px; right: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--soft);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.02em;
+    }
+    .logo .dot { color: var(--accent); }
+    .badge {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+
+    /* Left side: title + description */
+    .left {
+      padding-top: 60px;
+    }
+    .label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .title {
+      font-family: var(--font-display);
+      font-size: 96px;
+      line-height: 0.92;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .title .dot { color: var(--accent); }
+    .desc {
+      font-size: 19px;
+      line-height: 1.5;
+      color: var(--text-2);
+      max-width: 28ch;
+      margin-bottom: 28px;
+    }
+    .by {
+      font-size: 14px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .by span { color: var(--accent); }
+
+    /* Right side: a real-looking venture card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--soft) inset;
+      position: relative;
+      overflow: hidden;
+      transform: rotate(-2deg);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .card__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .card__name {
+      font-family: var(--font-display);
+      font-size: 64px;
+      line-height: 0.92;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+    .card__name .dot { color: var(--accent); }
+    .card__pitch {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+    .card__build {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-2);
+      padding-left: 16px;
+      position: relative;
+    }
+    .card__build::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .card__buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 22px;
+    }
+    .btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0A0A0A;
+    }
+
+    /* Bottom-right footer */
+    .footer {
+      position: absolute;
+      bottom: 36px; left: 64px; right: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-3);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding-top: 14px;
+      border-top: 1px solid var(--soft);
+    }
+    .footer .accent { color: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+
+    <div class="topbar">
+      <div class="logo">HUNTER<span class="dot">.</span>PARAMORE</div>
+      <div class="badge">Reroll · Hover · Konami Code</div>
+    </div>
+
+    <div class="left">
+      <div class="label">A tiny toy by Hunter Paramore</div>
+      <h1 class="title">Venture<br><span style="color: var(--accent)">Generator.</span></h1>
+      <p class="desc">Invents fake-but-plausible AI-era ventures in my house style. Reroll a few times. Mess with it. Maybe call a coworker over.</p>
+      <div class="by"><span>paramore.design</span> / Venture-Generator.html</div>
+    </div>
+
+    <div class="card">
+      <div class="card__label">Generated Venture · #07</div>
+      <h2 class="card__name">PUNCHCARD<span class="dot">.</span>AI</h2>
+      <p class="card__pitch">Turning physical loyalty cards into AI-powered customer profiles for small coffee shops, barbers, and dog groomers.</p>
+      <div class="card__build">Snap-a-card camera flow → AI extracts customer info into a lightweight CRM</div>
+      <div class="card__buttons">
+        <span class="btn primary">↻  Reroll</span>
+        <span class="btn">🪄  Hunter would build</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>HUNTER PARAMORE <span class="accent">·</span> PARAMORE.DESIGN</span>
+      <span>Built in 30 minutes</span>
+    </div>
+
+  </div>
+</body>
+</html>
