@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philo Venture Generator — Hunter Paramore</title>
+  <meta name="description" content="A tiny tool by Hunter Paramore that invents fake-but-plausible Philo Ventures portfolio companies. Built in 30 minutes for an application.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:           #0A0A0A;
+      --surface:      #141414;
+      --border:       #2A2A2A;
+      --border-soft:  #1E1E1E;
+      --text:         #FFFFFF;
+      --text-2:       #B7B7B7;
+      --text-3:       #777777;
+      --accent:       #FF6B00;
+      --accent-glow:  rgba(255,107,0,0.25);
+
+      --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-body:    'Space Grotesk', 'Inter', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 20% 0%, rgba(255,107,0,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 100%, rgba(255,107,0,0.05) 0%, transparent 40%);
+    }
+    body {
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px 48px;
+    }
+
+    /* ---------- Top brand strip ---------- */
+    .topbar {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .logo:hover { opacity: 0.85; }
+    .logo .dot {
+      color: var(--accent);
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .logo:hover .dot { transform: scale(1.4) rotate(20deg); }
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+
+    /* ---------- Header ---------- */
+    .hero {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 0.95;
+      margin: 0 0 8px;
+      letter-spacing: 0.01em;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero p {
+      color: var(--text-2);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+
+    /* ---------- Main card ---------- */
+    .card {
+      width: 100%;
+      max-width: 720px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--border-soft) inset;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.7;
+    }
+
+    .card__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .venture-name {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 72px);
+      line-height: 0.92;
+      letter-spacing: 0.005em;
+      margin: 0 0 16px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .venture-name .dot {
+      color: var(--accent);
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.18s ease;
+    }
+    .venture-name .dot:hover { transform: scale(1.3) rotate(15deg); }
+
+    .venture-pitch {
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--text);
+      margin: 0 0 24px;
+      max-width: 56ch;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* ---------- Hunter would build panel ---------- */
+    .build-panel {
+      margin-top: 8px;
+      border-top: 1px solid var(--border-soft);
+      padding-top: 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
+      padding-bottom: 0;
+    }
+    .build-panel.open {
+      max-height: 600px;
+      padding-bottom: 8px;
+    }
+    .build-panel__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
+    .build-panel__heading {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+    .build-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+    .build-list li {
+      position: relative;
+      padding: 6px 0 6px 22px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
+    .build-list li::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 13px;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .build-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+    .build-meta strong {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 4px;
+    }
+    .build-meta span {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ---------- Action buttons ---------- */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0A0A0A;
+    }
+    button.primary:hover {
+      background: #FF8533;
+      border-color: #FF8533;
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+    button:active { transform: translateY(0); }
+
+    /* ---------- Footer ---------- */
+    footer {
+      width: 100%;
+      max-width: 720px;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.02em;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover { text-decoration: underline; }
+    footer .reroll-count {
+      color: var(--text-3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---------- "Already Done" stamp ---------- */
+    .done-stamp {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      font-family: var(--font-display);
+      font-size: 22px;
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 10px 16px;
+      border: 3px solid var(--accent);
+      border-radius: 8px;
+      transform: rotate(8deg);
+      background: rgba(255,107,0,0.06);
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .done-stamp small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+    .done-stamp.show {
+      opacity: 1;
+      transform: rotate(8deg) scale(1);
+      animation: stamp-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes stamp-in {
+      0%   { opacity: 0; transform: rotate(0deg) scale(2); }
+      60%  { opacity: 1; transform: rotate(10deg) scale(0.92); }
+      100% { opacity: 1; transform: rotate(8deg) scale(1); }
+    }
+
+    /* ---------- Toast (easter egg notifications) ---------- */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--accent);
+      color: #0A0A0A;
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      z-index: 200;
+      box-shadow: 0 12px 40px var(--accent-glow);
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast.big {
+      font-size: 22px;
+      padding: 18px 32px;
+    }
+
+    /* ---------- Hidden footer message (unlocks at reroll milestone) ---------- */
+    .hidden-footer {
+      width: 100%;
+      max-width: 720px;
+      margin: 12px auto 0;
+      padding: 14px 18px;
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-2);
+      text-align: center;
+      background: rgba(255,107,0,0.04);
+      display: none;
+    }
+    .hidden-footer.show { display: block; animation: fade-in 0.4s ease; }
+    .hidden-footer a { color: var(--accent); font-weight: 600; }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- Confetti ---------- */
+    .confetti {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
+    }
+    .confetti span {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: confetti-fall 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0.9;
+    }
+    @keyframes confetti-fall {
+      0%   { transform: translate(0, -10vh) scale(0.4); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translate(var(--dx), 110vh) scale(1) rotate(720deg); opacity: 0; }
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 600px) {
+      body { padding: 16px 12px 32px; }
+      .card { padding: 28px 20px; border-radius: 12px; }
+      .actions { flex-direction: column; }
+      button { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="https://paramore.design" target="_blank" rel="noopener" class="logo">HUNTER<span class="dot">.</span>PARAMORE</a>
+    <div class="badge">Philo Application · Bonus File</div>
+  </div>
+
+  <div class="hero">
+    <h1>Philo <span class="accent">Venture</span> Generator</h1>
+    <p>A tiny toy that invents (mostly) fake-but-plausible portfolio companies in your house style. Reroll a few times. Click "Hunter would build" to see what week 1 looks like for each one.</p>
+  </div>
+
+  <div class="card">
+    <div class="done-stamp" id="doneStamp">Oops!<small>ALREADY DONE</small></div>
+    <div class="card__label">Generated Venture · #<span id="counter">1</span></div>
+    <h2 class="venture-name" id="ventureName">PUNCHCARD<span class="dot">.</span>AI</h2>
+    <p class="venture-pitch" id="venturePitch">Turning physical loyalty cards into AI-powered customer profiles for small coffee shops.</p>
+
+    <div class="build-panel" id="buildPanel">
+      <div class="build-panel__label">Hunter's v1 — what would actually ship</div>
+      <ul class="build-list" id="buildList"></ul>
+      <div class="build-meta">
+        <div>
+          <strong>Ships in</strong>
+          <span id="buildDays">5 days</span>
+        </div>
+        <div>
+          <strong>Replaces</strong>
+          <span id="buildReplaces">3 SaaS subscriptions</span>
+        </div>
+        <div>
+          <strong>AI surface</strong>
+          <span id="buildAI">Receipt + intake parsing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="rerollBtn">↻  Reroll</button>
+      <button id="buildBtn">🪄  Hunter would build</button>
+    </div>
+  </div>
+
+  <footer>
+    <span>Built in ~30 minutes by Hunter Paramore for the <a href="https://careers.philoventures.studio/jobs/604561-ux-designer-in-residence" target="_blank" rel="noopener">Philo Ventures application</a>.</span>
+    <span class="reroll-count">Rerolls: <span id="rerolls">0</span></span>
+  </footer>
+
+  <div class="hidden-footer" id="hiddenFooter">
+    🎯  You've rerolled enough that we should probably just talk. <a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    // ============================================================
+    //   Venture pool — handcrafted, plausible, occasionally weird
+    // ============================================================
+    const ventures = [
+      // ---------- Imagined ventures ----------
+      {
+        name: ['PunchCard', '.ai'],
+        pitch: 'Turning physical loyalty cards into AI-powered customer profiles for small coffee shops, barbers, and dog groomers.',
+        v1: [
+          'Snap-a-card camera flow → AI extracts customer info',
+          'Lightweight CRM tab — recent visits, birthdays, favorites',
+          'SMS templates for win-back and last-stamp nudges',
+          'Owner dashboard: who came back, who didn\'t, why'
+        ],
+        days: '2 weeks', replaces: '3 SaaS subscriptions', ai: 'Card OCR + customer matching'
+      },
+      {
+        name: ['Steeple', '.fm'],
+        pitch: 'Neighborhood church livestreaming, member coordination, and bulletin generation — designed for the volunteer who runs AV on Sundays.',
+        v1: [
+          'One-tap "go live" from any phone, no AV team needed',
+          'AI-generated bulletin from the sermon transcript',
+          'SMS reminder before each service',
+          'Donation widget that doesn\'t feel like a gift shop'
+        ],
+        days: '3 weeks', replaces: '4 SaaS subscriptions', ai: 'Sermon-to-bulletin generation'
+      },
+      {
+        name: ['Roofbot', ''],
+        pitch: 'Drone-scan-to-quote in 90 seconds for residential roofers who hate climbing ladders for the estimate.',
+        v1: [
+          'Drone API integration (DJI / Skydio) for surface capture',
+          'AI surface-area calculation + damage flagging',
+          'Auto-quote PDF with customer-friendly photos',
+          'On-site e-signature, signed before the drone lands'
+        ],
+        days: '4 weeks', replaces: '5 separate tools', ai: 'Roof surface + damage detection'
+      },
+      {
+        name: ['Saddle', 'HQ'],
+        pitch: 'The whole-shop tool for boutique western tack stores — inventory, consignors, and customer holds in one place.',
+        v1: [
+          'Inventory organized by horse type, not SKU',
+          'Consignor payouts auto-tracked on every sale',
+          'SMS to customer when their saved item arrives',
+          'Print-ready price tags with one tap'
+        ],
+        days: '2–3 weeks', replaces: '3 spreadsheets + Square', ai: 'Auto-categorize new inventory from photos'
+      },
+      {
+        name: ['Quill', '.coach'],
+        pitch: 'AAU coaches: practice plans, parent comms, and tournament logistics in one tool that actually fits in your gym bag.',
+        v1: [
+          'Parent group chat that doesn\'t descend into chaos',
+          'Practice plan templates — drag, drop, send',
+          'Tournament packing checklist per kid',
+          'AI-summarized scout notes from voice memos'
+        ],
+        days: '2 weeks', replaces: 'GroupMe + 4 spreadsheets', ai: 'Voice-to-scouting-note pipeline'
+      },
+      {
+        name: ['Paddock', 'HQ'],
+        pitch: 'The barn-management tool for boarding stables — feed, vet, billing, and that one mare who needs a special diet.',
+        v1: [
+          'Per-horse feed and care schedule',
+          'Auto-billed boarding fees with handoff to Stripe',
+          'AI photo capture for vet records (cuts, swelling)',
+          'Calendar handoff between staff shifts'
+        ],
+        days: '3 weeks', replaces: '2 SaaS tools + a binder', ai: 'Vet-record photo categorization'
+      },
+      {
+        name: ['Loom', ''],
+        pitch: 'Magazines and small publishers: photo and article submissions, payments, status, and content handoff in one flow. (No more spreadsheets.)',
+        v1: [
+          'Submission portal that vendors actually want to use',
+          'Payment + status tracking, single source of truth',
+          'AI-organized photo intake by category and quality',
+          'Designer handoff queue with print-ready exports'
+        ],
+        days: '6 weeks', replaces: '6 paid tools + 11 spreadsheets', ai: 'Photo categorization + quality scoring'
+      },
+      {
+        name: ['Hatch', '.realty'],
+        pitch: 'Brokerages: listings, brochure printing, and lead capture without losing track of which agent owns the lead.',
+        v1: [
+          'Listing form auto-generates brochure PDFs',
+          'QR-code lead capture from printed brochures',
+          'Agent assignment + auto-follow-up email',
+          'Conversion dashboard for the broker'
+        ],
+        days: '3 weeks', replaces: '3 SaaS subscriptions', ai: 'Listing copy generation from photos'
+      },
+      {
+        name: ['Trellis', ''],
+        pitch: 'Solo CPAs and bookkeepers running 30+ small clients without losing their minds (or their evenings).',
+        v1: [
+          'Client tab per business — all docs in one place',
+          'AI receipt parsing from photo or PDF',
+          'Quarterly task auto-generation by client type',
+          'Secure file dropoff that clients won\'t fight you on'
+        ],
+        days: '4 weeks', replaces: '4 SaaS subscriptions', ai: 'Receipt + invoice parsing'
+      },
+      {
+        name: ['Beacon', '.fyi'],
+        pitch: 'The neighborhood announcement tool that isn\'t NextDoor and won\'t turn into a flame war.',
+        v1: [
+          'Address-radius opt-in (no random suburbs)',
+          'Topic filters: lost pets, road work, baked goods',
+          'Daily SMS digest, not a feed',
+          'Reactions only — no comments, no fights'
+        ],
+        days: '2–3 weeks', replaces: 'NextDoor + group texts', ai: 'Topic categorization for filtering'
+      },
+      {
+        name: ['Forge', ''],
+        pitch: 'The estimate-to-invoice tool for tradespeople who hate paperwork more than they hate Mondays.',
+        v1: [
+          'Voice memo → AI-structured estimate in 60 seconds',
+          'Customer e-signature in the truck',
+          'Auto-generated invoice on completion',
+          'Card-on-file payments, no chasing'
+        ],
+        days: '3 weeks', replaces: '3 SaaS subscriptions + paper', ai: 'Voice-to-estimate pipeline'
+      },
+      {
+        name: ['Compass', '.law'],
+        pitch: 'Solo and 2-person law offices: matter intake, client comms, and time-billing without buying a $400/mo platform.',
+        v1: [
+          'Intake form generates conflict check automatically',
+          'AI memo summarization from documents',
+          'Secure client portal that clients can actually use',
+          'Time-billing that doesn\'t need a separate app'
+        ],
+        days: '5 weeks', replaces: 'Clio-class platforms', ai: 'Document summarization + conflict matching'
+      },
+      {
+        name: ['Bramble', ''],
+        pitch: 'Farm-stand point-of-sale that respects the honor box but adds a Venmo for the days you\'re busy.',
+        v1: [
+          'QR-tap pay with Apple Pay / Venmo',
+          'Offline mode for spotty rural service',
+          'Weekly produce inventory check-in',
+          'Auto-text the farmer when stock runs low'
+        ],
+        days: '2 weeks', replaces: 'Square + a clipboard', ai: 'Sales pattern → stock predictions'
+      },
+      {
+        name: ['Husk', '.school'],
+        pitch: 'School fundraising without selling another tin of stale popcorn to your in-laws.',
+        v1: [
+          'Family signup with sliding-scale options',
+          'Recurring donations, not one-shot guilt trips',
+          'Transparent classroom-level dashboards',
+          'Auto-generated tax letters at year-end'
+        ],
+        days: '3–4 weeks', replaces: 'Sketchy donation form + Excel', ai: 'Tax-letter generation'
+      },
+      {
+        name: ['Yonder', '.fish'],
+        pitch: 'Fly-fishing guides: bookings, gear lists, and trip-recap PDFs that clients actually frame and send to friends.',
+        v1: [
+          'Online booking with weather-aware availability',
+          'Gear-list templates by stretch of river',
+          'Auto-generated trip-recap PDF with photos',
+          'Tip handling that\'s not awkward'
+        ],
+        days: '3 weeks', replaces: 'Booking site + Mailchimp + Photoshop', ai: 'Photo selection + recap copywriting'
+      },
+      {
+        name: ['Tinderbox', ''],
+        pitch: 'The one-day fire-prevention assessment tool for rural property owners and the insurers who underwrite them.',
+        v1: [
+          'AI-aided property walkthrough (mobile)',
+          'Defensible-space checklist with photo evidence',
+          'Insurer-ready PDF — actually accepted',
+          'Annual reminder cycle for re-inspection'
+        ],
+        days: '6 weeks', replaces: 'Spreadsheets + a PDF from 2008', ai: 'Defensible-space photo classification'
+      },
+      {
+        name: ['Pluck', ''],
+        pitch: 'The tool a community theater can hand to the new volunteer and have them actually run the box office on opening night.',
+        v1: [
+          'Seat-map + ticket sales (no Eventbrite fee)',
+          'Volunteer schedule + reminder texts',
+          'Concessions inventory + cash drawer',
+          'Donor receipts auto-generated'
+        ],
+        days: '4 weeks', replaces: 'Eventbrite + 3 spreadsheets', ai: 'Auto-seat-mapping from venue photos'
+      },
+      {
+        name: ['Almanac', '.fm'],
+        pitch: 'Local newspapers (yes, they still exist): subscriber management, ad invoicing, and obituaries that don\'t take a week.',
+        v1: [
+          'Subscription + auto-renewal tracking',
+          'Ad invoicing with proof attached',
+          'Obituary intake form for funeral homes',
+          'AI editorial assistant for headline rewrites'
+        ],
+        days: '4–5 weeks', replaces: '4 SaaS tools + ancient software', ai: 'Headline + obit copy assistance'
+      },
+
+      // ---------- Real, already-shipped projects ----------
+      {
+        name: ['The Tree Service', ''],
+        pitch: 'Field-ops tool for a tree service crew — equipment, fuel, AI-parsed receipts and bids, crew scheduling and safety checklists. Built around how the crew actually works in the truck.',
+        v1: [
+          'Equipment + vehicle fleet tracking',
+          'Fuel and expense logging via photo (AI parsed)',
+          'AI-parsed receipts and bid capture',
+          'Crew scheduling with safety checklists',
+          'Owner dashboard: crews, business expenses, fleet maintenance'
+        ],
+        days: '3 weeks', replaces: '4 SaaS subscriptions', ai: 'Receipt + bid parsing from photos',
+        done: true
+      },
+      {
+        name: ['Utah Valley Bridal', ''],
+        pitch: 'Photo and article submission workflow for a wedding magazine. Collapsed a tangle of spreadsheets and half a dozen smaller paid services into one tool the entire team uses.',
+        v1: [
+          'Vendor submission portal',
+          'Payment + status tracking, single source of truth',
+          'AI-organized photo intake by category and quality',
+          'Designer / content handoff queue',
+          'Print-ready exports'
+        ],
+        days: '2 weeks', replaces: '6 paid tools + 11 spreadsheets', ai: 'Photo categorization + quality scoring',
+        done: true
+      },
+      {
+        name: ['Paramore', '.Studio'],
+        pitch: 'Internal client and project portal for Paramore.Design — clients, tasks, payments, contracts, and project status across the whole studio in one place.',
+        v1: [
+          'Client + project tab with live status tracking',
+          'Task management with due dates and dependencies',
+          'Invoice generation + Stripe payment processing',
+          'Contract storage with e-signature handoff',
+          'Studio-wide dashboard (revenue, active projects, what\'s late)'
+        ],
+        days: '2 weeks', replaces: 'Notion + HoneyBook + 3 spreadsheets', ai: 'Email drafts + meeting note summaries',
+        done: true
+      },
+      {
+        name: ['Mutual Events', ''],
+        pitch: 'In-app events and groups for Mutual — letting users coordinate IRL gatherings and join interest-based communities. Prototyped, designed, and user-tested in 2 weeks.',
+        v1: [
+          'Event creation flow (date, location, RSVP)',
+          'Group browsing by interest and city',
+          'RSVP and chat threads per event/group',
+          'Discovery feed sorted by location',
+          'Live user-tested with 20+ Mutual members'
+        ],
+        days: '2 weeks', replaces: 'External meetup tools, group chats', ai: 'Group recommendations from profile + behavior',
+        done: true
+      },
+      {
+        name: ['Checkin App', ''],
+        pitch: 'Social coordination app where friends signal availability through campfire check-ins. Concept, design, development, and product strategy through ship on iOS and Android.',
+        v1: [
+          'Campfire check-in flow with availability signals',
+          'Friend graph + privacy-first invite model',
+          'Push notifications: who\'s around right now',
+          'Shipped on both iOS and Android (SwiftUI + Jetpack Compose)',
+          'Single-developer product strategy from sketch to store'
+        ],
+        days: '6 weeks to v1', replaces: 'Group texts + "what are you up to" guesswork', ai: 'Future: smart availability inference from calendar + signals',
+        done: true
+      }
+    ];
+
+    // Easter egg — the meta one. Roughly 1-in-12 chance after first reroll.
+    const meta = {
+      name: ['Paramore', '.Design'],
+      pitch: 'A designer-developer running across the studio\'s portfolio, shipping AI-native v1s for the ventures that need them yesterday. Currently embedding wherever the kickoff is.',
+      v1: [
+        'Show up. Shadow founders for 48 hours.',
+        'Sketch v1 on day 3, prototype by day 5',
+        'Ship something users actually want to come back to',
+        'Hand off, embed at the next venture, repeat'
+      ],
+      days: 'Already shipping', replaces: 'Frankenstein MVPs', ai: 'The tools you already saw on the resume',
+      isMeta: true
+    };
+
+    // ============================================================
+    //   State + DOM refs
+    // ============================================================
+    let lastIndex = -1;
+    let rerollCount = 0;
+    let currentVenture = null;
+
+    const BUILD_LABEL_DEFAULT = '🪄  Hunter would build';
+    const BUILD_LABEL_DONE    = '📦  See what shipped';
+    const BUILD_LABEL_OPEN    = '✕  Hide v1';
+
+    const els = {
+      name:         document.getElementById('ventureName'),
+      pitch:        document.getElementById('venturePitch'),
+      buildPanel:   document.getElementById('buildPanel'),
+      buildList:    document.getElementById('buildList'),
+      buildDays:    document.getElementById('buildDays'),
+      buildReplaces: document.getElementById('buildReplaces'),
+      buildAI:      document.getElementById('buildAI'),
+      counter:      document.getElementById('counter'),
+      rerolls:      document.getElementById('rerolls'),
+      rerollBtn:    document.getElementById('rerollBtn'),
+      buildBtn:     document.getElementById('buildBtn'),
+      doneStamp:    document.getElementById('doneStamp'),
+      hiddenFooter: document.getElementById('hiddenFooter'),
+      toast:        document.getElementById('toast'),
+      confetti:     document.getElementById('confetti')
+    };
+
+    function closedBuildLabel(v) {
+      return v && v.done ? BUILD_LABEL_DONE : BUILD_LABEL_DEFAULT;
+    }
+
+    // ============================================================
+    //   Renderers
+    // ============================================================
+    function pickVenture() {
+      // ~1-in-12 chance of meta after the first reroll
+      if (rerollCount > 0 && Math.random() < 1/12) return meta;
+
+      let i;
+      do { i = Math.floor(Math.random() * ventures.length); }
+      while (i === lastIndex && ventures.length > 1);
+      lastIndex = i;
+      return ventures[i];
+    }
+
+    function renderVenture(v) {
+      currentVenture = v;
+      const [base, suffix] = v.name;
+      const upperBase = base.toUpperCase();
+      const upperSuffix = suffix ? suffix.toUpperCase() : '';
+
+      // Render name with orange dot if there's a "." in the suffix
+      let nameHTML;
+      if (upperSuffix.startsWith('.')) {
+        nameHTML = `${upperBase}<span class="dot">.</span>${upperSuffix.slice(1)}`;
+      } else {
+        nameHTML = upperBase + upperSuffix;
+      }
+
+      // Animate fade
+      els.name.classList.add('fade-out');
+      els.pitch.classList.add('fade-out');
+      els.buildPanel.classList.remove('open');
+      els.doneStamp.classList.remove('show');
+
+      setTimeout(() => {
+        els.name.innerHTML = nameHTML;
+        els.pitch.textContent = v.pitch;
+        els.buildList.innerHTML = v.v1.map(item => `<li>${item}</li>`).join('');
+        els.buildDays.textContent = v.days;
+        els.buildReplaces.textContent = v.replaces;
+        els.buildAI.textContent = v.ai;
+        els.name.classList.remove('fade-out');
+        els.pitch.classList.remove('fade-out');
+
+        // Reset the build button text since panel is closed after a reroll
+        els.buildBtn.textContent = closedBuildLabel(v);
+
+        // Show the "Already Done" stamp on real ones
+        if (v.done) {
+          // tiny delay so the stamp animation reads after the fade-in
+          setTimeout(() => els.doneStamp.classList.add('show'), 60);
+        }
+
+        if (v.isMeta) {
+          confettiBurst(40);
+        }
+      }, 220);
+    }
+
+    function reroll() {
+      rerollCount++;
+      els.counter.textContent = rerollCount + 1;
+      els.rerolls.textContent = rerollCount;
+      renderVenture(pickVenture());
+
+      // ----- Reroll milestones (hidden flavor) -----
+      if (rerollCount === 13) {
+        showToast('13 rerolls. unlucky for some.');
+      }
+      if (rerollCount === 25) {
+        els.hiddenFooter.classList.add('show');
+        showToast("ok, you're committed. let's talk.", true);
+      }
+    }
+
+    function toggleBuild() {
+      const open = els.buildPanel.classList.toggle('open');
+      els.buildBtn.textContent = open ? BUILD_LABEL_OPEN : closedBuildLabel(currentVenture);
+    }
+
+    // ============================================================
+    //   Confetti (rare delight)
+    // ============================================================
+    function confettiBurst(count = 24) {
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('span');
+        dot.style.left = (Math.random() * 100) + 'vw';
+        dot.style.setProperty('--dx', ((Math.random() - 0.5) * 60) + 'vw');
+        dot.style.animationDelay = (Math.random() * 0.2) + 's';
+        dot.style.width = dot.style.height = (4 + Math.random() * 8) + 'px';
+        els.confetti.appendChild(dot);
+        setTimeout(() => dot.remove(), 2000);
+      }
+    }
+
+    // ============================================================
+    //   Toast helper
+    // ============================================================
+    let toastTimer = null;
+    function showToast(msg, big = false) {
+      els.toast.textContent = msg;
+      els.toast.classList.toggle('big', !!big);
+      els.toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => els.toast.classList.remove('show'), 3000);
+    }
+
+    // ============================================================
+    //   Konami code → reveal the secret meta venture
+    // ============================================================
+    const konami = ['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
+    let konamiBuf = [];
+    let typeBuf   = '';
+
+    function triggerKonami() {
+      showToast('↑↑↓↓ ←→ ←→ b a — konami confirmed.', true);
+      confettiBurst(80);
+      setTimeout(() => renderVenture(meta), 600);
+    }
+
+    // ============================================================
+    //   Wire up
+    // ============================================================
+    els.rerollBtn.addEventListener('click', reroll);
+    els.buildBtn.addEventListener('click', toggleBuild);
+
+    // Click the orange dot in the venture name → small confetti (delegated, since name re-renders)
+    els.name.addEventListener('click', (e) => {
+      if (e.target.classList && e.target.classList.contains('dot')) {
+        confettiBurst(16);
+      }
+    });
+
+    // Keyboard handler — shortcuts + konami + typed words
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      const key = (e.key || '').toLowerCase();
+
+      // Konami buffer
+      konamiBuf.push(key);
+      if (konamiBuf.length > konami.length) konamiBuf.shift();
+      if (konamiBuf.length === konami.length && konamiBuf.every((v, i) => v === konami[i])) {
+        triggerKonami();
+        konamiBuf = [];
+        return;
+      }
+
+      // Typed-word easter eggs
+      if (e.key && e.key.length === 1 && /[a-z]/i.test(e.key)) {
+        typeBuf = (typeBuf + key).slice(-12);
+        if (typeBuf.endsWith('hunter')) {
+          showToast('👋  found me. you can stop typing.');
+          confettiBurst(20);
+          typeBuf = '';
+          return;
+        }
+        if (typeBuf.endsWith('philo')) {
+          showToast('🔥  philo confirmed. hello team.');
+          confettiBurst(20);
+          typeBuf = '';
+          return;
+        }
+        if (typeBuf.endsWith('hire')) {
+          showToast('📬  hparamore@gmail.com  ✉️');
+          confettiBurst(12);
+          typeBuf = '';
+          return;
+        }
+      }
+
+      // Standard shortcuts
+      if (e.code === 'Space' || key === 'r') { e.preventDefault(); reroll(); }
+      if (key === 'b')                       { e.preventDefault(); toggleBuild(); }
+    });
+
+    // First render — show what the format looks like immediately
+    renderVenture(ventures[0]);
+
+
+    // ============================================================
+    //   Canvas Dot Grid — ported from paramore.design
+    //   Per-dot cursor glow + occasional diagonal "shine" sweep
+    // ============================================================
+    (function dotGrid() {
+      const canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+
+      const GRID        = 28;
+      const DOT_RADIUS  = 0.8;
+      const BASE_R = 36, BASE_G = 36, BASE_B = 36;     // #242424
+      const GLOW_R = 255, GLOW_G = 107, GLOW_B = 0;    // #FF6B00
+
+      const GLOW_REACH  = 200;
+      const GLOW_POWER  = 0.55;
+
+      const SHINE_BAND  = 180;
+      const SHINE_POWER = 0.4;
+      const SHINE_DELAY = 6000;
+      const SHINE_SWEEP = 2200;
+      const SHINE_IDLE  = 19800;
+      const SHINE_TOTAL = SHINE_SWEEP + SHINE_IDLE;
+
+      let dpr, cW, cH;
+      let mX = -9999, mY = -9999;
+      let sX = -9999, sY = -9999;
+      let needsRedraw = true;
+      let prevSX = -9999, prevSY = -9999;
+      const hasMouse = window.matchMedia('(pointer: fine)').matches;
+      const shineEpoch = performance.now() + SHINE_DELAY;
+      const defaultFill = '#242424';
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        cW = window.innerWidth;
+        cH = window.innerHeight;
+        canvas.width = cW * dpr;
+        canvas.height = cH * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        needsRedraw = true;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      if (hasMouse) {
+        document.addEventListener('mousemove', (e) => { mX = e.clientX; mY = e.clientY; });
+      }
+
+      function frame(now) {
+        if (hasMouse) {
+          sX += (mX - sX) * 0.12;
+          sY += (mY - sY) * 0.12;
+        }
+
+        let shineProg = -1;
+        const elapsed = now - shineEpoch;
+        if (elapsed >= 0) {
+          const inCycle = elapsed % SHINE_TOTAL;
+          if (inCycle < SHINE_SWEEP) shineProg = inCycle / SHINE_SWEEP;
+        }
+
+        const mouseMoving = hasMouse && (Math.abs(sX - prevSX) > 0.3 || Math.abs(sY - prevSY) > 0.3);
+        const shineActive = shineProg >= 0;
+
+        if (!needsRedraw && !mouseMoving && !shineActive) {
+          requestAnimationFrame(frame);
+          return;
+        }
+
+        prevSX = sX; prevSY = sY; needsRedraw = false;
+
+        ctx.clearRect(0, 0, cW, cH);
+
+        const cols = Math.ceil(cW / GRID) + 1;
+        const rows = Math.ceil(cH / GRID) + 1;
+        const diagLen = cW + cH;
+
+        let shinePos = -99999;
+        if (shineActive) {
+          shinePos = shineProg * (diagLen + SHINE_BAND * 2) - SHINE_BAND;
+        }
+
+        for (let r = 0; r < rows; r++) {
+          const y = r * GRID;
+          for (let c = 0; c < cols; c++) {
+            const x = c * GRID;
+            let t = 0;
+
+            if (hasMouse && sX > -9000) {
+              const dx = x - sX, dy = y - sY;
+              const d = Math.sqrt(dx * dx + dy * dy);
+              if (d < GLOW_REACH) {
+                const f = 1 - d / GLOW_REACH;
+                t += f * f * GLOW_POWER;
+              }
+            }
+
+            if (shineActive) {
+              const sd = Math.abs(x + y - shinePos);
+              if (sd < SHINE_BAND) {
+                const sf = 1 - sd / SHINE_BAND;
+                t += sf * sf * SHINE_POWER;
+              }
+            }
+
+            if (t > 0.01) {
+              if (t > 1) t = 1;
+              const cr = BASE_R + (GLOW_R - BASE_R) * t | 0;
+              const cg = BASE_G + (GLOW_G - BASE_G) * t | 0;
+              const cb = BASE_B + (GLOW_B - BASE_B) * t | 0;
+              ctx.fillStyle = 'rgb(' + cr + ',' + cg + ',' + cb + ')';
+            } else {
+              ctx.fillStyle = defaultFill;
+            }
+
+            ctx.beginPath();
+            ctx.arc(x, y, DOT_RADIUS, 0, 6.283);
+            ctx.fill();
+          }
+        }
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+
+
+    // ============================================================
+    //   Console easter egg — for the dev who opens DevTools
+    // ============================================================
+    console.log(
+      '%c  Paramore.Design — Philo Venture Generator',
+      'color: #FF6B00; font-size: 18px; font-weight: bold; font-family: monospace; padding: 8px 0 4px;'
+    );
+    console.log(
+      '%cBuilt by Hunter Paramore in ~30 minutes for the Philo application.\n' +
+      'You opened DevTools? You\'re my kind of person.\n\n' +
+      'Try the Konami code (↑↑↓↓ ←→ ←→ B A).\n' +
+      'Or just type "philo" anywhere on the page.\n\n' +
+      '→ hparamore@gmail.com',
+      'color: #AAAAAA; font-size: 13px; line-height: 1.8; padding-bottom: 10px;'
+    );
+  </script>
+
+</body>
+</html>
