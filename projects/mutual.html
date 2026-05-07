@@ -68,8 +68,7 @@
 
     /* ---------- Section title for the gallery wall ---------- */
     .gallery-intro {
-      max-width: var(--max-width-narrow);
-      margin: var(--space-3xl) auto var(--space-2xl);
+      margin: var(--space-3xl) 0 var(--space-2xl);
     }
     .gallery-intro h2 {
       font-family: var(--font-display);
@@ -78,12 +77,13 @@
       letter-spacing: var(--tracking-display);
       text-transform: uppercase;
       margin-bottom: var(--space-md);
+      max-width: 22ch;
     }
     .gallery-intro h2 .accent { color: var(--color-accent); }
     .gallery-intro p {
       font-size: var(--text-md);
       color: var(--color-text-secondary);
-      max-width: 60ch;
+      max-width: 70ch;
       margin-bottom: var(--space-md);
     }
     .gallery-intro p:last-child { margin-bottom: 0; }
@@ -319,7 +319,7 @@
   <section class="section">
     <div class="container">
       <div class="gallery-intro">
-        <h2>What <span class="accent">eighteen months</span> looks like.</h2>
+        <h2>Concept <span class="accent">to</span> Ship.</h2>
         <p>
           A slice of the last year and a half of work at Mutual — feature concepts, A/B tests,
           prototypes, and shipped releases. <strong>Each thumbnail is a complete Figma page</strong>
