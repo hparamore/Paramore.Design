@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tree Service — Paramore.Design</title>
+  <meta name="description" content="Field-ops tool for a tree service company. Replaced four SaaS subscriptions with one tool, built solo in three weeks.">
+  <link rel="stylesheet" href="../css/styles.css?v=5">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+  <!-- Page-specific styles. Move to styles.css once layout is locked. -->
+  <style>
+    /* ---------- Square image frame (rounded + bordered, like work cards) ---------- */
+    .image-frame {
+      aspect-ratio: 1 / 1;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      letter-spacing: var(--tracking-display);
+      text-align: center;
+      padding: var(--space-md);
+    }
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ---------- Two-up image row (paired screens) ---------- */
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin: var(--space-3xl) 0 var(--space-2xl);
+    }
+    .image-pair--3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 768px) {
+      .image-pair, .image-pair--3 { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- Single full-width square moment ---------- */
+    .image-solo {
+      max-width: 720px;
+      margin: var(--space-3xl) auto var(--space-md);
+    }
+
+    /* ---------- Caption row under any image block ---------- */
+    .image-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: calc(var(--space-2xl) * -1 + var(--space-md)) 0 var(--space-2xl);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--color-border-subtle);
+      gap: var(--space-md);
+    }
+    .image-caption__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+    }
+    .image-caption__title .accent { color: var(--color-accent); }
+    .image-caption__sub {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      max-width: 56ch;
+      text-align: right;
+    }
+    @media (max-width: 768px) {
+      .image-caption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+      }
+      .image-caption__sub { text-align: left; }
+    }
+
+    /* ---------- Stats strip ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+      margin: var(--space-2xl) 0;
+    }
+    .stat__value {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      line-height: 0.95;
+      color: var(--color-accent);
+      letter-spacing: var(--tracking-display);
+      margin-bottom: var(--space-xs);
+    }
+    .stat__label {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+      max-width: 22ch;
+    }
+    @media (max-width: 768px) {
+      .stats { grid-template-columns: 1fr; gap: var(--space-xl); }
+    }
+
+    /* ---------- Closing CTA ---------- */
+    .closing {
+      text-align: center;
+      padding: var(--space-3xl) 0;
+    }
+    .closing h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      line-height: 0.95;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      max-width: 18ch;
+      margin: 0 auto var(--space-md);
+    }
+    .closing h2 .accent { color: var(--color-accent); }
+    .closing p {
+      max-width: 50ch;
+      margin: 0 auto var(--space-xl);
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+  </nav>
+
+  <!-- Project Hero -->
+  <section class="project-hero">
+    <div class="container">
+      <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
+      </a>
+      <span class="label project-hero__label" style="display: block;">Trades · Operations · AI</span>
+      <h1 class="display-lg project-hero__title">The Tree Service</h1>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Role</span>
+          <span class="project-hero__meta-value">Solo Designer-Developer</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Timeline</span>
+          <span class="project-hero__meta-value">3 Weeks</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Stack</span>
+          <span class="project-hero__meta-value">React Native, Firebase, Claude API</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Year</span>
+          <span class="project-hero__meta-value">2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image — square brand/composition shot -->
+  <div class="container">
+    <div class="image-solo">
+      <div class="image-frame">
+        <!-- Replace with: <img src="../assets/images/projects/tree-service-hero.jpg" alt="The Tree Service — hero composition"> -->
+        HERO IMAGE
+      </div>
+    </div>
+  </div>
+
+  <!-- The mess (one short paragraph) -->
+  <section class="section">
+    <div class="container project-content">
+      <h2>One tool, four subscriptions retired.</h2>
+      <p>
+        Brandon's crew was running on paper checklists, fuel receipts in a Tupperware,
+        equipment lists in someone's head, and four separate SaaS subscriptions duct-taped
+        together. I rode along for two days, designed for the truck instead of the office,
+        and shipped a single tool in three weeks that replaced the whole stack.
+      </p>
+    </div>
+  </section>
+
+  <!-- Equipment: desktop (square, full-width within container) -->
+  <div class="container">
+    <div class="image-solo">
+      <div class="image-frame">
+        <!-- Replace with: <img src="../assets/images/projects/tree-service-equipment-desktop.jpg" alt="Equipment inventory — desktop view"> -->
+        EQUIPMENT · DESKTOP
+      </div>
+    </div>
+
+    <div class="image-caption">
+      <span class="image-caption__title">Equipment <span class="accent">·</span> Inventory</span>
+      <span class="image-caption__sub">What used to live on a clipboard now lives in a search bar. Photos, condition, location, and last-serviced — one tap away.</span>
+    </div>
+  </div>
+
+  <!-- Equipment: mobile + side text -->
+  <section class="section--sm">
+    <div class="container">
+      <div class="image-pair">
+        <div class="image-frame">
+          <!-- Replace with: <img src="../assets/images/projects/tree-service-equipment-mobile.jpg" alt="Equipment inventory — mobile view"> -->
+          EQUIPMENT · MOBILE
+        </div>
+        <div class="project-split__text" style="align-self: center;">
+          <h3>The yard, on the phone.</h3>
+          <p>
+            Walk the yard, find the saw, log the problem. The crew uses this in
+            gloves between jobs — every interaction is thumb-reachable and survives
+            spotty rural service.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Forms: desktop form builder -->
+  <div class="container">
+    <div class="image-solo">
+      <div class="image-frame">
+        <!-- Replace with: <img src="../assets/images/projects/tree-service-safety-setup.jpg" alt="Safety form builder — desktop view"> -->
+        SAFETY FORM BUILDER · DESKTOP
+      </div>
+    </div>
+
+    <div class="image-caption">
+      <span class="image-caption__title">Safety Forms <span class="accent">·</span> Built In-House</span>
+      <span class="image-caption__sub">Brandon writes the forms. The crew fills them out. Nothing gets lost in a Tupperware.</span>
+    </div>
+  </div>
+
+  <!-- Crew Fill-Out: mobile + tablet pair -->
+  <section class="section--sm">
+    <div class="container">
+      <div class="image-pair">
+        <div class="image-frame">
+          <!-- Replace with: <img src="../assets/images/projects/tree-service-crew-mobile.jpg" alt="Daily safety form — mobile view"> -->
+          CREW FILL · MOBILE
+        </div>
+        <div class="image-frame">
+          <!-- Replace with: <img src="../assets/images/projects/tree-service-crew-tablet.jpg" alt="Daily safety form — tablet view"> -->
+          CREW FILL · TABLET
+        </div>
+      </div>
+      <div class="image-caption" style="margin-top: 0;">
+        <span class="image-caption__title">Designed <span class="accent">·</span> For The Truck</span>
+        <span class="image-caption__sub">Filled out each morning before the crew leaves the yard. 90 seconds, signed digitally, done.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Owner dashboard / AI receipt flow -->
+  <div class="container">
+    <div class="image-solo">
+      <div class="image-frame">
+        <!-- Replace with: <img src="../assets/images/projects/tree-service-dashboard.jpg" alt="Owner dashboard or AI receipt parsing flow"> -->
+        OWNER DASHBOARD / AI RECEIPT FLOW
+      </div>
+    </div>
+
+    <div class="image-caption">
+      <span class="image-caption__title">What Brandon <span class="accent">·</span> Sees Each Morning</span>
+      <span class="image-caption__sub">Crews, jobs, fleet, expenses. Receipts photographed in the truck appear here as parsed, categorized records — automatically.</span>
+    </div>
+  </div>
+
+  <!-- Numbers strip -->
+  <section class="section">
+    <div class="container">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat__value">3 wks</div>
+          <div class="stat__label">From kickoff to crew using it daily.</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">4 → 1</div>
+          <div class="stat__label">SaaS subscriptions retired and replaced with a single tool.</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">$XXX/mo</div>
+          <div class="stat__label">Saved monthly in subscription costs alone. (Real number TBD — replace.)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="closing">
+    <div class="container container--narrow">
+      <h2>Your business has its own <span class="accent">Tupperware of receipts.</span></h2>
+      <p>
+        I build custom AI-powered tools for small businesses — one tool, custom-fit, that
+        replaces the stack of half-used SaaS subscriptions you're paying for. If that
+        sounds like you, let's talk.
+      </p>
+      <div style="display: inline-flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
+        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
+          Email Me <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="/work.html" class="btn btn--secondary">More Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <section class="section" style="border-top: 1px solid var(--color-border);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <span class="label">Next Project</span>
+      <a href="/projects/checkin.html" class="btn btn--ghost" style="font-size: var(--text-xl);">
+        Checkin <span class="btn__arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=3"></script>
+</body>
+</html>
