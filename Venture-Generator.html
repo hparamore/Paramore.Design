@@ -61,8 +61,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 32px 24px 48px;
+      justify-content: flex-start;
+      padding: 56px 24px 48px;
     }
 
     /* ---------- Top brand strip ---------- */
@@ -136,6 +136,7 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--border-soft) inset;
       position: relative;
       overflow: hidden;
+      transition: height 0.42s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .card::before {
       content: "";
@@ -461,7 +462,7 @@
 
   <div class="hero">
     <h1>Philo <span class="accent">Venture</span> Generator</h1>
-    <p>A tiny toy that invents (mostly) fake-but-plausible portfolio companies in your house style. Reroll a few times. Click "Hunter would build" to see what week 1 looks like for each one.</p>
+    <p>A tiny toy that invents (mostly) fake-but-plausible AI-era ventures, branded in the Paramore.Design house style. Reroll a few times. Hit "Show what I'd build" to peek at what week 1 looks like for each one.</p>
   </div>
 
   <div class="card">
@@ -491,7 +492,7 @@
 
     <div class="actions">
       <button class="primary" id="rerollBtn">↻  Reroll</button>
-      <button id="buildBtn">🪄  Hunter would build</button>
+      <button id="buildBtn">🪄  Show what I'd build</button>
     </div>
   </div>
 
@@ -801,11 +802,12 @@
     let rerollCount = 0;
     let currentVenture = null;
 
-    const BUILD_LABEL_DEFAULT = '🪄  Hunter would build';
-    const BUILD_LABEL_DONE    = '📦  See what shipped';
+    const BUILD_LABEL_DEFAULT = "🪄  Show what I'd build";
+    const BUILD_LABEL_DONE    = '📦  Show what shipped';
     const BUILD_LABEL_OPEN    = '✕  Hide v1';
 
     const els = {
+      card:         document.querySelector('.card'),
       name:         document.getElementById('ventureName'),
       pitch:        document.getElementById('venturePitch'),
       buildPanel:   document.getElementById('buildPanel'),
@@ -855,13 +857,27 @@
         nameHTML = upperBase + upperSuffix;
       }
 
-      // Animate fade
+      // ---------- FLIP-style height capture (start) ----------
+      // Lock the card to its current rendered height so it can't pop instantly
+      // when the new content is dropped in.
+      const startH = els.card.offsetHeight;
+      els.card.style.height = startH + 'px';
+
+      // Snap the build panel closed without its own animation, so card height
+      // doesn't fight with the panel's max-height transition during a reroll.
+      const prevPanelTransition = els.buildPanel.style.transition;
+      els.buildPanel.style.transition = 'none';
+      els.buildPanel.classList.remove('open');
+      void els.buildPanel.offsetHeight;        // force reflow
+      els.buildPanel.style.transition = prevPanelTransition;
+
+      // Animate fade out the text
       els.name.classList.add('fade-out');
       els.pitch.classList.add('fade-out');
-      els.buildPanel.classList.remove('open');
       els.doneStamp.classList.remove('show');
 
       setTimeout(() => {
+        // Swap content
         els.name.innerHTML = nameHTML;
         els.pitch.textContent = v.pitch;
         els.buildList.innerHTML = v.v1.map(item => `<li>${item}</li>`).join('');
@@ -871,15 +887,26 @@
         els.name.classList.remove('fade-out');
         els.pitch.classList.remove('fade-out');
 
-        // Reset the build button text since panel is closed after a reroll
+        // Reset the build button label since the panel is closed after a reroll
         els.buildBtn.textContent = closedBuildLabel(v);
 
-        // Show the "Already Done" stamp on real ones
+        // ---------- FLIP-style height animate (end) ----------
+        // Measure the natural new height by un-locking, then re-lock to startH
+        // and animate to endH on the next frame.
+        els.card.style.height = 'auto';
+        const endH = els.card.offsetHeight;
+        els.card.style.height = startH + 'px';
+        void els.card.offsetHeight;            // force reflow
+        requestAnimationFrame(() => {
+          els.card.style.height = endH + 'px';
+        });
+        // After the transition, release the explicit height so future content
+        // can flow naturally (e.g. when "Show what I'd build" expands).
+        setTimeout(() => { els.card.style.height = ''; }, 480);
+
         if (v.done) {
-          // tiny delay so the stamp animation reads after the fade-in
           setTimeout(() => els.doneStamp.classList.add('show'), 60);
         }
-
         if (v.isMeta) {
           confettiBurst(40);
         }
