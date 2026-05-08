@@ -219,6 +219,20 @@
     /* Tighten the gap between the previous module and the fleet section */
     .ts-fleet-section { padding-top: 0; }
 
+    /* Caption variant — no underline rule. Used as the last caption
+       in a section so the next section doesn't have a double horizontal
+       line between it. */
+    .ts-caption--no-rule {
+      border-bottom: 0;
+      margin-bottom: var(--space-md);
+      padding-bottom: 0;
+    }
+
+    /* Stats section sits immediately under the fleet block — drop the
+       extra section padding so they read as a single beat. */
+    .ts-stats-section { padding-top: 0; }
+    .ts-stats-section .ts-stats { margin-top: 0; }
+
     /* ---------- Problem list (the four-subscription mess) ---------- */
     .ts-problem {
       max-width: 720px;
@@ -543,7 +557,7 @@
       <div class="ts-frame ts-frame--landscape" aria-label="Placeholder for maintenance history screenshot">
         MAINTENANCE HISTORY · DESKTOP
       </div>
-      <div class="ts-caption">
+      <div class="ts-caption ts-caption--no-rule">
         <span class="ts-caption__title">Maintenance <span class="accent">·</span> History &amp; Spend</span>
         <span class="ts-caption__sub">Brandon used to log a parts purchase by writing it on a sticky note. Now he taps Log Work Done, uploads the invoice photo, and the cost rolls up against the equipment&rsquo;s lifetime spend.</span>
       </div>
@@ -551,7 +565,7 @@
   </section>
 
   <!-- =================== Numbers strip =================== -->
-  <section class="section">
+  <section class="section ts-stats-section">
     <div class="container">
       <div class="ts-stats">
         <div class="ts-stat">
