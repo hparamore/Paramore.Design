@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Tree Service — Paramore.Design</title>
-  <meta name="description" content="Field-ops tool for a tree service company. Replaced four SaaS subscriptions with one tool, built solo in three weeks.">
+  <meta name="description" content="A field-ops tool for a tree service company. Replaced four SaaS subscriptions with one tool, designed and built solo in four weeks.">
   <link rel="stylesheet" href="../css/styles.css?v=5">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
 
-  <!-- Page-specific styles. Move to styles.css once layout is locked. -->
+  <!-- ============================================================
+       Page-specific styles. Move to styles.css once layout is locked.
+       ============================================================ -->
   <style>
-    /* ---------- Square image frame (rounded + bordered, like work cards) ---------- */
-    .image-frame {
-      aspect-ratio: 1 / 1;
+    /* ---------- Image frame primitives ---------- */
+    .ts-frame {
       background: var(--color-surface-elevated);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
@@ -26,99 +27,259 @@
       letter-spacing: var(--tracking-display);
       text-align: center;
       padding: var(--space-md);
+      min-height: 200px;
     }
-    .image-frame img {
+    .ts-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
+    .ts-frame--landscape { aspect-ratio: 16 / 9; }
+    .ts-frame--portrait  { aspect-ratio: 9 / 16; }
+    .ts-frame--square    { aspect-ratio: 1 / 1; }
+    .ts-frame--wide      { aspect-ratio: 21 / 9; }
+    /* "contain" version preserves the source layout without cropping */
+    .ts-frame--contain img { object-fit: contain; padding: var(--space-lg); background: var(--color-surface); }
 
-    /* ---------- Two-up image row (paired screens) ---------- */
-    .image-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-md);
-      margin: var(--space-3xl) 0 var(--space-2xl);
+    /* ---------- Hero ---------- */
+    .ts-hero {
+      margin: var(--space-xl) 0 var(--space-2xl);
     }
-    .image-pair--3 { grid-template-columns: 1fr 1fr 1fr; }
-    @media (max-width: 768px) {
-      .image-pair, .image-pair--3 { grid-template-columns: 1fr; }
+    .ts-hero .ts-frame {
+      aspect-ratio: 21 / 9;
+      min-height: 260px;
+    }
+    .ts-hero img { object-fit: cover; }
+
+    /* ---------- Lede paragraph under hero ---------- */
+    .ts-lede {
+      max-width: 60ch;
+      margin: 0 auto var(--space-3xl);
+      padding: 0 var(--space-md);
+      font-size: var(--text-md);
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .ts-lede { font-size: var(--text-base); text-align: left; }
     }
 
-    /* ---------- Single full-width square moment ---------- */
-    .image-solo {
-      max-width: 720px;
-      margin: var(--space-3xl) auto var(--space-md);
-    }
-
-    /* ---------- Caption row under any image block ---------- */
-    .image-caption {
+    /* ---------- Section caption (image + meta in one row) ---------- */
+    .ts-caption {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin: calc(var(--space-2xl) * -1 + var(--space-md)) 0 var(--space-2xl);
+      margin: var(--space-md) 0 var(--space-3xl);
       padding-bottom: var(--space-sm);
       border-bottom: 1px solid var(--color-border-subtle);
       gap: var(--space-md);
     }
-    .image-caption__title {
+    .ts-caption__title {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
       letter-spacing: var(--tracking-display);
       text-transform: uppercase;
       color: var(--color-text-primary);
+      flex-shrink: 0;
     }
-    .image-caption__title .accent { color: var(--color-accent); }
-    .image-caption__sub {
+    .ts-caption__title .accent { color: var(--color-accent); }
+    .ts-caption__sub {
       font-size: var(--text-base);
       color: var(--color-text-secondary);
       max-width: 56ch;
       text-align: right;
     }
     @media (max-width: 768px) {
-      .image-caption {
+      .ts-caption {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--space-sm);
+        margin-bottom: var(--space-2xl);
       }
-      .image-caption__sub { text-align: left; }
+      .ts-caption__sub { text-align: left; }
+    }
+
+    /* ---------- Two-column split (image + copy) ---------- */
+    .ts-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+      margin: var(--space-3xl) 0;
+    }
+    .ts-split--reverse .ts-split__image { order: 2; }
+    .ts-split__copy h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+    }
+    .ts-split__copy h3 .accent { color: var(--color-accent); }
+    .ts-split__copy p {
+      color: var(--color-text-secondary);
+      font-size: var(--text-md);
+      line-height: 1.65;
+    }
+    .ts-split__copy ul {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-md) 0 0;
+    }
+    .ts-split__copy ul li {
+      color: var(--color-text-secondary);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+      font-size: var(--text-base);
+      line-height: 1.5;
+    }
+    .ts-split__copy ul li:last-child { border-bottom: 0; }
+    .ts-split__copy ul li strong { color: var(--color-text-primary); font-weight: 600; }
+    @media (max-width: 900px) {
+      .ts-split { grid-template-columns: 1fr; gap: var(--space-xl); }
+      .ts-split--reverse .ts-split__image { order: 0; }
+    }
+
+    /* ---------- Mid-section heading (used between modules) ---------- */
+    .ts-section-head {
+      max-width: 38ch;
+      margin: var(--space-4xl) auto var(--space-xl);
+      text-align: center;
+    }
+    .ts-section-head h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      line-height: 0.95;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+    }
+    .ts-section-head h2 .accent { color: var(--color-accent); }
+    .ts-section-head p {
+      color: var(--color-text-secondary);
+      font-size: var(--text-md);
+      line-height: 1.6;
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) {
+      .ts-section-head { margin-top: var(--space-3xl); }
+      .ts-section-head h2 { font-size: var(--text-3xl); }
+    }
+
+    /* ---------- Problem list (the four-subscription mess) ---------- */
+    .ts-problem {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .ts-problem ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .ts-problem ul li {
+      display: grid;
+      grid-template-columns: minmax(0, 11rem) 1fr;
+      gap: var(--space-lg);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+      align-items: baseline;
+    }
+    .ts-problem ul li:last-child { border-bottom: 0; }
+    .ts-problem__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+    }
+    .ts-problem__desc {
+      font-size: var(--text-base);
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+    }
+    @media (max-width: 640px) {
+      .ts-problem ul li { grid-template-columns: 1fr; gap: var(--space-xs); }
     }
 
     /* ---------- Stats strip ---------- */
-    .stats {
+    .ts-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-2xl);
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-xl);
       padding: var(--space-2xl) 0;
       border-top: 1px solid var(--color-border-subtle);
       border-bottom: 1px solid var(--color-border-subtle);
       margin: var(--space-2xl) 0;
     }
-    .stat__value {
+    .ts-stat__value {
       font-family: var(--font-display);
-      font-size: var(--text-5xl);
+      font-size: var(--text-4xl);
       line-height: 0.95;
       color: var(--color-accent);
       letter-spacing: var(--tracking-display);
       margin-bottom: var(--space-xs);
     }
-    .stat__label {
+    .ts-stat__label {
       font-size: var(--text-sm);
       color: var(--color-text-secondary);
       line-height: 1.4;
       max-width: 22ch;
     }
-    @media (max-width: 768px) {
-      .stats { grid-template-columns: 1fr; gap: var(--space-xl); }
+    @media (max-width: 900px) {
+      .ts-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .ts-stats { grid-template-columns: 1fr; gap: var(--space-lg); }
+    }
+
+    /* ---------- Quotes ---------- */
+    .ts-quotes { margin: var(--space-3xl) 0; }
+    .ts-quote {
+      max-width: 60ch;
+      margin: 0 auto var(--space-2xl);
+      padding: 0 var(--space-md);
+    }
+    .ts-quote--lead {
+      max-width: 22ch;
+    }
+    .ts-quote__text {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1.05;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+    }
+    .ts-quote--lead .ts-quote__text { font-size: var(--text-4xl); }
+    .ts-quote__text .accent { color: var(--color-accent); }
+    .ts-quote--small .ts-quote__text {
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      line-height: 1.4;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+    .ts-quote__cite {
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+    }
+    @media (max-width: 640px) {
+      .ts-quote--lead .ts-quote__text { font-size: var(--text-3xl); }
+      .ts-quote__text { font-size: var(--text-2xl); }
     }
 
     /* ---------- Closing CTA ---------- */
-    .closing {
+    .ts-closing {
       text-align: center;
       padding: var(--space-3xl) 0;
     }
-    .closing h2 {
+    .ts-closing h2 {
       font-family: var(--font-display);
       font-size: var(--text-4xl);
       line-height: 0.95;
@@ -127,9 +288,9 @@
       max-width: 18ch;
       margin: 0 auto var(--space-md);
     }
-    .closing h2 .accent { color: var(--color-accent); }
-    .closing p {
-      max-width: 50ch;
+    .ts-closing h2 .accent { color: var(--color-accent); }
+    .ts-closing p {
+      max-width: 52ch;
       margin: 0 auto var(--space-xl);
       font-size: var(--text-lg);
       color: var(--color-text-secondary);
@@ -138,7 +299,7 @@
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- =================== Navigation =================== -->
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
@@ -149,15 +310,13 @@
         <li><a href="/blog/" class="nav__link">Blog</a></li>
       </ul>
       <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav__overlay" id="navOverlay"></div>
   </nav>
 
-  <!-- Project Hero -->
+  <!-- =================== Project Hero =================== -->
   <section class="project-hero">
     <div class="container">
       <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
@@ -172,11 +331,15 @@
         </div>
         <div class="project-hero__meta-item">
           <span class="project-hero__meta-label">Timeline</span>
-          <span class="project-hero__meta-value">3 Weeks</span>
+          <span class="project-hero__meta-value">4 Weeks</span>
         </div>
         <div class="project-hero__meta-item">
           <span class="project-hero__meta-label">Stack</span>
-          <span class="project-hero__meta-value">React Native, Firebase, Claude API</span>
+          <span class="project-hero__meta-value">Next.js · Supabase · Vercel · Tailwind</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">AI</span>
+          <span class="project-hero__meta-value">Claude Code as dev partner</span>
         </div>
         <div class="project-hero__meta-item">
           <span class="project-hero__meta-label">Year</span>
@@ -186,142 +349,194 @@
     </div>
   </section>
 
-  <!-- Hero Image — square brand/composition shot -->
+  <!-- =================== Hero image =================== -->
   <div class="container">
-    <div class="image-solo">
-      <div class="image-frame">
-        <!-- Replace with: <img src="../assets/images/projects/tree-service-hero.jpg" alt="The Tree Service — hero composition"> -->
-        HERO IMAGE
+    <div class="ts-hero">
+      <div class="ts-frame ts-frame--wide">
+        <img src="../assets/images/projects/TreeServiceHero.png" alt="The Tree Service — daily crew tools and admin dashboard mockup" loading="eager">
       </div>
     </div>
+
+    <!-- Lede — small intro under the hero -->
+    <p class="ts-lede">
+      Most field-ops software is built for the office. Brandon&rsquo;s crew fills it out
+      covered in mulch with chainsaw chaps still on. The brief was simple: rebuild the
+      daily routine from the truck seat backwards, then give the office whatever falls
+      out of that. This is what fell out.
+    </p>
   </div>
 
-  <!-- The mess (one short paragraph) -->
+  <!-- =================== Problem =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="ts-section-head">
+        <h2>The stack Brandon <span class="accent">already had.</span></h2>
+        <p>
+          The crew wasn&rsquo;t the problem. The tools were too generic, and admin took
+          an hour every night reconciling four sources to know what happened that day.
+        </p>
+      </div>
+
+      <div class="ts-problem">
+        <ul>
+          <li>
+            <span class="ts-problem__name">Paper JSAs</span>
+            <span class="ts-problem__desc">Filled out at the yard, then forgotten on the dashboard. No record of who signed what.</span>
+          </li>
+          <li>
+            <span class="ts-problem__name">Versabit</span>
+            <span class="ts-problem__desc">$50/mo. Abandoned because nobody could onboard a crew member without a half-day of training.</span>
+          </li>
+          <li>
+            <span class="ts-problem__name">Samsara</span>
+            <span class="ts-problem__desc">$35/mo per truck. Gives location. Gives nothing else.</span>
+          </li>
+          <li>
+            <span class="ts-problem__name">Tupperware</span>
+            <span class="ts-problem__desc">A literal Tupperware on the office shelf, full of fuel receipts. The accountant&rsquo;s least favorite drawer.</span>
+          </li>
+          <li>
+            <span class="ts-problem__name">A spreadsheet</span>
+            <span class="ts-problem__desc">One list of equipment. Half of it accurate. The other half in someone&rsquo;s head.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== One Tool, Four Subs =================== -->
   <section class="section">
     <div class="container project-content">
       <h2>One tool, four subscriptions retired.</h2>
       <p>
-        Brandon's crew was running on paper checklists, fuel receipts in a Tupperware,
-        equipment lists in someone's head, and four separate SaaS subscriptions duct-taped
-        together. I rode along for two days, designed for the truck instead of the office,
-        and shipped a single tool in three weeks that replaced the whole stack.
+        I rode along for two days, designed for the truck instead of the office, and
+        shipped a single tool in four weeks that replaced the whole stack. Every
+        decision after week one had to survive the same test: does this make a guy
+        in gloves faster, or slower?
       </p>
     </div>
   </section>
 
-  <!-- Equipment: desktop (square, full-width within container) -->
+  <!-- =================== Designed for the truck — gloved iPad =================== -->
   <div class="container">
-    <div class="image-solo">
-      <div class="image-frame">
-        <!-- Replace with: <img src="../assets/images/projects/tree-service-equipment-desktop.jpg" alt="Equipment inventory — desktop view"> -->
-        EQUIPMENT · DESKTOP
-      </div>
+    <div class="ts-frame ts-frame--landscape ts-frame--contain" style="max-height: 640px;">
+      <img src="../assets/images/projects/TreeServiceIpad.png" alt="A crew member in work gloves holding an iPad showing the daily checklist">
     </div>
-
-    <div class="image-caption">
-      <span class="image-caption__title">Equipment <span class="accent">·</span> Inventory</span>
-      <span class="image-caption__sub">What used to live on a clipboard now lives in a search bar. Photos, condition, location, and last-serviced — one tap away.</span>
+    <div class="ts-caption">
+      <span class="ts-caption__title">Designed <span class="accent">·</span> For The Truck</span>
+      <span class="ts-caption__sub">Filled out each morning before the crew leaves the yard. 90 seconds, signed digitally, done.</span>
     </div>
   </div>
 
-  <!-- Equipment: mobile + side text -->
-  <section class="section--sm">
-    <div class="container">
-      <div class="image-pair">
-        <div class="image-frame">
-          <!-- Replace with: <img src="../assets/images/projects/tree-service-equipment-mobile.jpg" alt="Equipment inventory — mobile view"> -->
-          EQUIPMENT · MOBILE
-        </div>
-        <div class="project-split__text" style="align-self: center;">
-          <h3>The yard, on the phone.</h3>
-          <p>
-            Walk the yard, find the saw, log the problem. The crew uses this in
-            gloves between jobs — every interaction is thumb-reachable and survives
-            spotty rural service.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Safety Forms: desktop form builder -->
-  <div class="container">
-    <div class="image-solo">
-      <div class="image-frame">
-        <!-- Replace with: <img src="../assets/images/projects/tree-service-safety-setup.jpg" alt="Safety form builder — desktop view"> -->
-        SAFETY FORM BUILDER · DESKTOP
-      </div>
-    </div>
-
-    <div class="image-caption">
-      <span class="image-caption__title">Safety Forms <span class="accent">·</span> Built In-House</span>
-      <span class="image-caption__sub">Brandon writes the forms. The crew fills them out. Nothing gets lost in a Tupperware.</span>
-    </div>
-  </div>
-
-  <!-- Crew Fill-Out: mobile + tablet pair -->
-  <section class="section--sm">
-    <div class="container">
-      <div class="image-pair">
-        <div class="image-frame">
-          <!-- Replace with: <img src="../assets/images/projects/tree-service-crew-mobile.jpg" alt="Daily safety form — mobile view"> -->
-          CREW FILL · MOBILE
-        </div>
-        <div class="image-frame">
-          <!-- Replace with: <img src="../assets/images/projects/tree-service-crew-tablet.jpg" alt="Daily safety form — tablet view"> -->
-          CREW FILL · TABLET
-        </div>
-      </div>
-      <div class="image-caption" style="margin-top: 0;">
-        <span class="image-caption__title">Designed <span class="accent">·</span> For The Truck</span>
-        <span class="image-caption__sub">Filled out each morning before the crew leaves the yard. 90 seconds, signed digitally, done.</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Owner dashboard / AI receipt flow -->
-  <div class="container">
-    <div class="image-solo">
-      <div class="image-frame">
-        <!-- Replace with: <img src="../assets/images/projects/tree-service-dashboard.jpg" alt="Owner dashboard or AI receipt parsing flow"> -->
-        OWNER DASHBOARD / AI RECEIPT FLOW
-      </div>
-    </div>
-
-    <div class="image-caption">
-      <span class="image-caption__title">What Brandon <span class="accent">·</span> Sees Each Morning</span>
-      <span class="image-caption__sub">Crews, jobs, fleet, expenses. Receipts photographed in the truck appear here as parsed, categorized records — automatically.</span>
-    </div>
-  </div>
-
-  <!-- Numbers strip -->
+  <!-- =================== Worksite engineering brag — pre-trip in flight =================== -->
   <section class="section">
     <div class="container">
-      <div class="stats">
-        <div class="stat">
-          <div class="stat__value">3 wks</div>
-          <div class="stat__label">From kickoff to crew using it daily.</div>
+      <div class="ts-split ts-split--reverse">
+        <div class="ts-split__image">
+          <div class="ts-frame ts-frame--portrait ts-frame--contain" style="max-width: 360px; margin: 0 auto;">
+            <img src="../assets/images/projects/in-flight.png" alt="A pre-trip vehicle inspection in progress on a phone, showing pass/fail buttons">
+          </div>
         </div>
-        <div class="stat">
-          <div class="stat__value">4 → 1</div>
-          <div class="stat__label">SaaS subscriptions retired and replaced with a single tool.</div>
-        </div>
-        <div class="stat">
-          <div class="stat__value">$XXX/mo</div>
-          <div class="stat__label">Saved monthly in subscription costs alone. (Real number TBD — replace.)</div>
+        <div class="ts-split__copy">
+          <h3>What makes it not <span class="accent">suck on a worksite.</span></h3>
+          <p>
+            The crew uses this in gloves. Half of them have rural cell service. None of
+            them want a forgotten password between them and a paying job.
+          </p>
+          <ul>
+            <li><strong>48px touch targets</strong> &mdash; gloves don&rsquo;t do thumbnail-sized buttons.</li>
+            <li><strong>Tap-your-name PIN flow</strong> &mdash; no usernames, no email, no &ldquo;forgot password&rdquo; at the yard.</li>
+            <li><strong>Camera-first capture</strong> &mdash; receipts, defect photos, signatures land directly in storage. No copy-paste, no data URLs.</li>
+            <li><strong>Version-locked submissions</strong> &mdash; when Brandon edits a form template, last week&rsquo;s signed forms still render exactly as the crew filled them. OSHA likes that.</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Closing -->
-  <section class="closing">
+  <!-- =================== Manage the entire fleet — equipment + maintenance =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="ts-section-head">
+        <h2>Manage the <span class="accent">entire fleet.</span></h2>
+        <p>
+          43 pieces of equipment imported from Brandon&rsquo;s insurance schedule on day
+          three. Each one tracks its own maintenance schedule, parts costs, fuel logs,
+          inspection history, and crew assignment.
+        </p>
+      </div>
+
+      <div class="ts-frame ts-frame--landscape ts-frame--contain" style="max-height: 720px;">
+        <img src="../assets/images/projects/TreeServiceEquipment.png" alt="Equipment detail page showing the Bobcat E42 with photos, info, crew assignment, and maintenance history">
+      </div>
+      <div class="ts-caption">
+        <span class="ts-caption__title">Equipment <span class="accent">·</span> Inventory + Detail</span>
+        <span class="ts-caption__sub">Photos, specs, custom fields, crew assignment, insurance, and a live activity log &mdash; per piece, per day.</span>
+      </div>
+
+      <!-- Maintenance history placeholder -->
+      <div class="ts-frame ts-frame--landscape" aria-label="Placeholder for maintenance history screenshot">
+        MAINTENANCE HISTORY · DESKTOP
+      </div>
+      <div class="ts-caption">
+        <span class="ts-caption__title">Maintenance <span class="accent">·</span> History &amp; Spend</span>
+        <span class="ts-caption__sub">Brandon used to log a parts purchase by writing it on a sticky note. Now he taps Log Work Done, uploads the invoice photo, and the cost rolls up against the equipment&rsquo;s lifetime spend.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Numbers strip =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="ts-stats">
+        <div class="ts-stat">
+          <div class="ts-stat__value">4 wks</div>
+          <div class="ts-stat__label">From kickoff to crew using it daily.</div>
+        </div>
+        <div class="ts-stat">
+          <div class="ts-stat__value">4 &rarr; 1</div>
+          <div class="ts-stat__label">SaaS subscriptions retired. One tool replaces the stack.</div>
+        </div>
+        <div class="ts-stat">
+          <div class="ts-stat__value">7</div>
+          <div class="ts-stat__label">Paper forms eliminated. JSA, pre-trip, aerial-lift, and more.</div>
+        </div>
+        <div class="ts-stat">
+          <div class="ts-stat__value">43 + 16</div>
+          <div class="ts-stat__label">Pieces of equipment + drivers migrated to live data on day three.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Quotes =================== -->
+  <section class="section ts-quotes">
+    <div class="container">
+      <div class="ts-quote ts-quote--lead">
+        <p class="ts-quote__text">&ldquo;I can&rsquo;t believe how simple this is compared to the <span class="accent">other app we&rsquo;ve tried before.</span>&rdquo;</p>
+        <p class="ts-quote__cite">&mdash; Dayton, General Foreman</p>
+      </div>
+
+      <div class="ts-quote ts-quote--small">
+        <p class="ts-quote__text">&ldquo;This is some seriously awesome sh!t.&rdquo;</p>
+        <p class="ts-quote__cite">&mdash; Brandon, Owner of The Tree Service</p>
+      </div>
+
+      <div class="ts-quote ts-quote--small">
+        <p class="ts-quote__text">&ldquo;Bring me your ideas. Seriously, I am making this for you. How do you want it to work?&rdquo;</p>
+        <p class="ts-quote__cite">&mdash; Hunter, the guy making this tool</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Closing CTA =================== -->
+  <section class="ts-closing">
     <div class="container container--narrow">
       <h2>Your business has its own <span class="accent">Tupperware of receipts.</span></h2>
       <p>
-        I build custom AI-powered tools for small businesses — one tool, custom-fit, that
-        replaces the stack of half-used SaaS subscriptions you're paying for. If that
-        sounds like you, let's talk.
+        I build custom AI-assisted tools for small businesses &mdash; one tool, custom-fit,
+        that replaces the stack of half-used SaaS subscriptions you&rsquo;re paying for.
+        If that sounds like you, let&rsquo;s talk.
       </p>
       <div style="display: inline-flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
         <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
@@ -332,7 +547,7 @@
     </div>
   </section>
 
-  <!-- Next Project -->
+  <!-- =================== Next Project =================== -->
   <section class="section" style="border-top: 1px solid var(--color-border);">
     <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
       <span class="label">Next Project</span>
@@ -342,7 +557,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- =================== Footer =================== -->
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
