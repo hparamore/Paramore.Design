@@ -187,26 +187,34 @@
       max-width: 52ch;
       margin: 0 auto;
     }
-    /* Left-aligned, full-width variant — used when the heading should
-       sit flush with the image edge below it. No max-width clamp on
-       the title, so a short headline like "Manage the entire fleet."
-       lands on a single line at desktop. */
-    .ts-section-head--left {
+    /* Left-aligned, full-width variant — heading sits flush with the
+       image edge below it. About 2× the size of the standard centered
+       head so the section makes a strong opening statement. */
+    .ts-section-head.ts-section-head--left {
       max-width: none;
-      margin-left: 0;
-      margin-right: 0;
-      margin-top: var(--space-2xl);
+      margin: var(--space-2xl) 0 var(--space-xl);
       text-align: left;
     }
-    .ts-section-head--left h2 { white-space: nowrap; }
-    .ts-section-head--left p { margin-left: 0; }
-    @media (max-width: 720px) {
-      .ts-section-head--left h2 { white-space: normal; }
+    .ts-section-head.ts-section-head--left h2 {
+      font-size: clamp(3rem, 9vw, 6rem); /* roughly text-4xl → text-6xl */
+      line-height: 0.92;
+      white-space: nowrap;
+      margin-bottom: var(--space-md);
+    }
+    .ts-section-head.ts-section-head--left p {
+      max-width: 60ch;
+      margin: 0;
+      font-size: var(--text-md);
+    }
+    @media (max-width: 900px) {
+      .ts-section-head.ts-section-head--left h2 { white-space: normal; }
     }
     @media (max-width: 640px) {
       .ts-section-head { margin-top: var(--space-3xl); }
       .ts-section-head h2 { font-size: var(--text-3xl); }
-      .ts-section-head--left { margin-top: var(--space-xl); }
+      .ts-section-head.ts-section-head--left {
+        margin: var(--space-xl) 0 var(--space-lg);
+      }
     }
     /* Tighten the gap between the previous module and the fleet section */
     .ts-fleet-section { padding-top: 0; }
