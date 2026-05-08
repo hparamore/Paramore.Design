@@ -43,14 +43,26 @@
     .ts-frame--contain img { object-fit: contain; padding: var(--space-lg); background: var(--color-surface); }
 
     /* ---------- Hero ---------- */
+    /* Render the hero at its natural aspect ratio — no cropping. The
+       composition (laptop + phone with black padding above/below) is
+       balanced as designed; forcing a 21:9 frame chopped off the
+       captions. */
     .ts-hero {
       margin: var(--space-xl) 0 var(--space-2xl);
     }
     .ts-hero .ts-frame {
-      aspect-ratio: 21 / 9;
-      min-height: 260px;
+      aspect-ratio: auto;
+      min-height: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
     }
-    .ts-hero img { object-fit: cover; }
+    .ts-hero .ts-frame img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
 
     /* ---------- Lede paragraph under hero ---------- */
     .ts-lede {
@@ -352,7 +364,7 @@
   <!-- =================== Hero image =================== -->
   <div class="container">
     <div class="ts-hero">
-      <div class="ts-frame ts-frame--wide">
+      <div class="ts-frame">
         <img src="../assets/images/projects/TreeServiceHero.png" alt="The Tree Service — daily crew tools and admin dashboard mockup" loading="eager">
       </div>
     </div>
