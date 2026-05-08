@@ -3,17 +3,17 @@
    Design System & Global Styles
    ========================================================================== */
 
-/* ---------- Google Fonts ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
-/* ---------- Self-hosted Bebas Neue Bold ---------- */
+/* ---------- Fonts ---------- */
 @font-face {
   font-family: 'Bebas Neue';
   src: url('../fonts/BebasNeue-Bold.ttf') format('truetype');
-  font-weight: 700;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 
 /* ---------- Design Tokens ---------- */
 :root {
@@ -145,45 +145,45 @@ a:hover {
 .display-xl {
   font-family: var(--font-display);
   font-size: var(--text-6xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .display-lg {
   font-family: var(--font-display);
   font-size: var(--text-5xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .display-md {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 h1, .h1 {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 h2, .h2 {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -456,6 +456,11 @@ p {
   margin-bottom: var(--space-lg);
   opacity: 0;
   animation: hero-fade-in 0.5s ease-out 0.35s forwards;
+}
+
+.hero__line--numeric {
+  margin-left: -0.07em;
+  display: inline-block;
 }
 
 .hero__subtitle {
@@ -1172,4 +1177,25 @@ p {
     --text-5xl: 2rem;
     --content-padding: var(--space-md);
   }
+}
+
+/* ============================================================
+ * Text-wrap balancing (modern CSS, progressive enhancement)
+ * ============================================================ */
+
+/* Prevent orphan single words on the last line of paragraphs.
+   Falls back gracefully — older browsers just see normal wrapping. */
+.solution__lead,
+.project-hero__title + p,
+.section > p,
+.intro p,
+p.lead {
+  text-wrap: pretty;
+}
+
+/* Headings benefit from balance — equalizes line lengths so a 4-word
+   title doesn't end with one orphan word. */
+h1, h2, h3,
+.display-lg, .display-md {
+  text-wrap: balance;
 }
