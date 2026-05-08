@@ -187,10 +187,29 @@
       max-width: 52ch;
       margin: 0 auto;
     }
+    /* Left-aligned, full-width variant — used when the heading should
+       sit flush with the image edge below it. No max-width clamp on
+       the title, so a short headline like "Manage the entire fleet."
+       lands on a single line at desktop. */
+    .ts-section-head--left {
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: var(--space-2xl);
+      text-align: left;
+    }
+    .ts-section-head--left h2 { white-space: nowrap; }
+    .ts-section-head--left p { margin-left: 0; }
+    @media (max-width: 720px) {
+      .ts-section-head--left h2 { white-space: normal; }
+    }
     @media (max-width: 640px) {
       .ts-section-head { margin-top: var(--space-3xl); }
       .ts-section-head h2 { font-size: var(--text-3xl); }
+      .ts-section-head--left { margin-top: var(--space-xl); }
     }
+    /* Tighten the gap between the previous module and the fleet section */
+    .ts-fleet-section { padding-top: 0; }
 
     /* ---------- Problem list (the four-subscription mess) ---------- */
     .ts-problem {
@@ -474,7 +493,7 @@
           >
         </div>
         <div class="ts-split__copy">
-          <h3>What makes it not <span class="accent">suck on a worksite.</span></h3>
+          <h3>What makes it <span class="accent">not suck</span> on a worksite.</h3>
           <p>
             The crew uses this in gloves. Half of them have rural cell service. None of
             them want a forgotten password between them and a paying job.
@@ -491,9 +510,9 @@
   </section>
 
   <!-- =================== Manage the entire fleet — equipment + maintenance =================== -->
-  <section class="section">
+  <section class="section ts-fleet-section">
     <div class="container">
-      <div class="ts-section-head">
+      <div class="ts-section-head ts-section-head--left">
         <h2>Manage the <span class="accent">entire fleet.</span></h2>
         <p>
           43 pieces of equipment imported from Brandon&rsquo;s insurance schedule on day
