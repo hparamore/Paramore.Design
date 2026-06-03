@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunter Paramore — Designer-Developer, Purpose-Built for Veras</title>
+<meta name="description" content="Purpose-built for Veras. The Lehi-local senior designer-developer who's been a founder for twelve years and obsesses over the people on the other end of the screen." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Dark theme matching Veras */
+    --bg: #0E0E1A;
+    --bg-soft: #15152A;
+    --surface: rgba(255,255,255,0.03);
+    --surface-border: rgba(255,255,255,0.08);
+
+    /* Text on dark */
+    --text: #FFFFFF;
+    --text-muted: rgba(255,255,255,0.72);
+    --text-faint: rgba(255,255,255,0.50);
+    --text-dim: rgba(255,255,255,0.35);
+
+    /* White cards (product showcases / personas / etc.) */
+    --card-bg: #FFFFFF;
+    --card-ink: #0E0E1A;
+    --card-ink-soft: #4A4F66;
+    --card-ink-mute: #7A7F92;
+    --card-line: #E8E8F0;
+    --card-soft: #F6F4FB;
+
+    /* Veras brand */
+    --pink: #E5527B;
+    --purple: #8B4BF4;
+    --purple-deep: #6E4FEA;
+    --accent: var(--pink);
+    --accent-2: var(--purple);
+
+    /* Status accents (used in fake dashboard rows on white cards) */
+    --status-green: #4FCB7A;
+    --status-amber: #F5A623;
+    --status-red: #E64545;
+
+    --shadow: 0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.35);
+    --shadow-card: 0 24px 70px rgba(0,0,0,0.5);
+
+    --radius-sm: 10px;
+    --radius: 18px;
+    --radius-lg: 28px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,14,26,0.80);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--surface-border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 22px; letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .logo .dot-grad {
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--text-muted); font-weight: 500; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { display: flex; align-items: center; gap: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600; font-size: 15px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: transform .12s ease, background .2s ease, color .2s ease, border-color .2s;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary, .btn-accent {
+    background: var(--purple-deep);
+    color: #fff;
+  }
+  .btn-primary:hover, .btn-accent:hover {
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    color: #fff;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.40);
+  }
+  .arrow { font-weight: 700; }
+
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(1200px 700px at 50% 0%, rgba(139,75,244,0.28), transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, rgba(229,82,123,0.22), transparent 60%),
+      radial-gradient(700px 500px at 0% 80%, rgba(139,75,244,0.12), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    padding: 110px 0 130px;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--pink);
+  }
+  .hero h1 {
+    font-size: clamp(48px, 6.5vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 22px 0 28px;
+    color: var(--text);
+  }
+  .hero h1 .smallcap {
+    display: block;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--text);
+  }
+  .hero h1 .stamp {
+    display: inline-block;
+    background: linear-gradient(135deg, #E5527B 0%, #8B4BF4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 19px;
+    max-width: 560px;
+    color: var(--text-muted);
+    margin: 0 0 36px;
+    line-height: 1.6;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-visual {
+    position: relative;
+    height: 460px;
+    perspective: 1200px;
+  }
+  .glass-card {
+    position: absolute;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 18px 20px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-card { transform: none !important; transition: none !important; }
+  }
+  .gc-main {
+    top: 30px; left: 0; right: 40px;
+    padding: 28px;
+  }
+  .gc-main .title { font-size: 12px; color: var(--text-faint); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .gc-main .big {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px; line-height: 1;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    margin: 8px 0 6px;
+  }
+  .gc-main .desc { font-size: 14px; color: var(--text-muted); }
+  .gc-row { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; gap: 12px; }
+  .pill {
+    background: rgba(229,82,123,0.12);
+    color: var(--pink);
+    padding: 6px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid rgba(229,82,123,0.30);
+  }
+
+  .gc-mini-1 {
+    bottom: 30px; left: 30px;
+    width: 290px;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    color: #fff;
+    font-weight: 800; font-size: 16px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.20);
+  }
+  .gc-mini-1 .name { font-weight: 700; font-size: 14px; line-height: 1.2; color: var(--text); }
+  .gc-mini-1 .role { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.3; }
+  .gc-mini-1 .loc { font-size: 11px; color: var(--text-dim); margin-top: 3px; letter-spacing: 0.02em; }
+
+  .gc-mini-2 {
+    bottom: 130px; right: 0;
+    width: 250px;
+  }
+  .gc-mini-2 .big-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 72px;
+    line-height: 1;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .gc-mini-2 .big-number small {
+    font-size: 28px;
+    line-height: 1;
+    font-family: 'Instrument Serif', serif;
+  }
+  .gc-mini-2 .big-number .trend-arrow {
+    width: 18px; height: 18px;
+    margin-bottom: 12px;
+    color: var(--pink);
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
+  .gc-mini-2 .metric-label {
+    font-size: 17px;
+    color: var(--text);
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .gc-mini-2 .delta {
+    font-size: 12px;
+    color: var(--pink);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(229,82,123,0.25);
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; padding: 70px 0 80px; }
+    .hero-visual { height: 380px; }
+  }
+
+  /* ===== LOGO STRIP ===== */
+  .strip {
+    padding: 60px 0;
+    border-top: 1px solid var(--surface-border);
+  }
+  .strip-label {
+    text-align: center;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--pink); font-weight: 700;
+    margin-bottom: 28px;
+  }
+  .strip-logos {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: 36px 56px;
+  }
+  .strip-logos span {
+    font-weight: 700; font-size: 20px; letter-spacing: -0.02em;
+    color: var(--text-muted); opacity: 0.6;
+    transition: opacity .2s;
+  }
+  .strip-logos span:hover { opacity: 1; }
+  .strip-logos .pmark {
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    opacity: 1;
+  }
+
+  /* ===== SECTION HEADER ===== */
+  section { padding: 110px 0; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--pink);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+  .section-title {
+    font-size: clamp(36px, 4.6vw, 60px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 14px 0 16px;
+    max-width: 1100px;
+    text-wrap: balance;
+    color: var(--text);
+  }
+  .section-title .ital {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 800;
+    background: linear-gradient(135deg, #E5527B 0%, #8B4BF4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .section-sub {
+    font-size: 18px; color: var(--text-muted);
+    max-width: 680px; margin: 0 0 48px;
+    line-height: 1.65;
+  }
+
+  /* ===== FOUNDER FIT / CATEGORY ===== */
+  .founder { background: var(--bg); }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 18px;
+    margin: 12px 0 24px;
+  }
+  .founder-stat {
+    background: rgba(255,255,255,0.025);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 32px 30px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .founder-stat:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.045);
+    border-color: rgba(229,82,123,0.30);
+  }
+  .founder-stat .r-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .founder-stat .r-num small {
+    font-size: 24px;
+    margin-left: 6px;
+    font-family: 'Instrument Serif', serif;
+    letter-spacing: 0;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+  .founder-stat .r-label {
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .founder-stat .r-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+  .founder-stat--wide .r-label {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+  }
+  .founder-stat--wide .r-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-top: 14px;
+    max-width: 640px;
+  }
+  .founder-extras {
+    background: var(--bg-soft);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+  }
+  .founder-extras .extras-head {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    margin: 0 0 22px;
+  }
+  .founder-extras .extras-head h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin: 0;
+  }
+  .founder-extras .extras-head p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-style: italic;
+  }
+  .founder-extras ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 36px;
+  }
+  .founder-extras li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .founder-extras li::before {
+    content: "";
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .founder-extras .val-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .founder-extras .val-title {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .founder-extras .val-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .founder-closer {
+    text-align: center;
+    margin-top: 36px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--text-muted);
+  }
+  .founder-closer .ital {
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    font-family: inherit;
+    font-weight: 600;
+  }
+  @media (max-width: 880px) {
+    .founder-grid { grid-template-columns: 1fr; }
+    .founder-extras ul { grid-template-columns: 1fr; }
+  }
+
+  /* ===== PHILOSOPHY / LIVE GOLDEN ===== */
+  .philosophy {
+    background:
+      radial-gradient(ellipse 80% 70% at 0% 100%, rgba(229,82,123,0.22), transparent 65%),
+      radial-gradient(ellipse 80% 70% at 100% 0%, rgba(139,75,244,0.22), transparent 65%),
+      var(--bg);
+    padding: 140px 0;
+    position: relative;
+  }
+  .philosophy::before, .philosophy::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+  }
+  .philosophy::before { top: 0; }
+  .philosophy::after { bottom: 0; }
+  .philosophy .wrap { max-width: 920px; }
+
+  .phil-quote {
+    margin: 36px 0 36px;
+    padding: 56px 56px 48px;
+    background:
+      linear-gradient(135deg, rgba(229,82,123,0.12) 0%, rgba(139,75,244,0.12) 100%),
+      rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .phil-quote::before {
+    content: "“";
+    position: absolute;
+    top: -12px; left: 30px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 150px;
+    color: var(--pink);
+    line-height: 1;
+    opacity: 0.45;
+  }
+  .phil-quote::after {
+    content: "”";
+    position: absolute;
+    bottom: -100px; right: 30px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 150px;
+    color: var(--purple);
+    line-height: 1;
+    opacity: 0.45;
+  }
+  .phil-quote p {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.15;
+    margin: 0 0 18px;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+  }
+  .phil-quote cite {
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  .phil-body p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0 0 18px;
+  }
+  .phil-body p:last-child {
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  @media (max-width: 600px) {
+    .phil-quote { padding: 40px 28px 32px; }
+    .phil-quote::before, .phil-quote::after { display: none; }
+  }
+
+  /* ===== TABS SECTION ===== */
+  .tabs-section { background: var(--bg-soft); }
+  .tab-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    border-bottom: 1px solid var(--surface-border);
+    margin-bottom: 40px;
+  }
+  .tab-btn {
+    padding: 14px 18px;
+    background: transparent; border: none;
+    font: inherit;
+    font-weight: 600; font-size: 15px;
+    color: var(--text-faint);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .2s, border-color .2s;
+  }
+  .tab-btn:hover { color: var(--text-muted); }
+  .tab-btn[aria-selected="true"] {
+    color: var(--text);
+    border-bottom-color: var(--pink);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel[data-active="true"] { display: grid; }
+  .tab-panel {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .tab-text h3 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .tab-text p {
+    color: var(--text-muted); font-size: 17px; line-height: 1.7;
+    margin: 0 0 24px; max-width: 480px;
+  }
+  .tab-text p em {
+    color: var(--pink);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .tab-text a.linkout {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; color: var(--text);
+    border-bottom: 2px solid var(--pink);
+    padding-bottom: 2px;
+    transition: color .2s;
+  }
+  .tab-text a.linkout:hover { color: var(--pink); }
+
+  .tab-visual {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tab-visual .mini-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--card-line);
+  }
+  .tab-visual .mini-head h4 { margin: 0; font-size: 14px; font-weight: 700; color: var(--card-ink); }
+  .tab-visual .mini-head .dot-row { display: flex; gap: 5px; }
+  .tab-visual .mini-head .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--card-line); }
+  .tab-visual .mini-head .dot.green { background: var(--status-green); }
+  .data-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--card-line);
+    font-size: 14px;
+  }
+  .data-row:last-child { border-bottom: none; }
+  .data-row .label { color: var(--card-ink-soft); display: flex; align-items: center; gap: 8px; }
+  .data-row .bar {
+    width: 140px; height: 8px; background: var(--card-soft); border-radius: 999px; overflow: hidden;
+  }
+  .data-row .bar > div {
+    height: 100%;
+    background: linear-gradient(90deg, #E5527B, #8B4BF4);
+    border-radius: 999px;
+  }
+  .data-row .val { font-weight: 700; color: var(--card-ink); }
+  .badge-tag {
+    display: inline-block;
+    background: #ECF8F1; color: #1C7F4A;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+  }
+  .badge-tag.coral { background: #FDECEC; color: #B53737; }
+  .badge-tag.navy { background: #ECEAFD; color: #4E36B4; }
+
+  @media (max-width: 880px) {
+    .tab-panel[data-active="true"] { grid-template-columns: 1fr; }
+  }
+
+  /* ===== OUTCOMES ===== */
+  .outcomes { background: var(--bg); color: var(--text); margin: 0; }
+  .outcomes .inner-pad { padding: 110px 0; }
+  .outcomes .section-title { color: var(--text); }
+  .outcomes .section-sub { color: var(--text-muted); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .stat-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform .25s, border-color .25s, background .25s;
+  }
+  a.stat-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(229,82,123,0.40);
+  }
+  a.stat-card:hover .footnote .ext { opacity: 1; transform: translate(2px, -2px); }
+  .stat-card .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 80px; line-height: 1;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+  }
+  .stat-card .num small { font-size: 28px; vertical-align: top; }
+  .stat-card h4 { margin: 18px 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+  .stat-card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin: 0 0 24px; }
+  .stat-card .footnote {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(255,255,255,0.12);
+    font-size: 12px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .stat-card .footnote .ext {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: rgba(139,75,244,0.16);
+    color: var(--pink);
+    opacity: 0.7;
+    transition: opacity .2s, transform .2s;
+    font-size: 13px; font-weight: 700;
+  }
+  @media (max-width: 880px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials { background: var(--bg-soft); }
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .quote-card {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--card-line);
+  }
+  .quote-card::before {
+    content: "“";
+    font-family: 'Instrument Serif', serif;
+    font-size: 100px; line-height: 1;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    position: absolute; top: 8px; right: 22px;
+  }
+  .quote-card .logo-line {
+    font-weight: 700; font-size: 12px;
+    color: var(--pink); margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .quote-card blockquote {
+    margin: 0 0 22px; font-size: 17px; line-height: 1.6;
+    font-weight: 500; color: var(--card-ink);
+  }
+  .quote-card blockquote em {
+    font-style: italic;
+    color: var(--card-ink);
+  }
+  .quote-card .author {
+    margin-top: auto;
+    display: flex; align-items: center; gap: 12px;
+    border-top: 1px solid var(--card-line); padding-top: 16px;
+  }
+  .quote-card .author .avatar {
+    width: 38px; height: 38px; font-size: 13px;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    color: #fff;
+    border: none;
+  }
+  .quote-card .author .name { font-weight: 700; font-size: 14px; color: var(--card-ink); }
+  .quote-card .author .role { font-size: 12px; color: var(--card-ink-mute); }
+  @media (max-width: 880px) {
+    .quote-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== HOW I WORK ===== */
+  .how { background: var(--bg); }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .how-card {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    padding: 36px 30px;
+    border: 1px solid var(--card-line);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .how-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+  .how-card .tag-list { margin-top: auto; }
+  .how-card .step {
+    position: absolute; top: -16px; left: 28px;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    color: #fff;
+    font-weight: 800; font-size: 12px;
+    padding: 5px 14px; border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .how-card h3 {
+    margin: 14px 0 10px;
+    font-size: 24px; line-height: 1.15; letter-spacing: -0.015em;
+    font-weight: 800;
+    color: var(--card-ink);
+  }
+  .how-card p {
+    margin: 0 0 22px; color: var(--card-ink-soft); font-size: 15px; line-height: 1.65;
+  }
+  .how-card .icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(229,82,123,0.14), rgba(139,75,244,0.14));
+    display: grid; place-items: center;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag-list span {
+    background: var(--card-soft); border: 1px solid #E8E5F0;
+    color: var(--card-ink-soft); font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  @media (max-width: 880px) {
+    .how-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== PERSONAS ===== */
+  .personas { background: var(--bg-soft); }
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .persona-card {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    border: 1px solid var(--card-line);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .persona-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+  .persona-card h4 {
+    margin: 0 0 6px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--pink); font-weight: 700;
+  }
+  .persona-card h3 {
+    margin: 0 0 12px; font-size: 22px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em;
+    color: var(--card-ink);
+  }
+  .persona-card p {
+    margin: 0 0 16px; color: var(--card-ink-soft); font-size: 15px; line-height: 1.6;
+  }
+  .persona-card ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .persona-card li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px; color: var(--card-ink);
+    line-height: 1.5;
+  }
+  .persona-card li::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+  @media (max-width: 880px) {
+    .persona-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== ABOUT ===== */
+  .about {
+    background:
+      radial-gradient(ellipse 80% 60% at 0% 50%, rgba(139,75,244,0.20), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 100% 50%, rgba(229,82,123,0.16), transparent 60%),
+      var(--bg);
+    color: var(--text);
+  }
+  .about .inner {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about h2 {
+    font-size: clamp(38px, 4.6vw, 64px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin: 14px 0 22px; font-weight: 800;
+    color: var(--text);
+  }
+  .about h2 .ital {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 800;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+  .about p {
+    font-size: 18px; line-height: 1.7; margin: 0 0 24px; max-width: 540px;
+    color: var(--text-muted);
+  }
+  .about .me-card {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--card-line);
+  }
+  .me-card .top {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--card-line);
+  }
+  .me-card .avatar-lg {
+    width: 60px; height: 60px; font-size: 22px;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 800;
+  }
+  .me-card .name { font-weight: 800; font-size: 18px; line-height: 1.2; color: var(--card-ink); }
+  .me-card .role { font-size: 13px; color: var(--card-ink-soft); margin-top: 3px; line-height: 1.3; }
+  .me-card .loc { font-size: 12px; color: var(--card-ink-mute); margin-top: 3px; letter-spacing: 0.02em; }
+  .me-card ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;
+  }
+  .me-card li {
+    font-size: 13px; color: var(--card-ink-soft);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .me-card li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    display: inline-block;
+  }
+  .me-card .me-extras {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--card-line);
+  }
+  .me-card .me-extras h5 {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+  .me-card .me-extras-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 18px;
+  }
+  .me-card .me-extras-grid span {
+    font-size: 12px;
+    color: var(--card-ink-mute);
+    line-height: 1.3;
+  }
+  @media (max-width: 880px) {
+    .about .inner { grid-template-columns: 1fr; }
+  }
+
+  /* About-section btn-ghost on dark needs a lighter border */
+  .about .btn-ghost {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .about .btn-ghost:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.40);
+  }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta {
+    margin: 60px auto;
+    max-width: 1240px;
+    background:
+      radial-gradient(ellipse 100% 90% at 50% 100%, rgba(229,82,123,0.24), transparent 65%),
+      radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,75,244,0.22), transparent 65%),
+      var(--bg-soft);
+    color: var(--text);
+    border-radius: var(--radius-lg);
+    padding: 100px 60px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--surface-border);
+  }
+  .final-cta .pre {
+    position: relative; font-size: 12px; letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--pink); font-weight: 700; margin-bottom: 18px;
+  }
+  .final-cta h2 {
+    position: relative;
+    font-size: clamp(40px, 5.4vw, 78px);
+    line-height: 1.02; letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0 0 22px;
+    text-wrap: balance;
+    color: var(--text);
+  }
+  .final-cta h2 .ital {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 800;
+    background: linear-gradient(135deg, #E5527B, #8B4BF4);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+  .final-cta p {
+    position: relative;
+    font-size: 18px; color: var(--text-muted);
+    max-width: 600px; margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+  .final-cta .row {
+    position: relative;
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+  @media (max-width: 700px) {
+    .final-cta { padding: 60px 24px; margin: 30px 16px; }
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg);
+    padding: 70px 0 40px;
+    border-top: 1px solid var(--surface-border);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 36px;
+    margin-bottom: 36px;
+  }
+  .foot-brand .logo { margin-bottom: 14px; }
+  .foot-brand p { color: var(--text-muted); font-size: 14px; max-width: 360px; line-height: 1.6; }
+  .foot-col h5 {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--pink); margin: 0 0 14px; font-weight: 700;
+  }
+  .foot-col a { display: block; padding: 5px 0; font-size: 14px; color: var(--text-muted); transition: color .15s; }
+  .foot-col a:hover { color: var(--text); }
+  .foot-bottom {
+    border-top: 1px solid var(--surface-border); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    color: var(--text-dim); font-size: 13px; flex-wrap: wrap;
+  }
+  .disclaimer {
+    background: rgba(229,82,123,0.12); color: var(--pink);
+    padding: 10px 14px; border-radius: 10px;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid rgba(229,82,123,0.30);
+  }
+  @media (max-width: 880px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <span>Paramore<span class="dot-grad">.</span>Design</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#founder">Founder Fit <span>▾</span></a>
+      <a href="#why">Why Hunter <span>▾</span></a>
+      <a href="#how">How I Work <span>▾</span></a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost">Resume</a>
+      <a href="mailto:hparamore@gmail.com" class="btn btn-primary">Schedule a chat <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">★ A Parody Pitch for Veras</span>
+      <h1>
+        <span class="smallcap">Purpose-built for</span>
+        <span class="stamp">VERAS.</span>
+      </h1>
+      <p>
+        The senior designer-developer who already lives down the street—same Lehi, same canyon. Twelve years building product, three companies co-founded, and an obsession with the people on the other end of the screen.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:hparamore@gmail.com" class="btn btn-accent">Schedule a chat <span class="arrow">→</span></a>
+        <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost">View résumé</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="glass-card gc-main">
+        <div class="title">Hire-Fit Analysis</div>
+        <div class="big">98%</div>
+        <div class="desc">probability Veras hires Hunter, based on twelve years of shipping product end-to-end, three companies co-founded, and a Lehi address.</div>
+        <div class="gc-row">
+          <span class="pill">Win Theme: Designer-Developer</span>
+          <span style="color:var(--text-dim);font-size:12px">last updated just now</span>
+        </div>
+      </div>
+
+      <div class="glass-card gc-mini-2">
+        <div class="big-number">
+          8<small>min</small>
+          <svg class="trend-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 L17 7" />
+            <polyline points="9 7 17 7 17 15" />
+          </svg>
+        </div>
+        <div class="metric-label">From Veras HQ</div>
+        <div class="delta">Same Lehi zip, same canyon. Zero relocation, zero remote tax.</div>
+      </div>
+
+      <div class="glass-card gc-mini-1">
+        <div class="avatar">HP</div>
+        <div>
+          <div class="name">Hunter Paramore</div>
+          <div class="role">Experienced Designer-Developer</div>
+          <div class="loc">Lehi, UT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <div class="strip-label">Receipts — companies I've shipped product for</div>
+    <div class="strip-logos">
+      <span>Mutual</span>
+      <span>Ark</span>
+      <span>Nu Skin</span>
+      <span>Stotion</span>
+      <span>Tech 9</span>
+      <span>Angel Studios</span>
+      <span>Future House Studios</span>
+      <span>The Tree Service</span>
+      <span>Harney County</span>
+      <span>Airsoft Allstars</span>
+      <span>BYU-Idaho</span>
+      <span class="pmark">Paramore.Design</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER FIT / CATEGORY -->
+<section id="founder" class="founder">
+  <div class="wrap">
+    <span class="section-eyebrow">On "Be a Founder"</span>
+    <h2 class="section-title">Veras lists <span class="ital">"be a founder"</span> as a core value. I am one. Three times over.</h2>
+    <p class="section-sub">"Nobody here waits for a ticket to fix what's broken." That's a line from Veras's own about page — and it's how I've operated for twelve years. Founding companies isn't a mindset I'm trying on; it's been my actual job.</p>
+
+    <div class="founder-grid">
+      <div class="founder-stat">
+        <div class="r-num">3<small>×</small></div>
+        <div class="r-label">Companies co-founded</div>
+        <div class="r-desc">Mutual (2015 — the #1 LDS dating app), Ark Dating (2023), and Paramore.Design (2025 — running today, full-time).</div>
+      </div>
+      <div class="founder-stat founder-stat--wide">
+        <div class="r-label">Eleven years as Mutual's founding designer. Same building, every day.</div>
+        <div class="r-desc">Co-founder, sole founding designer, Director of UI/UX. Built the product, the brand, the design system, the motion, the print, the merch, the event collateral — every project shipped through me. Grew Mutual from a scrappy startup into a multi-million-dollar business that's responsible for 40,000+ marriages. Founder energy isn't a frame I'd be trying on at Veras — it's the speed I already run at.</div>
+      </div>
+    </div>
+
+    <div class="founder-extras">
+      <div class="extras-head">
+        <h4>Veras values, mapped</h4>
+        <p>just so we're clear this isn't generic culture-fit talk</p>
+      </div>
+      <ul>
+        <li>
+          <div class="val-content">
+            <span class="val-title">Live golden</span>
+            <span class="val-desc">I treat users like fans. More on that below.</span>
+          </div>
+        </li>
+        <li>
+          <div class="val-content">
+            <span class="val-title">Seek kaizen</span>
+            <span class="val-desc">Eleven years of shipping, iterating, and shipping again at Mutual.</span>
+          </div>
+        </li>
+        <li>
+          <div class="val-content">
+            <span class="val-title">Be a founder</span>
+            <span class="val-desc">I literally am one. Three companies, including one that's still my full-time gig.</span>
+          </div>
+        </li>
+        <li>
+          <div class="val-content">
+            <span class="val-title">Enjoy the journey</span>
+            <span class="val-desc">Airsoft, jiu-jitsu, drumming, 3D printing, hiking. The journey is the whole point.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="founder-closer">Veras's About page reads <span class="ital">a lot like my LinkedIn.</span></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY / LIVE GOLDEN -->
+<section id="philosophy" class="philosophy">
+  <div class="wrap">
+    <span class="section-eyebrow">A sincere aside</span>
+    <h2 class="section-title">I live golden, <span class="ital">too.</span></h2>
+
+    <blockquote class="phil-quote">
+      <p>Fans First. Entertain Always.</p>
+      <cite>Jesse Cole · Founder, Savannah Bananas &amp; Banana Ball</cite>
+    </blockquote>
+
+    <div class="phil-body">
+      <p>That's the entire Banana Ball operating principle: put the fan experience ahead of every spreadsheet, and trust the spreadsheet to catch up. It's almost the same idea as Veras's "live golden" — treat every person, teammate, customer, resident, like the most important person in the room.</p>
+      <p>For ten years I've built product on that exact conviction. Every detail I work on — empty states, microcopy, the way an error reads, the haptic at the moment a CNA opens her schedule on her phone — exists to make the user feel respected. Not to satisfy the org chart. Not to hit a quarterly target. To make the person on the other end of the screen feel like the team building this actually cares.</p>
+      <p>Users reward that. They come back, they refer their teammates, they ride out the rough patches with you. It isn't idealism — it's the most defensible long-term strategy a product team can adopt. It's also the one Veras has explicitly built its culture around. Which is why I'm writing this page in the first place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HUNTER (tabs) -->
+<section id="why" class="tabs-section">
+  <div class="wrap">
+    <span class="section-eyebrow">Why Hunter</span>
+    <h2 class="section-title">One designer-developer—<span class="ital">collected, designed, and shipped</span> shoulder-to-shoulder with your team.</h2>
+    <p class="section-sub">Understand exactly what frontline care workers need, then translate that into pixels, prototypes, and production code—working alongside the engineers, PMs, and founders already at Veras. Fewer hand-offs, more shipping.</p>
+
+    <div class="tab-row" role="tablist">
+      <button class="tab-btn" role="tab" aria-selected="true" data-target="t1">Staff Scheduling</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t2">Time &amp; Attendance</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t3">Messaging</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t4">Reporting &amp; Analytics</button>
+    </div>
+
+    <!-- T1: Staff Scheduling -->
+    <div class="tab-panel" data-active="true" id="t1">
+      <div class="tab-text">
+        <h3>Right person. Right shift. (That's me.)</h3>
+        <p>Twelve years of design-and-ship experience, ready to plug into Veras's existing team to sharpen the product, tighten the flows, and make the lives of CNAs, schedulers, and administrators measurably better. I speak design, research, <em>and</em> code — which makes me a better partner to the people doing each.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Start the hire-fit interview <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Why we hire — top themes</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Ships product end-to-end <span class="badge-tag">strength</span></div><div class="bar"><div style="width:96%"></div></div><div class="val">96%</div></div>
+        <div class="data-row"><div class="label">Designer + developer <span class="badge-tag">rare</span></div><div class="bar"><div style="width:92%"></div></div><div class="val">92%</div></div>
+        <div class="data-row"><div class="label">Already founder-minded <span class="badge-tag navy">native</span></div><div class="bar"><div style="width:94%"></div></div><div class="val">94%</div></div>
+        <div class="data-row"><div class="label">Lehi-local <span class="badge-tag coral">no relo</span></div><div class="bar"><div style="width:100%"></div></div><div class="val">100%</div></div>
+        <div class="data-row"><div class="label">Cares about end users</div><div class="bar"><div style="width:98%"></div></div><div class="val">98%</div></div>
+      </div>
+    </div>
+
+    <!-- T2: Time & Attendance -->
+    <div class="tab-panel" id="t2">
+      <div class="tab-text">
+        <h3>See every minute clearly.</h3>
+        <p>Veras's Time &amp; Attendance product exists to make sure your operators see every minute their staff works. Same principle here — I show up. Eleven years at Mutual without leaving, in-office by choice, and one of the most reliable people on every team I've been on. No missed punches. No surprise gaps.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">See the attendance record <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Reliability — leading indicators</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Mutual tenure</div><div class="bar"><div style="width:100%"></div></div><div class="val">11 yrs</div></div>
+        <div class="data-row"><div class="label">Standup attendance</div><div class="bar"><div style="width:99%"></div></div><div class="val">99%</div></div>
+        <div class="data-row"><div class="label">Time zone match <span class="badge-tag navy">MST</span></div><div class="bar"><div style="width:100%"></div></div><div class="val">Same zip</div></div>
+        <div class="data-row"><div class="label">Email response time</div><div class="bar"><div style="width:92%"></div></div><div class="val">Hours</div></div>
+        <div class="data-row"><div class="label">Missed deadlines <span class="badge-tag coral">low</span></div><div class="bar"><div style="width:6%;background:linear-gradient(90deg,#E26D5C,#E5527B)"></div></div><div class="val">6%</div></div>
+      </div>
+    </div>
+
+    <!-- T3: Messaging -->
+    <div class="tab-panel" id="t3">
+      <div class="tab-text">
+        <h3>HIPAA-grade communication. (Plain English the rest of the time.)</h3>
+        <p>Hiring me means you get a teammate, not a free agent. Energy at standup, low ego in critique, generous with what I know — design systems, SwiftUI patterns, user interview tactics. Plus a stack of hobbies outside work so I don't burn out and disappear in eighteen months.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Meet the teammate <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Day-to-day — leading indicators</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Energy at standup</div><div class="bar"><div style="width:94%"></div></div><div class="val">High</div></div>
+        <div class="data-row"><div class="label">Generosity in critique</div><div class="bar"><div style="width:96%"></div></div><div class="val">High</div></div>
+        <div class="data-row"><div class="label">Knowledge sharing</div><div class="bar"><div style="width:90%"></div></div><div class="val">Constant</div></div>
+        <div class="data-row"><div class="label">Hobbies outside work <span class="badge-tag coral">healthy</span></div><div class="bar"><div style="width:95%"></div></div><div class="val">10+</div></div>
+      </div>
+    </div>
+
+    <!-- T4: Reporting & Analytics -->
+    <div class="tab-panel" id="t4">
+      <div class="tab-text">
+        <h3>Data you can act on — including this résumé.</h3>
+        <p>Veras's Reporting &amp; Analytics promise: "real-time visibility into what matters." Here's the visibility on me: eleven years at one company, three companies co-founded, 40,000+ marriages, a Figma design system that's been viewed 300k+ times. When I commit to a product, the metrics show up. Then they keep showing up.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Read the full report <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Long-term value — receipts</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Mutual</div><div class="bar"><div style="width:100%"></div></div><div class="val">11 yrs</div></div>
+        <div class="data-row"><div class="label">Stotion</div><div class="bar"><div style="width:50%"></div></div><div class="val">5 yrs</div></div>
+        <div class="data-row"><div class="label">Ark Dating</div><div class="bar"><div style="width:32%"></div></div><div class="val">3 yrs</div></div>
+        <div class="data-row"><div class="label">Nu Skin</div><div class="bar"><div style="width:22%"></div></div><div class="val">2 yrs</div></div>
+        <div class="data-row"><div class="label">Churn risk <span class="badge-tag">low</span></div><div class="bar"><div style="width:8%;background:linear-gradient(90deg,#E26D5C,#E5527B)"></div></div><div class="val">8%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes" class="outcomes">
+  <div class="wrap inner-pad">
+    <span class="section-eyebrow">Real Outcomes</span>
+    <h2 class="section-title">Real designs drive <span class="ital">real outcomes.</span></h2>
+    <p class="section-sub">Three different proofs from twelve years of shipping product — real-world impact, industry recognition, and career depth. The section where Veras would normally drop their best customer logos. Felt only fair to lift the format.</p>
+
+    <div class="stat-grid">
+      <a class="stat-card" href="https://paramore.design/projects/mutual.html" target="_blank" rel="noopener">
+        <div class="num">40k<small>+</small></div>
+        <h4>Marriages, give or take.</h4>
+        <p>As Director of UI/UX at Mutual—the #1 LDS dating app in the world—I led product design alongside a team of co-founders, engineers, and PMs. We built something that mattered, together.</p>
+        <div class="footnote"><span>Case Study · Mutual</span><span class="ext" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="stat-card" href="https://www.figma.com/community/file/965825767811358609/zelda-botw-ui-kit" target="_blank" rel="noopener">
+        <div class="num">300k<small>+</small></div>
+        <h4>Views on a Zelda UI kit I built for fun.</h4>
+        <p>Figma themselves featured this at the top of their Community page for a full week. A hobby project where I recreated every UI element from Zelda: Breath of the Wild as a meticulous design system — 17k+ downloads from other designers. The same obsessive detail-work I bring to production systems.</p>
+        <div class="footnote"><span>Case Study · Featured by Figma</span><span class="ext" aria-hidden="true">↗</span></div>
+      </a>
+      <div class="stat-card">
+        <div class="num">12<small>+</small></div>
+        <h4>Years shipping product.</h4>
+        <p>Small Provo agencies. Multi-billion-dollar enterprises. Scrappy startups I helped found. Personal side projects, just to keep sharp. I've shipped product at every size and shape a company comes in—which means I know what good looks like at each scale, and how to be useful from day one.</p>
+        <div class="footnote"><span>Case Study · The twelve-year tour</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <span class="section-eyebrow">Conversations Drive Outcomes</span>
+    <h2 class="section-title">What past stakeholders have <span class="ital">probably</span> said about working with me.</h2>
+    <p class="section-sub">Lightly paraphrased from years of standups, retros, and late-night Slack threads. Real people, real sentiment, slightly polished for the website.</p>
+
+    <div class="quote-grid">
+      <div class="quote-card">
+        <div class="logo-line">Mutual</div>
+        <blockquote>"Hunter is the best designer I've ever worked with. He shows up to sprint planning with both a huge Figma board of designs <em>and</em> a working SwiftUI prototype to test with us—and with real users. He's the only designer on the team and does the work of three. I just send him the problem."</blockquote>
+        <div class="author">
+          <div class="avatar">MP</div>
+          <div>
+            <div class="name">Mutual President</div>
+            <div class="role">Mutual Dating · 2015–present</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="logo-line">Nu Skin</div>
+        <blockquote>"He's the reason a team of 15+ designers across 4 countries was able to migrate from passing around local Sketch files to a unified Figma design system. He built the system, taught everyone how to use it, and helped us actually function as a global design org. Bring him back."</blockquote>
+        <div class="author">
+          <div class="avatar">NS</div>
+          <div>
+            <div class="name">A Web Team Lead</div>
+            <div class="role">Nu Skin · 2019–2021</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="logo-line">Stotion</div>
+        <blockquote>"Roof-scanning drone tools, healthcare dashboards, card decks, battle buses, magazine layouts, 3D workplace visualizations for construction sites, video, animation—we threw everything at him for five years. He shipped all of it. I'd hire him again tomorrow."</blockquote>
+        <div class="author">
+          <div class="avatar">ST</div>
+          <div>
+            <div class="name">A Studio Director</div>
+            <div class="role">Stotion · 2014–2019</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section id="how" class="how">
+  <div class="wrap">
+    <span class="section-eyebrow">How I Work</span>
+    <h2 class="section-title">One platform. <span class="ital">Every workflow connected.</span></h2>
+    <p class="section-sub">Turn customer insight into shipped product—working alongside PMs, engineers, and the founders who still push pixels. Three phases, plenty of collaborators, and a designer who's happy to share the keyboard.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="step">Phase 01</div>
+        <div class="icon">🎙</div>
+        <h3>Listen</h3>
+        <p>Live 1:1 interviews, AMAs, focus groups, in-app surveys, advisory panels, community moderation. Real user research as a daily habit. Happy to lead the program or partner with whoever's running it now.</p>
+        <div class="tag-list">
+          <span>User Research</span>
+          <span>User Interviews</span>
+          <span>Usability Testing</span>
+          <span>Workshops</span>
+          <span>IxDF Certified</span>
+        </div>
+      </div>
+
+      <div class="how-card">
+        <div class="step">Phase 02</div>
+        <div class="icon">✏️</div>
+        <h3>Design the system</h3>
+        <p>Figma (expert level), design systems that scale, prototypes that feel like the real thing. Motion, micro-interactions, and the kind of polish that makes 24/7 care software feel un-software.</p>
+        <div class="tag-list">
+          <span>Figma</span>
+          <span>Design Systems</span>
+          <span>Prototyping</span>
+          <span>Accessibility</span>
+          <span>Rive</span>
+        </div>
+      </div>
+
+      <div class="how-card">
+        <div class="step">Phase 03</div>
+        <div class="icon">🚀</div>
+        <h3>Ship the code</h3>
+        <p>SwiftUI, Kotlin/Compose, React Native, web. I don't throw designs over the wall—I climb over it and pair with engineering. Hand-offs come tokenized, prototyped, and with the edge cases already answered.</p>
+        <div class="tag-list">
+          <span>SwiftUI</span>
+          <span>Compose</span>
+          <span>React Native</span>
+          <span>Firebase</span>
+          <span>Anthropic API</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section class="personas">
+  <div class="wrap">
+    <span class="section-eyebrow">For Every Role at Veras</span>
+    <h2 class="section-title">Deep insights for every <span class="ital">team at Veras.</span></h2>
+    <p class="section-sub">Hiring me changes the equation for everyone in the building.<br>Here's the per-role ROI.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <h4>For Your CEO</h4>
+        <h3>A founder-minded hire at IC pay.</h3>
+        <p>Three companies co-founded. Eleven-year tenure at one of them. I own outcomes the way Veras's value statement asks me to — because I've been doing it for twelve years already.</p>
+        <ul>
+          <li>Founder energy, IC compensation</li>
+          <li>Direct outcome ownership</li>
+          <li>No "I wasn't told to" instinct</li>
+          <li>Lehi-local for QBRs and Solitude days</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Head of Product</h4>
+        <h3>A senior who's a great PM partner.</h3>
+        <p>Twelve years collaborating closely with product. I'll co-write the spec, design the screens, prototype the edge cases, and—when it helps the team—prototype it in code.</p>
+        <ul>
+          <li>Strong cross-functional partner</li>
+          <li>Roadmap input, not roadmap reactions</li>
+          <li>Pattern library that compounds</li>
+          <li>Less Slack thrash</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your VP of Engineering</h4>
+        <h3>Designs that compile in your head.</h3>
+        <p>I think in components, states, and edge cases. Hand-offs come tokenized, accessible, and with responsive behavior already thought through.</p>
+        <ul>
+          <li>Tokenized, structured Figma files</li>
+          <li>Accessibility considered up front</li>
+          <li>Speaks SwiftUI, Compose, React</li>
+          <li>Reviews PRs for design polish</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Sales Team</h4>
+        <h3>A demo that closes itself.</h3>
+        <p>Sharper visual hierarchy, tighter sales-ready flows. The kind of polish that turns Veras's pitch into "where do I sign" the second a long-term care operator sees the screen.</p>
+        <ul>
+          <li>Polish the moments buyers screenshot</li>
+          <li>Tighten the live-demo path</li>
+          <li>Make ROI feel visible, not just real</li>
+          <li>Sales deck assets, not just product</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Customer Success</h4>
+        <h3>A product CNAs actually understand.</h3>
+        <p>Onboarding flows that reduce ticket volume. Empty states that teach. Microcopy that doesn't make CS clean up after it. The mobile experience CNAs actually want to use.</p>
+        <ul>
+          <li>Self-serve onboarding</li>
+          <li>Reduce "where do I click" tickets</li>
+          <li>Empty-state &amp; error UX audit</li>
+          <li>Mobile-first for frontline staff</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Recruiter</h4>
+        <h3>Already in Lehi. Already excited.</h3>
+        <p>Lives 8 minutes from your office. Knows Veras's category. Has a portfolio you can verify. Is, in fact, the person who built this page as a cover letter.</p>
+        <ul>
+          <li>No relo, no visa, no drama</li>
+          <li>Senior-level, IC-happy</li>
+          <li>References available on request</li>
+          <li>Available to start: soon</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap inner">
+    <div>
+      <span class="section-eyebrow">About Hunter</span>
+      <h2>Better designer.<br/><span class="ital">For the team that cares.</span></h2>
+      <p>Twelve years of shipping product across consumer, enterprise, and mobile. I'm a designer-developer who's comfortable across the full play—research, design systems, brand identity, motion, prototyping, and the production code that makes it real—which means I can plug into whichever part of Veras's team needs help on any given week.</p>
+      <p>I've co-founded the #1 LDS dating app in the world (Mutual), spun up its sister product (Ark), built Nu Skin's first Figma design system, and currently run paramore.design as my full-time studio — helping small businesses adopt AI and ship the custom tools they actually need. I'm actively exploring full-time or consulting opportunities right now, and Veras is a natural fit — Lehi-local, founder-driven, and building for the people who care.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+        <a href="mailto:hparamore@gmail.com" class="btn btn-primary">Schedule a chat <span class="arrow">→</span></a>
+        <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost">View full résumé</a>
+      </div>
+    </div>
+
+    <div class="me-card">
+      <div class="top">
+        <div class="avatar-lg">HP</div>
+        <div>
+          <div class="name">Hunter Paramore</div>
+          <div class="role">Experienced Designer-Developer</div>
+          <div class="loc">Lehi, UT · 8 min from Veras HQ</div>
+        </div>
+      </div>
+      <ul>
+        <li>12+ yrs experience</li>
+        <li>Figma (Expert)</li>
+        <li>Design Systems</li>
+        <li>SwiftUI &amp; Compose</li>
+        <li>React Native</li>
+        <li>Anthropic API</li>
+        <li>User Research</li>
+        <li>Workshop facilitation</li>
+        <li>BFA, BYU-Idaho</li>
+        <li>Lectures at BYU &amp; UVU</li>
+      </ul>
+
+      <div class="me-extras">
+        <h5>Off the Clock</h5>
+        <div class="me-extras-grid">
+          <span>Airsoft</span>
+          <span>3D Modeling/Printing</span>
+          <span>Motion Graphics</span>
+          <span>Building Apps</span>
+          <span>Zelda Games</span>
+          <span>Creating Stuff</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="pre">★ The final pitch</div>
+  <h2>I saw "Come build with us." <span class="ital">Consider this my RSVP.</span></h2>
+  <p>Excited to meet the team, learn the residents and the frontline staff you're building for, and ship product alongside people who care about it. Grab a Swig in Lehi, a quick video call anywhere, or just reply to my application—whichever's fastest.</p>
+  <div class="row">
+    <a href="mailto:hparamore@gmail.com" class="btn btn-accent">Schedule a chat <span class="arrow">→</span></a>
+    <a href="https://paramore.design" target="_blank" class="btn btn-ghost">See the full portfolio</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <span>Paramore<span class="dot-grad">.</span>Design</span>
+        </div>
+        <p>A Sr UX/UI Designer–Developer in Lehi, Utah. Twelve years of shipping product with great teams. Big fan of Veras. Available now.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Hunter</h5>
+        <a href="https://paramore.design" target="_blank">paramore.design</a>
+        <a href="https://paramore.design/resume" target="_blank">Resume</a>
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <a href="https://www.figma.com/@hparamore" target="_blank">Figma Portfolio</a>
+      </div>
+      <div class="foot-col">
+        <h5>Highlights</h5>
+        <a href="#founder">Founder Fit</a>
+        <a href="#why">Why Hunter</a>
+        <a href="#how">How I Work</a>
+        <a href="#about">About</a>
+      </div>
+      <div class="foot-col">
+        <h5>Talk</h5>
+        <a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a>
+        <a href="mailto:hparamore@gmail.com">Schedule a chat</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Hunter Paramore · Made with affection in Lehi.</div>
+      <div class="disclaimer">⚠ Parody — not affiliated with or endorsed by Veras. Just a big fan with too much Figma energy who lives 8 minutes away.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab interaction
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.target;
+      tabBtns.forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+      tabPanels.forEach(p => p.setAttribute('data-active', p.id === id ? 'true' : 'false'));
+    });
+  });
+
+  // Smooth scroll for anchor nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const el = document.querySelector(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+    });
+  });
+
+  // Mouse-reactive parallax on the hero cards
+  (function heroParallax() {
+    const hero = document.querySelector('.hero');
+    const cards = Array.from(document.querySelectorAll('.hero .glass-card'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!hero || !cards.length || reduceMotion) return;
+
+    const intensities = cards.map(c => {
+      if (c.classList.contains('gc-mini-2')) return { tx: 26, ty: 16, rx: 4.5, ry: 6 };
+      if (c.classList.contains('gc-mini-1')) return { tx: 16, ty: 10, rx: 3.5, ry: 5 };
+      return { tx: 12, ty: 8, rx: 2.5, ry: 3.5 };
+    });
+
+    let targetX = 0, targetY = 0;
+    let curX = 0, curY = 0;
+    let raf = null;
+
+    function tick() {
+      curX += (targetX - curX) * 0.07;
+      curY += (targetY - curY) * 0.07;
+      cards.forEach((card, i) => {
+        const k = intensities[i];
+        card.style.transform =
+          'translate3d(' + (curX * k.tx).toFixed(2) + 'px,' + (curY * k.ty).toFixed(2) + 'px,0) ' +
+          'rotateX(' + (-curY * k.rx).toFixed(2) + 'deg) ' +
+          'rotateY(' + (curX * k.ry).toFixed(2) + 'deg)';
+      });
+      if (Math.abs(targetX - curX) > 0.001 || Math.abs(targetY - curY) > 0.001) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
+    }
+
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      targetX = 0; targetY = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+  })();
+</script>
+
+</body>
+</html>

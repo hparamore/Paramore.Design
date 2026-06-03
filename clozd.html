@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunter Paramore — Sr. UX/UI Designer for Clozd</title>
+<meta name="description" content="The Leader in DESIGN INTELLIGENCE. The designer-developer your hiring team would win with." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F4F1EA;
+    --bg-card: #FFFFFF;
+    --ink: #0B1320;
+    --ink-soft: #3B4456;
+    --ink-mute: #6B7280;
+    --line: #E5E0D5;
+    --accent: #D7FF3A;       /* lime-yellow, Clozd-ish */
+    --accent-soft: #EEFFB0;
+    --accent-2: #FF6B47;     /* coral pop */
+    --navy: #0B1320;
+    --navy-2: #131C30;
+    --shadow: 0 1px 2px rgba(11,19,32,.04), 0 8px 24px rgba(11,19,32,.06);
+    --radius-sm: 10px;
+    --radius: 18px;
+    --radius-lg: 28px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(244,241,234,0.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 22px; letter-spacing: -0.02em;
+  }
+  .logo-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(215,255,58,0.25);
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--ink); font-weight: 500; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .nav-links a:hover { color: var(--accent-2); }
+  .nav-cta { display: flex; align-items: center; gap: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 600; font-size: 15px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: transform .12s ease, background .2s ease, color .2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { background: var(--accent-2); }
+  .btn-accent { background: var(--accent); color: var(--ink); }
+  .btn-accent:hover { background: var(--ink); color: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .arrow { font-weight: 800; }
+
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(1000px 500px at 90% -10%, rgba(215,255,58,0.18), transparent 60%),
+      radial-gradient(700px 400px at 10% 110%, rgba(255,107,71,0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    padding: 110px 0 120px;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 22px 0 22px;
+  }
+  .hero h1 .smallcap {
+    display: block;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.2vw, 44px);
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .hero h1 .stamp {
+    background: var(--accent);
+    color: var(--ink);
+    padding: 0 14px;
+    border-radius: 12px;
+    display: inline-block;
+    transform: rotate(-1.5deg);
+  }
+  .hero p {
+    font-size: 19px;
+    max-width: 560px;
+    color: rgba(255,255,255,0.78);
+    margin: 0 0 32px;
+    line-height: 1.55;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-visual {
+    position: relative;
+    height: 460px;
+    perspective: 1200px;
+  }
+  .glass-card {
+    position: absolute;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 18px 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-card { transform: none !important; transition: none !important; }
+  }
+  .gc-main {
+    top: 30px; left: 0; right: 40px;
+    padding: 28px;
+  }
+  .gc-main .title { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .gc-main .big { font-family: 'Instrument Serif', serif; font-size: 56px; line-height: 1; color: var(--accent); margin: 8px 0 4px; }
+  .gc-main .desc { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .gc-row { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; gap: 12px; }
+  .pill { background: rgba(215,255,58,0.15); color: var(--accent); padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid rgba(215,255,58,0.25); }
+
+  .gc-mini-1 {
+    bottom: 30px; left: 30px;
+    width: 290px;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #FFD96A, #FF6B47);
+    color: var(--ink);
+    font-weight: 800; font-size: 16px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .gc-mini-1 .name { font-weight: 700; font-size: 14px; line-height: 1.2; }
+  .gc-mini-1 .role { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 3px; line-height: 1.3; }
+  .gc-mini-1 .loc { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; letter-spacing: 0.02em; }
+
+  .gc-mini-2 {
+    bottom: 130px; right: 0;
+    width: 250px;
+  }
+  .gc-mini-2 .big-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--accent);
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .gc-mini-2 .big-number small {
+    font-size: 38px;
+    line-height: 1;
+    font-family: 'Instrument Serif', serif;
+  }
+  .gc-mini-2 .big-number .trend-arrow {
+    width: 18px; height: 18px;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .gc-mini-2 .metric-label {
+    font-size: 17px;
+    color: #fff;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .gc-mini-2 .delta {
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(215,255,58,0.18);
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; padding: 70px 0 80px; }
+    .hero-visual { height: 380px; }
+  }
+
+  /* ===== LOGO STRIP ===== */
+  .strip {
+    padding: 50px 0;
+  }
+  .strip-label {
+    text-align: center;
+    font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-mute); font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .strip-logos {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: 36px 56px;
+  }
+  .strip-logos span {
+    font-weight: 700; font-size: 22px; letter-spacing: -0.02em;
+    color: var(--ink-soft); opacity: 0.7;
+  }
+  .strip-logos .pmark { color: var(--accent-2); }
+
+  /* ===== SECTION HEADER ===== */
+  section { padding: 100px 0; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    background: var(--ink);
+    color: var(--accent);
+    border-radius: 999px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .section-title {
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 18px 0 16px;
+    max-width: 1100px;
+    text-wrap: balance;
+  }
+  .section-title .ital {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-2);
+  }
+  .section-sub {
+    font-size: 18px; color: var(--ink-soft);
+    max-width: 680px; margin: 0 0 48px;
+    line-height: 1.55;
+  }
+
+  /* ===== CATEGORY FIT / RESEARCH ===== */
+  .research { background: var(--bg); }
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    margin: 12px 0 24px;
+  }
+  .research-stat--wide .r-label {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+  }
+  .research-stat--wide .r-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 14px;
+    max-width: 640px;
+  }
+  .research-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .research-stat:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .research-stat .r-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 60px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .research-stat .r-num small {
+    font-size: 22px;
+    color: var(--accent-2);
+    margin-left: 6px;
+    font-family: 'Instrument Serif', serif;
+    letter-spacing: 0;
+  }
+  .research-stat .r-label {
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .research-stat .r-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .research-extras {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 32px 36px;
+  }
+  .research-extras .extras-head {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    margin: 0 0 18px;
+  }
+  .research-extras .extras-head h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .research-extras .extras-head p {
+    margin: 0;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    font-style: italic;
+  }
+  .research-extras ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 28px;
+  }
+  .research-extras li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.9);
+  }
+  .research-extras li::before {
+    content: "→";
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .research-closer {
+    text-align: center;
+    margin-top: 28px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+  }
+  .research-closer .ital { color: var(--accent-2); }
+  @media (max-width: 880px) {
+    .research-grid { grid-template-columns: 1fr; }
+    .research-extras ul { grid-template-columns: 1fr; }
+  }
+
+  /* ===== PHILOSOPHY / FANS FIRST ===== */
+  .philosophy {
+    background:
+      radial-gradient(ellipse 85% 75% at 0% 100%, rgba(215,255,58,0.65), transparent 60%),
+      radial-gradient(ellipse 75% 65% at 100% 0%, rgba(255,107,71,0.40), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(215,255,58,0.25), transparent 65%),
+      radial-gradient(ellipse 50% 40% at 0% 0%, rgba(255,107,71,0.18), transparent 65%),
+      var(--bg);
+    padding: 130px 0;
+    position: relative;
+  }
+  .philosophy::before,
+  .philosophy::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(11,19,32,0.08) 50%, transparent 100%);
+  }
+  .philosophy::before { top: 0; }
+  .philosophy::after { bottom: 0; }
+  .philosophy .wrap { max-width: 920px; }
+  .phil-quote {
+    margin: 36px 0 32px;
+    padding: 48px 48px 40px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .phil-quote::before {
+    content: "“";
+    position: absolute;
+    top: -10px;
+    left: 28px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 140px;
+    color: var(--accent);
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .phil-quote::after {
+    content: "”";
+    position: absolute;
+    bottom: -90px;
+    right: 28px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 140px;
+    color: var(--accent);
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .phil-quote p {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.15;
+    margin: 0 0 18px;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+  }
+  .phil-quote cite {
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  .phil-body p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  .phil-body p:last-child {
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  @media (max-width: 600px) {
+    .phil-quote { padding: 36px 28px 28px; }
+    .phil-quote::before, .phil-quote::after { display: none; }
+  }
+
+  /* ===== TABS SECTION ===== */
+  .tabs-section { background: var(--bg); }
+  .tab-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+  .tab-btn {
+    padding: 14px 18px;
+    background: transparent; border: none;
+    font: inherit;
+    font-weight: 600; font-size: 15px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .2s, border-color .2s;
+  }
+  .tab-btn[aria-selected="true"] {
+    color: var(--ink);
+    border-bottom-color: var(--accent-2);
+  }
+  .tab-panel { display: none; }
+  .tab-panel[data-active="true"] { display: grid; }
+
+  .tab-panel {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .tab-text h3 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    font-weight: 800;
+  }
+  .tab-text p {
+    color: var(--ink-soft); font-size: 17px; line-height: 1.6;
+    margin: 0 0 22px; max-width: 480px;
+  }
+  .tab-text a.linkout {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; color: var(--ink);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+  }
+  .tab-visual {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tab-visual .mini-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tab-visual .mini-head h4 { margin: 0; font-size: 14px; font-weight: 700; }
+  .tab-visual .mini-head .dot-row { display: flex; gap: 5px; }
+  .tab-visual .mini-head .dot { width: 9px; height: 9px; border-radius: 50%; background: #E5E0D5; }
+  .tab-visual .mini-head .dot.green { background: #4FCB7A; }
+  .data-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  .data-row:last-child { border-bottom: none; }
+  .data-row .label { color: var(--ink-soft); display: flex; align-items: center; gap: 8px; }
+  .data-row .bar {
+    width: 140px; height: 8px; background: var(--line); border-radius: 999px; overflow: hidden;
+  }
+  .data-row .bar > div {
+    height: 100%; background: var(--accent); border-radius: 999px;
+  }
+  .data-row .val { font-weight: 700; }
+  .badge-tag {
+    display: inline-block;
+    background: var(--accent-soft); color: #3D6E00;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+  }
+  .badge-tag.coral { background: #FFE4DC; color: #B2452B; }
+  .badge-tag.navy { background: #E6EAF2; color: #1E2A47; }
+
+  @media (max-width: 880px) {
+    .tab-panel[data-active="true"] { grid-template-columns: 1fr; }
+  }
+
+  /* ===== STATS / OUTCOMES ===== */
+  .outcomes { background: var(--navy); color: #fff; margin: 60px 0; }
+  .outcomes .inner-pad { padding: 90px 0; }
+  .outcomes .section-title { color: #fff; }
+  .outcomes .section-sub { color: rgba(255,255,255,0.7); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  a.stat-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(215,255,58,0.45);
+  }
+  a.stat-card:hover .footnote .ext { opacity: 1; transform: translate(2px, -2px); }
+  .stat-card .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 78px; line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .stat-card .num small { font-size: 28px; vertical-align: top; }
+  .stat-card h4 { margin: 18px 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .stat-card p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.55; margin: 0 0 24px; }
+  .stat-card .footnote {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(255,255,255,0.12);
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .stat-card .footnote .ext {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: rgba(215,255,58,0.12);
+    color: var(--accent);
+    opacity: 0.7;
+    transition: opacity .2s ease, transform .2s ease;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0;
+  }
+  @media (max-width: 880px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials { background: var(--bg); }
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .quote-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line);
+  }
+  .quote-card::before {
+    content: "“";
+    font-family: 'Instrument Serif', serif;
+    font-size: 90px; line-height: 1;
+    color: var(--accent);
+    position: absolute; top: 12px; right: 22px;
+  }
+  .quote-card .logo-line {
+    font-weight: 700; font-size: 14px;
+    color: var(--ink-soft); margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .quote-card blockquote {
+    margin: 0 0 22px; font-size: 17px; line-height: 1.55;
+    font-weight: 500; color: var(--ink);
+  }
+  .quote-card .author {
+    margin-top: auto;
+    display: flex; align-items: center; gap: 12px;
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+  .quote-card .author .avatar {
+    width: 38px; height: 38px; font-size: 13px;
+    background: var(--ink); color: var(--accent);
+    border: none;
+  }
+  .quote-card .author .name { font-weight: 700; font-size: 14px; }
+  .quote-card .author .role { font-size: 12px; color: var(--ink-mute); }
+  @media (max-width: 880px) {
+    .quote-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== PERSONAS ===== */
+  .personas { background: var(--bg-card); }
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .persona-card {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    border: 1px solid var(--line);
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  .persona-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent);
+  }
+  .persona-card h4 {
+    margin: 0 0 6px; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-mute); font-weight: 700;
+  }
+  .persona-card h3 {
+    margin: 0 0 12px; font-size: 22px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .persona-card p {
+    margin: 0 0 16px; color: var(--ink-soft); font-size: 15px; line-height: 1.55;
+  }
+  .persona-card ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .persona-card li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: var(--ink);
+  }
+  .persona-card li::before {
+    content: "";
+    display: inline-block;
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    background-color: var(--ink);
+    border-radius: 5px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D7FF3A' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='5 12 10 17 19 7'/></svg>");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    margin-top: 2px;
+  }
+  @media (max-width: 880px) {
+    .persona-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== HOW I WORK (3 step) ===== */
+  .how { background: var(--bg); }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .how-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    border: 1px solid var(--line);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .how-card .tag-list { margin-top: auto; }
+  .how-card .step {
+    position: absolute; top: -16px; left: 24px;
+    background: var(--accent); color: var(--ink);
+    font-weight: 800; font-size: 13px;
+    padding: 4px 12px; border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+  .how-card h3 {
+    margin: 14px 0 10px;
+    font-size: 24px; line-height: 1.15; letter-spacing: -0.015em;
+    font-weight: 800;
+  }
+  .how-card p {
+    margin: 0 0 18px; color: var(--ink-soft); font-size: 15px; line-height: 1.55;
+  }
+  .how-card .icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    display: grid; place-items: center;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag-list span {
+    background: var(--bg); border: 1px solid var(--line);
+    color: var(--ink-soft); font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  @media (max-width: 880px) {
+    .how-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== EXPERT SERVICES / ABOUT ===== */
+  .about {
+    background: var(--accent);
+    color: var(--ink);
+  }
+  .about .inner {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about h2 {
+    font-size: clamp(38px, 4.6vw, 64px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin: 0 0 18px; font-weight: 800;
+  }
+  .about h2 .ital {
+    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+  }
+  .about p {
+    font-size: 18px; line-height: 1.55; margin: 0 0 24px; max-width: 540px;
+    color: var(--ink);
+  }
+  .about .me-card {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  }
+  .me-card .top {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .me-card .avatar-lg {
+    width: 60px; height: 60px; font-size: 22px;
+    background: linear-gradient(135deg, var(--accent), #FFD96A);
+    color: var(--ink);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 800;
+  }
+  .me-card .name { font-weight: 800; font-size: 18px; line-height: 1.2; }
+  .me-card .role { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 3px; line-height: 1.3; }
+  .me-card .loc { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; letter-spacing: 0.02em; }
+  .me-card ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;
+  }
+  .me-card li {
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .me-card li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  .me-card .me-extras {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .me-card .me-extras h5 {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .me-card .me-extras-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 18px;
+  }
+  .me-card .me-extras-grid span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.3;
+  }
+  @media (max-width: 880px) {
+    .about .inner { grid-template-columns: 1fr; }
+  }
+
+  /* ===== REVIEWS / G2 STYLE ===== */
+  .reviews { background: var(--bg-card); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .review-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex; flex-direction: column;
+  }
+  .review-card .stars { color: #F2B137; font-size: 18px; letter-spacing: 2px; margin-bottom: 14px; }
+  .review-card h4 {
+    margin: 0 0 12px;
+    font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;
+    font-weight: 800;
+  }
+  .review-card p {
+    color: var(--ink-soft); font-size: 14px; line-height: 1.6; margin: 0 0 18px;
+  }
+  .review-card .who {
+    margin-top: auto;
+    font-size: 13px; color: var(--ink-mute);
+    border-top: 1px solid var(--line); padding-top: 14px;
+  }
+  .review-card .who b { color: var(--ink); font-weight: 700; }
+  @media (max-width: 880px) {
+    .reviews-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta {
+    margin: 60px auto;
+    max-width: 1240px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: 90px 60px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(700px 350px at 50% 110%, rgba(215,255,58,0.18), transparent 60%),
+      radial-gradient(500px 250px at 50% -20%, rgba(255,107,71,0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .final-cta .pre {
+    position: relative; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: 16px;
+  }
+  .final-cta h2 {
+    position: relative;
+    font-size: clamp(40px, 5.4vw, 78px);
+    line-height: 1.02; letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0 0 18px;
+  }
+  .final-cta h2 .ital {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    color: var(--accent); font-weight: 400;
+  }
+  .final-cta p {
+    position: relative;
+    font-size: 18px; color: rgba(255,255,255,0.75);
+    max-width: 600px; margin: 0 auto 36px;
+  }
+  .final-cta .row {
+    position: relative;
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+  @media (max-width: 700px) {
+    .final-cta { padding: 60px 24px; margin: 30px 16px; }
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg);
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 36px;
+    margin-bottom: 36px;
+  }
+  .foot-brand .logo { margin-bottom: 14px; }
+  .foot-brand p { color: var(--ink-soft); font-size: 14px; max-width: 360px; line-height: 1.6; }
+  .foot-col h5 {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-mute); margin: 0 0 14px; font-weight: 700;
+  }
+  .foot-col a { display: block; padding: 5px 0; font-size: 14px; color: var(--ink); }
+  .foot-col a:hover { color: var(--accent-2); }
+  .foot-bottom {
+    border-top: 1px solid var(--line); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    color: var(--ink-mute); font-size: 13px; flex-wrap: wrap;
+  }
+  .disclaimer {
+    background: var(--accent-soft); color: #3D6E00;
+    padding: 10px 14px; border-radius: 10px;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid #c8e36b;
+  }
+  @media (max-width: 880px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <span>Paramore<span style="color:var(--accent-2)">.</span>Design</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#why">Why Hunter <span>▾</span></a>
+      <a href="#how">How I Work <span>▾</span></a>
+      <a href="#outcomes">Outcomes <span>▾</span></a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost">Resume</a>
+      <a href="mailto:hparamore@gmail.com" class="btn btn-primary">Talk with me <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">★ A Parody Pitch for Clozd</span>
+      <h1>
+        <span class="smallcap">The Leader in</span>
+        DESIGN <span class="stamp">INTELLIGENCE</span>
+      </h1>
+      <p>
+        The senior designer-developer your hiring team would win with. Ten years running customer interviews, AMAs, and community feedback loops as a day-job—which makes Clozd feel a lot like home.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:hparamore@gmail.com" class="btn btn-accent">Talk with me <span class="arrow">→</span></a>
+        <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.4)">View résumé</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="glass-card gc-main">
+        <div class="title">Hire-Loss Analysis</div>
+        <div class="big">98%</div>
+        <div class="desc">probability Clozd hires Hunter, based on 12+ years of shipping product across consumer, enterprise, and mobile.</div>
+        <div class="gc-row">
+          <span class="pill">Win Theme: Designer-Developer</span>
+          <span style="color:rgba(255,255,255,0.55);font-size:12px">last updated just now</span>
+        </div>
+      </div>
+
+      <div class="glass-card gc-mini-2">
+        <div class="big-number">
+          40k<small>+</small>
+          <svg class="trend-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 L17 7" />
+            <polyline points="9 7 17 7 17 15" />
+          </svg>
+        </div>
+        <div class="metric-label">Mutual Marriages</div>
+        <div class="delta">The dating app I co-founded &amp; designed for the last 10 years.</div>
+      </div>
+
+      <div class="glass-card gc-mini-1">
+        <div class="avatar">HP</div>
+        <div>
+          <div class="name">Hunter Paramore</div>
+          <div class="role">Experienced Designer-Developer</div>
+          <div class="loc">Lehi, UT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <div class="strip-label">Receipts — companies I've shipped product for</div>
+    <div class="strip-logos">
+      <span>Mutual</span>
+      <span>Ark</span>
+      <span>Nu Skin</span>
+      <span>Stotion</span>
+      <span>Tech 9</span>
+      <span>Angel Studios</span>
+      <span>Future House Studios</span>
+      <span>The Tree Service</span>
+      <span>Harney County</span>
+      <span>Airsoft Allstars</span>
+      <span>BYU-Idaho</span>
+      <span class="pmark">Paramore.Design</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY FIT / RESEARCH -->
+<section id="research" class="research">
+  <div class="wrap">
+    <span class="section-eyebrow">On the Category Fit</span>
+    <h2 class="section-title">What Clozd does for customers, <span class="ital">I've been doing in-house for a decade.</span></h2>
+    <p class="section-sub">For ten years at Mutual and Ark, I've owned every step of the loop personally — running the research, synthesizing it through decision frameworks, designing the solution, prototyping it in Figma and in code, testing and iterating with real users, then speccing it and shipping with engineering. Research is where the design <em>starts</em> here, not where it ends.</p>
+
+    <div class="research-grid">
+      <div class="research-stat">
+        <div class="r-num">300<small>+</small></div>
+        <div class="r-label">Recorded user interviews</div>
+        <div class="r-desc">2–4 per week, every other week, for the past three years running. Plus plenty more before that.</div>
+      </div>
+      <div class="research-stat research-stat--wide">
+        <div class="r-label">A decade of community outreach &amp; advisory work.</div>
+        <div class="r-desc">Ten years moderating the largest Mutual Facebook groups (official + unofficial). Four years as admin of /r/Mutual and the Mutual Discord. Three years running a private "Mutual Insiders" advisory panel I founded for power users — polls and discussion threads every 1–3 weeks. Daily-active across all of them, because this is where users actually talk and where the patterns analytics never surface come from.</div>
+      </div>
+    </div>
+
+    <div class="research-extras">
+      <div class="extras-head">
+        <h4>And the rest of the kit</h4>
+        <p>just so we're clear this is the whole job</p>
+      </div>
+      <ul>
+        <li>Monthly polls and in-app surveys</li>
+        <li>Bi-monthly focus groups</li>
+        <li>Guest lecturer on UX research at BYU &amp; UVU (2–3×/year)</li>
+        <li>3-year mentor for the UVU UX program</li>
+        <li>In-person interviews at events and at universities</li>
+        <li>Personal email open to every Mutual user, every year</li>
+      </ul>
+    </div>
+
+    <div class="research-closer">All of which is to say: Clozd's marketing page reads <span class="ital">a lot like my annual review.</span></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY / FANS FIRST -->
+<section id="philosophy" class="philosophy">
+  <div class="wrap">
+    <span class="section-eyebrow">A sincere aside</span>
+    <h2 class="section-title">I treat users <span class="ital">like fans.</span></h2>
+
+    <blockquote class="phil-quote">
+      <p>Fans First. Entertain Always.</p>
+      <cite>Jesse Cole · Founder, Savannah Bananas &amp; Banana Ball</cite>
+    </blockquote>
+
+    <div class="phil-body">
+      <p>That's the entire Banana Ball operating principle: put the fan experience ahead of every spreadsheet, and trust the spreadsheet to catch up. For ten years I've built product on the same conviction.</p>
+      <p>Every detail I work on — empty states, microcopy, the way an error reads, the haptic at the moment a deal closes — exists to make the user feel respected. Not to satisfy the org chart. Not to hit a quarterly target. To make the person on the other end of the screen feel like the team building this actually cares.</p>
+      <p>Users reward that. They come back, they refer friends, they ride out the rough patches with you. It isn't idealism — it's the most defensible long-term strategy a product team can adopt. And it's the one I'd bring to Clozd.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HUNTER (tabs) -->
+<section id="why" class="tabs-section">
+  <div class="wrap">
+    <span class="section-eyebrow">Why Hunter</span>
+    <h2 class="section-title">Critical product insights—<span class="ital">collected, designed, and shipped</span> shoulder-to-shoulder with your team.</h2>
+    <p class="section-sub">Understand exactly what your users need, then translate that into pixels, prototypes, and production code—working alongside the PMs, engineers, and researchers already at Clozd. Fewer hand-offs, more shipping.</p>
+
+    <div class="tab-row" role="tablist">
+      <button class="tab-btn" role="tab" aria-selected="true" data-target="t1">Hire-Loss Analysis</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t2">Onboarding Feedback</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t3">Designer Experience</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-target="t4">Retention Analysis</button>
+    </div>
+
+    <!-- T1 -->
+    <div class="tab-panel" data-active="true" id="t1">
+      <div class="tab-text">
+        <h3>Turn this résumé into a revenue engine.</h3>
+        <p>Twelve years of design-and-ship experience, ready to plug into Clozd's existing team to sharpen positioning, tighten flows, and systematically improve the metrics your customers see on day one. I speak design, research, <em>and</em> code—which makes me a better partner to the people doing each.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Start the hire-loss interview <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Why we hire — top themes</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Ships product end-to-end <span class="badge-tag">strength</span></div><div class="bar"><div style="width:96%"></div></div><div class="val">96%</div></div>
+        <div class="data-row"><div class="label">Designer + developer <span class="badge-tag">rare</span></div><div class="bar"><div style="width:92%"></div></div><div class="val">92%</div></div>
+        <div class="data-row"><div class="label">Design system fluency <span class="badge-tag navy">expert</span></div><div class="bar"><div style="width:90%"></div></div><div class="val">90%</div></div>
+        <div class="data-row"><div class="label">Already in Utah <span class="badge-tag coral">no relo</span></div><div class="bar"><div style="width:100%"></div></div><div class="val">100%</div></div>
+        <div class="data-row"><div class="label">Owns user research</div><div class="bar"><div style="width:88%"></div></div><div class="val">88%</div></div>
+      </div>
+    </div>
+
+    <!-- T2 -->
+    <div class="tab-panel" id="t2">
+      <div class="tab-text">
+        <h3>Smooth onboarding starts with listening.</h3>
+        <p>The first 90 days at a new company aren't about shipping a "new vision" — they're about understanding the context, learning the people, and figuring out how I can be most useful. I've joined enough cross-functional teams to know that listening first and contributing second is the right order. Then we go fast together.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">See how I'd ramp <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>First 90 days at Clozd — in spirit</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Wk 1–2 · Meet the team, learn the rhythm</div><div class="badge-tag navy">listening</div></div>
+        <div class="data-row"><div class="label">Wk 3–4 · Sit in on customer research</div><div class="badge-tag navy">listening</div></div>
+        <div class="data-row"><div class="label">Wk 5–7 · Shadow PMs, engineers, CSMs</div><div class="badge-tag navy">learning</div></div>
+        <div class="data-row"><div class="label">Wk 8–10 · Pair on active work</div><div class="badge-tag">with team</div></div>
+        <div class="data-row"><div class="label">Wk 10–12 · Own something, together</div><div class="badge-tag">with team</div></div>
+      </div>
+    </div>
+
+    <!-- T3 -->
+    <div class="tab-panel" id="t3">
+      <div class="tab-text">
+        <h3>The designer your team will actually want around.</h3>
+        <p>Hiring me means you get a teammate, not a free agent. Energy at standup, low ego in critique, generous with what I know — design systems, SwiftUI patterns, interview tactics, whatever helps. Plus a stack of hobbies outside work, so I don't burn out and disappear in eighteen months.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Meet the teammate <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Day-to-day — leading indicators</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Energy at standup</div><div class="bar"><div style="width:94%"></div></div><div class="val">High</div></div>
+        <div class="data-row"><div class="label">Generosity in critique</div><div class="bar"><div style="width:96%"></div></div><div class="val">High</div></div>
+        <div class="data-row"><div class="label">Knowledge sharing</div><div class="bar"><div style="width:90%"></div></div><div class="val">Constant</div></div>
+        <div class="data-row"><div class="label">Hobbies outside work <span class="badge-tag coral">healthy</span></div><div class="bar"><div style="width:95%"></div></div><div class="val">10+</div></div>
+      </div>
+    </div>
+
+    <!-- T4 -->
+    <div class="tab-panel" id="t4">
+      <div class="tab-text">
+        <h3>Understand why some designers stay—and others leave.</h3>
+        <p>I co-founded Mutual in 2015 and stayed eleven years. Ark Dating got the same treatment. Retention isn't a problem here: I show up, I stay, I keep shipping. When I commit to a product, I'm in for the long game.</p>
+        <a href="mailto:hparamore@gmail.com" class="linkout">Read the retention story <span class="arrow">→</span></a>
+      </div>
+      <div class="tab-visual">
+        <div class="mini-head">
+          <h4>Tenure history</h4>
+          <div class="dot-row"><span class="dot green"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="data-row"><div class="label">Mutual</div><div class="bar"><div style="width:100%"></div></div><div class="val">11 yrs</div></div>
+        <div class="data-row"><div class="label">Stotion</div><div class="bar"><div style="width:50%"></div></div><div class="val">5 yrs</div></div>
+        <div class="data-row"><div class="label">Ark Dating</div><div class="bar"><div style="width:32%"></div></div><div class="val">3 yrs</div></div>
+        <div class="data-row"><div class="label">Nu Skin</div><div class="bar"><div style="width:22%"></div></div><div class="val">2 yrs</div></div>
+        <div class="data-row"><div class="label">Churn risk <span class="badge-tag">low</span></div><div class="bar"><div style="width:8%;background:var(--accent-2)"></div></div><div class="val">8%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes" class="outcomes">
+  <div class="wrap inner-pad">
+    <span class="section-eyebrow" style="background:var(--accent);color:var(--ink)">Real Outcomes</span>
+    <h2 class="section-title">Real designs drive <span class="ital">real outcomes.</span></h2>
+    <p class="section-sub">Three different proofs from twelve years of shipping product — real-world impact, industry recognition, and career depth. The section where Clozd would normally drop their best customer logos. Felt only fair to lift the format.</p>
+
+    <div class="stat-grid">
+      <a class="stat-card" href="https://paramore.design/projects/mutual.html" target="_blank" rel="noopener">
+        <div class="num">40k<small>+</small></div>
+        <h4>Marriages, give or take.</h4>
+        <p>As Director of UI/UX at Mutual—the #1 LDS dating app in the world—I led product design alongside a team of co-founders, engineers, and PMs. We built something that mattered, together.</p>
+        <div class="footnote"><span>Case Study · Mutual</span><span class="ext" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="stat-card" href="https://www.figma.com/community/file/965825767811358609/zelda-botw-ui-kit" target="_blank" rel="noopener">
+        <div class="num">300k<small>+</small></div>
+        <h4>Views on a Zelda UI kit I built for fun.</h4>
+        <p>Figma themselves featured this at the top of their Community page for a full week. A hobby project where I recreated every UI element from Zelda: Breath of the Wild as a meticulous design system — 17k+ downloads from other designers. The same obsessive detail-work I bring to production systems.</p>
+        <div class="footnote"><span>Case Study · Featured by Figma</span><span class="ext" aria-hidden="true">↗</span></div>
+      </a>
+      <div class="stat-card">
+        <div class="num">12<small>+</small></div>
+        <h4>Years shipping product.</h4>
+        <p>Small Provo agencies. Multi-billion-dollar enterprises. Scrappy startups I helped found. Personal side projects, just to keep sharp. I've shipped product at every size and shape a company comes in—which means I know what good looks like at each scale, and how to be useful from day one.</p>
+        <div class="footnote"><span>Case Study · The twelve-year tour</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <span class="section-eyebrow">Conversations Drive Outcomes</span>
+    <h2 class="section-title">What past stakeholders have <span class="ital">probably</span> said about working with me.</h2>
+    <p class="section-sub">Lightly paraphrased from years of standups, retros, and late-night Slack threads. Real people, real sentiment, slightly polished for the website.</p>
+
+    <div class="quote-grid">
+      <div class="quote-card">
+        <div class="logo-line">Mutual</div>
+        <blockquote>"Hunter is the best designer I've ever worked with. He shows up to sprint planning with both a huge Figma board of designs <em>and</em> a working SwiftUI prototype to test with us—and with real users. He's the only designer on the team and does the work of three. I just send him the problem."</blockquote>
+        <div class="author">
+          <div class="avatar">MP</div>
+          <div>
+            <div class="name">Mutual President</div>
+            <div class="role">Mutual Dating · 2015–present</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="logo-line">Nu Skin</div>
+        <blockquote>"He's the reason a team of 15+ designers across 4 countries was able to migrate from passing around local Sketch files to a unified Figma design system. He built the system, taught everyone how to use it, and helped us actually function as a global design org. Bring him back."</blockquote>
+        <div class="author">
+          <div class="avatar">NS</div>
+          <div>
+            <div class="name">A Web Team Lead</div>
+            <div class="role">Nu Skin · 2019–2021</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="logo-line">Stotion</div>
+        <blockquote>"Roof-scanning drone tools, healthcare dashboards, card decks, battle buses, magazine layouts, 3D workplace visualizations for construction sites, video, animation—we threw everything at him for five years. He shipped all of it. I'd hire him again tomorrow."</blockquote>
+        <div class="author">
+          <div class="avatar">ST</div>
+          <div>
+            <div class="name">A Studio Director</div>
+            <div class="role">Stotion · 2014–2019</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section id="how" class="how">
+  <div class="wrap">
+    <span class="section-eyebrow">How I Work</span>
+    <h2 class="section-title">Your AI-powered design hub, <span class="ital">except it shows up to standup.</span></h2>
+    <p class="section-sub">Turn customer insight into shipped product—working alongside PMs, engineers, and research. Three phases, plenty of collaborators, and a designer who's happy to share the keyboard.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="step">Phase 01</div>
+        <div class="icon">🎙</div>
+        <h3>Collect feedback</h3>
+        <p>Live 1:1 interviews, AMAs, focus groups, in-app surveys, advisory panels, community moderation across Reddit and Discord. Real user research as a daily habit, not a quarterly initiative. Happy to run the program or partner with your researchers—either way, I synthesize without sanding the edges off.</p>
+        <div class="tag-list">
+          <span>User Research</span>
+          <span>User Interviews</span>
+          <span>Usability Testing</span>
+          <span>Workshops</span>
+          <span>IxDF Certified</span>
+        </div>
+      </div>
+
+      <div class="how-card">
+        <div class="step">Phase 02</div>
+        <div class="icon">✏️</div>
+        <h3>Design the system</h3>
+        <p>Figma (expert level), design systems that scale, prototypes that feel like the real thing. Rive, motion, micro-interactions—the stuff that makes a B2B platform feel un-B2B.</p>
+        <div class="tag-list">
+          <span>Figma</span>
+          <span>Design Systems</span>
+          <span>Prototyping</span>
+          <span>Accessibility</span>
+          <span>Rive</span>
+        </div>
+      </div>
+
+      <div class="how-card">
+        <div class="step">Phase 03</div>
+        <div class="icon">🚀</div>
+        <h3>Ship the code</h3>
+        <p>SwiftUI, Kotlin/Compose, React Native, web. I don't throw designs over the wall—I climb over it and pair with engineering. Hand-offs come tokenized, prototyped, and with the edge cases already answered.</p>
+        <div class="tag-list">
+          <span>SwiftUI</span>
+          <span>Compose</span>
+          <span>React Native</span>
+          <span>Firebase</span>
+          <span>Anthropic API</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section class="personas">
+  <div class="wrap">
+    <span class="section-eyebrow">For Every Member of Your Team</span>
+    <h2 class="section-title">Deep insights for every <span class="ital">role at Clozd.</span></h2>
+    <p class="section-sub">Hiring me changes the equation for everyone in the building.<br>Here's the per-persona ROI.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <h4>For Your CRO</h4>
+        <h3>A platform that demos itself.</h3>
+        <p>Sharper visual hierarchy, tighter sales-ready flows. The product becomes the closing argument.</p>
+        <ul>
+          <li>Polish the moments buyers screenshot</li>
+          <li>Tighten the live-demo path</li>
+          <li>Make ROI feel visible, not just real</li>
+          <li>Show up Utah-local for QBRs</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your PMM</h4>
+        <h3>A design partner who's lived next to marketing.</h3>
+        <p>Years of working alongside PMM and brand teams. I'll collaborate on landing pages and launch assets that match the platform, not just describe it.</p>
+        <ul>
+          <li>Visual system across web + app</li>
+          <li>Launch motion the brand can ride</li>
+          <li>Case study templates that scale</li>
+          <li>Brand consistency, finally</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Head of Product</h4>
+        <h3>A senior who's a great PM partner.</h3>
+        <p>Twelve years collaborating closely with product. I'll co-write the spec, design the screens, prototype the edge cases, and—when it helps the team—prototype it in code.</p>
+        <ul>
+          <li>Strong cross-functional partner</li>
+          <li>Roadmap input, not roadmap reactions</li>
+          <li>Pattern library that compounds</li>
+          <li>Less Slack thrash</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your VP of Engineering</h4>
+        <h3>Designs that compile in your head.</h3>
+        <p>I think in components, states, and edge cases. Hand-offs come tokenized, accessible, and with the responsive behavior already thought through.</p>
+        <ul>
+          <li>Tokenized, structured Figma files</li>
+          <li>Accessibility considered up front</li>
+          <li>Speaks your stack's language</li>
+          <li>Reviews PRs for design polish</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your CS Director</h4>
+        <h3>A product customers actually understand.</h3>
+        <p>Onboarding flows that reduce ticket volume. Empty states that teach. Microcopy that doesn't make CS clean up after it.</p>
+        <ul>
+          <li>Self-serve onboarding</li>
+          <li>Reduce "where do I click" tickets</li>
+          <li>Empty-state &amp; error UX audit</li>
+          <li>NPS-driven UI iteration</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <h4>For Your Recruiter</h4>
+        <h3>Already local. Already excited.</h3>
+        <p>Lives in Utah. Knows Clozd's category. Has a portfolio you can verify. Is, in fact, the person who built this page as a cover letter.</p>
+        <ul>
+          <li>No relo, no visa, no drama</li>
+          <li>Senior-level, IC-happy</li>
+          <li>References available on request</li>
+          <li>Available to start: soon</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / SERVICES -->
+<section id="about" class="about">
+  <div class="wrap inner">
+    <div>
+      <span class="section-eyebrow" style="background:var(--ink);color:var(--accent)">Expert Services</span>
+      <h2 style="margin-top:18px">I bring the craft— <br/><span class="ital">we ship together.</span></h2>
+      <p>Twelve years of shipping product across consumer, enterprise, and mobile. I'm a designer-developer who's comfortable across the full play—research, design systems, brand identity, motion, prototyping, and the production code that makes it real—which means I can plug into whichever part of Clozd's team needs help on any given week.</p>
+      <p>I've co-founded the #1 LDS dating app in the world (Mutual), spun up its sister product (Ark), built Nu Skin's first Figma design system, and currently run paramore.design as my full-time studio — helping small businesses adopt AI and ship the custom tools they actually need. I'm actively exploring full-time or consulting opportunities right now, and Clozd is a natural fit on category, customers, and craft.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+        <a href="mailto:hparamore@gmail.com" class="btn btn-primary">Talk with me <span class="arrow">→</span></a>
+        <a href="https://paramore.design/resume" target="_blank" class="btn btn-ghost">View full résumé</a>
+      </div>
+    </div>
+
+    <div class="me-card">
+      <div class="top">
+        <div class="avatar-lg">HP</div>
+        <div>
+          <div class="name">Hunter Paramore</div>
+          <div class="role">Experienced Designer-Developer</div>
+          <div class="loc">Lehi, UT</div>
+        </div>
+      </div>
+      <ul>
+        <li>12+ yrs experience</li>
+        <li>Figma (Expert)</li>
+        <li>Design Systems</li>
+        <li>SwiftUI &amp; Compose</li>
+        <li>React Native</li>
+        <li>Anthropic API</li>
+        <li>User Research</li>
+        <li>Workshop facilitation</li>
+        <li>BFA, BYU-Idaho</li>
+        <li>Lectures at BYU &amp; UVU</li>
+      </ul>
+
+      <div class="me-extras">
+        <h5>Off the Clock</h5>
+        <div class="me-extras-grid">
+          <span>Airsoft</span>
+          <span>3D Modeling/Printing</span>
+          <span>Motion Graphics</span>
+          <span>Building Apps</span>
+          <span>Zelda Games</span>
+          <span>Creating Stuff</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="pre">★ The final pitch</div>
+  <h2>Connect with the newest member of <span class="ital">your design team.</span></h2>
+  <p>Excited to meet the team, learn your customers, and ship product alongside people who care about it. Grab a Swig in Lehi, a quick video call anywhere, or just reply to my application—whichever's fastest.</p>
+  <div class="row">
+    <a href="mailto:hparamore@gmail.com" class="btn btn-accent">Talk with me <span class="arrow">→</span></a>
+    <a href="https://paramore.design" target="_blank" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.4)">See the full portfolio</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <span>Paramore<span style="color:var(--accent-2)">.</span>Design</span>
+        </div>
+        <p>A Sr UX/UI Designer–Developer in Lehi, Utah. Twelve years of shipping product with great teams. Big fan of Clozd. Available now.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Hunter</h5>
+        <a href="https://paramore.design" target="_blank">paramore.design</a>
+        <a href="https://paramore.design/resume" target="_blank">Resume</a>
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <a href="https://www.figma.com/@hparamore" target="_blank">Figma Portfolio</a>
+      </div>
+      <div class="foot-col">
+        <h5>Highlights</h5>
+        <a href="#why">Why Hunter</a>
+        <a href="#how">How I Work</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#about">About</a>
+      </div>
+      <div class="foot-col">
+        <h5>Talk</h5>
+        <a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a>
+        <a href="mailto:hparamore@gmail.com">Schedule a chat</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Hunter Paramore · Made with affection in Utah.</div>
+      <div class="disclaimer">⚠ Parody — not affiliated with or endorsed by Clozd. Just a big fan with too much Figma energy.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab interaction
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.target;
+      tabBtns.forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+      tabPanels.forEach(p => p.setAttribute('data-active', p.id === id ? 'true' : 'false'));
+    });
+  });
+
+  // Smooth scroll for anchor nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const el = document.querySelector(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+    });
+  });
+
+  // Mouse-reactive parallax on the hero cards
+  (function heroParallax() {
+    const hero = document.querySelector('.hero');
+    const cards = Array.from(document.querySelectorAll('.hero .glass-card'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!hero || !cards.length || reduceMotion) return;
+
+    // Per-card intensities — front cards move more, back card moves less, giving depth
+    const intensities = cards.map(c => {
+      if (c.classList.contains('gc-mini-2')) return { tx: 26, ty: 16, rx: 4.5, ry: 6 };
+      if (c.classList.contains('gc-mini-1')) return { tx: 16, ty: 10, rx: 3.5, ry: 5 };
+      return { tx: 12, ty: 8, rx: 2.5, ry: 3.5 }; // gc-main, sits "deeper"
+    });
+
+    let targetX = 0, targetY = 0;
+    let curX = 0, curY = 0;
+    let raf = null;
+
+    function tick() {
+      curX += (targetX - curX) * 0.07;
+      curY += (targetY - curY) * 0.07;
+      cards.forEach((card, i) => {
+        const k = intensities[i];
+        card.style.transform =
+          'translate3d(' + (curX * k.tx).toFixed(2) + 'px,' + (curY * k.ty).toFixed(2) + 'px,0) ' +
+          'rotateX(' + (-curY * k.rx).toFixed(2) + 'deg) ' +
+          'rotateY(' + (curX * k.ry).toFixed(2) + 'deg)';
+      });
+      if (Math.abs(targetX - curX) > 0.001 || Math.abs(targetY - curY) > 0.001) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
+    }
+
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1 .. 1
+      targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      targetX = 0; targetY = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+  })();
+</script>
+
+</body>
+</html>
