@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>It's Easy to Have AI Build Things That Look Finished — Paramore.Design</title>
+  <meta name="description" content="I gave Fable 5 a game I'd failed to build for years. It nailed the vision out of the box — and taught me what AI quietly skips.">
+  <link rel="stylesheet" href="../../css/styles.css?v=6">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link active">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+  </nav>
+
+  <!-- Post Header -->
+  <article>
+    <header class="blog-post__header">
+      <div class="container container--narrow">
+        <a href="/blog/" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+          <span style="margin-right: var(--space-sm);">&larr;</span> All Posts
+        </a>
+        <span class="label blog-post__date" style="display: block;">June 16, 2026</span>
+        <h1 class="display-lg">It's Easy to Have AI Build Things That Look Finished</h1>
+      </div>
+    </header>
+
+    <!-- Post Body -->
+    <div class="blog-post__body section--sm">
+      <div class="container container--narrow">
+
+        <p>
+          The day Fable came out, I sat down to work and thought something was broken.
+        </p>
+
+        <p>
+          A little popup told me Fable 5 was available to use &mdash; but I couldn't find
+          it anywhere. A couple of hours later it was fixed, and I thought... okay, what's
+          something big I can test this on?
+        </p>
+
+        <p>
+          Fable's supposed to be really good at one-shotting things: thinking through each
+          step, getting the right agents doing the right things, and then testing it all
+          itself. So I figured &mdash; let's try this out. Let's see how well it can make a
+          game I've wanted to build for a while.
+        </p>
+
+        <p>
+          I sat down and started a prompt. I included screenshots from my previous attempts,
+          sketches of flows, outlines from parts of my design doc &mdash; I gave all of it to
+          Claude, turned on bypass permissions, pointed it at a folder with some CLAUDE.md
+          files, and left for a bit.
+        </p>
+
+        <h2>It Worked Out of the Box</h2>
+
+        <p>
+          When I got back, I was greeted with instructions for spinning up a local server
+          for the game. I opened it in my browser and... let me tell you, this thing worked
+          extremely well out of the box.
+        </p>
+
+        <p>
+          Not perfect, mind you. But everything worked to some extent, and it followed my
+          game design docs, my ideas, even the screenshots of potential UI elements. It built
+          out some of the gameplay and even added a couple of short tutorial notes to help
+          players get started.
+        </p>
+
+        <p>
+          To put that in context: I've spent hours and hours over the past few years trying
+          to learn Unity, Godot, and other engines to make this idea work &mdash; and I always
+          got stumped on dumb functionality. Things like getting two cards to stack when you
+          drag one on top of the other, or building a system to detect which cards are in a
+          specific pile.
+        </p>
+
+        <p>
+          Fable didn't just get all of that right. It added the little UX touches too &mdash;
+          picking cards up, dragging them, right-clicking to split a stack, snapping cards to
+          each other. Heck, it even added sound effects.
+        </p>
+
+        <h2>The Part I Always Love</h2>
+
+        <p>
+          And then it was time for the part I always love: paying attention to the small
+          details.
+        </p>
+
+        <p>
+          Yeah, yeah &mdash; it's way too early in the process to nitpick. That's what part
+          of me was thinking. But at the same time, I was able to polish those details while
+          also pushing the concept of the game forward.
+        </p>
+
+        <p>
+          In design, there are two kinds of people: those who can look at a wireframe and
+          understand what the thing is meant to be, and those who need the final version in
+          front of them to get it. I've worked with plenty of clients in both camps. And
+          sitting there, I realized &mdash; it's actually kind of nice to not be stuck in
+          wireframe-and-flowchart mode for once.
+        </p>
+
+        <p>
+          The game wasn't &ldquo;final,&rdquo; but it was a lot further along than wireframes.
+          Combine that with real gameplay logic, and I had a working, semi-polished prototype
+          I could actually play to gauge the one thing that matters most: is it fun? And
+          believe me &mdash; so many things I was sure would be fun turned out to be boring or
+          annoying once I actually played them.
+        </p>
+
+        <p>
+          Which is where I had to take a step back and make a plan.
+        </p>
+
+        <p>
+          Rushing ahead is a blast. Claude makes it so easy to design, prompt, build, test,
+          iterate, and repeat &mdash; it even took on the design system I'd built and helped
+          me dial in the game board settings like camera angle and zoom levels. But now I had
+          a problem.
+        </p>
+
+        <p>
+          So far, the game was built on a backend and rule set that lived mostly in JavaScript
+          and JSON files. As a designer, those two things are about as far from a useful
+          &ldquo;game design file&rdquo; as you can get &mdash; lists and code that run the
+          thing and hold the rules. Turning this into the game I actually wanted to build
+          &mdash; ideally with some kind of interface for crafting levels, recipes, upgrades,
+          and progression &mdash; was a whole other thing.
+        </p>
+
+        <p>
+          And that's the hidden part I've been circling, and the real point of this post.
+        </p>
+
+        <h2>It's Easy to Have AI Build Things That Look Finished</h2>
+
+        <p>
+          Fable 5 is amazing, but it rolls a lot of steps into one. Things I'd normally have
+          to do myself in Opus &mdash; setting up each of the systems, building tools to work
+          with them (even if it's just spreadsheets for recipes and strings), building out the
+          map and individual elements &mdash; Fable just blew past all of it and produced
+          something that nailed what I was hoping for. But in doing so, it also created a big
+          chunk of debt work that I'm now dealing with: essentially building out the
+          &ldquo;engine&rdquo; and the &ldquo;studio&rdquo; parts of this myself, and getting
+          those working.
+        </p>
+
+        <p>
+          Honestly, that's not much of a drawback, and I'm happy to do it. Building a custom
+          studio to edit the game experience, and working on the engine side to render and
+          optimize it, are both fun. And going forward, knowing which steps Fable will skip
+          &mdash; the ones I'll have to rebuild &mdash; will absolutely reshape how I prompt.
+        </p>
+
+        <p>
+          But for quick proofs of concept? Fable 5 has shown it can validate an idea fast and
+          help carry it from the &ldquo;wireframe&rdquo; version into something other people
+          can look at and have that same ah-ha moment &mdash; even if they don't speak
+          wireframe.
+        </p>
+
+        <p>
+          And being able to see progress, prompt a change, and watch it show up right away has
+          done something I didn't expect: it's made me want to work on this more, and get it
+          out for others to test and shape. Which is really what I'm after.
+        </p>
+
+        <h2>Designing in the Dev Environment</h2>
+
+        <p>
+          Because while I love the design process &mdash; love designing, love building &mdash;
+          at heart I'm a product designer. I like building products: design, development,
+          testing, and feedback, together. I just happen to have the most experience in design
+          and UX, which flavors everything. But I'll happily sacrifice my perfectly organized,
+          perfectly documented Figma files in the name of actually shipping something into the
+          world.
+        </p>
+
+        <p>
+          The more I use Claude to build the things I used to only design, the less I rely on
+          getting everything perfect in Figma. I work more in the development environment now
+          &mdash; taking the actual code, seeing what it does, and influencing the design there
+          instead of in Figma.
+        </p>
+
+        <p>
+          I still love Figma, to be clear. It's still my preferred tool. I just find I only go
+          there when I need to solve something specific, when I need to show Claude what I'm
+          talking about, or when I need to design real assets for the app &mdash; icons,
+          illustrations, that kind of thing.
+        </p>
+
+        <h2>Build Your Thing</h2>
+
+        <p>
+          So here's my pitch: take the idea in your head, write it down in as much detail as
+          you can, and work with Claude or Codex to break it into chunks and build it. I've
+          learned more about actual iOS, web, and game development in the past six months of
+          building with Claude than I did in years of grinding through tutorials and courses
+          &mdash; all of which show you how to build someone else's thing, their way.
+        </p>
+
+        <p>
+          Building your thing is like crack. It's addicting.
+        </p>
+
+        <p>
+          If you haven't tried it... please do.
+        </p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: var(--space-4xl);">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js?v=3"></script>
+</body>
+</html>
