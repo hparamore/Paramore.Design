@@ -857,6 +857,137 @@ p {
   margin: var(--space-2xl) 0;
 }
 
+/* ---------- Blog Cards (featured, horizontal) ----------
+   Reusable article card for the blog index. Image beside text:
+   category + date, title, subtitle, 3-line excerpt, read-more.
+   Duplicate the <a class="blog-card"> block in blog/index.html
+   for each new post. Hero images live in assets/images/blog/
+   and are shown at a 4:5 aspect (object-fit: cover crops others). */
+.blog-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.blog-card {
+  display: grid;
+  grid-template-columns: minmax(0, 38%) 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out),
+              background var(--duration-normal) var(--ease-out);
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent-muted);
+  background: var(--color-surface-elevated);
+  color: inherit;
+}
+
+.blog-card__image {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface-elevated);
+}
+
+.blog-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.blog-card:hover .blog-card__image img {
+  transform: scale(1.03);
+}
+
+.blog-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-right: var(--space-md);
+}
+
+.blog-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.blog-card__date {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  white-space: nowrap;
+}
+
+.blog-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.blog-card__subtitle {
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+.blog-card__excerpt {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--leading-relaxed);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card__more {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: gap var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.blog-card:hover .blog-card__more {
+  gap: var(--space-sm);
+  color: var(--color-accent-hover);
+}
+
+/* Blog cards — mobile: stack image on top, full image (no crop) */
+@media (max-width: 768px) {
+  .blog-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .blog-card__body {
+    padding-right: 0;
+  }
+  .blog-card__title {
+    font-size: var(--text-2xl);
+  }
+}
+
 
 /* ---------- About ---------- */
 .about-intro {
