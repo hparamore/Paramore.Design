@@ -1196,9 +1196,10 @@ function updatePlayground(){
   if(!pg) return;
   const t=THEMES[pg.brand][pg.mode];
   const stage=document.getElementById('pgStage');
-  // Canvas follows the theme surfaces, so dark mode swaps to the dark background.
+  // Light: white vs light-grey canvas. Dark: always the app's darkest surface (grey0),
+  // so the elevated component (grey50) reads clearly against it.
   const surf=sem.surfaces(t);
-  stage.style.background = pg.bg==='white' ? surf.base : surf.sunken;
+  stage.style.background = t.isDarkMode ? t.grey0 : (pg.bg==='white' ? surf.base : surf.sunken);
   stage.innerHTML = pg.kind==='button' ? previewButton(t) : previewDialog(t);
   document.getElementById('pgCode').textContent = pg.kind==='button' ? codeButton() : codeDialog();
 }
