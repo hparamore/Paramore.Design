@@ -1192,14 +1192,27 @@ function knobsDialog(){const s=pg;return `
     <div class="knob"><label>Label</label>${pgText('b2t',s.b2t)}</div></div>`;
 }
 function setPg(k,v){ if(k==='btnCount'||k==='width') v=Number(v); pg[k]=v; }
+// Grey canvas blends with the dark elevated surface, so in dark mode lock to White.
+function syncCanvasToggle(){
+  const m=document.getElementById('pgModal');
+  const grey=m.querySelector('[data-k="bg"][data-v="grey"]'), white=m.querySelector('[data-k="bg"][data-v="white"]');
+  if(!grey||!white) return;
+  if(pg.mode==='dark'){
+    pg.bg='white';
+    grey.disabled=true; grey.style.opacity='.4'; grey.style.pointerEvents='none'; grey.setAttribute('aria-pressed','false');
+    white.setAttribute('aria-pressed','true');
+  } else {
+    grey.disabled=false; grey.style.opacity=''; grey.style.pointerEvents='';
+  }
+}
 function updatePlayground(){
   if(!pg) return;
   const t=THEMES[pg.brand][pg.mode];
   const stage=document.getElementById('pgStage');
-  // Light: white vs light-grey canvas. Dark: always the app's darkest surface (grey0),
-  // so the elevated component (grey50) reads clearly against it.
+  // White canvas = base surface (grey0 — pure white in light, darkest in dark);
+  // Grey canvas = sunken (light only — locked off in dark, see syncCanvasToggle).
   const surf=sem.surfaces(t);
-  stage.style.background = t.isDarkMode ? t.grey0 : (pg.bg==='white' ? surf.base : surf.sunken);
+  stage.style.background = pg.bg==='white' ? surf.base : surf.sunken;
   stage.innerHTML = pg.kind==='button' ? previewButton(t) : previewDialog(t);
   document.getElementById('pgCode').textContent = pg.kind==='button' ? codeButton() : codeDialog();
 }
@@ -1228,6 +1241,7 @@ function openPlayground(kind){
     </div>
   </div>`;
   wirePlayground();
+  syncCanvasToggle();
   updatePlayground();
   m.classList.add('show');
 }
@@ -1239,7 +1253,7 @@ function wirePlayground(){
   m.querySelector('.pg-code__copy').addEventListener('click',()=>copy(document.getElementById('pgCode').textContent,'Code copied to clipboard'));
   m.querySelectorAll('[data-k]').forEach(el=>{
     if(el.tagName==='BUTTON'){
-      el.addEventListener('click',()=>{ setPg(el.dataset.k, el.dataset.v); el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===el)); updatePlayground(); });
+      el.addEventListener('click',()=>{ setPg(el.dataset.k, el.dataset.v); el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===el)); if(el.dataset.k==='mode') syncCanvasToggle(); updatePlayground(); });
     } else if(el.tagName==='INPUT'){
       el.addEventListener('input',()=>{ setPg(el.dataset.k, el.value); updatePlayground(); });
     } else if(el.tagName==='SELECT'){
