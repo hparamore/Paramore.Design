@@ -238,6 +238,11 @@
   .ds-sech { display:flex; align-items:center; gap:8px; padding:0 4px; min-height:44px; }
   .ds-sech__t { font-weight:700; color:var(--text-primary); }
   .ds-sech__trail { margin-left:auto; display:flex; align-items:center; gap:4px; color:var(--text-secondary); font-size:14px; }
+  .atoms-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
+  .atom-card { background:var(--surface-elevated); border:1px solid var(--border-default); border-radius:14px; padding:16px 18px; }
+  .atom-card .atom-t { font-size:15px; font-weight:600; color:var(--text-primary); }
+  .atom-card .atom-tok { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--text-tertiary); margin:2px 0 14px; }
+  .atom-card .atom-demos { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 
   /* ─── AI panel ─── */
   .ai-callout {
@@ -605,15 +610,15 @@ function renderComponents(t){
       <p class="subhead">Banners</p>
       <div class="demo-stack">
         <div class="ds-banner" style="background:${s.elevated};border:1px solid ${bd.default}">
-          <div class="b-ic" style="background:${t.brandSecondary};color:${t.isDarkMode?t.constantWhite:t.grey900}">i</div>
+          <div class="b-ic" style="background:${t.brandSecondary};color:${t.isDarkMode?t.constantWhite:t.grey900}">${getIcon('Help',15)||'i'}</div>
           <div><div class="b-t">Card banner</div><div class="b-d">Outlined surface for tips & info.</div></div>
         </div>
         <div class="ds-banner" style="background:${t.brandAccent1};">
-          <div class="b-ic" style="background:rgba(0,0,0,.15);color:#000">★</div>
+          <div class="b-ic" style="background:rgba(0,0,0,.15);color:#000">${getIcon('PremiumSparkle',15)||'★'}</div>
           <div><div class="b-t" style="color:#000">Filled promo</div><div class="b-d" style="color:rgba(0,0,0,.7)">Accent-filled for callouts.</div></div>
         </div>
         <div class="ds-banner" style="background:${hexA(st.success,.15)};">
-          <div class="b-ic" style="background:${st.success};color:#fff">✓</div>
+          <div class="b-ic" style="background:${st.success};color:#fff">${getIcon('Check',15)||'✓'}</div>
           <div><div class="b-t">Success state</div><div class="b-d">Status colors with subtle fills.</div></div>
         </div>
       </div>
@@ -623,7 +628,7 @@ function renderComponents(t){
       <p class="subhead">Dialog</p>
       <div style="flex:1;display:flex;align-items:center;justify-content:center;background:${s.sunken};border-radius:14px;padding:28px">
         <div style="background:${s.elevated};border-radius:28px;padding:28px;max-width:280px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2);text-align:center">
-          <div style="width:56px;height:56px;border-radius:100px;background:${t.brandSecondary};margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;color:${t.isDarkMode?t.constantWhite:t.grey900}">♥</div>
+          <div style="width:56px;height:56px;border-radius:100px;background:${t.brandSecondary};margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;color:${t.brandAccent5}">${getIcon('HeartFill',26)||'♥'}</div>
           <div style="font-family:${f.primary};font-size:22px;font-weight:700;color:${tx.primary};margin-bottom:8px">It's a match!</div>
           <div style="font-family:${f.primary};font-size:15px;color:${tx.secondary};margin-bottom:20px;line-height:1.45">Every element here is driven by the active theme tokens.</div>
           <div style="display:flex;flex-direction:column;gap:8px">
@@ -638,16 +643,6 @@ function renderComponents(t){
 function hexA(hex,a){const[r,g,b]=hexToRgb(hex);return`rgba(${r},${g},${b},${a})`;}
 
 /* ── Rows / list components (ports Swift GroupedRow + SectionHeader + RowDivider) ── */
-const ROW_ICONS = {
-  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
-  bell:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a6 6 0 0 0-6 6c0 5-2 6-2 8h16c0-2-2-3-2-8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>',
-  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>',
-  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
-  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>',
-  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>',
-  heart:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.7 1.7 5 5 5c2 0 3.2 1.2 4 2.3C9.8 6.2 11 5 13 5c3.3 0 4.6 3.7 3 6.7C18.5 16.1 12 21 12 21z"/></svg>',
-};
 let rowState = { t1:true, t2:false, step:5 };
 
 function renderRows(t){
@@ -655,7 +650,7 @@ function renderRows(t){
   const div = `<div style="height:1px;background:${t.grey100};margin-left:54px"></div>`;
   const fullDiv = `<div style="height:1px;background:${t.grey100}"></div>`;
 
-  const lead = name => name?`<span class="ds-row__lead">${ROW_ICONS[name]||''}</span>`:'';
+  const lead = name => name?`<span class="ds-row__lead">${getIcon(name,20)}</span>`:'';
   const chev = `<span class="ds-row__chev">&rsaquo;</span>`;
   const aiRow = (variant,note)=>ai({k:'Component · GroupedRow',token:'GroupedRow',value:variant,note:note});
 
@@ -685,16 +680,16 @@ function renderRows(t){
     <div class="rows-wrap">
       <p class="rows-cap">Single-line · 40px</p>
       <div class="rows-group">
-        ${row({icon:'user',label:'My Profile',trail:chev,tap:1,variant:'navigation',note:'Navigation row — leading icon + chevron, tappable.'})}${div}
-        ${row({icon:'bell',label:'Notifications',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
-        ${row({icon:'globe',label:'Language',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
-        ${row({icon:'gear',label:'Settings',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}
+        ${row({icon:'Profile',label:'My Profile',trail:chev,tap:1,variant:'navigation',note:'Navigation row — leading icon + chevron, tappable.'})}${div}
+        ${row({icon:'Notifications',label:'Notifications',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
+        ${row({icon:'Language',label:'Language',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
+        ${row({icon:'Settings',label:'Settings',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}
       </div>
 
       <p class="rows-cap">Two-line · 50px</p>
       <div class="rows-group">
-        ${row({icon:'star',label:'Subscription',field:'Free member',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row: label + fieldText subtitle.'})}${div}
-        ${row({icon:'shield',label:'Account Verification',field:'Verified',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row with status value.'})}${div}
+        ${row({icon:'Premium',label:'Subscription',field:'Free member',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row: label + fieldText subtitle.'})}${div}
+        ${row({icon:'Verification',label:'Account Verification',field:'Verified',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row with status value.'})}${div}
         ${row({label:'Age Range',field:'Between 22 and 35 years old',variant:'detail',note:'Detail row — no leading, value subtitle.'})}
       </div>
     </div>
@@ -702,18 +697,18 @@ function renderRows(t){
     <div class="rows-wrap">
       <p class="rows-cap">Trailing variants</p>
       <div class="rows-group">
-        ${row({icon:'user',label:'Display name',trail:txt('Edit'),tap:1,variant:'trailing.text',note:'Trailing text action.'})}${div}
-        ${row({icon:'lock',label:'Password',trail:sbtn('Change',sem.buttonSecondary(t).background,sem.buttonSecondary(t).foreground),variant:'trailing.button',note:'Trailing button.'})}${div}
-        ${row({icon:'bell',label:'Push Notifications',trail:toggle(rowState.t1,'primary'),variant:'trailing.toggle (primary)',note:'Toggle, brandPrimary tint. Click it.'})}${div}
-        ${row({icon:'heart',label:'Show Likes',trail:toggle(rowState.t2,'accent5'),variant:'trailing.toggle (accent5)',note:'Toggle, brandAccent5 tint. Click it.'})}${div}
-        ${row({icon:'star',label:'Daily Boosts',trail:stepper(rowState.step),variant:'trailing.stepper',note:'Stepper, 0–10. Tap − / +.'})}
+        ${row({icon:'Name',label:'Display name',trail:txt('Edit'),tap:1,variant:'trailing.text',note:'Trailing text action.'})}${div}
+        ${row({icon:'Lock',label:'Password',trail:sbtn('Change',sem.buttonSecondary(t).background,sem.buttonSecondary(t).foreground),variant:'trailing.button',note:'Trailing button.'})}${div}
+        ${row({icon:'PushNotification',label:'Push Notifications',trail:toggle(rowState.t1,'primary'),variant:'trailing.toggle (primary)',note:'Toggle, brandPrimary tint. Click it.'})}${div}
+        ${row({icon:'HeartLike',label:'Show Likes',trail:toggle(rowState.t2,'accent5'),variant:'trailing.toggle (accent5)',note:'Toggle, brandAccent5 tint. Click it.'})}${div}
+        ${row({icon:'BoostFill',label:'Daily Boosts',trail:stepper(rowState.step),variant:'trailing.stepper',note:'Stepper, 0–10. Tap − / +.'})}
       </div>
 
       <p class="rows-cap">Badges &amp; violators</p>
       <div class="rows-group">
-        ${row({icon:'star',label:'What’s New',trail:viol('New','accent5')+chev,tap:1,variant:'trailing.violator',note:'Violator pill + chevron.'})}${div}
-        ${row({icon:'bell',label:'Messages',trail:badge(5)+chev,tap:1,variant:'trailing.badge',note:'Badge count + chevron.'})}${div}
-        ${row({icon:'globe',label:'Updates',trail:dot+chev,tap:1,variant:'trailing.badgeDot',note:'Badge dot + chevron.'})}
+        ${row({icon:'Notice',label:'What’s New',trail:viol('New','accent5')+chev,tap:1,variant:'trailing.violator',note:'Violator pill + chevron.'})}${div}
+        ${row({icon:'BubbleDual',label:'Messages',trail:badge(5)+chev,tap:1,variant:'trailing.badge',note:'Badge count + chevron.'})}${div}
+        ${row({icon:'Refresh',label:'Updates',trail:dot+chev,tap:1,variant:'trailing.badgeDot',note:'Badge dot + chevron.'})}
       </div>
 
       <p class="rows-cap">Section headers &amp; dividers</p>
@@ -722,9 +717,35 @@ function renderRows(t){
         ${sech('Medium title','medium')}
         ${sech('Account','small','See all')}
         <div style="margin-top:8px" class="rows-group">
-          ${row({icon:'gear',label:'General',trail:chev,tap:1,variant:'navigation'})}${fullDiv}
-          ${row({icon:'lock',label:'Privacy',trail:chev,tap:1,variant:'navigation'})}
+          ${row({icon:'Settings',label:'General',trail:chev,tap:1,variant:'navigation'})}${fullDiv}
+          ${row({icon:'Shield',label:'Privacy',trail:chev,tap:1,variant:'navigation'})}
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:30px">
+    <p class="rows-cap">Atoms — the row building blocks, specced standalone</p>
+    <div class="atoms-grid">
+      <div class="atom-card"${ai({k:'Component · toggle',token:'component.toggle',ref:'primary → brandPrimary · accent5 → brandAccent5',note:'On/off switch. Track tints to brandPrimary or brandAccent5; knob stays constant white. 44×26, knob 20.'})}>
+        <div class="atom-t">Toggle</div>
+        <div class="atom-tok">component.toggle</div>
+        <div class="atom-demos">${toggle(true,'primary')}${toggle(false,'primary')}${toggle(true,'accent5')}${toggle(false,'accent5')}</div>
+      </div>
+      <div class="atom-card"${ai({k:'Component · stepper',token:'component.stepper',ref:'border.default → grey200',note:'Increment / decrement within a range. 28px controls, radius small, border = border.default.'})}>
+        <div class="atom-t">Stepper</div>
+        <div class="atom-tok">component.stepper</div>
+        <div class="atom-demos">${stepper(4)}</div>
+      </div>
+      <div class="atom-card"${ai({k:'Component · badge',token:'component.badge · badgeDot',ref:'indicatorBadge',note:'Count badge + dot. Background = indicatorBadge, white text. Min 20px, pill radius.'})}>
+        <div class="atom-t">Badge</div>
+        <div class="atom-tok">component.badge · badgeDot</div>
+        <div class="atom-demos">${badge(3)}${badge(12)}${dot}</div>
+      </div>
+      <div class="atom-card"${ai({k:'Component · violator',token:'component.violator',ref:'accent5 → brandAccent5 · accent1 → brandAccent1',note:'Small status pill (New, Premium…). 20px tall, radius 7, white text.'})}>
+        <div class="atom-t">Violator</div>
+        <div class="atom-tok">component.violator</div>
+        <div class="atom-demos">${viol('New','accent5')}${viol('Premium','accent1')}</div>
       </div>
     </div>
   </div>`;
@@ -742,6 +763,12 @@ function sizeSvg(svg,px){
 function pickVariant(i, px){
   if(px < 25) return i.small || i.large;
   return i.large || i.small;
+}
+// Inline a real system icon by name (currentColor), sized to px. '' until the manifest loads.
+function getIcon(name, px=20){
+  if(!icons.length) return '';
+  const i = icons.find(x=>x.name.toLowerCase()===String(name).toLowerCase());
+  return i ? sizeSvg(pickVariant(i, px), px) : '';
 }
 
 // Tint presets — keyword resolves against the live theme; a #hex is used as-is.
@@ -952,6 +979,10 @@ Build a \`<ThemeProvider brand mode>\` that exposes \`{ colors, semantic }\` via
 - GroupedRow — single-line(40px) or two-line(50px: label + fieldText). Leading icon (20px). Trailing items (composable): text, button, toggle(primary|accent5), stepper, violator, badge(count), badgeDot, chevron. 20px h-padding, 16px icon gap, 12px trailing gap.
 - SectionHeader — small=h5 / medium=h4 / large=h2, optional trailing text + chevron.
 - Divider — 1px grey100; RowDivider indents 54px, FullWidthDivider spans full width.
+- Toggle — on/off switch; tint primary (brandPrimary) or accent5 (brandAccent5); 44×26, constant-white knob.
+- Stepper — −/value/+ within a range; 28px controls, border = border.default.
+- Badge — count badge + dot; background = indicatorBadge, white text, pill radius.
+- Violator — small status pill ("New", "Premium"); accent5 → brandAccent5, accent1 → brandAccent1.
 
 If you need something this set doesn't include yet (e.g. a text input), build it from the
 tokens above so it matches the system — don't pull in an off-system component.
@@ -1055,7 +1086,7 @@ function render(){
   <section>
     <div class="sec-head"><h2>06 — Components</h2></div>
     <div class="sec-title">Rows, toggles, steppers &amp; lists</div>
-    <p class="sec-desc">One <code>GroupedRow</code> component covers navigation rows, two-line detail rows, and a stack of trailing variants — text, buttons, toggles, steppers, violators, and badges — plus section headers and dividers. Ported straight from the shipping SwiftUI source. The toggles and steppers are live; flip on AI view to inspect any row.</p>
+    <p class="sec-desc">One <code>GroupedRow</code> component covers navigation rows, two-line detail rows, and a stack of trailing variants — text, buttons, toggles, steppers, violators, and badges — plus section headers and dividers. Ported straight from the shipping SwiftUI source, with real icons from the set below. Those trailing pieces are also specced standalone as atoms (toggle, stepper, badge, violator) at the bottom. The toggles and steppers are live; flip on AI view to inspect any row.</p>
     ${renderRows(t)}
   </section>
 
