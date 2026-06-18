@@ -1178,7 +1178,9 @@ function updatePlayground(){
   if(!pg) return;
   const t=THEMES[pg.brand][pg.mode];
   const stage=document.getElementById('pgStage');
-  stage.style.background = pg.bg==='white' ? '#FFFFFF' : '#ECECEC';
+  // Canvas follows the theme surfaces, so dark mode swaps to the dark background.
+  const surf=sem.surfaces(t);
+  stage.style.background = pg.bg==='white' ? surf.base : surf.sunken;
   stage.innerHTML = pg.kind==='button' ? previewButton(t) : previewDialog(t);
   document.getElementById('pgCode').textContent = pg.kind==='button' ? codeButton() : codeDialog();
 }
