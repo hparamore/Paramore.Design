@@ -892,7 +892,9 @@ function buildHandoffPrompt(scope){
   const type = JSON.stringify(Object.fromEntries(Object.entries(typeScale).map(([k,v])=>
     [k,{fontSize:v.fontSize,lineHeight:v.lineHeight,fontWeight:v.fontWeight,usesSecondaryFont:v.sec}])), null, 2);
   const scale = JSON.stringify({spacing,radius,iconSize}, null, 2);
-  let n = scope==='full' ? 4 : 3;
+  const ICON_MANIFEST_URL = 'https://paramore.design/assets/icons/mutual.icons.json';
+  const iconTokens = icons.length ? icons.map(i=>i.token).join(', ') : '';
+  let n = scope==='full' ? 5 : 3;
   let p = `# Install the Mutual Design System (React + TypeScript)
 
 You are a coding agent. Set up the Mutual design system in my project FIRST, then wait for
@@ -950,6 +952,22 @@ Build a \`<ThemeProvider brand mode>\` that exposes \`{ colors, semantic }\` via
 - GroupedRow — single-line(40px) or two-line(50px: label + fieldText). Leading icon (20px). Trailing items (composable): text, button, toggle(primary|accent5), stepper, violator, badge(count), badgeDot, chevron. 20px h-padding, 16px icon gap, 12px trailing gap.
 - SectionHeader — small=h5 / medium=h4 / large=h2, optional trailing text + chevron.
 - Divider — 1px grey100; RowDivider indents 54px, FullWidthDivider spans full width.
+
+If you need something this set doesn't include yet (e.g. a text input), build it from the
+tokens above so it matches the system — don't pull in an off-system component.
+
+## 4. Icons — ${icons.length||198} of them, fetch and inline
+Every icon is an inline SVG normalized to \`currentColor\` (so it takes whatever color you
+apply) with 20px and 30px masters. The full set is hosted publicly here:
+  ${ICON_MANIFEST_URL}
+Shape: { "count": N, "icons": [ { "name", "token", "large": "<svg…>", "small": "<svg…>" } ] }
+
+To use one: fetch that JSON, find the entry by \`token\`, inline its SVG (use \`large\` at ≥24px,
+\`small\` below), size it via the iconSize scale, and let it inherit \`color\` / \`currentColor\`.
+If you can't fetch URLs in this environment, ask me to paste the manifest.
+
+Available icon tokens:
+${iconTokens || '(fetch the manifest above for the full list)'}
 `;
   }
   p += `
@@ -957,12 +975,19 @@ Build a \`<ThemeProvider brand mode>\` that exposes \`{ colors, semantic }\` via
 - Reference SEMANTIC tokens — never raw hex, never magic numbers.
 - Use only the spacing / radius / iconSize scales for layout.
 - Every foreground/background pairing must meet WCAG AA (the pairings above already do).
-- Wrap the app in \`<ThemeProvider brand="mutual" mode="light">\`; theme switching must work across all 6 themes with zero component changes.
+- Wrap the app in \`<ThemeProvider brand="mutual" mode="light">\`; theme switching must work across all 6 themes with zero component changes.${scope==='full'?'\n- Use the icons above for any glyph; never substitute a different icon set.':''}
+- If the system is missing a primitive you need, construct it from these tokens to match — never break the system to fill a gap.
 
 ## ${n+1}. Then
 Build a small catalog screen and confirm it renders correctly in all six themes
 (mutual / ark / tonite × light / dark). Once it does, ask me what to build — and build it
-using ONLY these tokens${scope==='full'?' and components':''}.
+using ONLY this system: these tokens${scope==='full'?', components, and icons':''}.${scope==='full'?`
+
+Example — "build a mobile settings screen": group GroupedRows into cards on surfaces.elevated —
+each a leading icon (fetched from the manifest by token), a label, and a trailing toggle / value
+/ chevron; separate sections with SectionHeaders + dividers; type and spacing from the scales;
+every color through a semantic token. The result should be indistinguishable from a real
+Mutual screen.`:''}
 `;
   return p;
 }
