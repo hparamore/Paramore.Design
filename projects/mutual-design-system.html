@@ -1167,10 +1167,10 @@ function knobsDialog(){const s=pg;return `
   <div class="knob"><label>Buttons</label>${pgSeg('btnCount',[{v:'0',l:'0'},{v:'1',l:'1'},{v:'2',l:'2'}],s.btnCount)}</div>
   <div class="knob"><label>Button layout</label>${pgSeg('layout',[{v:'stacked',l:'Stacked'},{v:'single',l:'Side by side'}],s.layout)}</div>
   <div class="knob-sub"><div class="knob-title">Button 1</div>
-    <div class="knob"><label>Type</label>${pgSeg('b1v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b1v)}</div>
+    <div class="knob"><label>Type</label>${pgSelect('b1v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b1v)}</div>
     <div class="knob"><label>Label</label>${pgText('b1t',s.b1t)}</div></div>
   <div class="knob-sub"><div class="knob-title">Button 2</div>
-    <div class="knob"><label>Type</label>${pgSeg('b2v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b2v)}</div>
+    <div class="knob"><label>Type</label>${pgSelect('b2v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b2v)}</div>
     <div class="knob"><label>Label</label>${pgText('b2t',s.b2t)}</div></div>`;
 }
 function setPg(k,v){ if(k==='btnCount') v=Number(v); pg[k]=v; }
