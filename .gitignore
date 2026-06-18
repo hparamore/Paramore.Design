@@ -5,3 +5,15 @@
 .vscode/
 .idea/
 node_modules/
+
+# Local-only Claude Code tooling & settings
+.claude/
+
+# Design source files / large binaries — keep local, not in the repo
+*.psd
+projects/TreeService Assets/
+
+# Stray local junk
+*.zip
+*.url
+*.webloc
