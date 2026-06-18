@@ -321,6 +321,8 @@
   .pg-knobs { width:312px; flex-shrink:0; padding:18px 20px; overflow:auto; }
   .knob { margin-bottom:16px; }
   .knob > label { display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:7px; font-family:'Space Grotesk',sans-serif; }
+  .knob > label .knob-val { float:right; font-family:'Space Grotesk',monospace; letter-spacing:0; text-transform:none; color:var(--text-secondary); }
+  .knob input[type=range] { accent-color:var(--brand-primary); cursor:pointer; }
   .knob .seg { display:inline-flex; flex-wrap:wrap; }
   .knob input[type=text], .knob select { width:100%; height:36px; padding:0 11px; border-radius:10px; border:1px solid var(--border-default); background:var(--surface-sunken); color:var(--text-primary); font:inherit; font-size:13px; outline:none; box-sizing:border-box; }
   .knob input[type=text]:focus, .knob select:focus { border-color:var(--brand-primary); }
@@ -1098,15 +1100,25 @@ function previewButton(t){
   const rc=pgResolveBtn(t,s.color,s.style), dis=s.color==='disabled';
   const bg=s.style==='fill'?rc.bg:'transparent';
   const border=s.style==='outline'?`2px solid ${rc.border}`:'none';
-  const ic=name=>name?`<span style="display:flex;width:${cfg.ic}px;height:${cfg.ic}px;flex-shrink:0">${getIcon(name,cfg.ic)}</span>`:'';
-  const lead=ic(s.leadIcon);
-  const trail=s.trailIcon?`<span style="display:flex;width:${cfg.ic}px;height:${cfg.ic}px;flex-shrink:0;${(s.alignment==='leading'&&s.fullWidth)?'margin-left:auto':''}">${getIcon(s.trailIcon,cfg.ic)}</span>`:'';
-  const justify=s.alignment==='center'?'center':'flex-start';
-  return `<div style="width:300px;max-width:100%">
-    <button ${dis?'disabled':''} style="display:flex;align-items:center;justify-content:${justify};gap:8px;height:${cfg.h}px;${s.fullWidth?'width:100%;':''}padding:0 20px;border-radius:16px;border:${border};background:${bg};color:${rc.fg};font-family:${f.primary};font-size:${cfg.fs}px;font-weight:500;cursor:${dis?'not-allowed':'pointer'};box-sizing:border-box;max-width:100%;overflow:hidden">
-      ${lead}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.title)}</span>${trail}
-    </button>
-  </div>`;
+  const hasText = s.title.trim().length>0;
+  const icSpan=(name,isTrail)=>name?`<span style="display:flex;width:${cfg.ic}px;height:${cfg.ic}px;flex-shrink:0;${(isTrail&&hasText&&s.alignment==='leading'&&!s.fitContent)?'margin-left:auto':''}">${getIcon(name,cfg.ic)}</span>`:'';
+  const lead=icSpan(s.leadIcon,false);
+  const trail=icSpan(s.trailIcon,true);
+  // Large wraps to 2 lines then truncates (fixed height, tight leading); others stay single-line.
+  let textSpan='';
+  if(hasText){
+    const base='min-width:0;';
+    const ts = s.size==='large'
+      ? base+`display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.1;text-align:${s.alignment==='center'?'center':'left'}`
+      : base+'overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+    textSpan=`<span style="${ts}">${esc(s.title)}</span>`;
+  }
+  const justify = !hasText ? 'center' : (s.alignment==='center'?'center':'flex-start');
+  const display = s.fitContent ? 'inline-flex' : 'flex';
+  const widthCss = s.fitContent ? '' : `width:${s.width}px;`;
+  return `<button ${dis?'disabled':''} style="display:${display};align-items:center;justify-content:${justify};gap:8px;height:${cfg.h}px;${widthCss}max-width:100%;padding:0 20px;border-radius:16px;border:${border};background:${bg};color:${rc.fg};font-family:${f.primary};font-size:${cfg.fs}px;font-weight:500;cursor:${dis?'not-allowed':'pointer'};box-sizing:border-box;overflow:hidden">
+    ${lead}${textSpan}${trail}
+  </button>`;
 }
 function previewDialog(t){
   const s=pg, f=fonts[pg.brand], surf=sem.surfaces(t), tx=sem.text(t);
@@ -1127,10 +1139,14 @@ function previewDialog(t){
 const jq = v => String(v).replace(/"/g,'\\"');
 function codeButton(){const s=pg,p=[`title="${jq(s.title)}"`,`buttonStyle="${s.style}"`,`color="${s.color}"`,`size="${s.size}"`];
   if(s.alignment!=='center')p.push(`alignment="${s.alignment}"`);
-  p.push(s.fullWidth?`isFullWidth`:`isFullWidth={false}`);
   if(s.leadIcon)p.push(`leadingIcon={<Icon name="${s.leadIcon}" />}`);
   if(s.trailIcon)p.push(`trailingIcon={<Icon name="${s.trailIcon}" />}`);
-  return `<ThemeProvider brand="${pg.brand}" mode="${pg.mode}">\n  <ThemedButton\n${p.map(x=>'    '+x).join('\n')}\n  />\n</ThemeProvider>`;
+  if(s.fitContent){
+    p.push(`isFullWidth={false}`);
+    return `<ThemeProvider brand="${pg.brand}" mode="${pg.mode}">\n  <ThemedButton\n${p.map(x=>'    '+x).join('\n')}\n  />\n</ThemeProvider>`;
+  }
+  p.push(`isFullWidth`);
+  return `<ThemeProvider brand="${pg.brand}" mode="${pg.mode}">\n  <div style={{ width: ${s.width} }}>\n    <ThemedButton\n${p.map(x=>'      '+x).join('\n')}\n    />\n  </div>\n</ThemeProvider>`;
 }
 function codeDialog(){const s=pg,lines=[`open`,`title="${jq(s.title)}"`];
   if(s.message)lines.push(`message="${jq(s.message)}"`);
@@ -1146,6 +1162,7 @@ function pgSeg(k,opts,cur){return `<div class="seg">${opts.map(o=>`<button data-
 function pgToggle(k,on){return `<button class="toggle" data-ktoggle="${k}" aria-pressed="${on}"><span class="dot"></span> ${on?'On':'Off'}</button>`;}
 function pgText(k,v){return `<input type="text" data-k="${k}" value="${esc(v).replace(/"/g,'&quot;')}" />`;}
 function pgSelect(k,opts,cur){return `<select data-k="${k}">${opts.map(o=>`<option value="${esc(o.v)}" ${String(o.v)===String(cur)?'selected':''}>${esc(o.l)}</option>`).join('')}</select>`;}
+function pgRange(k,min,max,val,disabled){return `<input type="range" data-krange="${k}" min="${min}" max="${max}" step="2" value="${val}" ${disabled?'disabled':''} style="width:100%;${disabled?'opacity:.4':''}" />`;}
 function iconOpts(){return [{v:'',l:'— none —'}].concat(icons.map(i=>({v:i.name,l:i.name})));}
 function knobsButton(){const s=pg;return `
   <div class="knob"><label>Title (type to test truncation)</label>${pgText('title',s.title)}</div>
@@ -1153,7 +1170,8 @@ function knobsButton(){const s=pg;return `
   <div class="knob"><label>Color</label>${pgSelect('color',['primary','secondary','white','accent1','accent5','black','destructive','disabled'].map(c=>({v:c,l:c})),s.color)}</div>
   <div class="knob"><label>Size</label>${pgSeg('size',[{v:'large',l:'Large'},{v:'medium',l:'Medium'},{v:'small',l:'Small'}],s.size)}</div>
   <div class="knob"><label>Alignment</label>${pgSeg('alignment',[{v:'center',l:'Center'},{v:'leading',l:'Leading'}],s.alignment)}</div>
-  <div class="knob"><label>Full width</label>${pgToggle('fullWidth',s.fullWidth)}</div>
+  <div class="knob"><label>Fit to content</label>${pgToggle('fitContent',s.fitContent)}</div>
+  <div class="knob"><label>Width <span class="knob-val" data-for="width">${s.width}px</span></label>${pgRange('width',80,320,s.width,s.fitContent)}</div>
   <div class="knob"><label>Leading icon</label>${pgSelect('leadIcon',iconOpts(),s.leadIcon)}</div>
   <div class="knob"><label>Trailing icon</label>${pgSelect('trailIcon',iconOpts(),s.trailIcon)}</div>`;
 }
@@ -1173,7 +1191,7 @@ function knobsDialog(){const s=pg;return `
     <div class="knob"><label>Type</label>${pgSelect('b2v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b2v)}</div>
     <div class="knob"><label>Label</label>${pgText('b2t',s.b2t)}</div></div>`;
 }
-function setPg(k,v){ if(k==='btnCount') v=Number(v); pg[k]=v; }
+function setPg(k,v){ if(k==='btnCount'||k==='width') v=Number(v); pg[k]=v; }
 function updatePlayground(){
   if(!pg) return;
   const t=THEMES[pg.brand][pg.mode];
@@ -1187,7 +1205,7 @@ function updatePlayground(){
 function openPlayground(kind){
   const base={kind, brand:state.brand, mode:state.mode, bg:'grey'};
   pg = kind==='button'
-    ? {...base, title:'Say hello', style:'fill', color:'accent5', size:'large', alignment:'center', fullWidth:true, leadIcon:'', trailIcon:''}
+    ? {...base, title:'Say hello', style:'fill', color:'accent5', size:'large', alignment:'center', fitContent:false, width:300, leadIcon:'', trailIcon:''}
     : {...base, title:"It's a match!", message:'Every element here is driven by the active theme tokens.', showIcon:true, icon:'HeartFill', showClose:true, alignment:'center', btnCount:2, b1v:'primary', b1t:'Say hello', b2v:'secondary', b2t:'Keep swiping', layout:'stacked'};
   const m=document.getElementById('pgModal');
   m.innerHTML = `<div class="pg-panel">
@@ -1227,8 +1245,13 @@ function wirePlayground(){
       el.addEventListener('change',()=>{ setPg(el.dataset.k, el.value); updatePlayground(); });
     }
   });
+  m.querySelectorAll('[data-krange]').forEach(el=>{
+    el.addEventListener('input',()=>{ const k=el.dataset.krange; setPg(k, el.value); const v=m.querySelector('.knob-val[data-for="'+k+'"]'); if(v) v.textContent=el.value+'px'; updatePlayground(); });
+  });
   m.querySelectorAll('[data-ktoggle]').forEach(el=>{
-    el.addEventListener('click',()=>{ const k=el.dataset.ktoggle; pg[k]=!pg[k]; el.setAttribute('aria-pressed',pg[k]); el.lastChild.textContent=' '+(pg[k]?'On':'Off'); updatePlayground(); });
+    el.addEventListener('click',()=>{ const k=el.dataset.ktoggle; pg[k]=!pg[k]; el.setAttribute('aria-pressed',pg[k]); el.lastChild.textContent=' '+(pg[k]?'On':'Off');
+      if(k==='fitContent'){ const r=m.querySelector('[data-krange="width"]'); if(r){ r.disabled=pg.fitContent; r.style.opacity=pg.fitContent?'.4':'1'; } }
+      updatePlayground(); });
   });
 }
 
