@@ -301,6 +301,38 @@
   .icon-empty { color:var(--text-secondary); font-size:15px; line-height:1.6; }
   .icon-empty code { font-family:'Space Grotesk',monospace; background:var(--surface-sunken); border:1px solid var(--border-default); padding:2px 7px; border-radius:6px; font-size:13px; }
 
+  /* ─── Component playground ─── */
+  .card-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .card-name { font-size:17px; font-weight:600; color:var(--text-primary); }
+  .pg-open { margin-left:auto; appearance:none; cursor:pointer; font:inherit; font-size:13px; font-weight:500; padding:8px 14px; border-radius:10px; border:1px solid var(--brand-primary); background:transparent; color:var(--brand-primary); display:inline-flex; align-items:center; gap:6px; transition:all .15s; white-space:nowrap; }
+  .pg-open:hover { background:var(--brand-primary); color:var(--on-brand); }
+
+  .pg-modal { position:fixed; inset:0; z-index:500; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(0,0,0,.55); backdrop-filter:blur(5px); }
+  .pg-modal.show { display:flex; }
+  .pg-panel { width:min(1000px,100%); max-height:92vh; background:var(--surface-elevated); border:1px solid var(--border-default); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+  .pg-head { display:flex; align-items:center; gap:12px; padding:15px 20px; border-bottom:1px solid var(--border-default); flex-shrink:0; }
+  .pg-head h3 { margin:0; font-size:15px; font-weight:600; }
+  .pg-head .pg-x { margin-left:auto; appearance:none; cursor:pointer; border:none; background:transparent; color:var(--text-secondary); font-size:22px; line-height:1; padding:4px; }
+  .pg-body { display:flex; min-height:0; flex:1; }
+  .pg-left { flex:1; min-width:0; display:flex; flex-direction:column; border-right:1px solid var(--border-default); }
+  .pg-themebar { display:flex; flex-wrap:wrap; gap:14px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border-subtle); }
+  .pg-themebar .seg button { font-size:12px; padding:5px 11px; }
+  .pg-stage { flex:1; display:flex; align-items:center; justify-content:center; padding:40px 32px; overflow:auto; }
+  .pg-knobs { width:312px; flex-shrink:0; padding:18px 20px; overflow:auto; }
+  .knob { margin-bottom:16px; }
+  .knob > label { display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:7px; font-family:'Space Grotesk',sans-serif; }
+  .knob .seg { display:inline-flex; flex-wrap:wrap; }
+  .knob input[type=text], .knob select { width:100%; height:36px; padding:0 11px; border-radius:10px; border:1px solid var(--border-default); background:var(--surface-sunken); color:var(--text-primary); font:inherit; font-size:13px; outline:none; box-sizing:border-box; }
+  .knob input[type=text]:focus, .knob select:focus { border-color:var(--brand-primary); }
+  .knob-sub { border-top:1px solid var(--border-subtle); margin-top:18px; padding-top:14px; }
+  .knob-sub .knob-title { font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:12px; }
+  .pg-code { border-top:1px solid var(--border-default); flex-shrink:0; }
+  .pg-code__head { display:flex; align-items:center; gap:10px; padding:10px 16px; }
+  .pg-code__head .lbl { font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-tertiary); }
+  .pg-code__copy { margin-left:auto; appearance:none; cursor:pointer; font:inherit; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9px; border:none; background:var(--brand-primary); color:var(--on-brand); display:inline-flex; align-items:center; gap:7px; }
+  .pg-code pre { margin:0; padding:0 16px 16px; max-height:170px; overflow:auto; font-family:'Space Grotesk',ui-monospace,monospace; font-size:12.5px; line-height:1.6; color:var(--text-primary); white-space:pre; }
+  @media (max-width:760px){ .pg-body{flex-direction:column;} .pg-left{border-right:none;border-bottom:1px solid var(--border-default);} .pg-knobs{width:100%;} }
+
   .foot { padding:56px 0 80px; text-align:center; color:var(--text-tertiary); font-size:14px; }
   .foot a{color:var(--brand-primary); text-decoration:none; font-weight:600;}
   .copy-toast{
@@ -389,6 +421,7 @@
 </div>
 
 <div class="copy-toast" id="toast">Copied</div>
+<div class="pg-modal" id="pgModal" role="dialog" aria-modal="true" aria-label="Component playground"></div>
 <div class="ai-inspector" id="aiInspector"></div>
 <div class="ai-hint" id="aiHint"><span class="pulse"></span> Hover anything — see the token an agent reads</div>
 
@@ -571,6 +604,7 @@ function renderComponents(t){
   return `
   <div class="grid cols-2" style="gap:24px;align-items:start">
     <div class="card">
+      <div class="card-head"><span class="card-name">Button</span><button class="pg-open" data-pg="button">Customize in Playground &#8599;</button></div>
       <p class="subhead">Buttons — fill</p>
       <div class="demo-row" style="margin-bottom:18px">
         ${btn('Primary CTA',bp.background,bp.foreground,'',{k:'Component · button',token:'semantic.buttonPrimary',ref:`${t.appName==='ToNite'?'brandPrimary':'brandAccent5'} (bg) · ${t.appName==='ToNite'?'constantBlack':'constantWhite'} (fg)`,value:`${bp.background} · ${bp.foreground}`,color:bp.background,contrast:cr(bp.foreground,bp.background),note:'Main call to action. Paired fg/bg ship pre-validated for contrast.'})}
@@ -625,7 +659,7 @@ function renderComponents(t){
     </div>
 
     <div class="card" style="display:flex;flex-direction:column">
-      <p class="subhead">Dialog</p>
+      <div class="card-head"><span class="card-name">Dialog</span><button class="pg-open" data-pg="dialog">Customize in Playground &#8599;</button></div>
       <div style="flex:1;display:flex;align-items:center;justify-content:center;background:${s.sunken};border-radius:14px;padding:28px">
         <div style="background:${s.elevated};border-radius:28px;padding:28px;max-width:280px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2);text-align:center">
           <div style="width:56px;height:56px;border-radius:100px;background:${t.brandAccent5};margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;color:${t.constantWhite}">${getIcon('HeartFill',26)||'♥'}</div>
@@ -1042,6 +1076,160 @@ function initHandoff(){
   });
 }
 
+/* ═══════════════ COMPONENT PLAYGROUND ═══════════════ */
+let pg = null;   // active playground state
+
+function pgResolveBtn(t, color, style){
+  const d=t.isDarkMode;
+  switch(color){
+    case 'primary':     return {bg:t.brandPrimary,   fg: style==='fill'?t.constantWhite:t.brandPrimary, border:t.brandPrimary};
+    case 'secondary':   return {bg:t.brandSecondary, fg: style==='fill'?(d?t.constantWhite:t.grey900):(d?t.grey400:t.grey600), border:t.brandSecondary};
+    case 'white':       return {bg:t.grey0,          fg:t.grey900, border:t.grey100};
+    case 'accent1':     return {bg:t.brandAccent1,   fg: style==='fill'?t.constantBlack:(d?t.constantWhite:t.brandAccent1), border:t.brandAccent1};
+    case 'accent5':     return {bg:t.brandAccent5,   fg: style==='fill'?t.constantWhite:t.brandAccent5, border:t.brandAccent5};
+    case 'black':       return {bg:t.constantBlack,  fg: style==='fill'?t.constantWhite:(d?t.constantWhite:t.constantBlack), border:t.constantBlack};
+    case 'destructive': return {bg:t.indicatorError, fg: style==='fill'?t.constantWhite:t.indicatorError, border:t.indicatorError};
+    default:            return {bg:t.grey200,        fg:t.grey400, border:t.grey200};
+  }
+}
+function previewButton(t){
+  const s=pg, f=fonts[pg.brand];
+  const cfg={large:{h:50,fs:16,ic:20},medium:{h:40,fs:16,ic:16},small:{h:30,fs:14,ic:14}}[s.size];
+  const rc=pgResolveBtn(t,s.color,s.style), dis=s.color==='disabled';
+  const bg=s.style==='fill'?rc.bg:'transparent';
+  const border=s.style==='outline'?`2px solid ${rc.border}`:'none';
+  const ic=name=>name?`<span style="display:flex;width:${cfg.ic}px;height:${cfg.ic}px;flex-shrink:0">${getIcon(name,cfg.ic)}</span>`:'';
+  const lead=ic(s.leadIcon);
+  const trail=s.trailIcon?`<span style="display:flex;width:${cfg.ic}px;height:${cfg.ic}px;flex-shrink:0;${(s.alignment==='leading'&&s.fullWidth)?'margin-left:auto':''}">${getIcon(s.trailIcon,cfg.ic)}</span>`:'';
+  const justify=s.alignment==='center'?'center':'flex-start';
+  return `<div style="width:300px;max-width:100%">
+    <button ${dis?'disabled':''} style="display:flex;align-items:center;justify-content:${justify};gap:8px;height:${cfg.h}px;${s.fullWidth?'width:100%;':''}padding:0 20px;border-radius:16px;border:${border};background:${bg};color:${rc.fg};font-family:${f.primary};font-size:${cfg.fs}px;font-weight:500;cursor:${dis?'not-allowed':'pointer'};box-sizing:border-box;max-width:100%;overflow:hidden">
+      ${lead}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.title)}</span>${trail}
+    </button>
+  </div>`;
+}
+function previewDialog(t){
+  const s=pg, f=fonts[pg.brand], surf=sem.surfaces(t), tx=sem.text(t);
+  const align=s.alignment==='center'?'center':'flex-start', ta=s.alignment==='center'?'center':'left';
+  const close=s.showClose?`<button style="position:absolute;top:16px;right:16px;width:28px;height:28px;border:none;background:none;color:${tx.secondary};font-size:18px;cursor:pointer">&times;</button>`:'';
+  const icon=s.showIcon?`<div style="width:56px;height:56px;border-radius:100px;background:${t.brandAccent5};display:flex;align-items:center;justify-content:center;color:${t.constantWhite}">${getIcon(s.icon,26)}</div>`:'';
+  const mk=(v,l)=>{const bg=v==='destructive'?t.indicatorError:v==='primary'?t.brandAccent5:t.brandSecondary;const fg=(v==='destructive'||v==='primary')?t.constantWhite:(t.isDarkMode?t.constantWhite:t.grey900);return `<button style="height:50px;border-radius:16px;border:none;background:${bg};color:${fg};font-family:${f.primary};font-size:16px;font-weight:500;cursor:pointer;${s.layout==='single'?'flex:1;':'width:100%;'}padding:0 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(l)}</button>`;};
+  const list=[]; if(s.btnCount>=1)list.push(mk(s.b1v,s.b1t)); if(s.btnCount>=2)list.push(mk(s.b2v,s.b2t));
+  const btns=list.length?`<div style="display:flex;flex-direction:${s.layout==='single'?'row':'column'};gap:8px;width:100%;margin-top:8px">${list.join('')}</div>`:'';
+  return `<div style="position:relative;background:${surf.elevated};border-radius:28px;padding:30px;max-width:340px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2)">${close}
+    <div style="display:flex;flex-direction:column;align-items:${align};gap:16px">
+      ${icon}
+      <div style="font-family:${f.primary};font-size:24px;line-height:28px;font-weight:700;color:${tx.primary};text-align:${ta}">${esc(s.title)}</div>
+      ${s.message?`<div style="font-family:${f.primary};font-size:16px;line-height:20px;color:${tx.secondary};text-align:${ta}">${esc(s.message)}</div>`:''}
+      ${btns}
+    </div></div>`;
+}
+const jq = v => String(v).replace(/"/g,'\\"');
+function codeButton(){const s=pg,p=[`title="${jq(s.title)}"`,`buttonStyle="${s.style}"`,`color="${s.color}"`,`size="${s.size}"`];
+  if(s.alignment!=='center')p.push(`alignment="${s.alignment}"`);
+  p.push(s.fullWidth?`isFullWidth`:`isFullWidth={false}`);
+  if(s.leadIcon)p.push(`leadingIcon={<Icon name="${s.leadIcon}" />}`);
+  if(s.trailIcon)p.push(`trailingIcon={<Icon name="${s.trailIcon}" />}`);
+  return `<ThemeProvider brand="${pg.brand}" mode="${pg.mode}">\n  <ThemedButton\n${p.map(x=>'    '+x).join('\n')}\n  />\n</ThemeProvider>`;
+}
+function codeDialog(){const s=pg,lines=[`open`,`title="${jq(s.title)}"`];
+  if(s.message)lines.push(`message="${jq(s.message)}"`);
+  if(s.alignment!=='center')lines.push(`alignment="${s.alignment}"`);
+  lines.push(s.showClose?`showCloseButton`:`showCloseButton={false}`);
+  if(s.showIcon&&s.icon)lines.push(`icon={<Icon name="${s.icon}" />}`);
+  if(s.btnCount>0)lines.push(`buttonLayout="${s.layout}"`);
+  if(s.btnCount>0){const bl=[]; if(s.btnCount>=1)bl.push(`      { title: "${jq(s.b1t)}", variant: "${s.b1v}", onClick: () => {} },`); if(s.btnCount>=2)bl.push(`      { title: "${jq(s.b2t)}", variant: "${s.b2v}", onClick: () => {} },`); lines.push(`buttons={[\n${bl.join('\n')}\n    ]}`);}
+  return `<ThemeProvider brand="${pg.brand}" mode="${pg.mode}">\n  <ThemedDialog\n${lines.map(x=>'    '+x).join('\n')}\n  />\n</ThemeProvider>`;
+}
+// knob control builders
+function pgSeg(k,opts,cur){return `<div class="seg">${opts.map(o=>`<button data-k="${k}" data-v="${o.v}" aria-pressed="${String(cur)===String(o.v)}">${o.l}</button>`).join('')}</div>`;}
+function pgToggle(k,on){return `<button class="toggle" data-ktoggle="${k}" aria-pressed="${on}"><span class="dot"></span> ${on?'On':'Off'}</button>`;}
+function pgText(k,v){return `<input type="text" data-k="${k}" value="${esc(v).replace(/"/g,'&quot;')}" />`;}
+function pgSelect(k,opts,cur){return `<select data-k="${k}">${opts.map(o=>`<option value="${esc(o.v)}" ${String(o.v)===String(cur)?'selected':''}>${esc(o.l)}</option>`).join('')}</select>`;}
+function iconOpts(){return [{v:'',l:'— none —'}].concat(icons.map(i=>({v:i.name,l:i.name})));}
+function knobsButton(){const s=pg;return `
+  <div class="knob"><label>Title (type to test truncation)</label>${pgText('title',s.title)}</div>
+  <div class="knob"><label>Style</label>${pgSeg('style',[{v:'fill',l:'Fill'},{v:'outline',l:'Outline'},{v:'text',l:'Text'}],s.style)}</div>
+  <div class="knob"><label>Color</label>${pgSelect('color',['primary','secondary','white','accent1','accent5','black','destructive','disabled'].map(c=>({v:c,l:c})),s.color)}</div>
+  <div class="knob"><label>Size</label>${pgSeg('size',[{v:'large',l:'Large'},{v:'medium',l:'Medium'},{v:'small',l:'Small'}],s.size)}</div>
+  <div class="knob"><label>Alignment</label>${pgSeg('alignment',[{v:'center',l:'Center'},{v:'leading',l:'Leading'}],s.alignment)}</div>
+  <div class="knob"><label>Full width</label>${pgToggle('fullWidth',s.fullWidth)}</div>
+  <div class="knob"><label>Leading icon</label>${pgSelect('leadIcon',iconOpts(),s.leadIcon)}</div>
+  <div class="knob"><label>Trailing icon</label>${pgSelect('trailIcon',iconOpts(),s.trailIcon)}</div>`;
+}
+function knobsDialog(){const s=pg;return `
+  <div class="knob"><label>Title</label>${pgText('title',s.title)}</div>
+  <div class="knob"><label>Message</label>${pgText('message',s.message)}</div>
+  <div class="knob"><label>Show illustration</label>${pgToggle('showIcon',s.showIcon)}</div>
+  <div class="knob"><label>Illustration icon</label>${pgSelect('icon',iconOpts(),s.icon)}</div>
+  <div class="knob"><label>Show close (X)</label>${pgToggle('showClose',s.showClose)}</div>
+  <div class="knob"><label>Alignment</label>${pgSeg('alignment',[{v:'center',l:'Center'},{v:'leading',l:'Leading'}],s.alignment)}</div>
+  <div class="knob"><label>Buttons</label>${pgSeg('btnCount',[{v:'0',l:'0'},{v:'1',l:'1'},{v:'2',l:'2'}],s.btnCount)}</div>
+  <div class="knob"><label>Button layout</label>${pgSeg('layout',[{v:'stacked',l:'Stacked'},{v:'single',l:'Side by side'}],s.layout)}</div>
+  <div class="knob-sub"><div class="knob-title">Button 1</div>
+    <div class="knob"><label>Type</label>${pgSeg('b1v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b1v)}</div>
+    <div class="knob"><label>Label</label>${pgText('b1t',s.b1t)}</div></div>
+  <div class="knob-sub"><div class="knob-title">Button 2</div>
+    <div class="knob"><label>Type</label>${pgSeg('b2v',[{v:'primary',l:'Primary'},{v:'secondary',l:'Secondary'},{v:'destructive',l:'Destructive'}],s.b2v)}</div>
+    <div class="knob"><label>Label</label>${pgText('b2t',s.b2t)}</div></div>`;
+}
+function setPg(k,v){ if(k==='btnCount') v=Number(v); pg[k]=v; }
+function updatePlayground(){
+  if(!pg) return;
+  const t=THEMES[pg.brand][pg.mode];
+  const stage=document.getElementById('pgStage');
+  stage.style.background = pg.bg==='white' ? '#FFFFFF' : '#ECECEC';
+  stage.innerHTML = pg.kind==='button' ? previewButton(t) : previewDialog(t);
+  document.getElementById('pgCode').textContent = pg.kind==='button' ? codeButton() : codeDialog();
+}
+function openPlayground(kind){
+  const base={kind, brand:state.brand, mode:state.mode, bg:'grey'};
+  pg = kind==='button'
+    ? {...base, title:'Say hello', style:'fill', color:'accent5', size:'large', alignment:'center', fullWidth:true, leadIcon:'', trailIcon:''}
+    : {...base, title:"It's a match!", message:'Every element here is driven by the active theme tokens.', showIcon:true, icon:'HeartFill', showClose:true, alignment:'center', btnCount:2, b1v:'primary', b1t:'Say hello', b2v:'secondary', b2t:'Keep swiping', layout:'stacked'};
+  const m=document.getElementById('pgModal');
+  m.innerHTML = `<div class="pg-panel">
+    <div class="pg-head"><h3>${kind==='button'?'Button':'Dialog'} · Component playground</h3><button class="pg-x" aria-label="Close">&times;</button></div>
+    <div class="pg-body">
+      <div class="pg-left">
+        <div class="pg-themebar">
+          <span class="bar__label" style="margin:0">Brand</span>${pgSeg('brand',[{v:'mutual',l:'Mutual'},{v:'ark',l:'Ark'},{v:'tonite',l:'ToNite'}],pg.brand)}
+          <span class="bar__label" style="margin:0">Mode</span>${pgSeg('mode',[{v:'light',l:'Light'},{v:'dark',l:'Dark'}],pg.mode)}
+          <span class="bar__label" style="margin:0">Canvas</span>${pgSeg('bg',[{v:'white',l:'White'},{v:'grey',l:'Grey'}],pg.bg)}
+        </div>
+        <div class="pg-stage" id="pgStage"></div>
+      </div>
+      <div class="pg-knobs">${kind==='button'?knobsButton():knobsDialog()}</div>
+    </div>
+    <div class="pg-code">
+      <div class="pg-code__head"><span class="lbl">React / JSX — renders exactly what you see</span><button class="pg-code__copy">Copy code</button></div>
+      <pre id="pgCode"></pre>
+    </div>
+  </div>`;
+  wirePlayground();
+  updatePlayground();
+  m.classList.add('show');
+}
+function closePlayground(){ document.getElementById('pgModal').classList.remove('show'); pg=null; }
+function wirePlayground(){
+  const m=document.getElementById('pgModal');
+  m.querySelector('.pg-x').addEventListener('click',closePlayground);
+  m.addEventListener('mousedown',e=>{ if(e.target===m) closePlayground(); });
+  m.querySelector('.pg-code__copy').addEventListener('click',()=>copy(document.getElementById('pgCode').textContent,'Code copied to clipboard'));
+  m.querySelectorAll('[data-k]').forEach(el=>{
+    if(el.tagName==='BUTTON'){
+      el.addEventListener('click',()=>{ setPg(el.dataset.k, el.dataset.v); el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===el)); updatePlayground(); });
+    } else if(el.tagName==='INPUT'){
+      el.addEventListener('input',()=>{ setPg(el.dataset.k, el.value); updatePlayground(); });
+    } else if(el.tagName==='SELECT'){
+      el.addEventListener('change',()=>{ setPg(el.dataset.k, el.value); updatePlayground(); });
+    }
+  });
+  m.querySelectorAll('[data-ktoggle]').forEach(el=>{
+    el.addEventListener('click',()=>{ const k=el.dataset.ktoggle; pg[k]=!pg[k]; el.setAttribute('aria-pressed',pg[k]); el.lastChild.textContent=' '+(pg[k]?'On':'Off'); updatePlayground(); });
+  });
+}
+
 /* ═══════════════ MAIN RENDER ═══════════════ */
 function render(){
   applyTheme();
@@ -1114,6 +1302,7 @@ function wireDynamic(){
   document.querySelectorAll('.swatch').forEach(el=>{
     el.addEventListener('click',()=>copy(el.dataset.copy));
   });
+  document.querySelectorAll('.pg-open').forEach(b=>b.addEventListener('click',()=>openPlayground(b.dataset.pg)));
   const tabs=document.getElementById('aiTabs');
   if(tabs) tabs.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{aiTab=b.dataset.tab; render();}));
 
@@ -1240,6 +1429,9 @@ document.addEventListener('mousemove', e=>{
   const el = e.target instanceof Element ? e.target.closest('[data-ai]') : null;
   if(el) showInspector(el, e.clientX, e.clientY);
   else hideInspector();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && document.getElementById('pgModal').classList.contains('show')) closePlayground();
 });
 
 render();
