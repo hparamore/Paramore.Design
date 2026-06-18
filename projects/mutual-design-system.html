@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mutual Design System — Live Token Explorer // Paramore.Design</title>
+<meta name="description" content="An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast — structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ─── Local brand fonts (the actual design-system typefaces) ─── */
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Th.ttf')  format('truetype'); font-weight:100; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Lt.ttf')  format('truetype'); font-weight:300; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Rg.ttf')  format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Md.ttf')  format('truetype'); font-weight:500; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Bd.ttf')  format('truetype'); font-weight:700; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_Blk.ttf') format('truetype'); font-weight:900; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_It.ttf')  format('truetype'); font-weight:400; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_MdIt.ttf')format('truetype'); font-weight:500; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Goldman Sans'; src:url('../assets/fonts/mutual-ds/GoldmanSans_BdIt.ttf')format('truetype'); font-weight:700; font-style:italic; font-display:swap; }
+
+  @font-face { font-family:'Gramatika Black'; src:url('../assets/fonts/mutual-ds/GramatikaBlack.ttf') format('truetype'); font-weight:400 900; font-style:normal; font-display:swap; }
+
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-Light.ttf')   format('truetype'); font-weight:300; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-Regular.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-Medium.ttf')  format('truetype'); font-weight:500; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-SemiBold.ttf')format('truetype'); font-weight:600; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-Bold.ttf')    format('truetype'); font-weight:700; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Sans'; src:url('../assets/fonts/mutual-ds/DMSans_18pt-Italic.ttf')  format('truetype'); font-weight:400; font-style:italic; font-display:swap; }
+
+  @font-face { font-family:'DM Serif Display'; src:url('../assets/fonts/mutual-ds/DMSerifDisplay-Regular.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'DM Serif Display'; src:url('../assets/fonts/mutual-ds/DMSerifDisplay-Italic.ttf')  format('truetype'); font-weight:400; font-style:italic; font-display:swap; }
+
+  /* ─── Reset & themed page shell ─── */
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    background: var(--surface-base, #0E0E12);
+    color: var(--text-primary, #EEEEF2);
+    font-family: var(--font-primary, 'Inter', sans-serif);
+    -webkit-font-smoothing:antialiased;
+    transition: background-color .45s ease, color .45s ease;
+  }
+  a { color:inherit; }
+  ::selection { background: var(--brand-primary); color: var(--surface-base); }
+
+  /* ─── Top control bar ─── */
+  .bar {
+    position:sticky; top:0; z-index:50;
+    display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+    padding:14px 24px;
+    background: color-mix(in srgb, var(--surface-elevated) 85%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--border-default);
+    transition: background-color .45s ease, border-color .45s ease;
+  }
+  .bar__brandmark { font-weight:700; letter-spacing:.02em; font-size:15px; margin-right:auto; display:flex; align-items:center; gap:10px; }
+  .bar__brandmark small { font-weight:400; opacity:.55; font-size:12px; font-family:'Space Grotesk',sans-serif; }
+  .bar__group { display:flex; align-items:center; gap:6px; }
+  .bar__label { font-size:11px; text-transform:uppercase; letter-spacing:.12em; opacity:.5; margin-right:4px; font-family:'Space Grotesk',sans-serif; }
+  .seg { display:inline-flex; padding:3px; gap:3px; border-radius:100px; background:var(--surface-sunken); border:1px solid var(--border-default); }
+  .seg button {
+    appearance:none; border:none; cursor:pointer; font:inherit; font-size:13px; font-weight:500;
+    padding:6px 14px; border-radius:100px; background:transparent; color:var(--text-secondary);
+    transition: all .2s ease; line-height:1;
+  }
+  .seg button[aria-pressed="true"] { background:var(--brand-primary); color:var(--on-brand); }
+  .toggle {
+    appearance:none; border:1px solid var(--border-default); cursor:pointer; font:inherit; font-size:13px; font-weight:500;
+    padding:8px 14px; border-radius:100px; background:var(--surface-sunken); color:var(--text-primary);
+    display:inline-flex; align-items:center; gap:8px; transition:all .2s ease;
+  }
+  .toggle[aria-pressed="true"] { background:var(--brand-primary); color:var(--on-brand); border-color:transparent; }
+  .toggle .dot { width:7px; height:7px; border-radius:50%; background:currentColor; opacity:.5; }
+  .toggle[aria-pressed="true"] .dot { opacity:1; }
+
+  /* ─── Layout ─── */
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+  .hero { padding:72px 0 40px; max-width:760px; }
+  .eyebrow { font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--brand-primary); font-weight:500; margin:0 0 18px; }
+  .hero h1 { font-family: var(--font-secondary); font-weight:400; font-size:clamp(40px,6vw,68px); line-height:1.02; margin:0 0 22px; letter-spacing:-.01em; }
+  .hero p { font-size:19px; line-height:1.55; color:var(--text-secondary); margin:0 0 16px; max-width:640px; }
+  .hero .lead-strong { color:var(--text-primary); }
+
+  section { padding:48px 0; border-top:1px solid var(--border-subtle); }
+  .sec-head { display:flex; align-items:baseline; gap:14px; margin-bottom:6px; flex-wrap:wrap; }
+  .sec-head h2 { font-size:13px; letter-spacing:.16em; text-transform:uppercase; font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--brand-primary); margin:0; }
+  .sec-title { font-family:var(--font-secondary); font-weight:400; font-size:clamp(26px,3.5vw,38px); line-height:1.1; margin:8px 0 8px; }
+  .sec-desc { color:var(--text-secondary); font-size:16px; line-height:1.6; max-width:680px; margin:0 0 32px; }
+
+  .grid { display:grid; gap:14px; }
+  .cols-2 { grid-template-columns:repeat(2,1fr); }
+  .cols-auto { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); }
+  @media (max-width:640px){ .cols-2{grid-template-columns:1fr;} }
+
+  /* ─── Swatches ─── */
+  .swatch {
+    border:1px solid var(--border-default); border-radius:14px; overflow:hidden; cursor:pointer;
+    background:var(--surface-elevated); transition:transform .15s ease, border-color .15s ease;
+  }
+  .swatch:hover { transform:translateY(-2px); border-color:var(--brand-primary); }
+  .swatch__chip { height:74px; display:flex; align-items:flex-end; justify-content:flex-end; padding:8px; }
+  .swatch__meta { padding:10px 12px 12px; }
+  .swatch__name { font-size:13px; font-weight:600; }
+  .swatch__role { font-size:11.5px; color:var(--text-secondary); margin-top:2px; line-height:1.35; }
+  .swatch__hex { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--text-tertiary); margin-top:6px; letter-spacing:.04em; }
+  /* ─── AI inspector ─── */
+  body.show-ai [data-ai] { cursor:crosshair; }
+  .ai-hot { outline:2px solid var(--brand-primary) !important; outline-offset:3px; border-radius:6px; }
+  .ai-inspector {
+    position:fixed; z-index:300; pointer-events:none; max-width:320px; min-width:210px;
+    background:var(--surface-elevated); border:1px solid var(--brand-primary); border-radius:14px;
+    padding:13px 15px; box-shadow:0 14px 40px rgba(0,0,0,.32);
+    opacity:0; transform:translateY(6px) scale(.98); transition:opacity .12s ease, transform .12s ease;
+  }
+  .ai-inspector.show { opacity:1; transform:none; }
+  .ai-inspector .ai-k { font-family:'Space Grotesk',sans-serif; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-tertiary); }
+  .ai-inspector .ai-tok { font-family:'Space Grotesk',monospace; font-size:15px; font-weight:600; color:var(--brand-primary); margin:3px 0 9px; word-break:break-all; line-height:1.25; }
+  .ai-inspector .ai-row { display:flex; align-items:center; gap:8px; font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-primary); margin-top:5px; }
+  .ai-inspector .ai-chip { width:15px; height:15px; border-radius:5px; border:1px solid var(--border-default); flex-shrink:0; }
+  .ai-inspector .ai-badge { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.05em; padding:2px 7px; border-radius:6px; margin-left:auto; }
+  .ai-inspector .ai-note { font-family:'Space Grotesk',sans-serif; font-size:11.5px; color:var(--text-secondary); margin-top:9px; padding-top:9px; border-top:1px solid var(--border-subtle); line-height:1.45; }
+  .ai-hint {
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    display:flex; align-items:center; gap:9px;
+    background:var(--brand-primary); color:var(--on-brand); padding:11px 18px; border-radius:100px;
+    font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:500;
+    opacity:0; pointer-events:none; transition:all .3s ease; z-index:120;
+  }
+  .ai-hint.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .ai-hint .pulse { width:8px; height:8px; border-radius:50%; background:currentColor; animation:aiPulse 1.4s ease-in-out infinite; }
+  @keyframes aiPulse { 0%,100%{opacity:.35;transform:scale(.8);} 50%{opacity:1;transform:scale(1.15);} }
+
+  /* ─── AI handoff panel (revealed at top when AI view is on) ─── */
+  .handoff { display:none; overflow:hidden; border-bottom:1px solid var(--border-default); background:var(--surface-sunken); }
+  body.show-ai .handoff { display:block; animation:handoffIn .42s ease both; }
+  @keyframes handoffIn { from{max-height:0; opacity:0;} to{max-height:1700px; opacity:1;} }
+  .handoff__card { border:1px dashed color-mix(in srgb, var(--brand-primary) 45%, transparent); background:color-mix(in srgb, var(--brand-primary) 8%, transparent); border-radius:18px; padding:22px 24px; margin:26px 0 30px; }
+  .handoff__eyebrow { font-family:'Space Grotesk',sans-serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--brand-primary); font-weight:500; }
+  .handoff__title { font-family:var(--font-secondary); font-weight:400; font-size:clamp(22px,3vw,30px); margin:3px 0 0; line-height:1.1; }
+  .handoff__sub { color:var(--text-secondary); font-size:15px; margin:9px 0 16px; max-width:680px; line-height:1.55; }
+  .handoff__count { font-family:'Space Grotesk',monospace; font-size:12px; color:var(--text-tertiary); }
+  .handoff__actions { display:flex; gap:10px; align-items:center; margin-top:14px; flex-wrap:wrap; }
+  .h-btn { appearance:none; cursor:pointer; font:inherit; font-size:14px; font-weight:500; padding:10px 18px; border-radius:12px; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border-default); background:var(--surface-elevated); color:var(--text-primary); transition:opacity .15s ease; }
+  .h-btn--primary { background:var(--brand-primary); color:var(--on-brand); border-color:transparent; }
+  .h-btn:active { opacity:.85; }
+  .handoff__steps { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; }
+  .handoff__step { background:var(--surface-elevated); border:1px solid var(--border-default); border-radius:12px; padding:12px 14px; }
+  .handoff__step .n { font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:4px; }
+  .handoff__step .d { font-size:13.5px; line-height:1.4; }
+  @media (max-width:640px){ .handoff__steps{grid-template-columns:1fr;} }
+
+  /* ─── Cards ─── */
+  .card { background:var(--surface-elevated); border:1px solid var(--border-default); border-radius:18px; padding:24px; }
+  .card-sunken { background:var(--surface-sunken); border:1px solid var(--border-default); border-radius:16px; padding:20px; }
+  .subhead { font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-family:'Space Grotesk',sans-serif; color:var(--text-tertiary); margin:0 0 16px; font-weight:500; }
+
+  /* ─── Contrast rows ─── */
+  .contrast-row { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--border-subtle); }
+  .contrast-row:last-child { border-bottom:none; }
+  .contrast-demo { width:108px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; flex-shrink:0; border:1px solid var(--border-subtle); }
+  .contrast-info { flex:1; min-width:0; }
+  .contrast-info .nm { font-size:14px; font-weight:600; }
+  .contrast-info .tk { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--text-tertiary); margin-top:3px; }
+  .contrast-score { text-align:right; flex-shrink:0; }
+  .ratio { font-size:18px; font-weight:700; font-family:'Space Grotesk',monospace; }
+  .badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:.06em; padding:3px 8px; border-radius:6px; margin-left:4px; }
+  .badge.pass { background:color-mix(in srgb, var(--status-success) 22%, transparent); color:var(--status-success); }
+  .badge.fail { background:color-mix(in srgb, var(--status-error) 22%, transparent); color:var(--status-error); }
+
+  /* ─── Type scale ─── */
+  .type-row { display:flex; align-items:baseline; gap:20px; padding:14px 0; border-bottom:1px solid var(--border-subtle); }
+  .type-row:last-child{border-bottom:none;}
+  .type-spec { width:150px; flex-shrink:0; font-family:'Space Grotesk',monospace; font-size:12px; color:var(--text-tertiary); }
+  .type-spec b { color:var(--text-primary); font-family:'Space Grotesk',sans-serif; display:block; font-size:13px; margin-bottom:3px; }
+  .type-sample { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* ─── Spacing viz ─── */
+  .space-row { display:flex; align-items:center; gap:16px; padding:9px 0; }
+  .space-bar { height:18px; background:var(--brand-primary); border-radius:4px; }
+  .space-label { font-family:'Space Grotesk',monospace; font-size:12px; width:130px; flex-shrink:0; }
+  .space-label b{color:var(--text-primary);} .space-label span{color:var(--text-tertiary);}
+
+  /* ─── Component demos ─── */
+  .demo-stack { display:flex; flex-direction:column; gap:14px; }
+  .demo-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .ds-btn {
+    appearance:none; font:inherit; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    height:44px; padding:0 22px; border-radius:16px; font-size:16px; font-weight:500; line-height:1; border:none;
+    transition:opacity .12s ease; white-space:nowrap;
+  }
+  .ds-btn:active{opacity:.8;}
+  .ds-btn.sm{height:30px; font-size:14px; padding:0 16px; border-radius:12px;}
+  .ds-chip {
+    display:inline-flex; align-items:center; gap:5px; height:30px; padding:0 11px; border-radius:12px;
+    font-size:14px; font-weight:500; line-height:1;
+  }
+  .ds-banner { display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:16px; }
+  .ds-banner .b-ic { width:24px;height:24px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700; }
+  .ds-banner .b-t { font-size:16px; font-weight:600; }
+  .ds-banner .b-d { font-size:13px; color:var(--text-secondary); margin-top:2px; line-height:1.45; }
+
+  /* ─── Rows / list components ─── */
+  .rows-wrap { max-width:400px; }
+  .rows-cap { font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-family:'Space Grotesk',sans-serif; color:var(--text-tertiary); margin:0 0 8px; font-weight:500; }
+  .rows-group { border:1px solid var(--border-default); border-radius:16px; overflow:hidden; margin-bottom:22px; }
+  .ds-row { display:flex; align-items:center; gap:16px; padding:0 18px; min-height:40px; background:var(--surface-elevated); }
+  .ds-row.two-line { min-height:50px; }
+  .ds-row.tappable { cursor:pointer; }
+  .ds-row.tappable:active { background:var(--surface-sunken); }
+  .ds-row__lead { width:20px; height:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); }
+  .ds-row__lead svg { width:20px; height:20px; display:block; }
+  .ds-row__main { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+  .ds-row__label { font-size:16px; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ds-row__field { font-size:13px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:1px; }
+  .ds-row__trail { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+  .ds-row__chev { color:var(--text-tertiary); font-size:19px; line-height:1; }
+  .ds-row__txt { font-size:14px; }
+  .ds-toggle { width:44px; height:26px; border-radius:100px; border:none; padding:3px; cursor:pointer; display:inline-flex; align-items:center; transition:background-color .16s ease; }
+  .ds-toggle__knob { width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .16s ease; }
+  .ds-toggle[data-on="true"] .ds-toggle__knob { transform:translateX(18px); }
+  .ds-stepper { display:inline-flex; align-items:center; border:1px solid var(--border-default); border-radius:10px; overflow:hidden; }
+  .ds-stepper button { width:28px; height:28px; border:none; background:transparent; color:var(--text-primary); font-size:17px; line-height:1; cursor:pointer; }
+  .ds-stepper button:active { background:var(--surface-sunken); }
+  .ds-stepper span { min-width:26px; text-align:center; font-size:14px; color:var(--text-primary); }
+  .ds-badge { min-width:20px; height:20px; padding:0 6px; border-radius:100px; color:#fff; font-size:12px; font-weight:600; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }
+  .ds-badge-dot { width:9px; height:9px; border-radius:50%; }
+  .ds-viol { height:20px; padding:0 8px; border-radius:7px; font-size:11px; font-weight:600; display:inline-flex; align-items:center; color:#fff; }
+  .ds-sech { display:flex; align-items:center; gap:8px; padding:0 4px; min-height:44px; }
+  .ds-sech__t { font-weight:700; color:var(--text-primary); }
+  .ds-sech__trail { margin-left:auto; display:flex; align-items:center; gap:4px; color:var(--text-secondary); font-size:14px; }
+
+  /* ─── AI panel ─── */
+  .ai-callout {
+    border:1px dashed color-mix(in srgb, var(--brand-primary) 45%, transparent);
+    background:color-mix(in srgb, var(--brand-primary) 8%, transparent);
+    border-radius:18px; padding:22px 24px; margin-bottom:24px;
+  }
+  .ai-callout h3{margin:0 0 8px; font-size:17px; display:flex; align-items:center; gap:9px;}
+  .ai-callout p{margin:0; color:var(--text-secondary); font-size:15px; line-height:1.6;}
+  pre.code {
+    margin:0; background:var(--surface-sunken); border:1px solid var(--border-default); border-radius:14px;
+    padding:20px; overflow:auto; font-family:'Space Grotesk',ui-monospace,monospace; font-size:12.5px; line-height:1.65;
+    color:var(--text-primary); max-height:440px;
+  }
+  pre.code .k{color:var(--brand-primary);} pre.code .s{color:var(--status-success);} pre.code .c{color:var(--text-tertiary);} pre.code .n{color:var(--brand-accent1);}
+  .tabs{display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;}
+  .tabs button{appearance:none; cursor:pointer; font:inherit; font-size:13px; font-weight:500; padding:8px 14px; border-radius:10px; border:1px solid var(--border-default); background:var(--surface-elevated); color:var(--text-secondary); transition:all .18s;}
+  .tabs button[aria-pressed="true"]{background:var(--brand-primary); color:var(--on-brand); border-color:transparent;}
+
+  /* ─── Icon gallery ─── */
+  .icon-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:22px; }
+  .icon-search {
+    flex:1; min-width:200px; height:42px; padding:0 16px; border-radius:12px;
+    background:var(--surface-sunken); border:1px solid var(--border-default); color:var(--text-primary);
+    font:inherit; font-size:15px; outline:none; transition:border-color .18s;
+  }
+  .icon-search:focus { border-color:var(--brand-primary); }
+  .icon-search::placeholder { color:var(--text-tertiary); }
+  .icon-count { font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-tertiary); white-space:nowrap; }
+  .tint-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .tint-dot {
+    width:26px; height:26px; border-radius:50%; cursor:pointer; padding:0;
+    border:2px solid var(--border-default); box-shadow:0 0 0 2px transparent; transition:box-shadow .15s, transform .12s;
+  }
+  .tint-dot:hover { transform:scale(1.12); }
+  .tint-dot.on { box-shadow:0 0 0 2px var(--surface-base), 0 0 0 4px var(--brand-primary); }
+  .tint-pick {
+    position:relative; width:26px; height:26px; border-radius:50%; cursor:pointer; display:inline-flex;
+    align-items:center; justify-content:center; border:2px dashed var(--border-strong); color:var(--text-secondary);
+    font-size:13px; overflow:hidden;
+  }
+  .tint-pick.on { border-style:solid; box-shadow:0 0 0 2px var(--surface-base), 0 0 0 4px var(--brand-primary); }
+  .tint-pick input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .icon-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px; }
+  .icon-tile {
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    padding:18px 8px 12px; border:1px solid var(--border-default); border-radius:14px; cursor:pointer;
+    background:var(--surface-elevated); transition:transform .14s ease, border-color .14s ease; min-height:104px;
+  }
+  .icon-tile:hover { transform:translateY(-2px); border-color:var(--brand-primary); }
+  .icon-tile .glyph { display:flex; align-items:center; justify-content:center; }
+  .icon-tile .glyph svg { width:100%; height:100%; display:block; }
+  .icon-tile .nm { font-family:'Space Grotesk',monospace; font-size:10.5px; color:var(--text-secondary); text-align:center; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; line-height:1.2; }
+  .icon-tile .size-dots { display:flex; gap:3px; }
+  .icon-tile .size-dots span { font-family:'Space Grotesk',monospace; font-size:8.5px; font-weight:600; letter-spacing:.05em; color:var(--text-tertiary); border:1px solid var(--border-default); border-radius:4px; padding:0 3px; line-height:1.5; }
+  .icon-empty { color:var(--text-secondary); font-size:15px; line-height:1.6; }
+  .icon-empty code { font-family:'Space Grotesk',monospace; background:var(--surface-sunken); border:1px solid var(--border-default); padding:2px 7px; border-radius:6px; font-size:13px; }
+
+  .foot { padding:56px 0 80px; text-align:center; color:var(--text-tertiary); font-size:14px; }
+  .foot a{color:var(--brand-primary); text-decoration:none; font-weight:600;}
+  .copy-toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--brand-primary); color:var(--on-brand); padding:11px 20px; border-radius:100px; font-size:14px; font-weight:600;
+    opacity:0; pointer-events:none; transition:all .25s ease; z-index:100;
+  }
+  .copy-toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .pill-note{font-family:'Space Grotesk',sans-serif; font-size:12px; color:var(--text-tertiary); display:inline-flex; align-items:center; gap:7px; margin-top:18px;}
+  .pill-note .k{ padding:3px 7px; border:1px solid var(--border-default); border-radius:6px; background:var(--surface-sunken);}
+</style>
+</head>
+<body>
+
+<!-- ══════════ CONTROL BAR ══════════ -->
+<div class="bar">
+  <div class="bar__brandmark" id="brandmark">Mutual DS <small>live token explorer</small></div>
+
+  <div class="bar__group">
+    <span class="bar__label">Brand</span>
+    <div class="seg" id="brandSeg">
+      <button data-brand="mutual" aria-pressed="true">Mutual</button>
+      <button data-brand="ark" aria-pressed="false">Ark</button>
+      <button data-brand="tonite" aria-pressed="false">ToNite</button>
+    </div>
+  </div>
+
+  <div class="bar__group">
+    <span class="bar__label">Mode</span>
+    <div class="seg" id="modeSeg">
+      <button data-mode="light" aria-pressed="true">Light</button>
+      <button data-mode="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+
+  <button class="toggle" id="aiToggle" aria-pressed="false" title="Reveal the machine-readable layer">
+    <span class="dot"></span> AI view
+  </button>
+</div>
+
+<!-- ══════════ AI HAND-OFF PANEL (revealed by AI view) ══════════ -->
+<section class="handoff" id="handoff" aria-label="Install this design system with your AI">
+  <div class="wrap">
+    <div class="handoff__card">
+      <div class="handoff__eyebrow">AI view · Hand-off</div>
+      <div class="handoff__title">Drop this whole system into your project</div>
+      <p class="handoff__sub">Copy the prompt, paste it into Claude, Cursor, or any coding agent, then just say what you want to build. It scaffolds the Mutual design system into your repo — tokens, all six themes, components, and the rules that keep everything on-brand and accessible — then builds whatever you ask using only that system.</p>
+      <div class="tabs" id="handoffTabs">
+        <button data-scope="full" aria-pressed="true">Full system</button>
+        <button data-scope="tokens" aria-pressed="false">Tokens only</button>
+        <span class="handoff__count" id="handoffCount" style="margin-left:auto"></span>
+      </div>
+      <pre class="code" id="handoffPrompt" style="max-height:300px"></pre>
+      <div class="handoff__actions">
+        <button class="h-btn h-btn--primary" id="handoffCopy">Copy prompt</button>
+        <button class="h-btn" id="handoffDownload">Download .md</button>
+      </div>
+      <div class="handoff__steps">
+        <div class="handoff__step"><div class="n">Step 1</div><div class="d">Copy the prompt</div></div>
+        <div class="handoff__step"><div class="n">Step 2</div><div class="d">Paste into your AI agent</div></div>
+        <div class="handoff__step"><div class="n">Step 3</div><div class="d">Say what to build — on-brand by default</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Design System · One source · engineers &amp; AI agents build from it</p>
+    <h1 id="heroTitle">One token layer. Three brands. Six themes. Zero guessing.</h1>
+    <p>This is a real, shipping design system for two products — <strong class="lead-strong">Mutual</strong>, <strong class="lead-strong">Ark</strong>, and a third concept, <strong class="lead-strong">ToNite</strong> — generated from a single semantic token layer that exports cleanly to Swift <em>and</em> React.</p>
+    <p>Every color, type ramp, and component below is rendered live from those tokens. Flip the brand and mode switches up top — the entire page re-themes from one source of truth. The point isn't that it's pretty. It's that it's <strong class="lead-strong">structured</strong>: a new engineer — or an AI agent — can read these tokens and assemble correct, on-brand, accessible UI without me in the loop. Hit <strong class="lead-strong">AI view</strong> to see exactly what they build from.</p>
+    <div class="pill-note"><span class="k">Try</span> Flip on <strong>AI view</strong> (top-right), then hover anything — every element reveals the exact token an agent reads.</div>
+  </header>
+</div>
+
+<!-- sections injected -->
+<main id="app" class="wrap"></main>
+
+<div class="wrap">
+  <div class="foot">
+    Built by Hunter Paramore · <a href="../index.html">paramore.design</a><br/>
+    <span style="opacity:.6">Tokens authored once → exported to Swift (SwiftUI) &amp; Web (React) &amp; this explorer.</span>
+  </div>
+</div>
+
+<div class="copy-toast" id="toast">Copied</div>
+<div class="ai-inspector" id="aiInspector"></div>
+<div class="ai-hint" id="aiHint"><span class="pulse"></span> Hover anything — see the token an agent reads</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — ported verbatim from the design-system source
+   (tokens/colors.ts, semantic.ts, typography.ts, spacing.ts)
+   ═══════════════════════════════════════════════════════════════ */
+
+const THEMES = {
+  mutual: {
+    light: {appName:'Mutual',premiumName:'Premium',isDarkMode:false,brandPrimary:'#000080',brandSecondary:'#E9E4EE',brandAccent1:'#FEB95F',brandAccent2:'#F8AFDC',brandAccent3:'#FF806D',brandAccent4:'#C2185B',brandAccent5:'#F60063',brandAccent6:'#3845E7',brandAccent7:'#3845E7',grey0:'#FFFFFF',grey50:'#ECECEC',grey100:'#D9D9D9',grey200:'#BAB7B7',grey400:'#959699',grey600:'#454545',grey900:'#272525',grey1000:'#000000',textTertiary:'#767676',textDisabled:'#757575',constantWhite:'#FFFFFF',constantLightGrey:'#ECECEC',constantGrey:'#BCBCBC',constantMiddleGrey:'#959699',constantDarkGrey:'#272525',constantBlack:'#000000',constantPrimary:'#000080',constantSecondary:'#E9E4EE',indicatorInfo:'#16B1FF',indicatorSuccess:'#56CA00',indicatorAlert:'#F5B02B',indicatorError:'#FE6767',indicatorBadge:'#FF3B30'},
+    dark: {appName:'Mutual',premiumName:'Premium',isDarkMode:true,brandPrimary:'#7B8FE0',brandSecondary:'#3D3650',brandAccent1:'#FFCA7A',brandAccent2:'#F8AFDC',brandAccent3:'#FF9A8A',brandAccent4:'#E54D85',brandAccent5:'#FF4081',brandAccent6:'#6C7AFF',brandAccent7:'#6C7AFF',grey0:'#1A1A1E',grey50:'#252529',grey100:'#3A3A42',grey200:'#6B6B73',grey400:'#9E9EA6',grey600:'#CCCCD1',grey900:'#F2F2F5',grey1000:'#FFFFFF',textTertiary:'#9A9AA2',textDisabled:'#6E6E76',constantWhite:'#FFFFFF',constantLightGrey:'#ECECEC',constantGrey:'#BCBCBC',constantMiddleGrey:'#959699',constantDarkGrey:'#272525',constantBlack:'#000000',constantPrimary:'#000080',constantSecondary:'#E9E4EE',indicatorInfo:'#4DC3FF',indicatorSuccess:'#7ED957',indicatorAlert:'#FFBE4D',indicatorError:'#FF7A7A',indicatorBadge:'#FF5147'}
+  },
+  ark: {
+    light: {appName:'Ark',premiumName:'First Class',isDarkMode:false,brandPrimary:'#394C9B',brandSecondary:'#C0DBF3',brandAccent1:'#F8CF6E',brandAccent2:'#F2B0E7',brandAccent3:'#E89A9A',brandAccent4:'#6B4D99',brandAccent5:'#5B24C7',brandAccent6:'#101D3F',brandAccent7:'#4A87C4',grey0:'#FFFFFF',grey50:'#F0F0F0',grey100:'#DADBDB',grey200:'#B0B0B0',grey400:'#6D6E71',grey600:'#454545',grey900:'#272525',grey1000:'#000000',textTertiary:'#767676',textDisabled:'#757575',constantWhite:'#FFFFFF',constantLightGrey:'#B0B0B0',constantGrey:'#BCBCBC',constantMiddleGrey:'#959699',constantDarkGrey:'#272525',constantBlack:'#000000',constantPrimary:'#394C9B',constantSecondary:'#C0DBF3',indicatorInfo:'#0CA3C6',indicatorSuccess:'#56CA00',indicatorAlert:'#EAA829',indicatorError:'#FE6767',indicatorBadge:'#FF3B30'},
+    dark: {appName:'Ark',premiumName:'First Class',isDarkMode:true,brandPrimary:'#6B7FD9',brandSecondary:'#3D5A7A',brandAccent1:'#F8CF6E',brandAccent2:'#F2B0E7',brandAccent3:'#F0BABA',brandAccent4:'#9B7BC8',brandAccent5:'#8B5CF6',brandAccent6:'#6B7FD9',brandAccent7:'#7FBAE8',grey0:'#141416',grey50:'#1E1E22',grey100:'#2D2D33',grey200:'#6D6E71',grey400:'#B0B0B0',grey600:'#DADBDB',grey900:'#F0F0F0',grey1000:'#FFFFFF',textTertiary:'#9A9AA2',textDisabled:'#6E6E76',constantWhite:'#FFFFFF',constantLightGrey:'#B0B0B0',constantGrey:'#BCBCBC',constantMiddleGrey:'#959699',constantDarkGrey:'#272525',constantBlack:'#000000',constantPrimary:'#394C9B',constantSecondary:'#C0DBF3',indicatorInfo:'#2DC4E8',indicatorSuccess:'#6EE830',indicatorAlert:'#F5BE4A',indicatorError:'#FF7A7A',indicatorBadge:'#FF5147'}
+  },
+  tonite: {
+    light: {appName:'ToNite',premiumName:'Date Pass',isDarkMode:false,brandPrimary:'#B07A18',brandSecondary:'#FFF8ED',brandAccent1:'#D49520',brandAccent2:'#E68A00',brandAccent3:'#E53935',brandAccent4:'#7C3AED',brandAccent5:'#B07A18',brandAccent6:'#059669',brandAccent7:'#2563EB',grey0:'#FFFFFF',grey50:'#F8F6F2',grey100:'#EBE7E0',grey200:'#C8C2B8',grey400:'#8A8478',grey600:'#504A3E',grey900:'#1C1812',grey1000:'#000000',textTertiary:'#7A7468',textDisabled:'#A8A49A',constantWhite:'#FFFFFF',constantLightGrey:'#E8E4DE',constantGrey:'#B0AAA0',constantMiddleGrey:'#8A8478',constantDarkGrey:'#2A2620',constantBlack:'#000000',constantPrimary:'#B07A18',constantSecondary:'#FFF8ED',indicatorInfo:'#2563EB',indicatorSuccess:'#059669',indicatorAlert:'#D97706',indicatorError:'#DC2626',indicatorBadge:'#EF4444'},
+    dark: {appName:'ToNite',premiumName:'Date Pass',isDarkMode:true,brandPrimary:'#E8A838',brandSecondary:'#2A2318',brandAccent1:'#F5C842',brandAccent2:'#FF9F43',brandAccent3:'#FF6B6B',brandAccent4:'#A78BFA',brandAccent5:'#E8A838',brandAccent6:'#34D399',brandAccent7:'#60A5FA',grey0:'#0E0E12',grey50:'#1A1A22',grey100:'#262630',grey200:'#3A3A48',grey400:'#7A7A8A',grey600:'#B0B0BC',grey900:'#EEEEF2',grey1000:'#FFFFFF',textTertiary:'#8A8A98',textDisabled:'#5A5A66',constantWhite:'#FFFFFF',constantLightGrey:'#B0B0BC',constantGrey:'#7A7A8A',constantMiddleGrey:'#5A5A66',constantDarkGrey:'#1A1A22',constantBlack:'#000000',constantPrimary:'#E8A838',constantSecondary:'#2A2318',indicatorInfo:'#60A5FA',indicatorSuccess:'#34D399',indicatorAlert:'#FBBF24',indicatorError:'#F87171',indicatorBadge:'#EF4444'}
+  }
+};
+
+/* ── Semantic derivation (ports tokens/semantic.ts) ── */
+const sem = {
+  buttonPrimary(t){const isTonite=t.appName==='ToNite';return{background:isTonite?t.brandPrimary:t.brandAccent5,foreground:isTonite?t.constantBlack:t.constantWhite};},
+  buttonSecondary(t){return{background:t.brandSecondary,foreground:t.isDarkMode?t.constantWhite:t.grey900};},
+  buttonDestructive(t){return{background:t.indicatorError,foreground:t.constantWhite};},
+  text(t){return{primary:t.grey900,secondary:t.grey600,tertiary:t.textTertiary,disabled:t.textDisabled,inverse:t.constantWhite,link:t.brandPrimary,error:t.indicatorError,success:t.indicatorSuccess};},
+  surfaces(t){return{base:t.grey0,elevated:t.isDarkMode?t.grey50:t.constantWhite,sunken:t.grey50,overlay:t.isDarkMode?t.grey100:t.constantWhite};},
+  borders(t){return{default:t.grey200,strong:t.grey600,subtle:t.grey50,focus:t.brandPrimary};},
+  status(t){return{info:t.indicatorInfo,success:t.indicatorSuccess,warning:t.indicatorAlert,error:t.indicatorError};}
+};
+
+/* ── Typography scale (tokens/typography.ts) ── */
+const typeScale = {
+  h1:{fontSize:44,lineHeight:48,fontWeight:700,sec:false}, h2:{fontSize:32,lineHeight:36,fontWeight:700,sec:false},
+  h3:{fontSize:24,lineHeight:28,fontWeight:700,sec:false}, h4:{fontSize:20,lineHeight:26,fontWeight:700,sec:false},
+  h5:{fontSize:16,lineHeight:20,fontWeight:500,sec:false}, h6:{fontSize:14,lineHeight:18,fontWeight:500,sec:false},
+  h7:{fontSize:12,lineHeight:16,fontWeight:500,sec:false}, secondaryTitle:{fontSize:32,lineHeight:36,fontWeight:400,sec:true},
+  bodyLarge:{fontSize:20,lineHeight:28,fontWeight:400,sec:false}, bodyMedium:{fontSize:18,lineHeight:24,fontWeight:400,sec:false},
+  bodyBase:{fontSize:16,lineHeight:20,fontWeight:400,sec:false}, bodySmall:{fontSize:13,lineHeight:18,fontWeight:400,sec:false}
+};
+const typeUse = {h1:'Hero headlines',h2:'Section titles',h3:'Card titles',h4:'Subsections',h5:'Labels',h6:'Captions w/ emphasis',h7:'Smallest titles',secondaryTitle:'Elegant titles (display font)',bodyLarge:'Intro paragraphs',bodyMedium:'Featured body',bodyBase:'Default body',bodySmall:'Captions, metadata'};
+
+/* ── Spacing (tokens/spacing.ts) ── */
+const spacing = {xs:4,s:8,base:12,m:16,l:20,xl:24,xxl:30,xxxl:50,xxxxl:80};
+const radius  = {small:12,medium:16,large:20,xl:24,round:100};
+const iconSize= {s:16,base:20,m:30,l:40,xl:60};
+
+const fonts = {
+  mutual:{primary:"'Goldman Sans', sans-serif", secondary:"'Gramatika Black', serif", pName:'Goldman Sans', sName:'Gramatika'},
+  ark:{primary:"'DM Sans', sans-serif", secondary:"'DM Serif Display', serif", pName:'DM Sans', sName:'DM Serif Display'},
+  tonite:{primary:"'Inter', sans-serif", secondary:"'DM Serif Display', serif", pName:'Inter', sName:'DM Serif Display'}
+};
+
+/* ═══════════════ CONTRAST (WCAG 2.1) ═══════════════ */
+function hexToRgb(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function lum(rgb){const a=rgb.map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];}
+function contrast(fg,bg){const L1=lum(hexToRgb(fg)),L2=lum(hexToRgb(bg));const hi=Math.max(L1,L2),lo=Math.min(L1,L2);return (hi+0.05)/(lo+0.05);}
+
+/* ═══════════════ STATE ═══════════════ */
+let state = {brand:'mutual', mode:'light'};
+let icons = [];                 // [{name, token, large, small}] loaded from manifest
+let iconState = {q:'', px:32, color:'text'};   // px: display size; color: token keyword or #hex
+let iconTilesCache = {key:'', html:''};
+let handoffScope = 'full';      // 'full' | 'tokens' — AI hand-off prompt scope
+
+function applyTheme(){
+  const t = THEMES[state.brand][state.mode];
+  const s = sem.surfaces(t), tx = sem.text(t), bd = sem.borders(t), st = sem.status(t), bp = sem.buttonPrimary(t);
+  const r = document.documentElement.style;
+  r.setProperty('--surface-base', s.base);
+  r.setProperty('--surface-elevated', s.elevated);
+  r.setProperty('--surface-sunken', s.sunken);
+  r.setProperty('--text-primary', tx.primary);
+  r.setProperty('--text-secondary', tx.secondary);
+  r.setProperty('--text-tertiary', tx.tertiary);
+  r.setProperty('--border-default', bd.default);
+  r.setProperty('--border-subtle', bd.subtle);
+  r.setProperty('--brand-primary', t.brandPrimary);
+  r.setProperty('--brand-accent1', t.brandAccent1);
+  r.setProperty('--on-brand', t.brandPrimary===s.base ? tx.primary : pickOn(t.brandPrimary));
+  r.setProperty('--status-success', st.success);
+  r.setProperty('--status-error', st.error);
+  r.setProperty('--font-primary', fonts[state.brand].primary);
+  r.setProperty('--font-secondary', fonts[state.brand].secondary);
+  document.getElementById('brandmark').firstChild.textContent = t.appName + ' DS ';
+  document.getElementById('heroTitle').style.fontFamily = fonts[state.brand].secondary;
+}
+function pickOn(bg){ return contrast('#FFFFFF',bg) >= contrast('#000000',bg) ? '#FFFFFF' : '#000000'; }
+
+/* ═══════════════ RENDER HELPERS ═══════════════ */
+const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+// Attach the machine-readable record an agent would read for an element.
+const ai = o => ` data-ai='${JSON.stringify(o).replace(/&/g,'&amp;').replace(/'/g,'&#39;')}'`;
+
+function colorSwatch(name, hex, role){
+  return `<div class="swatch" data-copy="${name}" title="Click to copy: ${name}"${ai({k:'Color token',token:name,value:hex.toUpperCase(),color:hex,note:role?('Role: '+role):'Primitive color value.'})}>
+    <div class="swatch__chip" style="background:${hex}"></div>
+    <div class="swatch__meta">
+      <div class="swatch__name">${name}</div>
+      <div class="swatch__role">${role||''}</div>
+      <div class="swatch__hex">${hex.toUpperCase()}</div>
+    </div></div>`;
+}
+
+function renderColors(t){
+  const brandRoles={brandPrimary:'Main brand · nav · headers',brandSecondary:'Light bg · secondary buttons',brandAccent1:'Gold / premium',brandAccent2:'Soft decorative accent',brandAccent3:'Card highlights · warmth',brandAccent4:'Secondary CTA',brandAccent5:'⭐ Primary CTA',brandAccent6:'Links · information',brandAccent7:'Tertiary accent'};
+  const greyRoles={grey0:'Base background',grey50:'Subtle bg · dividers',grey100:'Borders · inputs',grey200:'Disabled bg',grey400:'Placeholder text',grey600:'Secondary text',grey900:'Primary text',grey1000:'High-emphasis text'};
+  const indRoles={indicatorInfo:'Information',indicatorSuccess:'Success',indicatorAlert:'Warning',indicatorError:'Error',indicatorBadge:'Notification badge'};
+  const make=(keys,roles)=>keys.map(k=>colorSwatch(k,t[k],roles[k])).join('');
+  return `
+  <p class="subhead">Brand colors</p>
+  <div class="grid cols-auto" style="margin-bottom:30px">${make(Object.keys(brandRoles),brandRoles)}</div>
+  <p class="subhead">Grey scale — semantic, inverts in dark mode</p>
+  <div class="grid cols-auto" style="margin-bottom:30px">${make(Object.keys(greyRoles),greyRoles)}</div>
+  <p class="subhead">Indicators</p>
+  <div class="grid cols-auto">${make(Object.keys(indRoles),indRoles)}</div>`;
+}
+
+function renderType(t){
+  const f=fonts[state.brand];
+  return Object.entries(typeScale).map(([k,v])=>{
+    const fam = v.sec ? f.secondary : f.primary;
+    const sample = v.sec ? 'Elegant by design' : 'The quick brown fox';
+    return `<div class="type-row"${ai({k:'Type token',token:'type.'+k,value:`${v.fontSize}px / ${v.lineHeight} · ${v.fontWeight}`,note:`${typeUse[k]} · ${v.sec?f.sName+' (display)':f.pName}`})}>
+      <div class="type-spec"><b>${k}</b>${v.fontSize}/${v.lineHeight} · ${v.fontWeight}${v.sec?' · display':''}</div>
+      <div class="type-sample" style="font-family:${fam}; font-size:${Math.min(v.fontSize,40)}px; line-height:1.1; font-weight:${v.fontWeight}; color:var(--text-primary)">${sample}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderSpacing(){
+  const sp=Object.entries(spacing).map(([k,v])=>`<div class="space-row"${ai({k:'Spacing token',token:'spacing.'+k,value:v+'px',note:'Gap between elements — from the fixed spacing scale.'})}><div class="space-label"><b>spacing.${k}</b> <span>${v}px</span></div><div class="space-bar" style="width:${v}px"></div></div>`).join('');
+  const rd=Object.entries(radius).map(([k,v])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:8px"${ai({k:'Radius token',token:'radius.'+k,value:v+'px',note:'Corner radius from the shared scale.'})}><div style="width:64px;height:64px;background:var(--brand-primary);border-radius:${Math.min(v,32)}px"></div><div style="font-family:'Space Grotesk',monospace;font-size:11px;color:var(--text-tertiary);text-align:center"><b style="color:var(--text-primary);display:block">${k}</b>${v}px</div></div>`).join('');
+  const ic=Object.entries(iconSize).map(([k,v])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:8px"${ai({k:'Icon-size token',token:'iconSize.'+k,value:v+'px',note:'Standard icon dimension.'})}><div style="width:${v}px;height:${v}px;background:var(--text-secondary);border-radius:5px"></div><div style="font-family:'Space Grotesk',monospace;font-size:11px;color:var(--text-tertiary);text-align:center"><b style="color:var(--text-primary);display:block">${k}</b>${v}px</div></div>`).join('');
+  return `
+  <div class="grid cols-2" style="align-items:start;gap:24px">
+    <div class="card"><p class="subhead">Spacing scale</p>${sp}</div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="card"><p class="subhead">Corner radius</p><div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">${rd}</div></div>
+      <div class="card"><p class="subhead">Icon sizes</p><div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">${ic}</div></div>
+    </div>
+  </div>`;
+}
+
+function renderContrast(t){
+  const s=sem.surfaces(t), tx=sem.text(t), bp=sem.buttonPrimary(t), b2=sem.buttonSecondary(t), bd=sem.buttonDestructive(t);
+  const pairs=[
+    {nm:'Text Primary on Base',     tk:'text.primary / surface.base',   fg:tx.primary,   bg:s.base},
+    {nm:'Text Secondary on Base',   tk:'text.secondary / surface.base', fg:tx.secondary, bg:s.base},
+    {nm:'Text Tertiary on Base',    tk:'text.tertiary / surface.base',  fg:tx.tertiary,  bg:s.base},
+    {nm:'Primary CTA',              tk:'buttonPrimary.fg / .bg',        fg:bp.foreground,bg:bp.background},
+    {nm:'Secondary CTA',            tk:'buttonSecondary.fg / .bg',      fg:b2.foreground,bg:b2.background},
+    {nm:'Destructive CTA',          tk:'buttonDestructive.fg / .bg',    fg:bd.foreground,bg:bd.background},
+    {nm:'Link on Base',             tk:'text.link / surface.base',      fg:tx.link,      bg:s.base},
+  ];
+  return `<div class="card">${pairs.map(p=>{
+    const r=contrast(p.fg,p.bg); const aa=r>=4.5, aaLarge=r>=3, aaa=r>=7;
+    const badge = aaa?'<span class="badge pass">AAA</span>':aa?'<span class="badge pass">AA</span>':aaLarge?'<span class="badge pass">AA Large</span>':'<span class="badge fail">FAIL</span>';
+    return `<div class="contrast-row">
+      <div class="contrast-demo" style="background:${p.bg};color:${p.fg}">Aa</div>
+      <div class="contrast-info"><div class="nm">${p.nm}</div><div class="tk">${p.tk}</div></div>
+      <div class="contrast-score"><span class="ratio">${r.toFixed(2)}:1</span>${badge}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function renderComponents(t){
+  const s=sem.surfaces(t), tx=sem.text(t), bd=sem.borders(t), st=sem.status(t);
+  const bp=sem.buttonPrimary(t), b2=sem.buttonSecondary(t), bdest=sem.buttonDestructive(t);
+  const f=fonts[state.brand];
+  const btn=(label,bg,fg,extra='',aiData=null)=>`<button class="ds-btn ${extra}" style="background:${bg};color:${fg};font-family:${f.primary}"${aiData?ai(aiData):''}>${label}</button>`;
+  const outline=(label,col,aiData=null)=>`<button class="ds-btn" style="background:transparent;color:${col};border:2px solid ${col};font-family:${f.primary}"${aiData?ai(aiData):''}>${label}</button>`;
+  const chip=(label,bg,fg,border='',aiData=null)=>`<span class="ds-chip" style="background:${bg};color:${fg};${border};font-family:${f.primary}"${aiData?ai(aiData):''}>${label}</span>`;
+  const cr=(fg,bg)=>+contrast(fg,bg).toFixed(2);
+
+  return `
+  <div class="grid cols-2" style="gap:24px;align-items:start">
+    <div class="card">
+      <p class="subhead">Buttons — fill</p>
+      <div class="demo-row" style="margin-bottom:18px">
+        ${btn('Primary CTA',bp.background,bp.foreground,'',{k:'Component · button',token:'semantic.buttonPrimary',value:`bg ${bp.background} · fg ${bp.foreground}`,color:bp.background,contrast:cr(bp.foreground,bp.background),note:'Main call to action. Paired fg/bg ship pre-validated for contrast.'})}
+        ${btn('Secondary',b2.background,b2.foreground,'',{k:'Component · button',token:'semantic.buttonSecondary',value:`bg ${b2.background} · fg ${b2.foreground}`,color:b2.background,contrast:cr(b2.foreground,b2.background),note:'Secondary action on brandSecondary.'})}
+        ${btn('Destructive',bdest.background,bdest.foreground,'',{k:'Component · button',token:'semantic.buttonDestructive',value:`bg ${bdest.background} · fg ${bdest.foreground}`,color:bdest.background,contrast:cr(bdest.foreground,bdest.background),note:'Delete / cancel. Uses indicatorError.'})}
+      </div>
+      <p class="subhead">Buttons — outline &amp; text</p>
+      <div class="demo-row" style="margin-bottom:18px">
+        ${outline('Outline',t.brandPrimary,{k:'Component · button',token:'semantic.buttonTertiary',value:`border + fg ${t.brandPrimary}`,color:t.brandPrimary,note:'Ghost / outline style on brandPrimary.'})}
+        ${btn('Text button','transparent',t.brandPrimary,'',{k:'Component · button',token:'text.link',value:t.brandPrimary,color:t.brandPrimary,note:'Low-emphasis text action.'})}
+        ${btn('Disabled',t.grey200,t.grey400,'',{k:'Component · button',token:'state.disabled',value:`bg grey200 · fg grey400`,color:t.grey200,note:'Disabled state from the grey scale.'})}
+      </div>
+      <p class="subhead">Sizes</p>
+      <div class="demo-row">
+        ${btn('Large',bp.background,bp.foreground)}
+        ${btn('Small',bp.background,bp.foreground,'sm')}
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="subhead">Chips — 8 variants</p>
+      <div class="demo-row">
+        ${chip('Primary',t.brandPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.primary',value:t.brandPrimary,color:t.brandPrimary,note:'Tags & traits on brandPrimary.'})}
+        ${chip('Light',t.isDarkMode?t.grey100:t.grey50,t.grey600,'',{k:'Component · chip',token:'chip.light',value:t.isDarkMode?t.grey100:t.grey50,color:t.isDarkMode?t.grey100:t.grey50,note:'Subtle chip on the grey scale.'})}
+        ${chip('Dark',t.constantBlack,t.constantWhite,'',{k:'Component · chip',token:'chip.dark',value:t.constantBlack,color:t.constantBlack,note:'High-contrast chip (constantBlack).'})}
+        ${chip('Accent 1',t.brandAccent1,t.constantBlack,'',{k:'Component · chip',token:'chip.accent1',value:t.brandAccent1,color:t.brandAccent1,note:'Gold / premium accent chip.'})}
+        ${chip('Accent 5',t.brandAccent5,t.constantWhite,'',{k:'Component · chip',token:'chip.accent5',value:t.brandAccent5,color:t.brandAccent5,note:'Primary-CTA accent chip.'})}
+        ${chip('Const. Primary',t.constantPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.constantPrimary',value:t.constantPrimary,color:t.constantPrimary,note:'Brand mark color — constant across modes.'})}
+        ${chip('Const. Secondary',t.constantSecondary,t.constantDarkGrey,'',{k:'Component · chip',token:'chip.constantSecondary',value:t.constantSecondary,color:t.constantSecondary,note:'Secondary brand color — constant across modes.'})}
+        ${chip('Outline','transparent',tx.primary,'border:2px solid '+bd.default,{k:'Component · chip',token:'chip.outline',value:'border '+bd.default,color:bd.default,note:'Bordered chip using border.default.'})}
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols-2" style="gap:24px;align-items:start;margin-top:24px">
+    <div class="card">
+      <p class="subhead">Banners</p>
+      <div class="demo-stack">
+        <div class="ds-banner" style="background:${s.elevated};border:1px solid ${bd.default}">
+          <div class="b-ic" style="background:${t.brandSecondary};color:${t.isDarkMode?t.constantWhite:t.grey900}">i</div>
+          <div><div class="b-t">Card banner</div><div class="b-d">Outlined surface for tips & info.</div></div>
+        </div>
+        <div class="ds-banner" style="background:${t.brandAccent1};">
+          <div class="b-ic" style="background:rgba(0,0,0,.15);color:#000">★</div>
+          <div><div class="b-t" style="color:#000">Filled promo</div><div class="b-d" style="color:rgba(0,0,0,.7)">Accent-filled for callouts.</div></div>
+        </div>
+        <div class="ds-banner" style="background:${hexA(st.success,.15)};">
+          <div class="b-ic" style="background:${st.success};color:#fff">✓</div>
+          <div><div class="b-t">Success state</div><div class="b-d">Status colors with subtle fills.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column">
+      <p class="subhead">Dialog</p>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;background:${s.sunken};border-radius:14px;padding:28px">
+        <div style="background:${s.elevated};border-radius:28px;padding:28px;max-width:280px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2);text-align:center">
+          <div style="width:56px;height:56px;border-radius:100px;background:${t.brandSecondary};margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;color:${t.isDarkMode?t.constantWhite:t.grey900}">♥</div>
+          <div style="font-family:${f.primary};font-size:22px;font-weight:700;color:${tx.primary};margin-bottom:8px">It's a match!</div>
+          <div style="font-family:${f.primary};font-size:15px;color:${tx.secondary};margin-bottom:20px;line-height:1.45">Every element here is driven by the active theme tokens.</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${btn('Say hello',bp.background,bp.foreground)}
+            ${btn('Keep swiping',b2.background,b2.foreground)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function hexA(hex,a){const[r,g,b]=hexToRgb(hex);return`rgba(${r},${g},${b},${a})`;}
+
+/* ── Rows / list components (ports Swift GroupedRow + SectionHeader + RowDivider) ── */
+const ROW_ICONS = {
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a6 6 0 0 0-6 6c0 5-2 6-2 8h16c0-2-2-3-2-8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.7 1.7 5 5 5c2 0 3.2 1.2 4 2.3C9.8 6.2 11 5 13 5c3.3 0 4.6 3.7 3 6.7C18.5 16.1 12 21 12 21z"/></svg>',
+};
+let rowState = { t1:true, t2:false, step:5 };
+
+function renderRows(t){
+  const tx=sem.text(t), bd=sem.borders(t), f=fonts[state.brand];
+  const div = `<div style="height:1px;background:${t.grey100};margin-left:54px"></div>`;
+  const fullDiv = `<div style="height:1px;background:${t.grey100}"></div>`;
+
+  const lead = name => name?`<span class="ds-row__lead">${ROW_ICONS[name]||''}</span>`:'';
+  const chev = `<span class="ds-row__chev">&rsaquo;</span>`;
+  const aiRow = (variant,note)=>ai({k:'Component · GroupedRow',token:'GroupedRow',value:variant,note:note});
+
+  // generic row builder
+  const row = (o)=>{
+    const two = !!o.field;
+    return `<div class="ds-row ${two?'two-line':''} ${o.tap?'tappable':''}" style="font-family:${f.primary}"${aiRow(o.variant,o.note)}>
+      ${lead(o.icon)}
+      <div class="ds-row__main">
+        <span class="ds-row__label">${o.label}</span>
+        ${two?`<span class="ds-row__field">${o.field}</span>`:''}
+      </div>
+      ${o.trail?`<div class="ds-row__trail">${o.trail}</div>`:''}
+    </div>`;
+  };
+  const toggle=(on,tint)=>{const c=tint==='accent5'?t.brandAccent5:t.brandPrimary;return `<button class="ds-toggle" data-on="${on}" data-on-color="${c}" data-tint="${tint}" style="background:${on?c:t.grey200}"><span class="ds-toggle__knob"></span></button>`;};
+  const stepper=v=>`<div class="ds-stepper" data-step><button data-d="-1">&minus;</button><span data-val>${v}</span><button data-d="1">+</button></div>`;
+  const badge=n=>`<span class="ds-badge" style="background:${t.indicatorBadge}">${n}</span>`;
+  const dot=`<span class="ds-badge-dot" style="background:${t.indicatorBadge}"></span>`;
+  const viol=(txt,col)=>`<span class="ds-viol" style="background:${col==='accent5'?t.brandAccent5:t.brandAccent1};color:${col==='accent5'?t.constantWhite:t.constantBlack}">${txt}</span>`;
+  const txt=s=>`<span class="ds-row__txt" style="color:${t.brandPrimary}">${s}</span>`;
+  const sbtn=(label,bg,fg)=>`<button class="ds-btn sm" style="background:${bg};color:${fg};font-family:${f.primary};height:30px">${label}</button>`;
+  const sech=(title,size,trail)=>{const fs=size==='large'?32:size==='medium'?20:16;return `<div class="ds-sech"><span class="ds-sech__t" style="font-size:${fs}px;font-family:${f.primary};line-height:1.1">${title}</span>${trail?`<span class="ds-sech__trail" style="font-family:${f.primary}">${trail} ${chev}</span>`:''}</div>`;}
+
+  return `
+  <div class="grid cols-2" style="gap:28px;align-items:start">
+    <div class="rows-wrap">
+      <p class="rows-cap">Single-line · 40px</p>
+      <div class="rows-group">
+        ${row({icon:'user',label:'My Profile',trail:chev,tap:1,variant:'navigation',note:'Navigation row — leading icon + chevron, tappable.'})}${div}
+        ${row({icon:'bell',label:'Notifications',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
+        ${row({icon:'globe',label:'Language',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
+        ${row({icon:'gear',label:'Settings',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}
+      </div>
+
+      <p class="rows-cap">Two-line · 50px</p>
+      <div class="rows-group">
+        ${row({icon:'star',label:'Subscription',field:'Free member',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row: label + fieldText subtitle.'})}${div}
+        ${row({icon:'shield',label:'Account Verification',field:'Verified',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row with status value.'})}${div}
+        ${row({label:'Age Range',field:'Between 22 and 35 years old',variant:'detail',note:'Detail row — no leading, value subtitle.'})}
+      </div>
+    </div>
+
+    <div class="rows-wrap">
+      <p class="rows-cap">Trailing variants</p>
+      <div class="rows-group">
+        ${row({icon:'user',label:'Display name',trail:txt('Edit'),tap:1,variant:'trailing.text',note:'Trailing text action.'})}${div}
+        ${row({icon:'lock',label:'Password',trail:sbtn('Change',sem.buttonSecondary(t).background,sem.buttonSecondary(t).foreground),variant:'trailing.button',note:'Trailing button.'})}${div}
+        ${row({icon:'bell',label:'Push Notifications',trail:toggle(rowState.t1,'primary'),variant:'trailing.toggle (primary)',note:'Toggle, brandPrimary tint. Click it.'})}${div}
+        ${row({icon:'heart',label:'Show Likes',trail:toggle(rowState.t2,'accent5'),variant:'trailing.toggle (accent5)',note:'Toggle, brandAccent5 tint. Click it.'})}${div}
+        ${row({icon:'star',label:'Daily Boosts',trail:stepper(rowState.step),variant:'trailing.stepper',note:'Stepper, 0–10. Tap − / +.'})}
+      </div>
+
+      <p class="rows-cap">Badges &amp; violators</p>
+      <div class="rows-group">
+        ${row({icon:'star',label:'What’s New',trail:viol('New','accent5')+chev,tap:1,variant:'trailing.violator',note:'Violator pill + chevron.'})}${div}
+        ${row({icon:'bell',label:'Messages',trail:badge(5)+chev,tap:1,variant:'trailing.badge',note:'Badge count + chevron.'})}${div}
+        ${row({icon:'globe',label:'Updates',trail:dot+chev,tap:1,variant:'trailing.badgeDot',note:'Badge dot + chevron.'})}
+      </div>
+
+      <p class="rows-cap">Section headers &amp; dividers</p>
+      <div class="card-sunken">
+        ${sech('Large title','large')}
+        ${sech('Medium title','medium')}
+        ${sech('Account','small','See all')}
+        <div style="margin-top:8px" class="rows-group">
+          ${row({icon:'gear',label:'General',trail:chev,tap:1,variant:'navigation'})}${fullDiv}
+          ${row({icon:'lock',label:'Privacy',trail:chev,tap:1,variant:'navigation'})}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── Icon gallery ── */
+function sizeSvg(svg,px){
+  // Set display size on the ROOT <svg> only (never inner <rect>/<use>), keep viewBox.
+  return svg.replace(/<svg\b([^>]*)>/i, (m, attrs) => {
+    attrs = attrs.replace(/\s(width|height)="[^"]*"/gi, '');
+    return `<svg width="${px}" height="${px}"${attrs}>`;
+  });
+}
+// Pick the sharper master for a target px: small master ≈20, large ≈30 (mid 25).
+function pickVariant(i, px){
+  if(px < 25) return i.small || i.large;
+  return i.large || i.small;
+}
+
+// Tint presets — keyword resolves against the live theme; a #hex is used as-is.
+const TINT_PRESETS = [
+  {key:'text',    label:'Ink',     get:t=>sem.text(t).primary},
+  {key:'primary', label:'Brand',   get:t=>t.brandPrimary},
+  {key:'accent5', label:'CTA',     get:t=>t.brandAccent5},
+  {key:'success', label:'Success', get:t=>t.indicatorSuccess},
+  {key:'error',   label:'Error',   get:t=>t.indicatorError},
+  {key:'#FFFFFF', label:'White',   get:()=>'#FFFFFF'},
+  {key:'#000000', label:'Black',   get:()=>'#000000'},
+];
+function resolveTint(t){
+  if(iconState.color && iconState.color[0]==='#') return iconState.color;
+  const p = TINT_PRESETS.find(p=>p.key===iconState.color);
+  return p ? p.get(t) : sem.text(t).primary;
+}
+
+function iconTilesHtml(){
+  const q = iconState.q.trim().toLowerCase();
+  const list = q ? icons.filter(i=>i.name.toLowerCase().includes(q) || i.token.toLowerCase().includes(q)) : icons;
+  const px = iconState.px;
+  const tiles = list.map(i=>{
+    const variant = pickVariant(i, px);
+    const sizes = (i.large?'L':'') + (i.small?'S':'');
+    return `<div class="icon-tile" data-token="${esc(i.token)}" title="Click to copy  ${esc(i.token)}"${ai({k:'Icon',token:i.token,value:`${sizes} master${sizes.length>1?'s':''} · ${px}px`,note:'Inline SVG, normalized to currentColor — drops into any component or generated UI.'})}>
+      <div class="glyph" style="width:${px}px;height:${px}px">${sizeSvg(variant,px)}</div>
+      <div class="nm">${esc(i.name)}</div>
+      <div class="size-dots">${[...sizes].map(s=>`<span>${s}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+  return {html: tiles || `<p class="icon-empty">No icons match "${esc(iconState.q)}".</p>`, count:list.length};
+}
+function renderIcons(t){
+  if(!icons.length) return '';
+  const swatches = TINT_PRESETS.map(p=>{
+    const c = p.get(t); const active = iconState.color===p.key;
+    return `<button class="tint-dot ${active?'on':''}" data-tint="${p.key}" title="${p.label}" style="background:${c}"></button>`;
+  }).join('');
+  const customActive = iconState.color && iconState.color[0]==='#' && !TINT_PRESETS.some(p=>p.key===iconState.color);
+  return `
+  <div class="icon-controls">
+    <input class="icon-search" id="iconSearch" type="text" placeholder="Search ${icons.length} icons…" value="${esc(iconState.q)}" />
+    <div class="seg" id="iconSizeSeg">
+      ${[20,24,32,48].map(px=>`<button data-px="${px}" aria-pressed="${iconState.px===px}">${px}</button>`).join('')}
+    </div>
+    <span class="icon-count" id="iconCount"></span>
+  </div>
+  <div class="tint-row">
+    <span class="bar__label" style="margin:0">Tint</span>
+    ${swatches}
+    <label class="tint-pick ${customActive?'on':''}" title="Custom color">
+      <input type="color" id="iconColorPick" value="${customActive?iconState.color:'#272525'}" />
+      <span>⛯</span>
+    </label>
+  </div>
+  <div class="icon-grid" id="iconGrid" style="color:${resolveTint(t)}; --icon-paper:${sem.surfaces(t).elevated}"></div>`;
+}
+function populateIcons(){
+  const grid=document.getElementById('iconGrid'); if(!grid) return;
+  const key = iconState.px+'|'+iconState.q.trim().toLowerCase();
+  if(iconTilesCache.key!==key){
+    const {html,count}=iconTilesHtml();
+    iconTilesCache={key,html,count};
+    grid.innerHTML=html;
+    wireIconTiles();
+  } else if(grid.innerHTML===''){
+    grid.innerHTML=iconTilesCache.html; wireIconTiles();
+  }
+  const cnt=document.getElementById('iconCount');
+  if(cnt) cnt.textContent=`${iconTilesCache.count ?? icons.length} / ${icons.length}`;
+}
+
+/* ── AI layer: the machine-readable export ── */
+let aiTab='json';
+function renderAI(t){
+  const s=sem.surfaces(t),tx=sem.text(t),bd=sem.borders(t),st=sem.status(t),bp=sem.buttonPrimary(t),b2=sem.buttonSecondary(t),bdest=sem.buttonDestructive(t);
+  const json = {
+    meta:{brand:state.brand, mode:state.mode, app:t.appName},
+    semantic:{
+      surface:{base:s.base, elevated:s.elevated, sunken:s.sunken},
+      text:{primary:tx.primary, secondary:tx.secondary, tertiary:tx.tertiary, link:tx.link},
+      button:{
+        primary:{bg:bp.background, fg:bp.foreground, contrast:+contrast(bp.foreground,bp.background).toFixed(2)},
+        secondary:{bg:b2.background, fg:b2.foreground, contrast:+contrast(b2.foreground,b2.background).toFixed(2)},
+        destructive:{bg:bdest.background, fg:bdest.foreground, contrast:+contrast(bdest.foreground,bdest.background).toFixed(2)}
+      },
+      border:{default:bd.default, focus:bd.focus},
+      status:{success:st.success, error:st.error, warning:st.warning, info:st.info}
+    },
+    type:{h1:'44/48·700', h2:'32/36·700', body:'16/20·400', font:fonts[state.brand].pName},
+    space:{xs:4,s:8,base:12,m:16,l:20,xl:24}, radius:{small:12,medium:16,round:100}
+  };
+  const jsonStr = syntaxJSON(JSON.stringify(json,null,2));
+
+  const prompt = `<span class="c"># System rule given to the agent</span>
+You are building UI for <span class="s">"${t.appName}"</span>.
+Use ONLY semantic tokens — never raw hex.
+
+<span class="k">RULES</span>
+1. Background       → <span class="s">surface.base</span>
+2. Cards / modals   → <span class="s">surface.elevated</span>
+3. Body copy        → <span class="s">text.primary</span> on surface
+4. Primary action   → <span class="s">button.primary.bg</span> + <span class="s">.fg</span> (paired, AA-safe)
+5. Spacing/radius   → token scale only (<span class="n">4 8 12 16 20 24</span>…)
+
+<span class="c"># Because pairings are pre-validated, every screen the</span>
+<span class="c"># agent produces is on-brand AND passes WCAG by construction.</span>`;
+
+  const usage = `<span class="c">// React — same tokens, any brand</span>
+<span class="k">import</span> { ThemeProvider, ThemedButton } <span class="k">from</span> <span class="s">'@mutual/ds'</span>;
+
+<span class="k">&lt;</span><span class="n">ThemeProvider</span> brand=<span class="s">"${state.brand}"</span> mode=<span class="s">"${state.mode}"</span><span class="k">&gt;</span>
+  <span class="k">&lt;</span><span class="n">ThemedButton</span> title=<span class="s">"Say hello"</span> color=<span class="s">"accent5"</span> <span class="k">/&gt;</span>
+<span class="k">&lt;/</span><span class="n">ThemeProvider</span><span class="k">&gt;</span>
+
+<span class="c">// Swift — one token source, two platforms</span>
+<span class="n">Text</span>(<span class="s">"Say hello"</span>)
+  .typography(.h3)
+  .foregroundStyle(theme.textColors.primary)`;
+
+  const body = aiTab==='json' ? `<pre class="code">${jsonStr}</pre>`
+             : aiTab==='prompt' ? `<pre class="code">${prompt}</pre>`
+             : `<pre class="code">${usage}</pre>`;
+
+  return `
+  <div class="ai-callout">
+    <h3>What an engineer or AI agent actually builds from</h3>
+    <p>This is the live, resolved token set for the <strong>${t.appName} / ${state.mode}</strong> theme you're viewing — the same contract a developer pulls into a component or an agent reads before it writes a single line of UI. Switch brand or mode and watch it regenerate. Pairings ship with their contrast ratio baked in, so nobody — human or model — has to <em>guess</em> whether text will be legible.</p>
+  </div>
+  <div class="tabs" id="aiTabs">
+    <button data-tab="json"   aria-pressed="${aiTab==='json'}">Resolved tokens (JSON)</button>
+    <button data-tab="prompt" aria-pressed="${aiTab==='prompt'}">Agent system rules</button>
+    <button data-tab="usage"  aria-pressed="${aiTab==='usage'}">Same tokens in code</button>
+  </div>
+  ${body}`;
+}
+function syntaxJSON(str){
+  return esc(str)
+    .replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:')
+    .replace(/: "(.*?)"/g,': <span class="s">"$1"</span>')
+    .replace(/: (-?\d+\.?\d*)/g,': <span class="n">$1</span>');
+}
+
+/* ═══════════════ AI HAND-OFF PROMPT ═══════════════ */
+function buildHandoffPrompt(scope){
+  const colors = JSON.stringify(THEMES, null, 2);
+  const type = JSON.stringify(Object.fromEntries(Object.entries(typeScale).map(([k,v])=>
+    [k,{fontSize:v.fontSize,lineHeight:v.lineHeight,fontWeight:v.fontWeight,usesSecondaryFont:v.sec}])), null, 2);
+  const scale = JSON.stringify({spacing,radius,iconSize}, null, 2);
+  let n = scope==='full' ? 4 : 3;
+  let p = `# Install the Mutual Design System (React + TypeScript)
+
+You are a coding agent. Set up the Mutual design system in my project FIRST, then wait for
+me to tell you what to build. Recreate everything below exactly; don't improvise values.
+If you're unsure where files go, ask — otherwise default to \`src/design-system/\`.
+
+## 1. File structure
+\`\`\`
+src/design-system/
+  tokens/      colors.ts  semantic.ts  typography.ts  spacing.ts
+  context/     ThemeProvider.tsx
+  components/  ThemedText.tsx  ThemedButton.tsx  Chip.tsx  Banner.tsx  Dialog.tsx${scope==='full'?'  GroupedRow.tsx  SectionHeader.tsx  Divider.tsx':''}
+  index.ts
+\`\`\`
+
+## 2. Tokens — recreate EXACTLY
+
+### Colors — 3 brands (mutual, ark, tonite) × light/dark = 6 themes
+\`\`\`json
+${colors}
+\`\`\`
+
+### Typography scale  (fontSize / lineHeight in px)
+\`\`\`json
+${type}
+\`\`\`
+Fonts per brand — primary (display):
+  mutual → Goldman Sans (Gramatika) · ark → DM Sans (DM Serif Display) · tonite → Inter (DM Serif Display)
+
+### Spacing / radius / icon sizes (px) — shared across all themes
+\`\`\`json
+${scale}
+\`\`\`
+
+### Semantic layer — derive from the ACTIVE theme. Components reference THESE, never raw hex:
+- buttonPrimary  = { bg: brand==='tonite' ? brandPrimary : brandAccent5, fg: brand==='tonite' ? constantBlack : constantWhite }
+- buttonSecondary= { bg: brandSecondary, fg: isDarkMode ? constantWhite : grey900 }
+- buttonDestructive = { bg: indicatorError, fg: constantWhite }
+- text     = { primary: grey900, secondary: grey600, tertiary: textTertiary, link: brandPrimary, error: indicatorError, success: indicatorSuccess }
+- surfaces = { base: grey0, elevated: isDarkMode ? grey50 : constantWhite, sunken: grey50 }
+- borders  = { default: grey200, strong: grey600, subtle: grey50, focus: brandPrimary }
+- status   = { info: indicatorInfo, success: indicatorSuccess, warning: indicatorAlert, error: indicatorError }
+
+Build a \`<ThemeProvider brand mode>\` that exposes \`{ colors, semantic }\` via React context
+(default brand="mutual", mode="light"; support all 6 combinations).
+`;
+  if(scope==='full'){
+    p += `
+## 3. Components — build these, each reading ONLY semantic tokens
+- ThemedText — \`variant\` maps to the type scale; resolves brand font + weight; \`usesSecondaryFont\` uses the display face.
+- ThemedButton — style: fill | outline | text · color: primary, secondary, accent5, destructive, disabled · size: large(50) / medium(40) / small(30) · radius medium(16).
+- Chip — variant: primary, light, dark, accent1, accent5, constantPrimary, constantSecondary, outline · size regular(30)/compact(24) · radius small(12).
+- Banner — style: card | cardFilled | fullWidth · fill: secondary/accent1/accent5/grey · optional icon, title, description, trailing (dismiss/chevron/info).
+- Dialog — blurred scrim + centered card (radius 28) with icon, title, message, stacked or side-by-side buttons.
+- GroupedRow — single-line(40px) or two-line(50px: label + fieldText). Leading icon (20px). Trailing items (composable): text, button, toggle(primary|accent5), stepper, violator, badge(count), badgeDot, chevron. 20px h-padding, 16px icon gap, 12px trailing gap.
+- SectionHeader — small=h5 / medium=h4 / large=h2, optional trailing text + chevron.
+- Divider — 1px grey100; RowDivider indents 54px, FullWidthDivider spans full width.
+`;
+  }
+  p += `
+## ${n}. Rules (non-negotiable)
+- Reference SEMANTIC tokens — never raw hex, never magic numbers.
+- Use only the spacing / radius / iconSize scales for layout.
+- Every foreground/background pairing must meet WCAG AA (the pairings above already do).
+- Wrap the app in \`<ThemeProvider brand="mutual" mode="light">\`; theme switching must work across all 6 themes with zero component changes.
+
+## ${n+1}. Then
+Build a small catalog screen and confirm it renders correctly in all six themes
+(mutual / ark / tonite × light / dark). Once it does, ask me what to build — and build it
+using ONLY these tokens${scope==='full'?' and components':''}.
+`;
+  return p;
+}
+function refreshHandoff(){
+  const pre=document.getElementById('handoffPrompt'); if(!pre) return;
+  const txt=buildHandoffPrompt(handoffScope);
+  window._handoffText=txt;
+  pre.textContent=txt;
+  const cnt=document.getElementById('handoffCount');
+  if(cnt) cnt.textContent='~'+Math.round(txt.length/4).toLocaleString()+' tokens · React';
+  document.querySelectorAll('#handoffTabs button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.scope===handoffScope));
+}
+function initHandoff(){
+  document.querySelectorAll('#handoffTabs button').forEach(b=>b.addEventListener('click',()=>{handoffScope=b.dataset.scope; refreshHandoff();}));
+  document.getElementById('handoffCopy')?.addEventListener('click',()=>copy(window._handoffText||buildHandoffPrompt(handoffScope),'Prompt copied — paste into your AI'));
+  document.getElementById('handoffDownload')?.addEventListener('click',()=>{
+    const blob=new Blob([window._handoffText||buildHandoffPrompt(handoffScope)],{type:'text/markdown'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='mutual-design-system.prompt.md'; document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(a.href);
+  });
+}
+
+/* ═══════════════ MAIN RENDER ═══════════════ */
+function render(){
+  applyTheme();
+  const t = THEMES[state.brand][state.mode];
+  const app = document.getElementById('app');
+  app.innerHTML = `
+  <section>
+    <div class="sec-head"><h2>01 — Foundations</h2></div>
+    <div class="sec-title">Color</div>
+    <p class="sec-desc">Primitives roll up into semantic roles. You reference the <em>role</em> ("primary CTA"), not the hex — which is why a single component definition renders correctly across all six themes.</p>
+    ${renderColors(t)}
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>02 — Foundations</h2></div>
+    <div class="sec-title">Typography</div>
+    <p class="sec-desc">A 12-step ramp. Each brand swaps its own typeface family (${fonts[state.brand].pName} + ${fonts[state.brand].sName} here) while the scale stays identical.</p>
+    <div class="card">${renderType(t)}</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>03 — Foundations</h2></div>
+    <div class="sec-title">Spacing, radius &amp; sizing</div>
+    <p class="sec-desc">Fixed scales remove "is it 14 or 16?" decisions. Shared across every brand and both platforms.</p>
+    ${renderSpacing()}
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>04 — Semantic layer</h2></div>
+    <div class="sec-title">Contrast, validated live</div>
+    <p class="sec-desc">Every foreground/background pairing is computed in-browser right now, for the active theme. Flip to dark mode or another brand — the ratios recalculate. Accessibility isn't a final audit; it's a property of the tokens.</p>
+    ${renderContrast(t)}
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>05 — Components</h2></div>
+    <div class="sec-title">Built from tokens, themed automatically</div>
+    <p class="sec-desc">Buttons, chips, banners, and a dialog — none of these have hardcoded colors. They read semantic tokens, so theming is free.</p>
+    ${renderComponents(t)}
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>06 — Components</h2></div>
+    <div class="sec-title">Rows, toggles, steppers &amp; lists</div>
+    <p class="sec-desc">One <code>GroupedRow</code> component covers navigation rows, two-line detail rows, and a stack of trailing variants — text, buttons, toggles, steppers, violators, and badges — plus section headers and dividers. Ported straight from the shipping SwiftUI source. The toggles and steppers are live; flip on AI view to inspect any row.</p>
+    ${renderRows(t)}
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>07 — The point</h2></div>
+    <div class="sec-title">Built for engineers and agents alike</div>
+    <p class="sec-desc">When a design system is fully described as structured data, anyone building from it — a developer reading the docs or an AI agent reading the tokens — gets the same unambiguous contract. Same source, same rules, same correct result.</p>
+    ${renderAI(t)}
+  </section>
+  ${''/* refreshHandoff() runs after mount to keep the top panel's token values in sync */}
+  ${icons.length ? `
+  <section>
+    <div class="sec-head"><h2>08 — Icon library</h2></div>
+    <div class="sec-title">${icons.length} icons, one tap away</div>
+    <p class="sec-desc">The full icon set, exported straight from Figma and normalized to one color so the whole library tints together — pick a theme preset or any custom color, and scale them all at once. Each icon ships native 20px and 30px masters (the <code>L</code>/<code>S</code> dots show which exist); the gallery auto-renders the sharper master for the chosen size. Click an icon to copy its token (<code>icon/Name</code>) — the reference an engineer or an AI agent uses to pull it.</p>
+    ${renderIcons(t)}
+  </section>` : ''}`;
+  wireDynamic();
+  populateIcons();
+  refreshHandoff();
+}
+
+/* ═══════════════ EVENTS ═══════════════ */
+function wireDynamic(){
+  document.querySelectorAll('.swatch').forEach(el=>{
+    el.addEventListener('click',()=>copy(el.dataset.copy));
+  });
+  const tabs=document.getElementById('aiTabs');
+  if(tabs) tabs.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{aiTab=b.dataset.tab; render();}));
+
+  // Icon gallery controls — repopulate only the grid so the search box keeps focus.
+  const search=document.getElementById('iconSearch');
+  if(search) search.addEventListener('input',e=>{ iconState.q=e.target.value; populateIcons(); });
+  const sizeSeg=document.getElementById('iconSizeSeg');
+  if(sizeSeg) sizeSeg.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    iconState.px=+b.dataset.px;
+    sizeSeg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+    populateIcons();
+  });
+  // Tint: presets just recolor the grid container (icons are currentColor) — no tile rebuild.
+  document.querySelectorAll('.tint-dot').forEach(d=>d.addEventListener('click',()=>{
+    iconState.color=d.dataset.tint;
+    document.querySelectorAll('.tint-dot').forEach(x=>x.classList.toggle('on',x===d));
+    document.querySelector('.tint-pick')?.classList.remove('on');
+    const t=THEMES[state.brand][state.mode];
+    document.getElementById('iconGrid').style.color=resolveTint(t);
+  }));
+  // Row toggles & steppers (interactive demo state)
+  document.querySelectorAll('.ds-toggle').forEach(tg=>tg.addEventListener('click',e=>{
+    e.stopPropagation();
+    const on = tg.dataset.on!=='true';
+    tg.dataset.on = on;
+    tg.style.background = on ? tg.dataset.onColor : THEMES[state.brand][state.mode].grey200;
+  }));
+  document.querySelectorAll('.ds-stepper').forEach(st=>st.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    e.stopPropagation();
+    const span=st.querySelector('[data-val]');
+    let v=Math.max(0, Math.min(10, (+span.textContent||0) + (+b.dataset.d)));
+    span.textContent=v; rowState.step=v;
+  }));
+
+  const pick=document.getElementById('iconColorPick');
+  if(pick) pick.addEventListener('input',e=>{
+    iconState.color=e.target.value.toUpperCase();
+    document.querySelectorAll('.tint-dot').forEach(x=>x.classList.remove('on'));
+    document.querySelector('.tint-pick')?.classList.add('on');
+    document.getElementById('iconGrid').style.color=iconState.color;
+  });
+}
+function wireIconTiles(){
+  document.querySelectorAll('.icon-tile').forEach(el=>{
+    el.addEventListener('click',()=>copy(el.dataset.token));
+  });
+}
+/* Load the icon manifest (generated from exported SVGs). Section stays hidden until present. */
+fetch('../assets/icons/mutual.icons.json')
+  .then(r=> r.ok ? r.json() : null)
+  .then(data=>{ if(data && Array.isArray(data.icons) && data.icons.length){ icons=data.icons; render(); } })
+  .catch(()=>{});
+function copy(txt,label){
+  navigator.clipboard?.writeText(txt);
+  const to=document.getElementById('toast');
+  to.textContent = label || (txt.length>40 ? 'Copied' : 'Copied  '+txt);
+  to.classList.add('show');
+  clearTimeout(window._tt); window._tt=setTimeout(()=>to.classList.remove('show'),1300);
+}
+
+document.getElementById('brandSeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  state.brand=b.dataset.brand;
+  document.querySelectorAll('#brandSeg button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  render();
+});
+document.getElementById('modeSeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  state.mode=b.dataset.mode;
+  document.querySelectorAll('#modeSeg button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  render();
+});
+document.getElementById('aiToggle').addEventListener('click',e=>{
+  const on=document.body.classList.toggle('show-ai');
+  e.currentTarget.setAttribute('aria-pressed',on);
+  const hint=document.getElementById('aiHint');
+  if(on){ hint.classList.add('show'); clearTimeout(window._hintT); window._hintT=setTimeout(()=>hint.classList.remove('show'),3200); }
+  else { hint.classList.remove('show'); hideInspector(); }
+});
+
+/* ── Live inspector: hover any tagged element to see its token record ── */
+let aiHotEl=null;
+function hideInspector(){
+  document.getElementById('aiInspector').classList.remove('show');
+  if(aiHotEl){ aiHotEl.classList.remove('ai-hot'); aiHotEl=null; }
+}
+function showInspector(el, mx, my){
+  const box=document.getElementById('aiInspector');
+  let d; try{ d=JSON.parse(el.dataset.ai); }catch(e){ return; }
+  if(el!==aiHotEl){
+    if(aiHotEl) aiHotEl.classList.remove('ai-hot');
+    el.classList.add('ai-hot'); aiHotEl=el;
+    const t=THEMES[state.brand][state.mode];
+    const valRow = d.value ? `<div class="ai-row">${d.color?`<span class="ai-chip" style="background:${d.color}"></span>`:''}<span>${esc(d.value)}</span>${
+      d.contrast!=null?`<span class="ai-badge" style="background:${d.contrast>=4.5?'color-mix(in srgb,'+t.indicatorSuccess+' 22%,transparent)':d.contrast>=3?'color-mix(in srgb,'+t.indicatorAlert+' 22%,transparent)':'color-mix(in srgb,'+t.indicatorError+' 22%,transparent)'};color:${d.contrast>=4.5?t.indicatorSuccess:d.contrast>=3?t.indicatorAlert:t.indicatorError}">${d.contrast}:1</span>`:''
+    }</div>` : '';
+    box.innerHTML = `<div class="ai-k">${esc(d.k||'Token')}</div>
+      <div class="ai-tok">${esc(d.token||'')}</div>
+      ${valRow}
+      ${d.note?`<div class="ai-note">${esc(d.note)}</div>`:''}`;
+    box.classList.add('show');
+  }
+  // position near cursor, clamped to viewport
+  const r=box.getBoundingClientRect();
+  let x=mx+16, y=my+16;
+  if(x+r.width>innerWidth-12) x=mx-r.width-16;
+  if(y+r.height>innerHeight-12) y=my-r.height-16;
+  box.style.left=Math.max(12,x)+'px';
+  box.style.top=Math.max(12,y)+'px';
+}
+document.addEventListener('mousemove', e=>{
+  if(!document.body.classList.contains('show-ai')) return;
+  const el = e.target instanceof Element ? e.target.closest('[data-ai]') : null;
+  if(el) showInspector(el, e.clientX, e.clientY);
+  else hideInspector();
+});
+
+render();
+initHandoff();
+</script>
+</body>
+</html>
