@@ -120,7 +120,12 @@
   .ai-inspector.show { opacity:1; transform:none; }
   .ai-inspector .ai-k { font-family:'Space Grotesk',sans-serif; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-tertiary); }
   .ai-inspector .ai-tok { font-family:'Space Grotesk',monospace; font-size:15px; font-weight:600; color:var(--brand-primary); margin:3px 0 9px; word-break:break-all; line-height:1.25; }
-  .ai-inspector .ai-row { display:flex; align-items:center; gap:8px; font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-primary); margin-top:5px; }
+  .ai-inspector .ai-prim { font-family:'Space Grotesk',sans-serif; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-tertiary); border:1px solid var(--border-default); border-radius:5px; padding:1px 5px; margin-left:8px; vertical-align:middle; }
+  .ai-inspector .ai-ref { font-family:'Space Grotesk',monospace; font-size:13.5px; color:var(--text-primary); margin-top:4px; }
+  .ai-inspector .ai-ref .ai-arrow { color:var(--brand-primary); font-weight:700; }
+  .ai-inspector .ai-row { display:flex; align-items:center; gap:7px; font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-primary); margin-top:6px; }
+  .ai-inspector .ai-row.ai-muted { color:var(--text-tertiary); font-size:12px; }
+  .ai-inspector .ai-vlabel { font-family:'Space Grotesk',sans-serif; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-tertiary); }
   .ai-inspector .ai-chip { width:15px; height:15px; border-radius:5px; border:1px solid var(--border-default); flex-shrink:0; }
   .ai-inspector .ai-badge { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.05em; padding:2px 7px; border-radius:6px; margin-left:auto; }
   .ai-inspector .ai-note { font-family:'Space Grotesk',sans-serif; font-size:11.5px; color:var(--text-secondary); margin-top:9px; padding-top:9px; border-top:1px solid var(--border-subtle); line-height:1.45; }
@@ -478,7 +483,7 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 const ai = o => ` data-ai='${JSON.stringify(o).replace(/&/g,'&amp;').replace(/'/g,'&#39;')}'`;
 
 function colorSwatch(name, hex, role){
-  return `<div class="swatch" data-copy="${name}" title="Click to copy: ${name}"${ai({k:'Color token',token:name,value:hex.toUpperCase(),color:hex,note:role?('Role: '+role):'Primitive color value.'})}>
+  return `<div class="swatch" data-copy="${name}" title="Click to copy: ${name}"${ai({k:'Color primitive',token:name,primitive:true,value:hex.toUpperCase(),color:hex,note:(role?'Role: '+role+'. ':'')+'The raw layer — reference it through a semantic token, never hardcode the hex.'})}>
     <div class="swatch__chip" style="background:${hex}"></div>
     <div class="swatch__meta">
       <div class="swatch__name">${name}</div>
@@ -563,15 +568,15 @@ function renderComponents(t){
     <div class="card">
       <p class="subhead">Buttons — fill</p>
       <div class="demo-row" style="margin-bottom:18px">
-        ${btn('Primary CTA',bp.background,bp.foreground,'',{k:'Component · button',token:'semantic.buttonPrimary',value:`bg ${bp.background} · fg ${bp.foreground}`,color:bp.background,contrast:cr(bp.foreground,bp.background),note:'Main call to action. Paired fg/bg ship pre-validated for contrast.'})}
-        ${btn('Secondary',b2.background,b2.foreground,'',{k:'Component · button',token:'semantic.buttonSecondary',value:`bg ${b2.background} · fg ${b2.foreground}`,color:b2.background,contrast:cr(b2.foreground,b2.background),note:'Secondary action on brandSecondary.'})}
-        ${btn('Destructive',bdest.background,bdest.foreground,'',{k:'Component · button',token:'semantic.buttonDestructive',value:`bg ${bdest.background} · fg ${bdest.foreground}`,color:bdest.background,contrast:cr(bdest.foreground,bdest.background),note:'Delete / cancel. Uses indicatorError.'})}
+        ${btn('Primary CTA',bp.background,bp.foreground,'',{k:'Component · button',token:'semantic.buttonPrimary',ref:`${t.appName==='ToNite'?'brandPrimary':'brandAccent5'} (bg) · ${t.appName==='ToNite'?'constantBlack':'constantWhite'} (fg)`,value:`${bp.background} · ${bp.foreground}`,color:bp.background,contrast:cr(bp.foreground,bp.background),note:'Main call to action. Paired fg/bg ship pre-validated for contrast.'})}
+        ${btn('Secondary',b2.background,b2.foreground,'',{k:'Component · button',token:'semantic.buttonSecondary',ref:`brandSecondary (bg) · ${t.isDarkMode?'constantWhite':'grey900'} (fg)`,value:`${b2.background} · ${b2.foreground}`,color:b2.background,contrast:cr(b2.foreground,b2.background),note:'Secondary action on brandSecondary.'})}
+        ${btn('Destructive',bdest.background,bdest.foreground,'',{k:'Component · button',token:'semantic.buttonDestructive',ref:'indicatorError (bg) · constantWhite (fg)',value:`${bdest.background} · ${bdest.foreground}`,color:bdest.background,contrast:cr(bdest.foreground,bdest.background),note:'Delete / cancel. Uses indicatorError.'})}
       </div>
       <p class="subhead">Buttons — outline &amp; text</p>
       <div class="demo-row" style="margin-bottom:18px">
-        ${outline('Outline',t.brandPrimary,{k:'Component · button',token:'semantic.buttonTertiary',value:`border + fg ${t.brandPrimary}`,color:t.brandPrimary,note:'Ghost / outline style on brandPrimary.'})}
-        ${btn('Text button','transparent',t.brandPrimary,'',{k:'Component · button',token:'text.link',value:t.brandPrimary,color:t.brandPrimary,note:'Low-emphasis text action.'})}
-        ${btn('Disabled',t.grey200,t.grey400,'',{k:'Component · button',token:'state.disabled',value:`bg grey200 · fg grey400`,color:t.grey200,note:'Disabled state from the grey scale.'})}
+        ${outline('Outline',t.brandPrimary,{k:'Component · button',token:'semantic.buttonTertiary',ref:'brandPrimary (border + text)',value:t.brandPrimary,color:t.brandPrimary,note:'Ghost / outline style on brandPrimary.'})}
+        ${btn('Text button','transparent',t.brandPrimary,'',{k:'Component · button',token:'text.link',ref:'brandPrimary',value:t.brandPrimary,color:t.brandPrimary,note:'Low-emphasis text action.'})}
+        ${btn('Disabled',t.grey200,t.grey400,'',{k:'Component · button',token:'state.disabled',ref:'grey200 (bg) · grey400 (fg)',value:`${t.grey200} · ${t.grey400}`,color:t.grey200,note:'Disabled state from the grey scale.'})}
       </div>
       <p class="subhead">Sizes</p>
       <div class="demo-row">
@@ -583,14 +588,14 @@ function renderComponents(t){
     <div class="card">
       <p class="subhead">Chips — 8 variants</p>
       <div class="demo-row">
-        ${chip('Primary',t.brandPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.primary',value:t.brandPrimary,color:t.brandPrimary,note:'Tags & traits on brandPrimary.'})}
-        ${chip('Light',t.isDarkMode?t.grey100:t.grey50,t.grey600,'',{k:'Component · chip',token:'chip.light',value:t.isDarkMode?t.grey100:t.grey50,color:t.isDarkMode?t.grey100:t.grey50,note:'Subtle chip on the grey scale.'})}
-        ${chip('Dark',t.constantBlack,t.constantWhite,'',{k:'Component · chip',token:'chip.dark',value:t.constantBlack,color:t.constantBlack,note:'High-contrast chip (constantBlack).'})}
-        ${chip('Accent 1',t.brandAccent1,t.constantBlack,'',{k:'Component · chip',token:'chip.accent1',value:t.brandAccent1,color:t.brandAccent1,note:'Gold / premium accent chip.'})}
-        ${chip('Accent 5',t.brandAccent5,t.constantWhite,'',{k:'Component · chip',token:'chip.accent5',value:t.brandAccent5,color:t.brandAccent5,note:'Primary-CTA accent chip.'})}
-        ${chip('Const. Primary',t.constantPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.constantPrimary',value:t.constantPrimary,color:t.constantPrimary,note:'Brand mark color — constant across modes.'})}
-        ${chip('Const. Secondary',t.constantSecondary,t.constantDarkGrey,'',{k:'Component · chip',token:'chip.constantSecondary',value:t.constantSecondary,color:t.constantSecondary,note:'Secondary brand color — constant across modes.'})}
-        ${chip('Outline','transparent',tx.primary,'border:2px solid '+bd.default,{k:'Component · chip',token:'chip.outline',value:'border '+bd.default,color:bd.default,note:'Bordered chip using border.default.'})}
+        ${chip('Primary',t.brandPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.primary',ref:'brandPrimary',value:t.brandPrimary,color:t.brandPrimary,note:'Tags & traits. Background references brandPrimary.'})}
+        ${chip('Light',t.isDarkMode?t.grey100:t.grey50,t.grey600,'',{k:'Component · chip',token:'chip.light',ref:t.isDarkMode?'grey100':'grey50',value:t.isDarkMode?t.grey100:t.grey50,color:t.isDarkMode?t.grey100:t.grey50,note:'Subtle chip on the grey scale.'})}
+        ${chip('Dark',t.constantBlack,t.constantWhite,'',{k:'Component · chip',token:'chip.dark',ref:'constantBlack',value:t.constantBlack,color:t.constantBlack,note:'High-contrast chip.'})}
+        ${chip('Accent 1',t.brandAccent1,t.constantBlack,'',{k:'Component · chip',token:'chip.accent1',ref:'brandAccent1',value:t.brandAccent1,color:t.brandAccent1,note:'Gold / premium accent chip.'})}
+        ${chip('Accent 5',t.brandAccent5,t.constantWhite,'',{k:'Component · chip',token:'chip.accent5',ref:'brandAccent5',value:t.brandAccent5,color:t.brandAccent5,note:'Primary-CTA accent chip.'})}
+        ${chip('Const. Primary',t.constantPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.constantPrimary',ref:'constantPrimary',value:t.constantPrimary,color:t.constantPrimary,note:'Brand mark color — constant across modes.'})}
+        ${chip('Const. Secondary',t.constantSecondary,t.constantDarkGrey,'',{k:'Component · chip',token:'chip.constantSecondary',ref:'constantSecondary',value:t.constantSecondary,color:t.constantSecondary,note:'Secondary brand color — constant across modes.'})}
+        ${chip('Outline','transparent',tx.primary,'border:2px solid '+bd.default,{k:'Component · chip',token:'chip.outline',ref:'border.default → grey200',value:bd.default,color:bd.default,note:'Bordered chip using border.default.'})}
       </div>
     </div>
   </div>
@@ -1148,11 +1153,20 @@ function showInspector(el, mx, my){
     if(aiHotEl) aiHotEl.classList.remove('ai-hot');
     el.classList.add('ai-hot'); aiHotEl=el;
     const t=THEMES[state.brand][state.mode];
-    const valRow = d.value ? `<div class="ai-row">${d.color?`<span class="ai-chip" style="background:${d.color}"></span>`:''}<span>${esc(d.value)}</span>${
-      d.contrast!=null?`<span class="ai-badge" style="background:${d.contrast>=4.5?'color-mix(in srgb,'+t.indicatorSuccess+' 22%,transparent)':d.contrast>=3?'color-mix(in srgb,'+t.indicatorAlert+' 22%,transparent)':'color-mix(in srgb,'+t.indicatorError+' 22%,transparent)'};color:${d.contrast>=4.5?t.indicatorSuccess:d.contrast>=3?t.indicatorAlert:t.indicatorError}">${d.contrast}:1</span>`:''
-    }</div>` : '';
+    const badge = d.contrast!=null
+      ? `<span class="ai-badge" style="background:${d.contrast>=4.5?'color-mix(in srgb,'+t.indicatorSuccess+' 22%,transparent)':d.contrast>=3?'color-mix(in srgb,'+t.indicatorAlert+' 22%,transparent)':'color-mix(in srgb,'+t.indicatorError+' 22%,transparent)'};color:${d.contrast>=4.5?t.indicatorSuccess:d.contrast>=3?t.indicatorAlert:t.indicatorError}">${d.contrast}:1</span>`
+      : '';
+    // A semantic/component token (d.ref) leads with the token it references; the raw value
+    // is shown only as a muted "resolves to". Primitives label their hex as the raw value.
+    let valRow = '';
+    if(d.value){
+      const muted = !!(d.ref || d.primitive);
+      const lbl = d.ref ? 'resolves to' : d.primitive ? 'value' : '';
+      valRow = `<div class="ai-row ${muted?'ai-muted':''}">${d.color?`<span class="ai-chip" style="background:${d.color}"></span>`:''}${lbl?`<span class="ai-vlabel">${lbl}</span>`:''}<span>${esc(d.value)}</span>${badge}</div>`;
+    }
     box.innerHTML = `<div class="ai-k">${esc(d.k||'Token')}</div>
-      <div class="ai-tok">${esc(d.token||'')}</div>
+      <div class="ai-tok">${esc(d.token||'')}${d.primitive?'<span class="ai-prim">primitive</span>':''}</div>
+      ${d.ref?`<div class="ai-ref"><span class="ai-arrow">&#8627;</span> ${esc(d.ref)}</div>`:''}
       ${valRow}
       ${d.note?`<div class="ai-note">${esc(d.note)}</div>`:''}`;
     box.classList.add('show');
