@@ -333,6 +333,12 @@
   .pg-code__head .lbl { font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-tertiary); }
   .pg-code__copy { margin-left:auto; appearance:none; cursor:pointer; font:inherit; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9px; border:none; background:var(--brand-primary); color:var(--on-brand); display:inline-flex; align-items:center; gap:7px; }
   .pg-code pre { margin:0; padding:0 16px 16px; max-height:170px; overflow:auto; font-family:'Space Grotesk',ui-monospace,monospace; font-size:12.5px; line-height:1.6; color:var(--text-primary); white-space:pre; }
+  /* Theme-aware scrollbars inside the playground (match the dark/light chrome) */
+  .pg-knobs, .pg-stage, .pg-code pre { scrollbar-width:thin; scrollbar-color:var(--border-default) transparent; }
+  .pg-knobs::-webkit-scrollbar, .pg-stage::-webkit-scrollbar, .pg-code pre::-webkit-scrollbar { width:10px; height:10px; }
+  .pg-knobs::-webkit-scrollbar-track, .pg-stage::-webkit-scrollbar-track, .pg-code pre::-webkit-scrollbar-track { background:transparent; }
+  .pg-knobs::-webkit-scrollbar-thumb, .pg-stage::-webkit-scrollbar-thumb, .pg-code pre::-webkit-scrollbar-thumb { background:var(--border-default); border-radius:8px; border:2px solid transparent; background-clip:padding-box; }
+  .pg-knobs::-webkit-scrollbar-thumb:hover, .pg-stage::-webkit-scrollbar-thumb:hover, .pg-code pre::-webkit-scrollbar-thumb:hover { background:var(--border-strong); }
   @media (max-width:760px){ .pg-body{flex-direction:column;} .pg-left{border-right:none;border-bottom:1px solid var(--border-default);} .pg-knobs{width:100%;} }
 
   .foot { padding:56px 0 80px; text-align:center; color:var(--text-tertiary); font-size:14px; }
