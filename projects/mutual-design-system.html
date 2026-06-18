@@ -515,7 +515,9 @@ function applyTheme(){
   document.getElementById('brandmark').firstChild.textContent = t.appName + ' DS ';
   document.getElementById('heroTitle').style.fontFamily = fonts[state.brand].secondary;
 }
-function pickOn(bg){ return contrast('#FFFFFF',bg) >= contrast('#000000',bg) ? '#FFFFFF' : '#000000'; }
+// Prefer white on brand surfaces (matches the system's primary-button convention);
+// fall back to black only for genuinely light brand colors (e.g. Tonite's bright gold).
+function pickOn(bg){ return contrast('#FFFFFF',bg) >= 2.6 ? '#FFFFFF' : '#000000'; }
 
 /* ═══════════════ RENDER HELPERS ═══════════════ */
 const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -1192,32 +1194,18 @@ function knobsDialog(){const s=pg;return `
     <div class="knob"><label>Label</label>${pgText('b2t',s.b2t)}</div></div>`;
 }
 function setPg(k,v){ if(k==='btnCount'||k==='width') v=Number(v); pg[k]=v; }
-// Grey canvas blends with the dark elevated surface, so in dark mode lock to White.
-function syncCanvasToggle(){
-  const m=document.getElementById('pgModal');
-  const grey=m.querySelector('[data-k="bg"][data-v="grey"]'), white=m.querySelector('[data-k="bg"][data-v="white"]');
-  if(!grey||!white) return;
-  if(pg.mode==='dark'){
-    pg.bg='white';
-    grey.disabled=true; grey.style.opacity='.4'; grey.style.pointerEvents='none'; grey.setAttribute('aria-pressed','false');
-    white.setAttribute('aria-pressed','true');
-  } else {
-    grey.disabled=false; grey.style.opacity=''; grey.style.pointerEvents='';
-  }
-}
 function updatePlayground(){
   if(!pg) return;
   const t=THEMES[pg.brand][pg.mode];
   const stage=document.getElementById('pgStage');
-  // White canvas = base surface (grey0 — pure white in light, darkest in dark);
-  // Grey canvas = sunken (light only — locked off in dark, see syncCanvasToggle).
+  // Canvas is derived from the mode: light → grey (sunken); dark → darkest base surface.
   const surf=sem.surfaces(t);
-  stage.style.background = pg.bg==='white' ? surf.base : surf.sunken;
+  stage.style.background = pg.mode==='dark' ? surf.base : surf.sunken;
   stage.innerHTML = pg.kind==='button' ? previewButton(t) : previewDialog(t);
   document.getElementById('pgCode').textContent = pg.kind==='button' ? codeButton() : codeDialog();
 }
 function openPlayground(kind){
-  const base={kind, brand:state.brand, mode:state.mode, bg:'grey'};
+  const base={kind, brand:state.brand, mode:state.mode};
   pg = kind==='button'
     ? {...base, title:'Say hello', style:'fill', color:'accent5', size:'large', alignment:'center', fitContent:false, width:300, leadIcon:'', trailIcon:''}
     : {...base, title:"It's a match!", message:'Every element here is driven by the active theme tokens.', showIcon:true, icon:'HeartFill', showClose:true, alignment:'center', btnCount:2, b1v:'primary', b1t:'Say hello', b2v:'secondary', b2t:'Keep swiping', layout:'stacked'};
@@ -1229,7 +1217,6 @@ function openPlayground(kind){
         <div class="pg-themebar">
           <span class="bar__label" style="margin:0">Brand</span>${pgSeg('brand',[{v:'mutual',l:'Mutual'},{v:'ark',l:'Ark'},{v:'tonite',l:'ToNite'}],pg.brand)}
           <span class="bar__label" style="margin:0">Mode</span>${pgSeg('mode',[{v:'light',l:'Light'},{v:'dark',l:'Dark'}],pg.mode)}
-          <span class="bar__label" style="margin:0">Canvas</span>${pgSeg('bg',[{v:'white',l:'White'},{v:'grey',l:'Grey'}],pg.bg)}
         </div>
         <div class="pg-stage" id="pgStage"></div>
       </div>
@@ -1241,7 +1228,6 @@ function openPlayground(kind){
     </div>
   </div>`;
   wirePlayground();
-  syncCanvasToggle();
   updatePlayground();
   m.classList.add('show');
 }
@@ -1253,7 +1239,7 @@ function wirePlayground(){
   m.querySelector('.pg-code__copy').addEventListener('click',()=>copy(document.getElementById('pgCode').textContent,'Code copied to clipboard'));
   m.querySelectorAll('[data-k]').forEach(el=>{
     if(el.tagName==='BUTTON'){
-      el.addEventListener('click',()=>{ setPg(el.dataset.k, el.dataset.v); el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===el)); if(el.dataset.k==='mode') syncCanvasToggle(); updatePlayground(); });
+      el.addEventListener('click',()=>{ setPg(el.dataset.k, el.dataset.v); el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===el)); updatePlayground(); });
     } else if(el.tagName==='INPUT'){
       el.addEventListener('input',()=>{ setPg(el.dataset.k, el.value); updatePlayground(); });
     } else if(el.tagName==='SELECT'){
