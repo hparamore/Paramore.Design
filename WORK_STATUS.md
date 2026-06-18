@@ -207,6 +207,18 @@ toggle now does two things: reveal this panel + enable the hover inspector.
 - Verified: hidden by default, shows on toggle, prompt has colors JSON + GroupedRow, tokens-
   only scope drops components, copy toast correct, no console errors.
 
+### Deploy + cleanup (2026-06-18)
+- Pushed everything live to `paramore.design` (merged remote blog work cleanly). Mutual DS
+  explorer + work card confirmed 200.
+- Removed the unused `projects/TreeService Assets/` folder from tracking (it's raw source —
+  live pages use `assets/images/projects/`); it had a 95MB `.psd`. Added `.gitignore` rules
+  (`*.psd`, folder, `*.zip/.url/.webloc`, `.claude/`). Kept files locally.
+- **NOTE:** the 95MB `.psd` is removed from the working tree but STILL in git history
+  (commit d33732a). Fully purging it from GitHub needs a history rewrite + force-push —
+  not done (awaiting Hunter's ok).
+- Fixed: row dividers in dark mode showed the darker page bg through the 54px left indent —
+  gave `.rows-group` the elevated surface color so the gap matches the rows.
+
 ### Open / notes
 - Token format is `icon/Bell`. Easy to switch to `Bell`, `icon.bell`, `MutualIcon.bell`, etc.
 - Icon color model: main shape = `currentColor` (the tint); "paper" areas (knockouts +
