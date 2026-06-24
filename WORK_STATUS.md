@@ -1,5 +1,198 @@
 # Work Status — Paramore.Design Portfolio
 
+> **Related log:** the Mutual design-system explorer here is built *from* the React package at
+> `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
+> which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
+
+## 2026-06-24 — Hero rag fix + em dashes removed from homepage
+
+### Summary
+Hunter found the hero subtitle's ragged right edge hard to read (jagged + an orphaned
+"the room." line) and asked to remove all em dashes. Fixed both on `index.html`.
+
+### What changed (`index.html`)
+- **Rag/readability:** widened subtitle measure (60ch → 64ch) and added
+  `text-wrap: pretty` to `.home-hero .hero__subtitle` (smooths line breaks / avoids
+  orphans). Tightened the subtitle copy slightly.
+- **Em dashes removed sitewide-on-homepage:** every `—`/`&mdash;` on `index.html`
+  replaced *in context* — asides → commas, list intros → colons, label separators →
+  `·` (e.g. "iOS · Swift / SwiftUI"). Verified 0 em dashes remain.
+- Gotcha for future: `perl -CSD -i -pe` with a literal `·`/`—` in the program double-
+  encodes (writes `Â·` mojibake / fails to match the UTF-8 `—`). Use **byte-mode**
+  `perl -i -pe` (no `-CSD`) for literal multibyte chars. Cleaned up one such mojibake.
+
+### DONE — em dashes removed from all portfolio pages (blog left intentionally)
+Hunter chose: strip portfolio pages, leave the blog (his writing voice). Swept
+`work.html`, `about.html`, `build.html`, `super-com.html`, and all `projects/*.html`
+(incl. the 82 in the interactive `mutual-design-system.html`) to **0 em dashes**.
+Rules: tech-stack lists → `·`, list intros / subhead labels → `:`, asides → `,`,
+title separators → `·`. Verified 0 em dashes on all 9 portfolio pages, no mojibake,
+and the interactive design-system page still runs with no console errors.
+**Left untouched (by choice):** `blog/index.html` (4) and
+`blog/posts/building-with-fable-5.html` (24) — em dashes are Hunter's intentional prose
+voice there.
+
+---
+
+## 2026-06-24 — Hero headline finalized: "I learn things by rebuilding them."
+
+### Summary
+Iterated the homepage hero headline with Hunter to land on something memorable and
+true to him. Rejected "I love making things…" (generic — every designer says it) and
+"figuring out how they work" (forgettable). Final: **"I learn things by REBUILDING
+them."** ("rebuilding" accented). It's backed by the work directly below it — the Game
+UI kits and Mutual design system literally ARE him rebuilding things to understand them.
+
+### What changed (`index.html` hero)
+- Headline → "I learn things by `<span accent>`rebuilding`</span>` them."
+- Subtitle rewritten to frame rebuilding as his full iterative loop and fold in the
+  research/testing/analytics use-cases Hunter wanted: "…ship it, watch how people
+  really use it, read the feedback and the analytics, then rebuild the parts that need
+  it — until I know *why* they had to change. Usually as the only designer in the room."
+- Verified desktop + mobile (375px): no overflow.
+
+---
+
+## 2026-06-24 — Game UI Kits card: real cover art on Work + Home
+
+### Summary
+Hunter supplied a real cover graphic for the game UI work
+(`assets/images/projects/GameDesignSystem.png`, 1252×1102 — Zelda BotW, Satisfactory/
+FICSIT, Raid Rush). Wired it into the existing Game UI card on `work.html` (replacing
+the missing `GameUIHero.jpg` placeholder + its onerror fallback) and added the same
+card to the homepage Selected Work grid (now 5 cards: Mutual featured, Mutual Design
+System, Tree Service, Checkin, Game UI Kits).
+
+### Notes
+- Card retitled "Game UI Kits" (label "Personal Work // Game UI Kits"); description now
+  surfaces the credibility line: "The Zelda kit was featured on the Figma community
+  homepage." Aspect ratio set to 1252/1102 to match the asset. Image verified loading.
+
+---
+
+## 2026-06-24 — Removed design.html; folded key pieces into homepage
+
+### Summary
+Deleted the standalone `design.html` capabilities page and moved its three strongest
+blocks onto the homepage instead (Hunter's call — cleaner than a separate page that
+repeated the same themes). Reverted the site nav back to **Home / Work / About / Blog**.
+
+### What changed
+- **Deleted `design.html`.** No dangling references remain (verified).
+- **Nav reverted** — removed the `Design` item from every page: `index.html`,
+  `work.html`, `about.html`, `blog/index.html`, `build.html`, `super-com.html`, and
+  `projects/{game-ui,mutual,the-tree-service}.html`. Back to 4 items. (`For Business`
+  footer link stays.)
+- **`index.html` gained three sections** (CSS ported from the old `pf-` blocks,
+  renamed `home-`): a **How I Lead** callout (`.home-callout`), a **pull-quote /
+  testimonial** (`.home-pullquote`), and the **Toolkit** (`.home-toolkit`, 3 cols:
+  Design / Build / Lead). The callout copy was softened toward Hunter's voice
+  ("…the best part is watching the work get better because someone else ran with it").
+- **Homepage section order now:** Hero → Selected Work → How I Work (4-up) → How I
+  Lead + pull-quote → Toolkit → Worked With → About → Get In Touch.
+- **Rewired links:** hero "How I work" button and the old deep-dive link now point to
+  the on-page `#how-i-work` anchor (added to the How I Work section) instead of the
+  deleted page.
+
+### Open items for Hunter (carried over — now live on the homepage)
+- [ ] Fill the `[…]` placeholders in the How I Lead callout (a real mentoring example)
+      and the pull-quote (a real testimonial + Name/Role/Company).
+- [ ] Email still inconsistent: homepage `hparamore@gmail.com` vs `about.html`
+      `hello@paramore.design`.
+
+---
+
+## 2026-06-24 — Homepage hero: voice + layout rework
+
+### Summary
+Reworked the new homepage hero twice based on Hunter's feedback. (1) **Voice** — the
+original "I design the whole product and the system it runs on" read as boastful;
+rewrote it in a curious-maker, learning-and-sharing tone. (2) **Layout** — it felt
+"centered but stacked." Root cause: the global `.hero` is `display:flex`, which made
+its inner `.container` shrink-wrap and center (only 782px wide, pushed right) while
+every other section is full-width left-aligned. Fixed to a hard-left single-column
+hero with momentum (Hunter chose this over a split/image or a "Currently" panel).
+
+### What changed (`index.html`)
+- **Headline** now: "I love making things — and figuring out how they **work**."
+  Subtitle reframes the Mutual stat as delight ("…which still amazes me") instead of
+  a brag, and ends on "sharing what I learn as I go."
+- **Hero layout (scoped `.home-hero`):** added `.home-hero .container { width:100% }`
+  to cancel the flex shrink-wrap so the hero left-aligns like every other section;
+  un-capped the headline (`max-width:none` + `font-size: clamp(text-4xl, 6.6vw,
+  text-6xl)`) so it runs wide across 2 lines instead of stacking to 4; explicit
+  `<br>` after "and" for the line break; reduced hero top/bottom padding and added
+  `.home-hero + .section { padding-top: var(--space-xl) }` to pull Selected Work up
+  so the first card peeks into the hero (momentum).
+- Verified desktop (1280) and mobile (390): left-aligned, 2-line headline, work
+  peeking, no horizontal overflow.
+
+### Open / next
+- Hunter flagged the confident tone may need softening sitewide too — esp.
+  `design.html` ("I own the whole surface", "most of a design team in a single hire").
+  Offered to apply the same voice pass there.
+- Still pending: hero image (optional now that Option C needs none), testimonials,
+  Mutual PAR case study.
+
+---
+
+## 2026-06-24 — Site reframe: portfolio-first, business pitch demoted
+
+### Summary
+Reframed the whole site from a "for hire / AI tools for small businesses" sales
+funnel into a **personal design portfolio**. The homepage was the main culprit —
+it was 100% a business pitch. We moved that pitch to its own page and rebuilt the
+homepage as a portfolio front door about Hunter.
+
+### What changed
+- **NEW page `build.html`** — the old `index.html` business pitch, moved intact
+  (hero, problem strip, recent builds, solution cards, industries, process, trust,
+  big CTA). Nothing lost. Title now "For Business — AI Tools, Custom-Built". Nav and
+  footer aligned to the new site-canonical set. Internal anchors (#services,
+  #contact) still resolve within the page.
+- **`index.html` fully rewritten** as a portfolio home (first-person, portfolio
+  voice, not sales). Sections: personal hero ("I design the whole product — and the
+  system it runs on"), Selected Work (4 cards: Mutual featured, Mutual Design System,
+  Tree Service, Checkin), a "How I Work" capabilities glimpse (4-up: Systems / Craft /
+  Mentoring / 0→1) linking to `design.html`, a "Worked With" brands strip, an About
+  teaser, and a soft "Get In Touch" closing (no "book a call" sales CTA).
+  - NEW page-scoped `home-` style block (self-contained, same convention as `pf-`/
+    `sc-`/`ts-`): `.home-caps`, `.home-cap`, `.home-brands`, `.home-about`,
+    `.home-closing`. Reuses global `.hero*`, `.project-card`, `.btn`, `.label`.
+- **Site-canonical nav** is now **Home / Work / Design / About / Blog** — applied to
+  `index.html`, `work.html`, `design.html`, `about.html`, `blog/index.html`
+  (added the new **Design** item; reordered it on `design.html`).
+- **Site-canonical footer** now leads with a **For Business** link to `build.html`,
+  then LinkedIn / Dribbble / GitHub — applied to the same five pages plus `build.html`.
+
+### Decisions
+- **Business pitch demoted, not deleted** (Hunter's call) — preserved on `build.html`,
+  reachable from every footer, so the client/lead-gen angle survives without making
+  the site read as a sales page.
+- **Home = portfolio front door; `design.html` = the deep capabilities dive.** Two
+  layers, minimal duplication — the homepage's "How I Work" strip is a teaser that
+  links into the fuller page.
+- **"For Business" lives in the footer, not the primary nav**, to keep the top-level
+  experience portfolio-forward. Easy to promote to nav later if desired.
+- No new tokens; everything drawn from existing `:root`. Verified the new homepage
+  renders (nav, 4-up caps grid, brands, footer, closing all correct) via preview.
+
+### Open items for Hunter
+- [x] DONE — Swept canonical nav (+ Design) and footer (+ For Business) onto
+      `projects/game-ui.html`, `projects/mutual.html`, `projects/the-tree-service.html`,
+      and `super-com.html`. `projects/mutual-design-system.html` intentionally left
+      alone (it's a self-contained interactive token explorer with its own chrome).
+- [x] DONE — Mobile verified at 390px on `index.html` and `design.html`: no
+      horizontal overflow; grids collapse correctly (caps/toolkit → 1 col, stats/pillars
+      as designed).
+- [ ] `about.html` contact still uses `hello@paramore.design`; homepage/closing uses
+      `hparamore@gmail.com`. Pick one canonical contact email site-wide.
+- [ ] Still worth doing: fill the `[…]` placeholders on `design.html` (mentoring
+      story, testimonial, mentored count) and rebuild the **Mutual** case study into
+      the anchor senior-grade story.
+
+---
+
 ## 2026-06-17 — Mutual Design System live token explorer (`projects/mutual-design-system.html`)
 
 ### Summary

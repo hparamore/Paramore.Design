@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mutual Design System — Live Token Explorer // Paramore.Design</title>
-<meta name="description" content="An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast — structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source." />
+<title>Mutual Design System, Live Token Explorer // Paramore.Design</title>
+<meta name="description" content="An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast, structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -387,7 +387,7 @@
     <div class="handoff__card">
       <div class="handoff__eyebrow">AI view · Hand-off</div>
       <div class="handoff__title">Drop this whole system into your project</div>
-      <p class="handoff__sub">Copy the prompt, paste it into Claude, Cursor, or any coding agent, then just say what you want to build. It scaffolds the Mutual design system into your repo — tokens, all six themes, components, and the rules that keep everything on-brand and accessible — then builds whatever you ask using only that system.</p>
+      <p class="handoff__sub">Copy the prompt, paste it into Claude, Cursor, or any coding agent, then just say what you want to build. It scaffolds the Mutual design system into your repo, tokens, all six themes, components, and the rules that keep everything on-brand and accessible, then builds whatever you ask using only that system.</p>
       <div class="tabs" id="handoffTabs">
         <button data-scope="full" aria-pressed="true">Full system</button>
         <button data-scope="tokens" aria-pressed="false">Tokens only</button>
@@ -401,7 +401,7 @@
       <div class="handoff__steps">
         <div class="handoff__step"><div class="n">Step 1</div><div class="d">Copy the prompt</div></div>
         <div class="handoff__step"><div class="n">Step 2</div><div class="d">Paste into your AI agent</div></div>
-        <div class="handoff__step"><div class="n">Step 3</div><div class="d">Say what to build — on-brand by default</div></div>
+        <div class="handoff__step"><div class="n">Step 3</div><div class="d">Say what to build, on-brand by default</div></div>
       </div>
     </div>
   </div>
@@ -412,9 +412,9 @@
   <header class="hero">
     <p class="eyebrow">Design System · One source · engineers &amp; AI agents build from it</p>
     <h1 id="heroTitle">One token layer. Three brands. Six themes. Zero guessing.</h1>
-    <p>This is a real, shipping design system for two products — <strong class="lead-strong">Mutual</strong>, <strong class="lead-strong">Ark</strong>, and a third concept, <strong class="lead-strong">ToNite</strong> — generated from a single semantic token layer that exports cleanly to Swift <em>and</em> React.</p>
-    <p>Every color, type ramp, and component below is rendered live from those tokens. Flip the brand and mode switches up top — the entire page re-themes from one source of truth. The point isn't that it's pretty. It's that it's <strong class="lead-strong">structured</strong>: a new engineer — or an AI agent — can read these tokens and assemble correct, on-brand, accessible UI without me in the loop. Hit <strong class="lead-strong">AI view</strong> to see exactly what they build from.</p>
-    <div class="pill-note"><span class="k">Try</span> Flip on <strong>AI view</strong> (top-right), then hover anything — every element reveals the exact token an agent reads.</div>
+    <p>This is a real, shipping design system for two products, <strong class="lead-strong">Mutual</strong>, <strong class="lead-strong">Ark</strong>, and a third concept, <strong class="lead-strong">ToNite</strong>, generated from a single semantic token layer that exports cleanly to Swift <em>and</em> React.</p>
+    <p>Every color, type ramp, and component below is rendered live from those tokens. Flip the brand and mode switches up top, the entire page re-themes from one source of truth. The point isn't that it's pretty. It's that it's <strong class="lead-strong">structured</strong>: a new engineer, or an AI agent, can read these tokens and assemble correct, on-brand, accessible UI without me in the loop. Hit <strong class="lead-strong">AI view</strong> to see exactly what they build from.</p>
+    <div class="pill-note"><span class="k">Try</span> Flip on <strong>AI view</strong> (top-right), then hover anything, every element reveals the exact token an agent reads.</div>
   </header>
 </div>
 
@@ -431,11 +431,11 @@
 <div class="copy-toast" id="toast">Copied</div>
 <div class="pg-modal" id="pgModal" role="dialog" aria-modal="true" aria-label="Component playground"></div>
 <div class="ai-inspector" id="aiInspector"></div>
-<div class="ai-hint" id="aiHint"><span class="pulse"></span> Hover anything — see the token an agent reads</div>
+<div class="ai-hint" id="aiHint"><span class="pulse"></span> Hover anything, see the token an agent reads</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — ported verbatim from the design-system source
+   DESIGN TOKENS, ported verbatim from the design-system source
    (tokens/colors.ts, semantic.ts, typography.ts, spacing.ts)
    ═══════════════════════════════════════════════════════════════ */
 
@@ -497,7 +497,7 @@ let state = {brand:'mutual', mode:'light'};
 let icons = [];                 // [{name, token, large, small}] loaded from manifest
 let iconState = {q:'', px:32, color:'text'};   // px: display size; color: token keyword or #hex
 let iconTilesCache = {key:'', html:''};
-let handoffScope = 'full';      // 'full' | 'tokens' — AI hand-off prompt scope
+let handoffScope = 'full';      // 'full' | 'tokens', AI hand-off prompt scope
 
 function applyTheme(){
   const t = THEMES[state.brand][state.mode];
@@ -531,7 +531,7 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 const ai = o => ` data-ai='${JSON.stringify(o).replace(/&/g,'&amp;').replace(/'/g,'&#39;')}'`;
 
 function colorSwatch(name, hex, role){
-  return `<div class="swatch" data-copy="${name}" title="Click to copy: ${name}"${ai({k:'Color primitive',token:name,primitive:true,value:hex.toUpperCase(),color:hex,note:(role?'Role: '+role+'. ':'')+'The raw layer — reference it through a semantic token, never hardcode the hex.'})}>
+  return `<div class="swatch" data-copy="${name}" title="Click to copy: ${name}"${ai({k:'Color primitive',token:name,primitive:true,value:hex.toUpperCase(),color:hex,note:(role?'Role: '+role+'. ':'')+'The raw layer, reference it through a semantic token, never hardcode the hex.'})}>
     <div class="swatch__chip" style="background:${hex}"></div>
     <div class="swatch__meta">
       <div class="swatch__name">${name}</div>
@@ -548,7 +548,7 @@ function renderColors(t){
   return `
   <p class="subhead">Brand colors</p>
   <div class="grid cols-auto" style="margin-bottom:30px">${make(Object.keys(brandRoles),brandRoles)}</div>
-  <p class="subhead">Grey scale — semantic, inverts in dark mode</p>
+  <p class="subhead">Grey scale: semantic, inverts in dark mode</p>
   <div class="grid cols-auto" style="margin-bottom:30px">${make(Object.keys(greyRoles),greyRoles)}</div>
   <p class="subhead">Indicators</p>
   <div class="grid cols-auto">${make(Object.keys(indRoles),indRoles)}</div>`;
@@ -567,7 +567,7 @@ function renderType(t){
 }
 
 function renderSpacing(){
-  const sp=Object.entries(spacing).map(([k,v])=>`<div class="space-row"${ai({k:'Spacing token',token:'spacing.'+k,value:v+'px',note:'Gap between elements — from the fixed spacing scale.'})}><div class="space-label"><b>spacing.${k}</b> <span>${v}px</span></div><div class="space-bar" style="width:${v}px"></div></div>`).join('');
+  const sp=Object.entries(spacing).map(([k,v])=>`<div class="space-row"${ai({k:'Spacing token',token:'spacing.'+k,value:v+'px',note:'Gap between elements, from the fixed spacing scale.'})}><div class="space-label"><b>spacing.${k}</b> <span>${v}px</span></div><div class="space-bar" style="width:${v}px"></div></div>`).join('');
   const rd=Object.entries(radius).map(([k,v])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:8px"${ai({k:'Radius token',token:'radius.'+k,value:v+'px',note:'Corner radius from the shared scale.'})}><div style="width:64px;height:64px;background:var(--brand-primary);border-radius:${Math.min(v,32)}px"></div><div style="font-family:'Space Grotesk',monospace;font-size:11px;color:var(--text-tertiary);text-align:center"><b style="color:var(--text-primary);display:block">${k}</b>${v}px</div></div>`).join('');
   const ic=Object.entries(iconSize).map(([k,v])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:8px"${ai({k:'Icon-size token',token:'iconSize.'+k,value:v+'px',note:'Standard icon dimension.'})}><div style="width:${v}px;height:${v}px;background:var(--text-secondary);border-radius:5px"></div><div style="font-family:'Space Grotesk',monospace;font-size:11px;color:var(--text-tertiary);text-align:center"><b style="color:var(--text-primary);display:block">${k}</b>${v}px</div></div>`).join('');
   return `
@@ -615,13 +615,13 @@ function renderComponents(t){
   <div class="grid cols-2" style="gap:24px;align-items:start">
     <div class="card">
       <div class="card-head"><span class="card-name">Button</span><button class="pg-open" data-pg="button">Customize in Playground &#8599;</button></div>
-      <p class="subhead">Buttons — fill</p>
+      <p class="subhead">Buttons: fill</p>
       <div class="demo-row" style="margin-bottom:18px">
         ${btn('Primary CTA',bp.background,bp.foreground,'',{k:'Component · button',token:'semantic.buttonPrimary',ref:`${t.appName==='ToNite'?'brandPrimary':'brandAccent5'} (bg) · ${t.appName==='ToNite'?'constantBlack':'constantWhite'} (fg)`,value:`${bp.background} · ${bp.foreground}`,color:bp.background,contrast:cr(bp.foreground,bp.background),note:'Main call to action. Paired fg/bg ship pre-validated for contrast.'})}
         ${btn('Secondary',b2.background,b2.foreground,'',{k:'Component · button',token:'semantic.buttonSecondary',ref:`brandSecondary (bg) · ${t.isDarkMode?'constantWhite':'grey900'} (fg)`,value:`${b2.background} · ${b2.foreground}`,color:b2.background,contrast:cr(b2.foreground,b2.background),note:'Secondary action on brandSecondary.'})}
         ${btn('Destructive',bdest.background,bdest.foreground,'',{k:'Component · button',token:'semantic.buttonDestructive',ref:'indicatorError (bg) · constantWhite (fg)',value:`${bdest.background} · ${bdest.foreground}`,color:bdest.background,contrast:cr(bdest.foreground,bdest.background),note:'Delete / cancel. Uses indicatorError.'})}
       </div>
-      <p class="subhead">Buttons — outline &amp; text</p>
+      <p class="subhead">Buttons: outline &amp; text</p>
       <div class="demo-row" style="margin-bottom:18px">
         ${outline('Outline',t.brandPrimary,{k:'Component · button',token:'semantic.buttonTertiary',ref:'brandPrimary (border + text)',value:t.brandPrimary,color:t.brandPrimary,note:'Ghost / outline style on brandPrimary.'})}
         ${btn('Text button','transparent',t.brandPrimary,'',{k:'Component · button',token:'text.link',ref:'brandPrimary',value:t.brandPrimary,color:t.brandPrimary,note:'Low-emphasis text action.'})}
@@ -635,15 +635,15 @@ function renderComponents(t){
     </div>
 
     <div class="card">
-      <p class="subhead">Chips — 8 variants</p>
+      <p class="subhead">Chips: 8 variants</p>
       <div class="demo-row">
         ${chip('Primary',t.brandPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.primary',ref:'brandPrimary',value:t.brandPrimary,color:t.brandPrimary,note:'Tags & traits. Background references brandPrimary.'})}
         ${chip('Light',t.isDarkMode?t.grey100:t.grey50,t.grey600,'',{k:'Component · chip',token:'chip.light',ref:t.isDarkMode?'grey100':'grey50',value:t.isDarkMode?t.grey100:t.grey50,color:t.isDarkMode?t.grey100:t.grey50,note:'Subtle chip on the grey scale.'})}
         ${chip('Dark',t.constantBlack,t.constantWhite,'',{k:'Component · chip',token:'chip.dark',ref:'constantBlack',value:t.constantBlack,color:t.constantBlack,note:'High-contrast chip.'})}
         ${chip('Accent 1',t.brandAccent1,t.constantBlack,'',{k:'Component · chip',token:'chip.accent1',ref:'brandAccent1',value:t.brandAccent1,color:t.brandAccent1,note:'Gold / premium accent chip.'})}
         ${chip('Accent 5',t.brandAccent5,t.constantWhite,'',{k:'Component · chip',token:'chip.accent5',ref:'brandAccent5',value:t.brandAccent5,color:t.brandAccent5,note:'Primary-CTA accent chip.'})}
-        ${chip('Const. Primary',t.constantPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.constantPrimary',ref:'constantPrimary',value:t.constantPrimary,color:t.constantPrimary,note:'Brand mark color — constant across modes.'})}
-        ${chip('Const. Secondary',t.constantSecondary,t.constantDarkGrey,'',{k:'Component · chip',token:'chip.constantSecondary',ref:'constantSecondary',value:t.constantSecondary,color:t.constantSecondary,note:'Secondary brand color — constant across modes.'})}
+        ${chip('Const. Primary',t.constantPrimary,t.constantWhite,'',{k:'Component · chip',token:'chip.constantPrimary',ref:'constantPrimary',value:t.constantPrimary,color:t.constantPrimary,note:'Brand mark color, constant across modes.'})}
+        ${chip('Const. Secondary',t.constantSecondary,t.constantDarkGrey,'',{k:'Component · chip',token:'chip.constantSecondary',ref:'constantSecondary',value:t.constantSecondary,color:t.constantSecondary,note:'Secondary brand color, constant across modes.'})}
         ${chip('Outline','transparent',tx.primary,'border:2px solid '+bd.default,{k:'Component · chip',token:'chip.outline',ref:'border.default → grey200',value:bd.default,color:bd.default,note:'Bordered chip using border.default.'})}
       </div>
     </div>
@@ -724,7 +724,7 @@ function renderRows(t){
     <div class="rows-wrap">
       <p class="rows-cap">Single-line · 40px</p>
       <div class="rows-group">
-        ${row({icon:'Profile',label:'My Profile',trail:chev,tap:1,variant:'navigation',note:'Navigation row — leading icon + chevron, tappable.'})}${div}
+        ${row({icon:'Profile',label:'My Profile',trail:chev,tap:1,variant:'navigation',note:'Navigation row, leading icon + chevron, tappable.'})}${div}
         ${row({icon:'Notifications',label:'Notifications',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
         ${row({icon:'Language',label:'Language',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}${div}
         ${row({icon:'Settings',label:'Settings',trail:chev,tap:1,variant:'navigation',note:'Navigation row.'})}
@@ -734,7 +734,7 @@ function renderRows(t){
       <div class="rows-group">
         ${row({icon:'Premium',label:'Subscription',field:'Free member',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row: label + fieldText subtitle.'})}${div}
         ${row({icon:'Verification',label:'Account Verification',field:'Verified',trail:chev,tap:1,variant:'two-line + value',note:'Two-line row with status value.'})}${div}
-        ${row({label:'Age Range',field:'Between 22 and 35 years old',variant:'detail',note:'Detail row — no leading, value subtitle.'})}
+        ${row({label:'Age Range',field:'Between 22 and 35 years old',variant:'detail',note:'Detail row, no leading, value subtitle.'})}
       </div>
     </div>
 
@@ -769,7 +769,7 @@ function renderRows(t){
   </div>
 
   <div style="margin-top:30px">
-    <p class="rows-cap">Atoms — the row building blocks, specced standalone</p>
+    <p class="rows-cap">Atoms: the row building blocks, specced standalone</p>
     <div class="atoms-grid">
       <div class="atom-card"${ai({k:'Component · toggle',token:'component.toggle',ref:'primary → brandPrimary · accent5 → brandAccent5',note:'On/off switch. Track tints to brandPrimary or brandAccent5; knob stays constant white. 44×26, knob 20.'})}>
         <div class="atom-t">Toggle</div>
@@ -815,7 +815,7 @@ function getIcon(name, px=20){
   return i ? sizeSvg(pickVariant(i, px), px) : '';
 }
 
-// Tint presets — keyword resolves against the live theme; a #hex is used as-is.
+// Tint presets, keyword resolves against the live theme; a #hex is used as-is.
 const TINT_PRESETS = [
   {key:'text',    label:'Ink',     get:t=>sem.text(t).primary},
   {key:'primary', label:'Brand',   get:t=>t.brandPrimary},
@@ -838,7 +838,7 @@ function iconTilesHtml(){
   const tiles = list.map(i=>{
     const variant = pickVariant(i, px);
     const sizes = (i.large?'L':'') + (i.small?'S':'');
-    return `<div class="icon-tile" data-token="${esc(i.token)}" title="Click to copy  ${esc(i.token)}"${ai({k:'Icon',token:i.token,value:`${sizes} master${sizes.length>1?'s':''} · ${px}px`,note:'Inline SVG, normalized to currentColor — drops into any component or generated UI.'})}>
+    return `<div class="icon-tile" data-token="${esc(i.token)}" title="Click to copy  ${esc(i.token)}"${ai({k:'Icon',token:i.token,value:`${sizes} master${sizes.length>1?'s':''} · ${px}px`,note:'Inline SVG, normalized to currentColor, drops into any component or generated UI.'})}>
       <div class="glyph" style="width:${px}px;height:${px}px">${sizeSvg(variant,px)}</div>
       <div class="nm">${esc(i.name)}</div>
       <div class="size-dots">${[...sizes].map(s=>`<span>${s}</span>`).join('')}</div>
@@ -910,7 +910,7 @@ function renderAI(t){
 
   const prompt = `<span class="c"># System rule given to the agent</span>
 You are building UI for <span class="s">"${t.appName}"</span>.
-Use ONLY semantic tokens — never raw hex.
+Use ONLY semantic tokens, never raw hex.
 
 <span class="k">RULES</span>
 1. Background       → <span class="s">surface.base</span>
@@ -922,14 +922,14 @@ Use ONLY semantic tokens — never raw hex.
 <span class="c"># Because pairings are pre-validated, every screen the</span>
 <span class="c"># agent produces is on-brand AND passes WCAG by construction.</span>`;
 
-  const usage = `<span class="c">// React — same tokens, any brand</span>
+  const usage = `<span class="c">// React, same tokens, any brand</span>
 <span class="k">import</span> { ThemeProvider, ThemedButton } <span class="k">from</span> <span class="s">'@mutual/ds'</span>;
 
 <span class="k">&lt;</span><span class="n">ThemeProvider</span> brand=<span class="s">"${state.brand}"</span> mode=<span class="s">"${state.mode}"</span><span class="k">&gt;</span>
   <span class="k">&lt;</span><span class="n">ThemedButton</span> title=<span class="s">"Say hello"</span> color=<span class="s">"accent5"</span> <span class="k">/&gt;</span>
 <span class="k">&lt;/</span><span class="n">ThemeProvider</span><span class="k">&gt;</span>
 
-<span class="c">// Swift — one token source, two platforms</span>
+<span class="c">// Swift, one token source, two platforms</span>
 <span class="n">Text</span>(<span class="s">"Say hello"</span>)
   .typography(.h3)
   .foregroundStyle(theme.textColors.primary)`;
@@ -941,7 +941,7 @@ Use ONLY semantic tokens — never raw hex.
   return `
   <div class="ai-callout">
     <h3>What an engineer or AI agent actually builds from</h3>
-    <p>This is the live, resolved token set for the <strong>${t.appName} / ${state.mode}</strong> theme you're viewing — the same contract a developer pulls into a component or an agent reads before it writes a single line of UI. Switch brand or mode and watch it regenerate. Pairings ship with their contrast ratio baked in, so nobody — human or model — has to <em>guess</em> whether text will be legible.</p>
+    <p>This is the live, resolved token set for the <strong>${t.appName} / ${state.mode}</strong> theme you're viewing, the same contract a developer pulls into a component or an agent reads before it writes a single line of UI. Switch brand or mode and watch it regenerate. Pairings ship with their contrast ratio baked in, so nobody, human or model, has to <em>guess</em> whether text will be legible.</p>
   </div>
   <div class="tabs" id="aiTabs">
     <button data-tab="json"   aria-pressed="${aiTab==='json'}">Resolved tokens (JSON)</button>
@@ -970,7 +970,7 @@ function buildHandoffPrompt(scope){
 
 You are a coding agent. Set up the Mutual design system in my project FIRST, then wait for
 me to tell you what to build. Recreate everything below exactly; don't improvise values.
-If you're unsure where files go, ask — otherwise default to \`src/design-system/\`.
+If you're unsure where files go, ask, otherwise default to \`src/design-system/\`.
 
 ## 1. File structure
 \`\`\`
@@ -981,9 +981,9 @@ src/design-system/
   index.ts
 \`\`\`
 
-## 2. Tokens — recreate EXACTLY
+## 2. Tokens, recreate EXACTLY
 
-### Colors — 3 brands (mutual, ark, tonite) × light/dark = 6 themes
+### Colors, 3 brands (mutual, ark, tonite) × light/dark = 6 themes
 \`\`\`json
 ${colors}
 \`\`\`
@@ -992,15 +992,15 @@ ${colors}
 \`\`\`json
 ${type}
 \`\`\`
-Fonts per brand — primary (display):
+Fonts per brand, primary (display):
   mutual → Goldman Sans (Gramatika) · ark → DM Sans (DM Serif Display) · tonite → Inter (DM Serif Display)
 
-### Spacing / radius / icon sizes (px) — shared across all themes
+### Spacing / radius / icon sizes (px), shared across all themes
 \`\`\`json
 ${scale}
 \`\`\`
 
-### Semantic layer — derive from the ACTIVE theme. Components reference THESE, never raw hex:
+### Semantic layer, derive from the ACTIVE theme. Components reference THESE, never raw hex:
 - buttonPrimary  = { bg: brand==='tonite' ? brandPrimary : brandAccent5, fg: brand==='tonite' ? constantBlack : constantWhite }
 - buttonSecondary= { bg: brandSecondary, fg: isDarkMode ? constantWhite : grey900 }
 - buttonDestructive = { bg: indicatorError, fg: constantWhite }
@@ -1014,24 +1014,24 @@ Build a \`<ThemeProvider brand mode>\` that exposes \`{ colors, semantic }\` via
 `;
   if(scope==='full'){
     p += `
-## 3. Components — build these, each reading ONLY semantic tokens
-- ThemedText — \`variant\` maps to the type scale; resolves brand font + weight; \`usesSecondaryFont\` uses the display face.
-- ThemedButton — style: fill | outline | text · color: primary, secondary, accent5, destructive, disabled · size: large(50) / medium(40) / small(30) · radius medium(16).
-- Chip — variant: primary, light, dark, accent1, accent5, constantPrimary, constantSecondary, outline · size regular(30)/compact(24) · radius small(12).
-- Banner — style: card | cardFilled | fullWidth · fill: secondary/accent1/accent5/grey · optional icon, title, description, trailing (dismiss/chevron/info).
-- Dialog — blurred scrim + centered card (radius 28) with icon, title, message, stacked or side-by-side buttons.
-- GroupedRow — single-line(40px) or two-line(50px: label + fieldText). Leading icon (20px). Trailing items (composable): text, button, toggle(primary|accent5), stepper, violator, badge(count), badgeDot, chevron. 20px h-padding, 16px icon gap, 12px trailing gap.
-- SectionHeader — small=h5 / medium=h4 / large=h2, optional trailing text + chevron.
-- Divider — 1px grey100; RowDivider indents 54px, FullWidthDivider spans full width.
-- Toggle — on/off switch; tint primary (brandPrimary) or accent5 (brandAccent5); 44×26, constant-white knob.
-- Stepper — −/value/+ within a range; 28px controls, border = border.default.
-- Badge — count badge + dot; background = indicatorBadge, white text, pill radius.
-- Violator — small status pill ("New", "Premium"); accent5 → brandAccent5, accent1 → brandAccent1.
+## 3. Components, build these, each reading ONLY semantic tokens
+- ThemedText, \`variant\` maps to the type scale; resolves brand font + weight; \`usesSecondaryFont\` uses the display face.
+- ThemedButton, style: fill | outline | text · color: primary, secondary, accent5, destructive, disabled · size: large(50) / medium(40) / small(30) · radius medium(16).
+- Chip, variant: primary, light, dark, accent1, accent5, constantPrimary, constantSecondary, outline · size regular(30)/compact(24) · radius small(12).
+- Banner, style: card | cardFilled | fullWidth · fill: secondary/accent1/accent5/grey · optional icon, title, description, trailing (dismiss/chevron/info).
+- Dialog, blurred scrim + centered card (radius 28) with icon, title, message, stacked or side-by-side buttons.
+- GroupedRow, single-line(40px) or two-line(50px: label + fieldText). Leading icon (20px). Trailing items (composable): text, button, toggle(primary|accent5), stepper, violator, badge(count), badgeDot, chevron. 20px h-padding, 16px icon gap, 12px trailing gap.
+- SectionHeader, small=h5 / medium=h4 / large=h2, optional trailing text + chevron.
+- Divider, 1px grey100; RowDivider indents 54px, FullWidthDivider spans full width.
+- Toggle, on/off switch; tint primary (brandPrimary) or accent5 (brandAccent5); 44×26, constant-white knob.
+- Stepper, −/value/+ within a range; 28px controls, border = border.default.
+- Badge, count badge + dot; background = indicatorBadge, white text, pill radius.
+- Violator, small status pill ("New", "Premium"); accent5 → brandAccent5, accent1 → brandAccent1.
 
 If you need something this set doesn't include yet (e.g. a text input), build it from the
-tokens above so it matches the system — don't pull in an off-system component.
+tokens above so it matches the system, don't pull in an off-system component.
 
-## 4. Icons — ${icons.length||198} of them, fetch and inline
+## 4. Icons, ${icons.length||198} of them, fetch and inline
 Every icon is an inline SVG normalized to \`currentColor\` (so it takes whatever color you
 apply) with 20px and 30px masters. The full set is hosted publicly here:
   ${ICON_MANIFEST_URL}
@@ -1047,19 +1047,18 @@ ${iconTokens || '(fetch the manifest above for the full list)'}
   }
   p += `
 ## ${n}. Rules (non-negotiable)
-- Reference SEMANTIC tokens — never raw hex, never magic numbers.
+- Reference SEMANTIC tokens, never raw hex, never magic numbers.
 - Use only the spacing / radius / iconSize scales for layout.
 - Every foreground/background pairing must meet WCAG AA (the pairings above already do).
 - Wrap the app in \`<ThemeProvider brand="mutual" mode="light">\`; theme switching must work across all 6 themes with zero component changes.${scope==='full'?'\n- Use the icons above for any glyph; never substitute a different icon set.':''}
-- If the system is missing a primitive you need, construct it from these tokens to match — never break the system to fill a gap.
+- If the system is missing a primitive you need, construct it from these tokens to match, never break the system to fill a gap.
 
 ## ${n+1}. Then
 Build a small catalog screen and confirm it renders correctly in all six themes
-(mutual / ark / tonite × light / dark). Once it does, ask me what to build — and build it
+(mutual / ark / tonite × light / dark). Once it does, ask me what to build, and build it
 using ONLY this system: these tokens${scope==='full'?', components, and icons':''}.${scope==='full'?`
 
-Example — "build a mobile settings screen": group GroupedRows into cards on surfaces.elevated —
-each a leading icon (fetched from the manifest by token), a label, and a trailing toggle / value
+Example, "build a mobile settings screen": group GroupedRows into cards on surfaces.elevated, each a leading icon (fetched from the manifest by token), a label, and a trailing toggle / value
 / chevron; separate sections with SectionHeaders + dividers; type and spacing from the scales;
 every color through a semantic token. The result should be indistinguishable from a real
 Mutual screen.`:''}
@@ -1077,7 +1076,7 @@ function refreshHandoff(){
 }
 function initHandoff(){
   document.querySelectorAll('#handoffTabs button').forEach(b=>b.addEventListener('click',()=>{handoffScope=b.dataset.scope; refreshHandoff();}));
-  document.getElementById('handoffCopy')?.addEventListener('click',()=>copy(window._handoffText||buildHandoffPrompt(handoffScope),'Prompt copied — paste into your AI'));
+  document.getElementById('handoffCopy')?.addEventListener('click',()=>copy(window._handoffText||buildHandoffPrompt(handoffScope),'Prompt copied, paste into your AI'));
   document.getElementById('handoffDownload')?.addEventListener('click',()=>{
     const blob=new Blob([window._handoffText||buildHandoffPrompt(handoffScope)],{type:'text/markdown'});
     const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
@@ -1171,7 +1170,7 @@ function pgToggle(k,on){return `<button class="toggle" data-ktoggle="${k}" aria-
 function pgText(k,v){return `<input type="text" data-k="${k}" value="${esc(v).replace(/"/g,'&quot;')}" />`;}
 function pgSelect(k,opts,cur){return `<select data-k="${k}">${opts.map(o=>`<option value="${esc(o.v)}" ${String(o.v)===String(cur)?'selected':''}>${esc(o.l)}</option>`).join('')}</select>`;}
 function pgRange(k,min,max,val,disabled){return `<input type="range" data-krange="${k}" min="${min}" max="${max}" step="2" value="${val}" ${disabled?'disabled':''} style="width:100%;${disabled?'opacity:.4':''}" />`;}
-function iconOpts(){return [{v:'',l:'— none —'}].concat(icons.map(i=>({v:i.name,l:i.name})));}
+function iconOpts(){return [{v:'',l:', none, '}].concat(icons.map(i=>({v:i.name,l:i.name})));}
 function knobsButton(){const s=pg;return `
   <div class="knob"><label>Title (type to test truncation)</label>${pgText('title',s.title)}</div>
   <div class="knob"><label>Style</label>${pgSeg('style',[{v:'fill',l:'Fill'},{v:'outline',l:'Outline'},{v:'text',l:'Text'}],s.style)}</div>
@@ -1229,7 +1228,7 @@ function openPlayground(kind){
       <div class="pg-knobs">${kind==='button'?knobsButton():knobsDialog()}</div>
     </div>
     <div class="pg-code">
-      <div class="pg-code__head"><span class="lbl">React / JSX — renders exactly what you see</span><button class="pg-code__copy">Copy code</button></div>
+      <div class="pg-code__head"><span class="lbl">React / JSX, renders exactly what you see</span><button class="pg-code__copy">Copy code</button></div>
       <pre id="pgCode"></pre>
     </div>
   </div>`;
@@ -1269,59 +1268,59 @@ function render(){
   const app = document.getElementById('app');
   app.innerHTML = `
   <section>
-    <div class="sec-head"><h2>01 — Foundations</h2></div>
+    <div class="sec-head"><h2>01, Foundations</h2></div>
     <div class="sec-title">Color</div>
-    <p class="sec-desc">Primitives roll up into semantic roles. You reference the <em>role</em> ("primary CTA"), not the hex — which is why a single component definition renders correctly across all six themes.</p>
+    <p class="sec-desc">Primitives roll up into semantic roles. You reference the <em>role</em> ("primary CTA"), not the hex, which is why a single component definition renders correctly across all six themes.</p>
     ${renderColors(t)}
   </section>
 
   <section>
-    <div class="sec-head"><h2>02 — Foundations</h2></div>
+    <div class="sec-head"><h2>02, Foundations</h2></div>
     <div class="sec-title">Typography</div>
     <p class="sec-desc">A 12-step ramp. Each brand swaps its own typeface family (${fonts[state.brand].pName} + ${fonts[state.brand].sName} here) while the scale stays identical.</p>
     <div class="card">${renderType(t)}</div>
   </section>
 
   <section>
-    <div class="sec-head"><h2>03 — Foundations</h2></div>
+    <div class="sec-head"><h2>03, Foundations</h2></div>
     <div class="sec-title">Spacing, radius &amp; sizing</div>
     <p class="sec-desc">Fixed scales remove "is it 14 or 16?" decisions. Shared across every brand and both platforms.</p>
     ${renderSpacing()}
   </section>
 
   <section>
-    <div class="sec-head"><h2>04 — Semantic layer</h2></div>
+    <div class="sec-head"><h2>04, Semantic layer</h2></div>
     <div class="sec-title">Contrast, validated live</div>
-    <p class="sec-desc">Every foreground/background pairing is computed in-browser right now, for the active theme. Flip to dark mode or another brand — the ratios recalculate. Accessibility isn't a final audit; it's a property of the tokens.</p>
+    <p class="sec-desc">Every foreground/background pairing is computed in-browser right now, for the active theme. Flip to dark mode or another brand, the ratios recalculate. Accessibility isn't a final audit; it's a property of the tokens.</p>
     ${renderContrast(t)}
   </section>
 
   <section>
-    <div class="sec-head"><h2>05 — Components</h2></div>
+    <div class="sec-head"><h2>05, Components</h2></div>
     <div class="sec-title">Built from tokens, themed automatically</div>
-    <p class="sec-desc">Buttons, chips, banners, and a dialog — none of these have hardcoded colors. They read semantic tokens, so theming is free.</p>
+    <p class="sec-desc">Buttons, chips, banners, and a dialog, none of these have hardcoded colors. They read semantic tokens, so theming is free.</p>
     ${renderComponents(t)}
   </section>
 
   <section>
-    <div class="sec-head"><h2>06 — Components</h2></div>
+    <div class="sec-head"><h2>06, Components</h2></div>
     <div class="sec-title">Rows, toggles, steppers &amp; lists</div>
-    <p class="sec-desc">One <code>GroupedRow</code> component covers navigation rows, two-line detail rows, and a stack of trailing variants — text, buttons, toggles, steppers, violators, and badges — plus section headers and dividers. Ported straight from the shipping SwiftUI source, with real icons from the set below. Those trailing pieces are also specced standalone as atoms (toggle, stepper, badge, violator) at the bottom. The toggles and steppers are live; flip on AI view to inspect any row.</p>
+    <p class="sec-desc">One <code>GroupedRow</code> component covers navigation rows, two-line detail rows, and a stack of trailing variants, text, buttons, toggles, steppers, violators, and badges, plus section headers and dividers. Ported straight from the shipping SwiftUI source, with real icons from the set below. Those trailing pieces are also specced standalone as atoms (toggle, stepper, badge, violator) at the bottom. The toggles and steppers are live; flip on AI view to inspect any row.</p>
     ${renderRows(t)}
   </section>
 
   <section>
-    <div class="sec-head"><h2>07 — The point</h2></div>
+    <div class="sec-head"><h2>07, The point</h2></div>
     <div class="sec-title">Built for engineers and agents alike</div>
-    <p class="sec-desc">When a design system is fully described as structured data, anyone building from it — a developer reading the docs or an AI agent reading the tokens — gets the same unambiguous contract. Same source, same rules, same correct result.</p>
+    <p class="sec-desc">When a design system is fully described as structured data, anyone building from it, a developer reading the docs or an AI agent reading the tokens, gets the same unambiguous contract. Same source, same rules, same correct result.</p>
     ${renderAI(t)}
   </section>
   ${''/* refreshHandoff() runs after mount to keep the top panel's token values in sync */}
   ${icons.length ? `
   <section>
-    <div class="sec-head"><h2>08 — Icon library</h2></div>
+    <div class="sec-head"><h2>08, Icon library</h2></div>
     <div class="sec-title">${icons.length} icons, one tap away</div>
-    <p class="sec-desc">The full icon set, exported straight from Figma and normalized to one color so the whole library tints together — pick a theme preset or any custom color, and scale them all at once. Each icon ships native 20px and 30px masters (the <code>L</code>/<code>S</code> dots show which exist); the gallery auto-renders the sharper master for the chosen size. Click an icon to copy its token (<code>icon/Name</code>) — the reference an engineer or an AI agent uses to pull it.</p>
+    <p class="sec-desc">The full icon set, exported straight from Figma and normalized to one color so the whole library tints together, pick a theme preset or any custom color, and scale them all at once. Each icon ships native 20px and 30px masters (the <code>L</code>/<code>S</code> dots show which exist); the gallery auto-renders the sharper master for the chosen size. Click an icon to copy its token (<code>icon/Name</code>), the reference an engineer or an AI agent uses to pull it.</p>
     ${renderIcons(t)}
   </section>` : ''}`;
   wireDynamic();
@@ -1338,7 +1337,7 @@ function wireDynamic(){
   const tabs=document.getElementById('aiTabs');
   if(tabs) tabs.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{aiTab=b.dataset.tab; render();}));
 
-  // Icon gallery controls — repopulate only the grid so the search box keeps focus.
+  // Icon gallery controls, repopulate only the grid so the search box keeps focus.
   const search=document.getElementById('iconSearch');
   if(search) search.addEventListener('input',e=>{ iconState.q=e.target.value; populateIcons(); });
   const sizeSeg=document.getElementById('iconSizeSeg');
@@ -1348,7 +1347,7 @@ function wireDynamic(){
     sizeSeg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', x===b));
     populateIcons();
   });
-  // Tint: presets just recolor the grid container (icons are currentColor) — no tile rebuild.
+  // Tint: presets just recolor the grid container (icons are currentColor), no tile rebuild.
   document.querySelectorAll('.tint-dot').forEach(d=>d.addEventListener('click',()=>{
     iconState.color=d.dataset.tint;
     document.querySelectorAll('.tint-dot').forEach(x=>x.classList.toggle('on',x===d));

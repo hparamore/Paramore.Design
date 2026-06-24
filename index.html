@@ -3,180 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paramore.Design — AI Tools for Small Businesses</title>
-  <meta name="description" content="One designer-developer building custom AI-powered tools that replace the stack of half-used SaaS small businesses get nickel-and-dimed by.">
+  <title>Hunter Paramore · Product Designer · Paramore.Design</title>
+  <meta name="description" content="Hunter Paramore, product designer with 12 years owning the whole surface: design systems, craft, and the code to ship it. Co-founder and sole designer of Mutual.">
   <link rel="stylesheet" href="css/styles.css?v=6">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
 
-  <!-- DRAFT: scoped styles for new AI-positioning homepage. Move to styles.css once approved. -->
+  <!-- ============================================================
+       Page-scoped styles (home- prefix). Self-contained, same
+       convention as the pf-/sc-/ts- blocks elsewhere. Promote to
+       styles.css if reused.
+       ============================================================ -->
   <style>
-    /* ---------- Pitch / Hero refinements ---------- */
-    .pitch-hero { padding-bottom: calc(var(--space-2xl) + 40px); }
-    .pitch-hero .hero__content { max-width: 1200px; }
-    .pitch-hero .hero__title { max-width: none; white-space: nowrap; }
-    .pitch-hero .hero__subtitle { max-width: 56ch; }
-    @media (max-width: 1100px) {
-      .pitch-hero .hero__title { white-space: normal; }
+    /* ---------- Hero: hard-left, wide headline, momentum into work ---------- */
+    /* The global .hero is display:flex, which made its .container shrink-wrap and
+       center (the "stacked + floating" feel). Fill the container so the hero
+       left-aligns to the page like every other section. */
+    .home-hero .container { width: 100%; }
+    .home-hero { padding-top: calc(var(--space-4xl) + 16px); padding-bottom: var(--space-lg); }
+    .home-hero .hero__content { max-width: 1080px; }
+    .home-hero .hero__title {
+      max-width: none;
+      font-size: clamp(var(--text-4xl), 6.6vw, var(--text-6xl));
     }
-    .pitch-hero .hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-sm);
-      padding: 6px 12px;
-      border: 1px solid var(--color-border);
-      border-radius: 999px;
-      background: var(--color-accent-subtle);
-      color: var(--color-text-secondary);
-      font-family: var(--font-body);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-wider);
-      margin-bottom: var(--space-lg);
-    }
-    .pitch-hero .hero__eyebrow::before {
-      content: "";
-      width: 6px; height: 6px;
-      background: var(--color-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--color-accent-glow);
-    }
+    .home-hero .hero__subtitle { max-width: 64ch; text-wrap: pretty; }
+    .home-hero .accent-text { color: var(--color-accent); }
+    /* Pull Selected Work up so it peeks into the hero, momentum, not a tall stack */
+    .home-hero + .section { padding-top: var(--space-xl); }
 
-    /* ---------- Problem strip ---------- */
-    .problem {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border-subtle);
-      border-bottom: 1px solid var(--color-border-subtle);
-    }
-    .problem__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-2xl);
-      margin-top: var(--space-2xl);
-    }
-    .problem__item h3 {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      text-transform: uppercase;
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-sm);
-    }
-    .problem__item p { font-size: var(--text-base); }
-    @media (max-width: 768px) {
-      .problem__grid { grid-template-columns: 1fr; gap: var(--space-xl); }
-    }
-
-    /* ---------- Solution / What I do ---------- */
-    .solution__lead {
-      max-width: 60ch;
-      font-size: var(--text-lg);
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-2xl);
-    }
-    .solution__grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg);
-    }
-    .solution__card {
-      padding: var(--space-xl);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-    }
-    .solution__card h3 {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: var(--space-sm);
-      letter-spacing: var(--tracking-wide);
-    }
-    @media (max-width: 768px) {
-      .solution__grid { grid-template-columns: 1fr; }
-    }
-
-    /* ---------- Industries ---------- */
-    .industries__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-      margin-top: var(--space-2xl);
-    }
-    .industry-card {
-      padding: var(--space-lg);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: border-color var(--duration-normal) var(--ease-out),
-                  transform var(--duration-normal) var(--ease-out),
-                  background var(--duration-normal) var(--ease-out);
-    }
-    .industry-card:hover {
-      border-color: var(--color-accent);
-      background: var(--color-surface-elevated);
-      transform: translateY(-2px);
-    }
-    .industry-card__icon {
-      font-size: var(--text-2xl);
-      margin-bottom: var(--space-sm);
-      display: block;
-    }
-    .industry-card h3 {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-wide);
-      margin-bottom: var(--space-xs);
-    }
-    .industry-card p {
-      font-size: var(--text-sm);
-      color: var(--color-text-secondary);
-      line-height: var(--leading-snug);
-    }
-    @media (max-width: 900px) { .industries__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .industries__grid { grid-template-columns: 1fr; } }
-
-    /* ---------- Process ---------- */
-    .process__grid {
+    /* ---------- Capabilities glimpse ---------- */
+    .home-caps__grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-lg);
       margin-top: var(--space-2xl);
-      counter-reset: step;
     }
-    .process__step {
-      counter-increment: step;
-      position: relative;
-      padding-top: var(--space-2xl);
+    .home-cap {
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
     }
-    .process__step::before {
-      content: "0" counter(step);
-      position: absolute;
-      top: 0;
-      left: 0;
+    .home-cap__num {
       font-family: var(--font-display);
-      font-size: var(--text-3xl);
+      font-size: var(--text-lg);
+      letter-spacing: var(--tracking-display);
       color: var(--color-accent);
-      letter-spacing: var(--tracking-wide);
+      margin-bottom: var(--space-sm);
     }
-    .process__step h3 {
+    .home-cap h3 {
       font-family: var(--font-display);
       font-size: var(--text-xl);
       text-transform: uppercase;
+      letter-spacing: var(--tracking-display);
+      line-height: 1;
       margin-bottom: var(--space-sm);
     }
-    .process__step p { font-size: var(--text-base); }
-    @media (max-width: 900px) { .process__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .process__grid { grid-template-columns: 1fr; } }
+    .home-cap p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) { .home-caps__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .home-caps__grid { grid-template-columns: 1fr; } }
 
-    /* ---------- Trust strip ---------- */
-    .trust {
+    /* ---------- Worked-with strip ---------- */
+    .home-brands {
       background: var(--color-surface);
       border-top: 1px solid var(--color-border-subtle);
       border-bottom: 1px solid var(--color-border-subtle);
     }
-    .trust__logos {
+    .home-brands__logos {
       display: flex;
       flex-wrap: wrap;
       gap: var(--space-2xl);
@@ -184,7 +80,7 @@
       justify-content: center;
       margin-top: var(--space-xl);
     }
-    .trust__logo {
+    .home-brands__logo {
       font-family: var(--font-display);
       font-size: var(--text-xl);
       letter-spacing: var(--tracking-wide);
@@ -192,34 +88,111 @@
       color: var(--color-text-tertiary);
       transition: color var(--duration-normal) var(--ease-out);
     }
-    .trust__logo:hover { color: var(--color-text-primary); }
+    .home-brands__logo:hover { color: var(--color-text-primary); }
 
-    /* ---------- Big CTA ---------- */
-    .big-cta {
-      text-align: center;
-      padding: var(--space-5xl) var(--content-padding);
+    /* ---------- About teaser ---------- */
+    .home-about__text {
+      max-width: 62ch;
+      font-size: var(--text-lg);
+      line-height: 1.6;
+      color: var(--color-text-secondary);
     }
-    .big-cta h2 {
+    .home-about__text strong { color: var(--color-text-primary); font-weight: 600; }
+
+    /* ---------- How I Lead callout ---------- */
+    .home-callout {
+      border: 1px solid var(--color-accent-muted);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, var(--color-accent-subtle), transparent 70%),
+        var(--color-surface);
+      padding: var(--space-3xl) var(--space-2xl);
+    }
+    .home-callout .label { margin-bottom: var(--space-md); }
+    .home-callout__quote {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1.05;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      max-width: 24ch;
+      margin-bottom: var(--space-lg);
+    }
+    .home-callout__quote .accent { color: var(--color-accent); }
+    .home-callout p {
+      max-width: 64ch;
+      font-size: var(--text-md);
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+    }
+    .home-callout p + p { margin-top: var(--space-md); }
+
+    /* ---------- Pull quote / testimonial ---------- */
+    .home-pullquote {
+      max-width: 760px;
+      margin: var(--space-2xl) auto 0;
+      padding-left: var(--space-xl);
+      border-left: 3px solid var(--color-accent);
+    }
+    .home-pullquote blockquote {
+      font-family: var(--font-body);
+      font-size: var(--text-xl);
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--color-text-primary);
+    }
+    .home-pullquote cite {
+      display: block;
+      margin-top: var(--space-md);
+      font-style: normal;
+      font-size: var(--text-sm);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+    }
+
+    /* ---------- Toolkit columns ---------- */
+    .home-toolkit {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2xl);
+      margin-top: var(--space-2xl);
+    }
+    .home-toolkit__col h4 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+    .home-toolkit__col ul { list-style: none; padding: 0; margin: 0; }
+    .home-toolkit__col li {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .home-toolkit__col li:last-child { border-bottom: 0; }
+    @media (max-width: 768px) {
+      .home-toolkit { grid-template-columns: 1fr; gap: var(--space-xl); }
+    }
+
+    /* ---------- Closing ---------- */
+    .home-closing { text-align: center; padding: var(--space-5xl) var(--content-padding); }
+    .home-closing h2 {
       font-size: var(--text-5xl);
       max-width: 18ch;
-      margin: 0 auto var(--space-lg);
+      margin: 0 auto var(--space-md);
     }
-    .big-cta p {
+    .home-closing .accent-text { color: var(--color-accent); }
+    .home-closing p {
       max-width: 50ch;
       margin: 0 auto var(--space-2xl);
       font-size: var(--text-lg);
       color: var(--color-text-secondary);
     }
-    @media (max-width: 768px) { .big-cta h2 { font-size: var(--text-4xl); } }
-
-    /* ---------- Section spacing nudge for stacked content sections ---------- */
-    .section-intro { max-width: 60ch; margin-bottom: var(--space-md); }
-
-    /* Plain grey placeholder for project cards awaiting real imagery */
-    .project-card__image--blank {
-      background: var(--color-surface-elevated);
-      border: 1px solid var(--color-border-subtle);
-    }
+    @media (max-width: 768px) { .home-closing h2 { font-size: var(--text-4xl); } }
   </style>
 </head>
 <body>
@@ -229,8 +202,7 @@
     <div class="nav__inner">
       <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
       <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="#services" class="nav__link">What I Do</a></li>
+        <li><a href="/" class="nav__link active">Home</a></li>
         <li><a href="/work.html" class="nav__link">Work</a></li>
         <li><a href="/about.html" class="nav__link">About</a></li>
         <li><a href="/blog/" class="nav__link">Blog</a></li>
@@ -243,64 +215,41 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero section pitch-hero">
+  <section class="hero section home-hero">
     <div class="container">
       <div class="hero__content">
-        <span class="hero__eyebrow">Now booking small business AI projects</span>
+        <span class="label hero__label">Hunter Paramore · Product Designer</span>
         <h1 class="display-xl hero__title">
-          AI Tools, Built<br>
-          For The Way Your<br>
-          <span class="accent-text">Business Actually Runs.</span>
+          I learn things by<br><span class="accent-text">rebuilding</span> them.
         </h1>
         <p class="hero__subtitle">
-          You're paying ten different tools to do one job each. I'm one designer-developer
-          who builds custom software — powered by AI — that replaces the stack and fits
-          how <em>you</em> actually work.
+          I&rsquo;m Hunter, a product designer with twelve years of understanding things by taking
+          them apart. I work the same way on the things I ship, watching how people actually use
+          them, learning from the feedback and the analytics, and reworking whatever isn&rsquo;t
+          right until I understand <em>why</em>. Usually the only designer in the room.
         </p>
         <p class="hero__subtitle hero__subtitle--closer">
-          No bloat. No retainers for features you'll never use. Just the tool you wish existed.
+          Most of that on Mutual, the #1 LDS dating app I co-founded and designed. It&rsquo;s helped
+          40,000+ couples get married, which still amazes me. Lately I&rsquo;m deep in design systems
+          and AI, sharing what I learn as I go.
         </p>
         <div class="hero__cta">
-          <a href="#contact" class="btn btn--primary">
-            Book a 20-min Call <span class="btn__arrow">&rarr;</span>
+          <a href="/work.html" class="btn btn--primary">
+            See the work <span class="btn__arrow">&rarr;</span>
           </a>
-          <a href="#services" class="btn btn--secondary">See How It Works</a>
+          <a href="#how-i-work" class="btn btn--secondary">How I work</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Problem Strip -->
-  <section class="section problem" aria-labelledby="problem-heading">
-    <div class="container">
-      <span class="label">The Problem</span>
-      <h2 id="problem-heading" class="section-intro" style="margin-top: var(--space-sm);">
-        You didn't start a business to manage software.
-      </h2>
-      <div class="problem__grid">
-        <div class="problem__item">
-          <h3>Death by Subscriptions</h3>
-          <p>Scheduling here. Invoicing there. CRM somewhere else. Each tool used for one feature, and the bills add up to thousands a year.</p>
-        </div>
-        <div class="problem__item">
-          <h3>Spreadsheet Sprawl</h3>
-          <p>Critical info lives in twelve different sheets, three inboxes, and one person's head. Nothing talks to anything.</p>
-        </div>
-        <div class="problem__item">
-          <h3>Built For Someone Else</h3>
-          <p>Big platforms are built for the average customer. You're not the average. The workflow you actually need doesn't exist yet.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Recent Work -->
-  <section class="section" aria-labelledby="recent-heading">
+  <!-- Selected Work -->
+  <section class="section" aria-labelledby="work-heading">
     <div class="container">
       <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
         <div>
-          <span class="label">Recent Builds</span>
-          <h2 id="recent-heading" style="margin-top: var(--space-sm);">Real Tools, Real Businesses.</h2>
+          <span class="label">Selected Work</span>
+          <h2 id="work-heading" style="margin-top: var(--space-sm);">A few things I&rsquo;ve built.</h2>
         </div>
         <a href="/work.html" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
       </div>
@@ -309,46 +258,57 @@
 
         <a href="/projects/mutual.html" class="project-card project-card--featured">
           <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
-            <img src="/projects/Mutual/MutualHero-wide.jpg" alt="Mutual — case study hero">
+            <img src="/projects/Mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
           </div>
           <div class="project-card__info">
             <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
             <h3 class="project-card__title">Mutual</h3>
-            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface — UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
-          </div>
-        </a>
-
-        <a href="/projects/the-tree-service.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
-            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service — iPad view">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
-            <h3 class="project-card__title">The Tree Service</h3>
-            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one — equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
+            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
           </div>
         </a>
 
         <a href="/projects/mutual-design-system.html" class="project-card">
           <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System — live token explorer"
+            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
                  onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
           </div>
           <div class="project-card__info">
             <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
             <h3 class="project-card__title">Mutual Design System</h3>
-            <p class="project-card__description">An interactive design system — 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
+            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
+          </div>
+        </a>
+
+        <a href="/projects/the-tree-service.html" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
+            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
+            <h3 class="project-card__title">The Tree Service</h3>
+            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
           </div>
         </a>
 
         <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
           <div class="project-card__image" style="aspect-ratio: 939 / 827;">
-            <img src="/projects/Checkin/CheckinHero.jpg" alt="Checkin app — campfire check-in flow">
+            <img src="/projects/Checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
           </div>
           <div class="project-card__info">
             <span class="label project-card__label">Personal Project // iOS &amp; Android</span>
             <h3 class="project-card__title">Checkin</h3>
-            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy — start to ship.</p>
+            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.</p>
+          </div>
+        </a>
+
+        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 1252 / 1102;">
+            <img src="/assets/images/projects/GameDesignSystem.png" alt="Game design systems, Zelda: Breath of the Wild, Satisfactory (FICSIT), and Raid Rush UI kits">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Personal Work // Game UI Kits</span>
+            <h3 class="project-card__title">Game UI Kits</h3>
+            <p class="project-card__description">Fan-made design systems for three games, rebuilt in Figma. Zelda: Breath of the Wild, Satisfactory, and Raid Rush. The Zelda kit was featured on the Figma community homepage.</p>
           </div>
         </a>
 
@@ -356,141 +316,160 @@
     </div>
   </section>
 
-  <!-- Solution -->
-  <section class="section" id="services" aria-labelledby="solution-heading">
+  <!-- Capabilities glimpse -->
+  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
     <div class="container">
-      <span class="label">What I Do</span>
-      <h2 id="solution-heading" style="margin-top: var(--space-sm);">One Person. Custom Built. AI Inside.</h2>
-      <p class="solution__lead">
-        I sit down with you, learn your business in plain language, then build software shaped
-        around it. AI does the heavy lifting under the hood — drafting messages, parsing receipts,
-        tracking inventory, summarizing leads — so the tool feels less like work and more like a
-        smart assistant that already knows the job.
-      </p>
+      <span class="label">How I Work</span>
+      <h2 id="caps-heading" style="margin-top: var(--space-sm);">Four things I do at depth.</h2>
 
-      <div class="solution__grid">
-        <div class="solution__card">
-          <h3>Replace The Stack</h3>
-          <p>One tool, your logo, your workflow. Built to do what your six current subscriptions do — minus the parts you never used.</p>
+      <div class="home-caps__grid">
+        <div class="home-cap">
+          <div class="home-cap__num">01</div>
+          <h3>Design Systems</h3>
+          <p>Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
         </div>
-        <div class="solution__card">
-          <h3>AI That Earns Its Keep</h3>
-          <p>Auto-categorize expenses. Draft client follow-ups. Turn a photo of a receipt into a logged transaction. Real time saved, every day.</p>
+        <div class="home-cap">
+          <div class="home-cap__num">02</div>
+          <h3>Craft</h3>
+          <p>The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
         </div>
-        <div class="solution__card">
-          <h3>Designed, Not Just Built</h3>
-          <p>12+ years of product design means tools your team will actually use — not abandoned three weeks in because the UI fights them.</p>
+        <div class="home-cap">
+          <div class="home-cap__num">03</div>
+          <h3>Mentoring</h3>
+          <p>I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
         </div>
-        <div class="solution__card">
-          <h3>You Own It</h3>
-          <p>No per-seat fees forever. No vendor lock-in. Build, ship, and let it run — I'm here when you want to grow it.</p>
+        <div class="home-cap">
+          <div class="home-cap__num">04</div>
+          <h3>0&rarr;1, Solo</h3>
+          <p>Zero to shipped, owning every surface: strategy, research, brand, UI, and enough engineering to build it.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- How I Lead -->
+  <section class="section" aria-labelledby="lead-heading">
+    <div class="container">
+      <div class="home-callout">
+        <span class="label">How I lead</span>
+        <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
+        <p>
+          Doing it solo for years taught me how a design function should actually run, so when
+          I bring others in, I&rsquo;m not handing out tasks, I&rsquo;m handing over a system and a
+          standard they can grow into. I lead through critique, pairing, and clear principles, and the
+          best part is watching the work get better because someone else ran with it.
+        </p>
+        <p>
+          [Replace with your own specifics: someone you mentored and where they went, a critique or
+          design-review ritual you set up, or how you&rsquo;ve influenced eng and product.]
+        </p>
+      </div>
+
+      <!-- Pull quote: swap in a real recommendation (LinkedIn works great here) -->
+      <figure class="home-pullquote">
+        <blockquote>&ldquo;[Drop in a real quote from a manager, peer, or someone you mentored, one
+          sentence about your craft, your systems thinking, or your impact on the team.]&rdquo;</blockquote>
+        <cite>[Name, Role, Company]</cite>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Toolkit -->
+  <section class="section" aria-labelledby="toolkit-heading">
+    <div class="container">
+      <span class="label">The Toolkit</span>
+      <h2 id="toolkit-heading" style="margin-top: var(--space-sm);">What I build with.</h2>
+      <div class="home-toolkit">
+        <div class="home-toolkit__col">
+          <h4>Design</h4>
+          <ul>
+            <li>Design systems &amp; tokens</li>
+            <li>UI &amp; interaction design</li>
+            <li>Product &amp; UX strategy</li>
+            <li>Research &amp; usability testing</li>
+            <li>Brand &amp; visual identity</li>
+            <li>Prototyping · Figma (expert)</li>
+          </ul>
+        </div>
+        <div class="home-toolkit__col">
+          <h4>Build</h4>
+          <ul>
+            <li>iOS · Swift / SwiftUI</li>
+            <li>Android · Kotlin / Compose</li>
+            <li>Web · React / HTML / CSS</li>
+            <li>Firebase / Cloud Functions</li>
+            <li>Games · Unity / SpriteKit</li>
+            <li>AI · Claude Code · APIs · agents</li>
+          </ul>
+        </div>
+        <div class="home-toolkit__col">
+          <h4>Lead</h4>
+          <ul>
+            <li>Mentoring &amp; design critique</li>
+            <li>Cross-functional influence</li>
+            <li>Design-to-eng collaboration</li>
+            <li>Roadmapping &amp; prioritization</li>
+            <li>Stakeholder communication</li>
+            <li>Hiring &amp; team-building</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Industries -->
-  <section class="section" aria-labelledby="industries-heading">
-    <div class="container">
-      <span class="label">Built For</span>
-      <h2 id="industries-heading" style="margin-top: var(--space-sm);">Small businesses with real workflows.</h2>
-
-      <div class="industries__grid">
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🌳</span>
-          <h3>Trades &amp; Services</h3>
-          <p>Tree work, plumbing, HVAC, electricians. Crews, equipment, fuel, receipts, jobs — one place.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🌿</span>
-          <h3>Yard &amp; Property</h3>
-          <p>Lawn care, landscaping, pool service. Routes, clients, equipment, recurring billing.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🏠</span>
-          <h3>Real Estate Agents</h3>
-          <p>Lead intake, follow-up drafts, property notes, custom client-facing pages.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">💍</span>
-          <h3>Events &amp; Magazines</h3>
-          <p>Submissions, status, payments, scheduling, designer handoff. The thing your spreadsheet wishes it was.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🍽️</span>
-          <h3>Restaurants &amp; Shops</h3>
-          <p>Shift approvals, task lists, daily ops, employee comms — without buying a fortune-500 platform.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">💡</span>
-          <h3>Founders With An Idea</h3>
-          <p>You've had the napkin sketch in your head for two years. Let's make it real.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process -->
-  <section class="section" aria-labelledby="process-heading">
-    <div class="container">
-      <span class="label">How It Works</span>
-      <h2 id="process-heading" style="margin-top: var(--space-sm);">Four steps, no surprises.</h2>
-
-      <div class="process__grid">
-        <div class="process__step">
-          <h3>Talk</h3>
-          <p>20 minutes, free. You walk me through what's eating your time. I tell you, plainly, whether I can help.</p>
-        </div>
-        <div class="process__step">
-          <h3>Map</h3>
-          <p>I sketch the tool, the AI pieces, what it replaces, and what it costs. Fixed price, not hourly.</p>
-        </div>
-        <div class="process__step">
-          <h3>Build</h3>
-          <p>I design and build it. You see progress weekly. We adjust as you actually use it.</p>
-        </div>
-        <div class="process__step">
-          <h3>Ship</h3>
-          <p>It's yours. I stick around for tweaks and improvements when you want them — never on a meter.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust -->
-  <section class="section trust" aria-labelledby="trust-heading">
+  <!-- Worked-with strip -->
+  <section class="section home-brands" aria-labelledby="brands-heading">
     <div class="container" style="text-align: center;">
-      <span class="label">Past Clients &amp; Teams</span>
-      <h2 id="trust-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ Years Across Brands You Know.</h2>
-      <div class="trust__logos">
-        <span class="trust__logo">Mutual Dating</span>
-        <span class="trust__logo">Ark Dating</span>
-        <span class="trust__logo">Nu Skin</span>
-        <span class="trust__logo">Angel Studios</span>
-        <span class="trust__logo">Tech 9</span>
-        <span class="trust__logo">Stotion</span>
-        <span class="trust__logo">Paramore Real Estate</span>
+      <span class="label">Worked With</span>
+      <h2 id="brands-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ years across brands you know.</h2>
+      <div class="home-brands__logos">
+        <span class="home-brands__logo">Mutual</span>
+        <span class="home-brands__logo">Ark Dating</span>
+        <span class="home-brands__logo">Nu Skin</span>
+        <span class="home-brands__logo">Angel Studios</span>
+        <span class="home-brands__logo">Tech 9</span>
+        <span class="home-brands__logo">Stotion</span>
+        <span class="home-brands__logo">Paramore Real Estate</span>
       </div>
     </div>
   </section>
 
-  <!-- Big CTA -->
-  <section class="big-cta" id="contact">
+  <!-- About teaser -->
+  <section class="section" aria-labelledby="about-heading">
+    <div class="container">
+      <span class="label">About</span>
+      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
+      <p class="home-about__text">
+        I studied art with an emphasis on design and have spent my career in the space where
+        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
+        details that make a product feel right, and dig into user feedback to find root causes, not
+        just symptoms. Whether embedded on a team, working directly with a founder, or building
+        something of my own, I bring the same thing: a drive to make the product better and the
+        range to do whatever it takes to get there.
+      </p>
+      <div style="margin-top: var(--space-xl);">
+        <a href="/about.html" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="home-closing" id="contact">
     <div class="container container--narrow">
-      <span class="label">Let's Talk</span>
+      <span class="label">Get In Touch</span>
       <h2 class="display-lg" style="margin-top: var(--space-md);">
-        Tell me what's <span class="accent-text">eating your week.</span>
+        Let&rsquo;s make something <span class="accent-text">worth shipping.</span>
       </h2>
       <p>
-        Free 20-minute call. Bring the spreadsheet, the tool you hate, the workflow that's
-        held together with tape. I'll tell you straight whether AI can fix it — and what it'd
-        cost to find out.
+        Whether you&rsquo;re hiring a designer, building a team, or just want to talk product and
+        craft, I&rsquo;d like to hear from you.
       </p>
       <div class="hero__cta" style="justify-content: center;">
-        <a href="mailto:hunter@paramore.design" class="btn btn--primary">
-          Book a Call <span class="btn__arrow">&rarr;</span>
+        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
+          Email Me <span class="btn__arrow">&rarr;</span>
         </a>
-        <a href="/work.html" class="btn btn--secondary">See More Work</a>
+        <a href="/work.html" class="btn btn--secondary">See the work</a>
       </div>
     </div>
   </section>
@@ -501,6 +480,7 @@
       <div class="footer__inner">
         <p class="footer__text">&copy; 2026 Paramore.Design</p>
         <ul class="footer__links" role="list">
+          <li><a href="/build.html">For Business</a></li>
           <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
           <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
