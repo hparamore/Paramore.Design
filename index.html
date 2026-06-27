@@ -30,41 +30,71 @@
     /* Pull Selected Work up so it peeks into the hero, momentum, not a tall stack */
     .home-hero + .section { padding-top: var(--space-xl); }
 
-    /* ---------- Capabilities glimpse ---------- */
-    .home-caps__grid {
+    /* ---------- Capabilities: asymmetric / broken grid ----------
+       Four parallel capabilities laid on a 12-col grid with deliberately uneven
+       spans, type scale, and vertical offsets. No 01-04 numbers, no identical
+       boxes. The orange "//" marker echoes the brand's label-separator motif.
+       The irregularity is the point: it reads "designed", not templated. */
+    .home-caps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-lg);
-      margin-top: var(--space-2xl);
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--space-2xl);
+      row-gap: var(--space-4xl);
+      margin-top: var(--space-3xl);
     }
-    .home-cap {
-      padding: var(--space-xl) var(--space-lg);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-    }
-    .home-cap__num {
+    .home-cap__marker {
+      display: block;
       font-family: var(--font-display);
-      font-size: var(--text-lg);
+      font-size: var(--text-2xl);
+      line-height: 1;
       letter-spacing: var(--tracking-display);
       color: var(--color-accent);
       margin-bottom: var(--space-sm);
     }
-    .home-cap h3 {
+    .home-cap__name {
       font-family: var(--font-display);
-      font-size: var(--text-xl);
+      font-size: var(--text-3xl);
       text-transform: uppercase;
       letter-spacing: var(--tracking-display);
-      line-height: 1;
-      margin-bottom: var(--space-sm);
+      line-height: 0.9;
+      text-wrap: balance;
+      margin-bottom: var(--space-md);
     }
-    .home-cap p {
-      font-size: var(--text-sm);
+    .home-cap__desc {
+      font-size: var(--text-md);
       color: var(--color-text-secondary);
-      line-height: 1.5;
+      line-height: 1.55;
+      max-width: 46ch;
     }
-    @media (max-width: 900px) { .home-caps__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .home-caps__grid { grid-template-columns: 1fr; } }
+
+    /* Broken placement: uneven widths + staggered baselines */
+    .home-cap:nth-child(1) { grid-column: 1 / 8; }
+    .home-cap:nth-child(1) .home-cap__name {
+      font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+    }
+    .home-cap:nth-child(2) { grid-column: 9 / 13; align-self: end; }
+    .home-cap:nth-child(3) { grid-column: 1 / 5; }
+    .home-cap:nth-child(4) { grid-column: 6 / 13; margin-top: var(--space-2xl); }
+    .home-cap:nth-child(4) .home-cap__name {
+      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+    }
+    .home-cap:nth-child(4) .home-cap__desc { max-width: 54ch; }
+
+    /* Tablet: 2-up, gentler offsets */
+    @media (max-width: 900px) {
+      .home-caps { row-gap: var(--space-3xl); }
+      .home-cap:nth-child(1) { grid-column: 1 / 13; }
+      .home-cap:nth-child(2) { grid-column: 1 / 7; align-self: auto; }
+      .home-cap:nth-child(3) { grid-column: 7 / 13; }
+      .home-cap:nth-child(4) { grid-column: 1 / 13; margin-top: 0; }
+      .home-cap__name { font-size: var(--text-4xl) !important; }
+    }
+    /* Mobile: single column */
+    @media (max-width: 560px) {
+      .home-caps { row-gap: var(--space-2xl); }
+      .home-cap { grid-column: 1 / 13 !important; margin-top: 0 !important; }
+      .home-cap__name { font-size: var(--text-3xl) !important; }
+    }
 
     /* ---------- Worked-with strip ---------- */
     .home-brands {
@@ -127,12 +157,23 @@
     }
     .home-callout p + p { margin-top: var(--space-md); }
 
-    /* ---------- Pull quote / testimonial ---------- */
+    /* ---------- Pull quote / testimonial ----------
+       No side-stripe border (the AI tell). An oversized display quote mark in
+       the accent carries the emphasis instead. */
     .home-pullquote {
       max-width: 760px;
       margin: var(--space-2xl) auto 0;
-      padding-left: var(--space-xl);
-      border-left: 3px solid var(--color-accent);
+      position: relative;
+      padding-top: var(--space-lg);
+    }
+    .home-pullquote::before {
+      content: "\201C";
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-6xl);
+      line-height: 0.6;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
     }
     .home-pullquote blockquote {
       font-family: var(--font-body);
@@ -322,26 +363,26 @@
       <span class="label">How I Work</span>
       <h2 id="caps-heading" style="margin-top: var(--space-sm);">Four things I do at depth.</h2>
 
-      <div class="home-caps__grid">
+      <div class="home-caps">
         <div class="home-cap">
-          <div class="home-cap__num">01</div>
-          <h3>Design Systems</h3>
-          <p>Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Design Systems</h3>
+          <p class="home-cap__desc">Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
         </div>
         <div class="home-cap">
-          <div class="home-cap__num">02</div>
-          <h3>Craft</h3>
-          <p>The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Craft</h3>
+          <p class="home-cap__desc">The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
         </div>
         <div class="home-cap">
-          <div class="home-cap__num">03</div>
-          <h3>Mentoring</h3>
-          <p>I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Mentoring</h3>
+          <p class="home-cap__desc">I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
         </div>
         <div class="home-cap">
-          <div class="home-cap__num">04</div>
-          <h3>0&rarr;1, Solo</h3>
-          <p>Zero to shipped, owning every surface: strategy, research, brand, UI, and enough engineering to build it.</p>
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Ship &amp; Learn</h3>
+          <p class="home-cap__desc">I&rsquo;d rather build the real thing and watch how people actually use it than debate it in a doc. Shipping fast is how I find what&rsquo;s true and fix what isn&rsquo;t.</p>
         </div>
       </div>
 

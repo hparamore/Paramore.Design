@@ -4,6 +4,53 @@
 > `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
 > which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
 
+## 2026-06-27 — Design tooling setup + `/impeccable polish` de-slop pass on homepage
+
+### Summary
+Set up a repeatable system to keep Claude-generated UI from looking AI-default, then
+ran impeccable's polish on `index.html` (local only — nothing committed or pushed).
+
+### Tooling added (not in this repo)
+- **`/art-direction`** — new user-level skill (`~/.claude/skills/art-direction/`). Upfront
+  anti-default visual brief; writes ART-DIRECTION.md. Wired into the global scaffolding
+  flow in `~/.claude/CLAUDE.md` (step after the Taste Layer worksheet).
+- **impeccable** — installed into this project (`.claude/skills/impeccable/`, gitignored).
+  Added a PostToolUse design-detector hook (`.claude/settings.local.json`) that flags UI
+  slop after Edit/Write on UI files.
+
+### New project files (tracked, at root)
+- **PRODUCT.md** — strategic context for impeccable. Register: brand. Audience: skeptical
+  hiring managers. Personality: confident/bold. Captures the 4 anti-references.
+- **DESIGN.md** — visual system documented from `css/styles.css` tokens (color, type,
+  spacing, motion). Includes an AA-contrast warning on the muted grays.
+
+### What changed (`index.html`)
+- **"How I Work" section** — replaced 4 identical bordered cards + `01–04` number markers
+  (two AI tells: identical card grid + numbered scaffolding for a non-sequence). First tried
+  a plain editorial row-list; Hunter found it boring, so landed on an **asymmetric / broken
+  grid** (his pick): 12-col grid with uneven spans, varied type scale (77/40/40/58px), and
+  staggered vertical offsets, so the four read on a big→small→small→big diagonal. Orange `//`
+  marker per item echoes the brand's `//` label-separator motif. New page-scoped classes:
+  `.home-caps`, `.home-cap`, `.home-cap__marker`, `.home-cap__name`, `.home-cap__desc`
+  (replaced `.home-caps__grid` / `.home-cap__num`). Responsive: 2-up at ≤900px, 1-col at ≤560px.
+- **Pull-quote** — removed `border-left: 3px solid accent` (the single most recognizable
+  AI side-stripe tell); replaced with an oversized accent Bebas quote mark via `::before`.
+- Verified in browser (preview server): both render correctly; impeccable hook reports clean.
+
+### Flagged, intentionally NOT changed (need Hunter)
+- **Placeholder copy** — "How I Lead" 3rd paragraph (`[Replace with your own specifics…]`)
+  and the entire pull-quote (`[Drop in a real quote…]` / `[Name, Role, Company]`). Did not
+  fabricate a testimonial or a mentee. These need real content.
+- **`.label` eyebrow on every section** — repeating an uppercase tracked kicker above each
+  heading is its own AI-section-grammar tell, BUT `.label` is a shared component used on
+  every page. Ripping it out is a site-wide system decision, not a local polish. Left for a
+  separate, deliberate call.
+
+### Next steps
+- Hunter to drop in a real testimonial + mentoring specifics, then re-polish that section.
+- Decide whether to address the per-section eyebrow site-wide.
+- Optionally run `/impeccable polish` on other pages (work/about) before pushing.
+
 ## 2026-06-24 — Hero rag fix + em dashes removed from homepage
 
 ### Summary
