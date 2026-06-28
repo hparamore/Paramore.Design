@@ -4,6 +4,27 @@
 > `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
 > which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
 
+## 2026-06-27 — Placeholders hidden from the live site (fill these)
+
+Hunter didn't want bracketed `[placeholder]` copy visible on the live portfolio. Swept
+all pages; the four real visible placeholders below are now **commented out** (hidden, not
+deleted — un-comment once real content exists). Each is wrapped in a `PLACEHOLDER HIDDEN
+(2026-06-27)` comment in-file so it's easy to find. Deployed to paramore.design.
+
+| # | File | What it was | What's needed to restore |
+|---|------|-------------|--------------------------|
+| 1 | `index.html` (How I Lead) | Pull-quote testimonial `"[Drop in a real quote…]"` / `[Name, Role, Company]` | A one-sentence recommendation (manager/peer/mentee) about craft, systems thinking, or team impact + Name, Role, Company. LinkedIn rec works. |
+| 2 | `super-com.html` (tools list) | `<li>[Figma MCP / Cursor]</li>` | Confirm + add the real tools as separate `<li>`s. |
+| 3 | `super-com.html` (Evidence) | "Angel Studios…" sentence ended with `[Add one concrete outcome…]` | One concrete outcome: adoption %, components shipped, or time saved. |
+| 4 | `super-com.html` (Evidence) | Whole "AI Workflows · Hands-on" card was `[Built/used an AI workflow…]` | A real AI-workflow example (e.g. Figma→interactive flows, or a skill/MCP vs a design system). Restoring this also rebalances the evidence grid back to 2×2. |
+
+False positives left alone: an HTML *comment* about a headshot in `about.html:69` (not rendered),
+and legit UI strings ("Placeholder text" token role, "Drop in" drag label) in the project pages.
+
+### Note on the 3-card evidence grid
+Removing placeholder #4 left `super-com.html`'s evidence grid at 3 cards in a 2-col layout
+(one empty bottom-right slot). Acceptable for now; filling #4 returns it to a clean 2×2.
+
 ## 2026-06-27 — Design tooling setup + `/impeccable polish` de-slop pass on homepage
 
 ### Summary
