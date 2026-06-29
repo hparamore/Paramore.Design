@@ -129,33 +129,47 @@
     }
     .home-about__text strong { color: var(--color-text-primary); font-weight: 600; }
 
-    /* ---------- How I Lead callout ---------- */
+    /* ---------- How I Lead callout: 3-col (heading 1 / body 2) ---------- */
     .home-callout {
       border: 1px solid var(--color-accent-muted);
       border-radius: var(--radius-xl);
       background:
         linear-gradient(180deg, var(--color-accent-subtle), transparent 70%),
         var(--color-surface);
-      padding: var(--space-3xl) var(--space-2xl);
+      padding: var(--space-4xl) var(--space-3xl);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--space-3xl);
+      align-items: start;
     }
-    .home-callout .label { margin-bottom: var(--space-md); }
+    .home-callout__head .label {
+      display: block;
+      font-size: var(--text-base);
+      margin-bottom: var(--space-xl);
+    }
     .home-callout__quote {
       font-family: var(--font-display);
-      font-size: var(--text-3xl);
-      line-height: 1.05;
+      font-size: clamp(var(--text-4xl), 3.6vw, var(--text-5xl));
+      line-height: 0.98;
       letter-spacing: var(--tracking-display);
       text-transform: uppercase;
-      max-width: 24ch;
-      margin-bottom: var(--space-lg);
+      text-wrap: balance;
+      margin: 0;
     }
     .home-callout__quote .accent { color: var(--color-accent); }
-    .home-callout p {
-      max-width: 64ch;
-      font-size: var(--text-md);
+    .home-callout__body p {
+      font-size: var(--text-lg);
       line-height: 1.65;
       color: var(--color-text-secondary);
     }
-    .home-callout p + p { margin-top: var(--space-md); }
+    .home-callout__body p + p { margin-top: var(--space-lg); }
+    @media (max-width: 768px) {
+      .home-callout {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        padding: var(--space-2xl) var(--space-xl);
+      }
+    }
 
     /* ---------- Pull quote / testimonial ----------
        No side-stripe border (the AI tell). An oversized display quote mark in
@@ -393,21 +407,25 @@
   <section class="section" aria-labelledby="lead-heading">
     <div class="container">
       <div class="home-callout">
-        <span class="label">How I lead</span>
-        <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
-        <p>
-          Doing it solo for years taught me how a design function should actually run, but I&rsquo;m
-          always learning from the people around me. When I bring others in, I&rsquo;m not handing out
-          tasks, I&rsquo;m handing over a system and a standard they can grow into, and picking up just
-          as much from how they think. The best part is watching the work get better because someone
-          else ran with it.
-        </p>
-        <p>
-          My favorite critiques and design reviews are clear, to the point, and aimed at the work
-          itself, focused on one thing: making it better. That kind of honesty only happens when the
-          relationship is there first, so that&rsquo;s what I build before anything else. Once the trust
-          is real, people stop defending the work and start improving it.
-        </p>
+        <div class="home-callout__head">
+          <span class="label">How I lead</span>
+          <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
+        </div>
+        <div class="home-callout__body">
+          <p>
+            Doing it solo for years taught me how a design function should actually run, but I&rsquo;m
+            always learning from the people around me. When I bring others in, I&rsquo;m not handing out
+            tasks, I&rsquo;m working alongside them to build and standardize a system that can grow and
+            influence everyone, making the work better and better. The best part is watching that happen
+            because someone else ran with it.
+          </p>
+          <p>
+            My favorite critiques and design reviews are clear, to the point, and aimed at the work
+            itself, focused on one thing: making it better. That kind of honesty only happens when the
+            relationship is there first, so that&rsquo;s what I build before anything else. Once the trust
+            is real, it&rsquo;s easier to focus on the work and improve it together, rather than defending it.
+          </p>
+        </div>
       </div>
 
       <!-- PLACEHOLDER HIDDEN (2026-06-27): real recommendation needed before un-commenting.
