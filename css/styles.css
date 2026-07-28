@@ -317,15 +317,35 @@ p {
   right: 0;
   z-index: 100;
   padding: var(--space-lg) 0;
+  opacity: 0;
+  animation: nav-fade-in 0.5s ease-out 0.1s forwards;
+}
+
+/* Scrolled bg + blur live on a pseudo-element, NOT on .nav itself:
+   backdrop-filter on .nav would make it the containing block for the
+   fixed-position mobile drawer, clipping it to the nav bar's height. */
+.nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
   transition: background var(--duration-normal) var(--ease-out),
-              backdrop-filter var(--duration-normal) var(--ease-out);
+              backdrop-filter var(--duration-normal) var(--ease-out),
+              -webkit-backdrop-filter var(--duration-normal) var(--ease-out);
 }
 
 .nav.scrolled {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.nav.scrolled::before {
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .nav__inner {
@@ -335,11 +355,11 @@ p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--content-padding);
-  opacity: 0;
-  animation: nav-fade-in 0.5s ease-out 0.1s forwards;
 }
 
-/* Nav uses opacity-only fade — transform would break fixed-position mobile menu */
+/* The load fade animates .nav (already a stacking context), never .nav__inner
+   or a transform: either would trap the drawer's z-index below the scrim /
+   break its fixed positioning. */
 @keyframes nav-fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }

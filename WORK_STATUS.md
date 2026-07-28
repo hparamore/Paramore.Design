@@ -4,6 +4,50 @@
 > `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
 > which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
 
+## 2026-07-27 — Mobile nav drawer fixed: clipped height + scrim-on-top (both live-site bugs)
+
+Hunter reported two mobile nav bugs (one via a LinkedIn comment from Chrome/Android, one
+from his own testing): (1) with the page scrolled, the open drawer didn't extend down —
+menu text rendered illegibly over page content with no background; (2) the dark overlay
+scrim sat ON TOP of the drawer, so tapping Blog (or any menu item) just closed the menu
+instead of navigating. Both reproduced locally (hit-testing the Blog link returned
+`navOverlay`, and the scrolled drawer measured 144px tall instead of full-viewport).
+
+### Root causes (both in `css/styles.css`, both ancestor-of-the-drawer problems)
+- **Clipped drawer:** `.nav.scrolled` had `backdrop-filter: blur(20px)`. A backdrop-filter
+  makes the element the containing block for fixed-position descendants, so the drawer's
+  `top:0; bottom:0` resolved against the ~63px nav bar instead of the viewport.
+- **Scrim on top:** `.nav__inner` ran the `nav-fade-in` opacity animation (fill: forwards).
+  An animated opacity keeps the element a stacking context, which trapped the drawer's
+  `z-index: 200` inside it — so the sibling `.nav__overlay` (z 150) painted above the
+  whole drawer.
+
+### Fixes
+- Moved the scrolled background + blur off `.nav` onto a new `.nav::before` pseudo-element
+  (`z-index:-1`, covers the bar). Blur on a pseudo doesn't affect the drawer's containing
+  block. `border-bottom` stays on `.nav.scrolled`. Comment in-file explains why.
+- Moved the load fade from `.nav__inner` to `.nav` itself (already a stacking context, so
+  it changes nothing structurally). `.nav__inner` no longer creates a stacking context;
+  the intended z-order now holds: scrim 150 < drawer 200 < close button 201.
+- **`js/main.js`:** close the drawer if the window resizes past 768px while open —
+  otherwise `body { overflow: hidden }` stranded and locked page scroll after a
+  rotate/resize.
+- Bumped the stylesheet cache-buster to `?v=8` on all 10 HTML pages so phones drop the
+  cached broken CSS.
+
+### Verified (local preview, Chromium)
+- 375px, page scrolled, menu open: drawer spans the full 812px viewport with its surface
+  intact; tap on Blog hits the real link and navigates to `/blog/`; tap outside the drawer
+  hits the scrim and closes the menu.
+- Desktop: nav renders normally; scrolled frosted-bar effect confirmed on `::before`
+  (`rgba(10,10,10,.85)` + `blur(20px)`); blog index cards clickable.
+
+### Notes / open
+- NOT committed or pushed yet — awaiting Hunter's go-ahead to deploy.
+- Hunter mentioned a desktop issue too; desktop nav + blog cards tested fine here, so it
+  may have been the same drawer bugs seen in a narrow desktop window — needs Hunter to
+  confirm whether anything else is broken on desktop.
+
 ## 2026-06-27 — Placeholders hidden from the live site (fill these)
 
 Hunter didn't want bracketed `[placeholder]` copy visible on the live portfolio. Swept

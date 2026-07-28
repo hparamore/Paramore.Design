@@ -78,6 +78,14 @@
     navLinks.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', closeNav);
     });
+
+    // Leaving the drawer open across the 768px breakpoint (rotate / window
+    // resize) would strand body { overflow: hidden } and lock page scroll.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+        closeNav();
+      }
+    });
   }
 
 
