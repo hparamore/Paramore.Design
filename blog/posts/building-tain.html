@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Kept Forgetting the Things I Loved, So I Built an App to Remember Them — Paramore.Design</title>
+  <meta name="description" content="Why I built Tain: a personal diary of everything I've consumed — books, games, movies, even hiking trails — ranked by comparison, with notes from me to future me.">
+  <link rel="stylesheet" href="../../css/styles.css?v=8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+  <!-- Page-scoped figure styles (promote to styles.css if reused on other posts) -->
+  <style>
+    .tain-fig {
+      margin: var(--space-2xl) 0;
+    }
+    .tain-fig img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+    .tain-fig__placeholder {
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-elevated);
+    }
+    .tain-fig figcaption {
+      margin-top: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: var(--leading-relaxed);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link active">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+  </nav>
+
+  <!-- Post Header -->
+  <article>
+    <header class="blog-post__header">
+      <div class="container container--narrow">
+        <a href="/blog/" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+          <span style="margin-right: var(--space-sm);">&larr;</span> All Posts
+        </a>
+        <span class="label blog-post__date" style="display: block;">July 25, 2026</span>
+        <h1 class="display-lg">I Kept Forgetting the Things I Loved, So I Built an App to Remember Them</h1>
+      </div>
+    </header>
+
+    <!-- Post Body -->
+    <div class="blog-post__body section--sm">
+      <div class="container container--narrow">
+
+        <figure class="tain-fig" style="margin-top: 0;">
+          <img src="/assets/images/blog/tain/tain-hero.png"
+               alt="A small thing that holds worlds. Why I built an app to remember everything I've loved &mdash; and how a 25-year-old video game named it."
+               width="1080" height="491">
+        </figure>
+
+        <p>
+          I love listening to audiobooks. Even on the 2-credits-a-month plan, I'm still
+          counting down the days until they refill.
+        </p>
+
+        <p>
+          Now, here's the annoying part&hellip; when people ask me what they should listen
+          to next, outside of my top like 4, my mind goes blank.
+        </p>
+
+        <p>
+          Not because I haven't listened to anything &mdash; I've been through hundreds of
+          audiobooks, and I have real opinions about most of them. But those thoughts and
+          opinions live somewhere I can't always reach on demand. I'll remember that I liked
+          a series, but not why, or how much, or whether the narrator was the whole reason.
+        </p>
+
+        <blockquote>
+          Past me had all the information about an audiobook, game, or movie&hellip;
+          And wrote none of it down.
+        </blockquote>
+
+        <p>
+          It got more real when my 12-year-old started listening to books. He wants
+          recommendations, and I want to hand them over &mdash; but I genuinely can't
+          remember whether a given book had language in it, or themes he's not ready for.
+          I read it. I knew this. Past me had all the information and wrote none of it down.
+        </p>
+
+        <p>
+          And on top of all that: I just like making ranked lists. Tier lists, top tens,
+          &ldquo;okay but where does it actually sit&rdquo; arguments with myself.
+          Comparison is one of my favorite ways to hold an opinion.
+        </p>
+
+        <p>
+          So the idea was simple. A diary of everything I've consumed &mdash; books, shows,
+          music, movies &mdash; ranked, with my own notes attached. Not a review site. Not
+          stars for strangers. Notes from me, to future me, so that when somebody asks,
+          I have an answer.
+        </p>
+
+        <h2>Ranking Shouldn't Feel Like Homework</h2>
+
+        <p>
+          A few things were clear from the start.
+        </p>
+
+        <p>
+          I didn't want to assign scores out of ten. That's homework, and it pushes aside
+          anything that doesn't make the top 10. The thing that actually works is
+          comparison: do you like this more, or less, than that? Answer a few of those and
+          the new thing settles into place on its own. (The app Beli does this for
+          restaurants, and it's honestly fun entering data into it. I'm always downloading
+          apps just to test how they handle certain interactions, and that rating flow was
+          the seed for this.)
+        </p>
+
+        <figure class="tain-fig">
+          <img src="/assets/images/blog/tain/tain-adding-games.jpg"
+               alt="Three app screens: the video-games tierlist, the Palworld detail page with rating and notes, and the &lsquo;Which do you like more?&rsquo; comparison question"
+               width="1600" height="1098" loading="lazy">
+          <figcaption>
+            Adding video games to a list is easy. Search for it, select it from a list, and
+            then it will ask you several &ldquo;which do you like more?&rdquo; questions
+            till it is right.
+          </figcaption>
+        </figure>
+
+        <p>
+          Second: the notes and rankings had to be front and center. The rank tells you
+          where something landed within the list; the note tells you why &mdash; and the
+          why is the part that evaporates over time. &ldquo;Great world-building, dragged
+          in the middle, clean content, fine for the kids&rdquo; is worth more to me in two
+          years than any &ldquo;9/10&rdquo; number.
+        </p>
+
+        <p>
+          And third, it had to handle everything I consume. Not just books. All of it.
+        </p>
+
+        <h2>Start Small, Then Keep Pulling the Thread</h2>
+
+        <blockquote>
+          Make the thing exist, then make it pretty.
+        </blockquote>
+
+        <p>
+          I started with one media type &mdash; audiobooks &mdash; and data saved right in
+          the browser. I built just enough of the app to answer one question: is the
+          comparison-ranking flow actually fun with my own library in it?
+        </p>
+
+        <p>
+          It was! That's the checkpoint that made everything after worth doing.
+        </p>
+
+        <p>
+          From there it grew in stages, and every stage had the same shape: this is what I
+          wanted, this is what I built, here's what that unlocked. A real backend, so my
+          lists follow me between devices. An installable web app, so it lives on my
+          phone's home screen like anything else. And then media types, one at a time
+          &mdash; which is where most of the real engineering lived, because every type
+          needs somewhere to pull titles, covers, and details from, and there is no single
+          place that has all of it. Each one turned into its own little research project.
+          Some have official APIs. Some have great community-run sources. And a couple took
+          genuinely creative plumbing that I'm not going into here &mdash; partly because
+          it's my secret sauce, partly because it feels like the kind of thing that gets
+          patched the moment you brag about it.
+        </p>
+
+        <p>
+          My favorite of those stories is hiking trails. (Yes, trails made it in &mdash;
+          turns out &ldquo;things I want to remember my opinion about&rdquo; doesn't stop
+          at media.) There is basically no public API for trail data anymore; the big trail
+          apps are closed ecosystems. The answer ended up being OpenStreetMap &mdash; the
+          community-built map of the world &mdash; which is free, open, and way deeper than
+          I expected. As a bonus, trails without cover art get a little tile drawn from the
+          actual shape of the route. One of my favorite small details in the whole app.
+        </p>
+
+        <figure class="tain-fig">
+          <img src="/assets/images/blog/tain/tain-categories.jpg"
+               alt="Three app screens: the video-games tierlist, the movies tierlist, and a hiking-trail detail page with a route-shape tile and personal notes"
+               width="1600" height="1098" loading="lazy">
+          <figcaption>
+            Video games, movies, trails, restaurants, books, audiobooks, tv series, anime,
+            and music are all available to collect and rank.
+          </figcaption>
+        </figure>
+
+        <p>
+          Somewhere in there it stopped being a prototype and became the app I reach for
+          every day when I have a few minutes, or remember something to add to the list.
+          Nine categories now: audiobooks, books, music, movies, TV and anime, video games,
+          board games, restaurants, and trails. And the newest layer I am working on now is
+          sharing &mdash; public links for any list you choose to publish, with real
+          preview cards (similar to Spotify share cards) when you drop one into a text.
+          Because rankings are more fun as a conversation. Everything stays private by
+          default; sharing is for when you want to start an argument about your tier board
+          on purpose.
+        </p>
+
+        <figure class="tain-fig">
+          <img src="/assets/images/blog/tain/tain-audiobooks.jpg"
+               alt="Three app screens: the ranked audiobook list, the audiobook tier board, and the Dungeon Crawler Carl series with its books ranked on their own tierlist"
+               width="1600" height="1098" loading="lazy">
+          <figcaption>
+            The audiobook section, in both list and tier format, as well as the individual
+            books within a series, ranked on a tierlist.
+          </figcaption>
+        </figure>
+
+        <p>
+          One of the big things that sets this app apart from other ranking lists is that
+          it, by design, doesn't just want your top 10. It wants everything you're willing
+          to put into it &mdash; so you can see your whole history, spot trends, and
+          compare full lists with others. Every list also gets a tier-board view, so you
+          can see everything you liked and didn't at a glance &mdash; and then dig into
+          each item and rank what's inside it. (Rate your favorite music artists. Then go
+          in and rank each album and song against each other&hellip;)
+        </p>
+
+        <p>
+          I built all of this with Claude Code as a pair &mdash; me driving the design and
+          product calls, Claude doing a ton of the implementation under that direction.
+          If you read <a href="/blog/posts/building-with-fable-5.html">my last article</a>,
+          you know I have moved a lot of my product design process into the dev
+          environment, and this app is a long-running example of it. That process probably
+          deserves an article of its own.
+        </p>
+
+        <h2>The Name (This Is the Part I Actually Want to Tell You About!)</h2>
+
+        <p>
+          For most of the build, the app was called RankList. On the nose, does what it
+          says. I never loved it, and when I finally searched around &mdash; of course.
+          Other people are building rank-your-stuff apps, and the name was thoroughly
+          taken. Honestly? A relief. It gave me permission to find something better.
+        </p>
+
+        <p>
+          I tried the deliberate route first. Word lists, mashups, &ldquo;Lore&rdquo;
+          (which I liked &mdash; this whole thing is basically personal lore), then
+          &ldquo;Ranklore&rdquo; as the sensible compound. Sensible was the problem. It
+          checked every box and sparked&hellip; nothing. I sat with it for a week hoping it
+          would grow on me. It didn't.
+        </p>
+
+        <p>
+          So I changed tactics. Forget describing the app &mdash; what are words I've just
+          always loved? Monolith. Forge. Vault. Words I'd doodle in a notebook because I
+          like how they sound, and the emotions they evoke. And somewhere down that list,
+          a much older memory surfaced.
+        </p>
+
+        <p>
+          A long time ago I played Myth II: Soulblighter, and in the lore of those games
+          there's an artifact called the Tain &mdash; a small object you could hold in your
+          hand, with an entire pocket dimension folded inside it. It was forged as a
+          prison: an ancient hero used it to trap a race of monsters, and whole missions in
+          the game take place inside it. A little thing containing a whole world. That name
+          has been stuck in my head for twenty-five years &mdash; one of those words that
+          just sounds like what it is.
+        </p>
+
+        <p>
+          When it resurfaced, I looked it up. And this is where it got a little eerie.
+        </p>
+
+        <p>
+          <em>-tain</em> is a real root, from Latin through French, meaning &ldquo;to
+          hold.&rdquo; It's the engine inside attain, obtain, contain, maintain, retain,
+          entertain. Holding is literally what this app is for. It contains my lists. It
+          retains what I thought. About the things that entertain me. The word I'd loved
+          for decades for its sound turned out to mean the thing I'd spent months building.
+        </p>
+
+        <!-- PLACEHOLDER HIDDEN (2026-07-29): the Tain wordmark graphic from the
+             Medium post isn't in the Blog Articles folder yet. Export it to
+             /assets/images/blog/tain/tain-wordmark.png, then un-comment and
+             swap the div for:
+             <img src="/assets/images/blog/tain/tain-wordmark.png"
+                  alt="The Tain wordmark" loading="lazy">
+        <figure class="tain-fig">
+          <div class="tain-fig__placeholder" role="img" aria-label="The Tain wordmark"></div>
+          <figcaption>
+            Tain. The perfect, short, simple word for this.
+          </figcaption>
+        </figure>
+        -->
+
+
+        <p>
+          One more layer, because the universe was apparently showing off: in French,
+          <em>tain</em> is the word for the silvered backing of a mirror, the invisible
+          layer behind the glass that makes reflection possible. I could not have coined a
+          better word if I'd tried. (And I had tried. For weeks!)
+        </p>
+
+        <p>
+          So: Tain. A small thing that holds worlds &mdash; that makes reflection possible.
+        </p>
+
+        <h2>What's Next</h2>
+
+        <p>
+          The logo and login screen are next &mdash; I'm leaning into the word itself,
+          dictionary-entry style, because a name this loaded should get to explain itself.
+          After that: letting people pull items from a shared list straight into their own,
+          and a few more ideas I'm sitting on.
+        </p>
+
+        <p>
+          I also have been building this using a quick-and-dirty design system that I made
+          at the start of the project. The reason: I wanted to focus on making this exist
+          first, after which I would work on making it pretty. The design system was the
+          main time-saving thing I did at the start, so that when it comes time to
+          &lsquo;hit it with the pretty stick&rsquo; it can do it all at once across the
+          entire app. I'm focused on getting the UX right first &mdash; then I'll update
+          the UI and polish the interactions, which still aren't quite where I want them.
+        </p>
+
+        <p>
+          So here's my pitch this time: whatever it is you keep meaning to remember &mdash;
+          books, movies, restaurants, anything &mdash; start writing down what you actually
+          thought. Future you is going to get asked. And if you're the kind of person who
+          likes to debate about which movie is better, or what you liked about them later
+          on, or who just wants to keep a record of what content you have consumed, this is
+          being built for you too.
+        </p>
+
+        <p>
+          More soon.
+        </p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: var(--space-4xl);">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js?v=3"></script>
+</body>
+</html>

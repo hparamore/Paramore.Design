@@ -4,6 +4,54 @@
 > `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
 > which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
 
+## 2026-07-29 — Blog post: "I Kept Forgetting the Things I Loved…" (Tain) ported from Medium
+
+Hunter asked to re-make his Medium article about building Tain (his media-ranking diary
+app) as a post on the site. Pulled the full text from the live Medium post (curl was
+Cloudflare-blocked; used the in-app browser) and rebuilt it in the site's blog template.
+
+### What was added
+- **`blog/posts/building-tain.html`** — new post, duplicated from the Fable-5 template.
+  Dated July 25, 2026 (original Medium publish date). Body is Hunter's prose verbatim
+  (em dashes kept — blog preserves his voice, per the standing decision). Medium-only
+  artifacts stripped (subscribe widget, "Press enter to view image" lines, read-time
+  chrome). Medium's two pull-quote lines became `<blockquote>`s (existing blog style).
+  Section headings → h2s in title case (Bebas uppercases visually anyway).
+- **`blog/index.html`** — new `.blog-card` on top (newest-first). No cover image yet;
+  the card's image slot is an empty surface tile with an in-file comment showing exactly
+  what to drop in (`/assets/images/blog/building-tain.jpg`, 4:5).
+- **Images NOT ported.** The Medium post has 5 screenshots/graphics. They're not
+  downloaded — each spot in the post is a page-scoped `.tain-fig` placeholder (16:9
+  surface tile + real caption) with an HTML comment naming the intended file under
+  `assets/images/blog/tain/`. Hunter to export/drop them in, or ask Claude to pull them.
+- **Page-scoped `.tain-fig` styles** (figure, placeholder, caption) live in the post's
+  own `<style>` block — promote to `styles.css` as a shared blog-figure component if a
+  future post needs figures too.
+- "my last article" in the text now links to `/blog/posts/building-with-fable-5.html`
+  (on Medium it pointed at his Medium article; this is the on-site equivalent).
+
+### Verified (local preview)
+Blog index card renders (placeholder tile graceful); post renders with 4 h2s, 5 figure
+slots, 2 blockquotes, working last-article link; no console errors; no horizontal
+overflow at 375px.
+
+### Images landed (2026-07-29, same day)
+Hunter pointed at `~/Documents/Claude/Projects/Blog Articles/`. Mapped and imported:
+- `MediumHeaderSM.png` → `assets/images/blog/tain/tain-hero.png` (in-post hero, kept PNG)
+- `Article 2.png` (4:5 cover card) → `assets/images/blog/building-tain.png` (index card)
+- `Article2 - 3.png` → `tain/tain-adding-games.jpg` (comparison-flow figure)
+- `Article2 - 2.png` → `tain/tain-categories.jpg` (categories figure)
+- `Article2 - 1.png` → `tain/tain-audiobooks.jpg` (audiobooks figure)
+The three 2116×1452 screenshot PNGs (~2–2.5 MB each) were resized to 1600w JPEG q85
+(~450–530 KB) via sips; Hunter's originals untouched. The 5th Medium image (Tain
+wordmark, "Tain. The perfect, short, simple word for this.") was NOT in the folder —
+its figure is commented out in the post (`PLACEHOLDER HIDDEN 2026-07-29`) until the
+asset is exported to `assets/images/blog/tain/tain-wordmark.png`.
+Verified in preview: all 4 images load in the post, card cover renders on the index.
+
+### Open
+- [ ] Tain wordmark image → un-comment its hidden figure in `building-tain.html`.
+
 ## 2026-07-27 — Mobile nav drawer fixed: clipped height + scrim-on-top (both live-site bugs)
 
 Hunter reported two mobile nav bugs (one via a LinkedIn comment from Chrome/Android, one
