@@ -1,0 +1,9 @@
+title: Screenshot Maker
+label: "Open Source // Web Tool"
+description: Compose App Store and Play Store marketing screenshots in the browser — every device, size and language from one project, exported at native resolution.
+href: https://github.com/hparamore/screenshot-maker
+order: 10
+onHome: true
+image: /assets/projects/screenshot-maker/hero.png
+imageAlt: App Store Screenshot Maker — translations and device variants
+aspect: 1 / 1
