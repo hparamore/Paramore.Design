@@ -1,0 +1,7 @@
+{
+  "name": "paramore-design",
+  "private": true,
+  "scripts": {
+    "copy:apply": "node scripts/apply-copy.mjs projects/spnkr-copy.md projects/spnkr.html"
+  }
+}

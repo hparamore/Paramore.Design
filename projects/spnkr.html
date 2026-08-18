@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPNKr · Paramore.Design</title>
+  <meta name="description" content="Replacing a $30/month game server rental with a spare PC, then redesigning the dashboard out of default AI output.">
+  <link rel="stylesheet" href="../css/styles.css?v=8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+  <!-- Page-specific styles. Move to styles.css once layout is locked. -->
+  <style>
+    /* ---------- Image frames ---------- */
+    .image-frame {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: block;
+    }
+    .image-frame img { width: 100%; height: auto; display: block; }
+    .image-frame--clickable { cursor: zoom-in; transition: border-color .2s ease; }
+    .image-frame--clickable:hover { border-color: var(--color-accent); }
+
+    .figure { margin: var(--space-2xl) 0; }
+    .figure__caption {
+      margin-top: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      max-width: 70ch;
+    }
+    .figure--wide { max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+    /* ---------- Two-up ---------- */
+    .duo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+    }
+    @media (max-width: 700px) { .duo { grid-template-columns: 1fr; } }
+
+    /* ---------- Section rhythm ---------- */
+    .chapter {
+      padding: var(--space-4xl) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .chapter:first-of-type { border-top: none; }
+    .chapter__label { display: block; margin-bottom: var(--space-md); }
+    .chapter__title {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      line-height: .95;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      margin-bottom: var(--space-lg);
+      max-width: 20ch;
+    }
+    .chapter__title .accent { color: var(--color-accent); }
+
+    /* ---------- Pull quote ---------- */
+    /* Breaks out of the narrow reading column so a quote sits on two lines,
+       not four. */
+    .pull {
+      border-left: 2px solid var(--color-accent);
+      padding-left: var(--space-lg);
+      margin: var(--space-2xl) 0;
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1.08;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      width: calc(100% + 14vw);
+      max-width: 1000px;
+    }
+    @media (max-width: 900px) { .pull { width: 100%; } }
+
+    /* ---------- Numbers ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin: var(--space-2xl) 0;
+    }
+    @media (max-width: 700px) { .stats { grid-template-columns: 1fr; gap: var(--space-md); } }
+    .stat {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      background: var(--color-surface);
+    }
+    .stat__value {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      line-height: 1;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+    }
+    .stat__label { font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+    /* ---------- Before / after ---------- */
+    .ba__tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+    .ba__tag--after { color: var(--color-accent); }
+
+    /* ---------- Change table ---------- */
+    .changes { width: 100%; border-collapse: collapse; margin: var(--space-xl) 0; }
+    .changes th, .changes td {
+      text-align: left;
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+      vertical-align: top;
+      font-size: var(--text-sm);
+    }
+    .changes th {
+      font-family: var(--font-display);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+    .changes td:first-child { color: var(--color-text-muted); width: 22%; }
+    .changes td:last-child { color: var(--color-text-primary); }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    @media (max-width: 900px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
+    .gallery__item { overflow: hidden; }
+    .gallery__item img { aspect-ratio: 4 / 3; object-fit: cover; }
+    .gallery__item--tall img { aspect-ratio: 3 / 4; }
+
+    /* ---------- Lightbox ---------- */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.94);
+      display: none; align-items: center; justify-content: center;
+      padding: var(--space-lg); cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 92vh; object-fit: contain; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li><a href="/blog/" class="nav__link">Blog</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="project-hero">
+    <div class="container">
+      <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
+      </a>
+      <span class="label project-hero__label" style="display: block;" data-copy="02">Personal Work // Self-Hosted Tooling</span>
+      <h1 class="display-lg project-hero__title" data-copy="03">SPNKr</h1>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label" data-copy="04">Role</span>
+          <span class="project-hero__meta-value" data-copy="05">Solo, Design &amp; Build</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label" data-copy="06">Discipline</span>
+          <span class="project-hero__meta-value" data-copy="07">Product Design · Art Direction · Frontend</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label" data-copy="08">Stack</span>
+          <span class="project-hero__meta-value" data-copy="09">Node · Socket.IO · SQLite · Vanilla JS</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label" data-copy="10">Status</span>
+          <span class="project-hero__meta-value" data-copy="11">Running in production, at home</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image -->
+  <section class="section section--sm">
+    <div class="container">
+      <div class="figure figure--wide" style="margin-top:0;">
+        <div class="image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0557.jpg" alt="SPNKr running on the home server, eight game servers listed">
+        </div>
+        <p class="figure__caption" data-copy="12">
+          The actual thing, on the actual machine. Eight game servers where I used to
+          be able to afford two.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       WHY
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="13">01 // The bill</span>
+      <h2 class="chapter__title" data-copy="14">I was renting two servers and wanting a <span class="accent" data-copy="15">third</span>.</h2>
+
+      <p data-copy="16">
+        For a couple of years I paid a hosting company about <strong>$30 a month</strong> to
+        run two dedicated game servers. That money bought exactly two games. Wanting a third
+        meant paying for a third, or tearing one down and losing the world in it.
+      </p>
+      <p data-copy="17">
+        The rented boxes were also mediocre, and closed. Underpowered hardware on someone
+        else&rsquo;s network, behind a panel I couldn&rsquo;t change. Adding a mod, editing a
+        config, pulling a save down to look at it, all of it went through whatever the panel
+        felt like exposing.
+      </p>
+      <p data-copy="18">
+        Meanwhile a perfectly good computer sat in the next room doing nothing. Better CPU,
+        better internet, and every file on it mine to touch.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat__value" data-copy="19">$0</span>
+          <span class="stat__label" data-copy="20">Monthly hosting, down from about $30</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value" data-copy="21">8</span>
+          <span class="stat__label" data-copy="22">Game servers configured, up from two</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value" data-copy="23">100%</span>
+          <span class="stat__label" data-copy="24">File access, for mods, configs and saves</span>
+        </div>
+      </div>
+
+      <p class="pull" data-copy="25">
+        The marginal cost of one more game went to zero. So we started adding games.
+      </p>
+
+      <p data-copy="26">
+        Roughly $360 a year saved, against the electricity of a machine already plugged in.
+        But the savings aren&rsquo;t what changed how we play. We now run things nobody would
+        have paid fifteen dollars a month to try.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       V1
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="27">02 // Version one</span>
+      <h2 class="chapter__title" data-copy="28">It worked. That was the whole brief.</h2>
+
+      <p data-copy="29">
+        Start, stop, restart. Player counts. Scheduled restarts. Automatic backups. Crash
+        detection that brings a server back on its own. Discord commands so friends could
+        start a server without me being home, or awake.
+      </p>
+      <p data-copy="30">All of it worked. I used it daily for four months. It looked like this:</p>
+    </div>
+
+    <div class="container">
+      <div class="figure figure--wide">
+        <div class="image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/00-before-original-design.png" alt="The original dashboard: indigo accent, stacked rows, soft shadows">
+        </div>
+        <p class="figure__caption" data-copy="31">Version one. Functional, and completely anonymous.</p>
+      </div>
+    </div>
+
+    <div class="container project-content">
+      <p data-copy="32">
+        Indigo on blue-black. Soft shadows, sixteen-pixel corners, four stacked config rows
+        per card each opening its own modal, and two animations that pulsed forever. It&rsquo;s
+        the exact interface you get when nothing is decided and everything is generated,
+        which is what happened. I was solving the hosting problem and letting defaults land.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       LEARNED
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="33">03 // Four months of using it</span>
+      <h2 class="chapter__title" data-copy="34">Living with a tool tells you what a mockup won&rsquo;t.</h2>
+
+      <p data-copy="35">
+        <strong>I never read most of the card.</strong> Eleven data points at the same size,
+        and I only ever wanted three: is it up, is anyone on it, what&rsquo;s the address. The
+        backup retention count is something I set once a year, and it was taking up half the
+        card.
+      </p>
+      <p data-copy="36">
+        <strong>There was no stop button.</strong> The only way to shut a server down was a
+        toggle labelled for what happens on boot. I knew because I wrote it. Nobody else did.
+      </p>
+      <p data-copy="37">
+        <strong>It lives on a second monitor.</strong> Two infinite pulse animations
+        weren&rsquo;t a nice touch, they were something twitching in my peripheral vision for
+        hours.
+      </p>
+      <p data-copy="38">
+        <strong>Four modals for one task.</strong> Setting up a server meant opening Schedule,
+        closing it, opening Backups, closing it, opening Idle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       WHY REDESIGN
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="39">04 // Why redo it</span>
+      <h2 class="chapter__title" data-copy="40">It worked for me. That&rsquo;s a low bar.</h2>
+
+      <p data-copy="41">
+        Building it took a long stretch of decisions in code, and once it was working I just
+        used it. Four months of dogfooding later, it had earned a real pass, and I wanted to
+        put it on GitHub so other people could stop paying rent too.
+      </p>
+      <p data-copy="42">
+        That second goal changed the brief completely. A tool only I use can assume I know
+        things. A tool anyone can set up cannot.
+      </p>
+
+      <p class="pull" data-copy="43">
+        Open sourcing it meant designing for someone who has never seen it.
+      </p>
+
+      <p data-copy="44">
+        The hardest part of self-hosting isn&rsquo;t the software, it&rsquo;s <strong>port
+        forwarding</strong> &mdash; every router calls it something different, buries it
+        somewhere different, and gets it wrong silently. I&rsquo;d needed help with it myself.
+        So the redesign added real helper content: instructions written to work on any router,
+        my machine&rsquo;s actual internal IP filled in, and a flag on the card until
+        it&rsquo;s done.
+      </p>
+      <p data-copy="45">
+        The same thinking covered the rest of setup. Installing dedicated servers and
+        registering Windows services is genuinely tedious, and it&rsquo;s exactly what a coding
+        agent is good at, so the app ships prompts ready to copy, written with the constraints
+        that actually trip agents up. Then it all had to be tested properly &mdash; every
+        screen size, empty states, a dropped connection, servers that report nothing.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       THE NAME
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="46">05 // The name</span>
+      <h2 class="chapter__title" data-copy="47">Everything in my house is named after <span class="accent" data-copy="48">Halo</span>.</h2>
+
+      <p data-copy="49">
+        My phone is 343 Guilty Spark. My watch is Cortana. The AirPods are Truth and
+        Reconciliation, the headset is Regret. Computers two and three are Scorpion and Wraith.
+        The TVs are Arbiter and Spartan.
+      </p>
+      <p data-copy="50">
+        So the new machine needed a name, and I&rsquo;d used most of the good ships and
+        characters. The rocket launcher came up. SPNKr.
+      </p>
+
+      <p class="pull" data-copy="51">
+        Naming it was the first design decision, and it made every other one easier.
+      </p>
+
+      <p data-copy="52">
+        The M41 is two tubes and a handle. Stubby, mechanical, unglamorous &mdash;
+        <strong>equipment, not decoration</strong>. Once that was the target, the visual
+        questions mostly answered themselves. Warm gunmetal instead of consumer blue-black.
+        Two-pixel corners instead of sixteen. Borders doing the work instead of shadows. And
+        one rule I wrote down before touching any markup, because the thing lives on a second
+        monitor:
+      </p>
+
+      <p class="pull" data-copy="53">
+        Anything that moves while nothing has changed is a defect.
+      </p>
+
+      <p data-copy="54">
+        That killed both pulse animations, made motion a signal rather than decoration, and
+        later made me delete a scrolling ticker I&rsquo;d already built and liked.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       THE MARK
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="55">06 // Working out the mark</span>
+      <h2 class="chapter__title" data-copy="56">Most of it was deciding what it wasn&rsquo;t.</h2>
+
+      <p data-copy="57">
+        Before the mark, the direction. I tried a few and rejected them for specific reasons.
+        A clean ops-console look, Grafana-ish, was the safest and the most anonymous &mdash;
+        the thing I was trying to get away from. Arcade CRT with scanlines and glow had the
+        most personality but fought legibility on a dashboard you glance at to see if
+        something is down. Swiss-industrial signage was close, but read as a poster, not as
+        kit.
+      </p>
+      <p data-copy="58">
+        What stuck was a field terminal. Issued, legible, unfussy.
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="figure figure--wide">
+        <div class="image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0556.jpg" alt="The SPNKr mark sketched on a notebook beside the running app">
+        </div>
+        <p class="figure__caption" data-copy="59">Working the mark out on paper.</p>
+      </div>
+    </div>
+
+    <div class="container project-content">
+      <p data-copy="60">
+        My first mark was two circles side by side, and it was wrong because I&rsquo;d drawn it
+        from the <em>name</em> instead of the object. At sixteen pixels it read as
+        &ldquo;oo&rdquo;. Glasses. Infinity symbol.
+      </p>
+      <p data-copy="61">
+        Going back to an actual reference fixed it. The bores sit <strong>offset
+        diagonally</strong>, inside a rounded housing &mdash; and that asymmetry is the whole
+        identity. A symmetric pair reads as goggles no matter how you draw it.
+      </p>
+      <p data-copy="62">
+        Then I tested four versions at every size they&rsquo;d actually appear. Thin outlined
+        rings collapsed into mush below 24px. A capsule housing read as a map pin. A literal
+        version with the receiver block drawn in turned to sludge under 32px. The one that
+        survived was the simplest: bores knocked out of a solid housing, because a positive
+        shape holds at sixteen pixels where an outline doesn&rsquo;t.
+      </p>
+
+      <p class="pull" data-copy="63">
+        If it only works at 96 pixels, it isn&rsquo;t the mark yet.
+      </p>
+
+      <p data-copy="64">
+        Then it earned its keep. The mark&rsquo;s geometry recurs as the status readout on
+        every card, two bars staggered to echo the bores. I tried stamping the actual logo on
+        each card first &mdash; it read as branding, not instrumentation, and made the header
+        mark feel cheaper by repetition. The abstraction was better.
+      </p>
+      <p data-copy="65">
+        The last piece was making the spec enforceable. A checklist you&rsquo;re supposed to
+        remember is a checklist nobody remembers, so a script now checks sixteen rules against
+        the code: no shadows, no looping motion, corner cap, three semantic colors, every text
+        color measured for contrast. Exceptions have to be declared inline with a written
+        reason, and get reprinted on every run so they stay visible.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       BEFORE / AFTER
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container">
+      <span class="label chapter__label" style="display:block;" data-copy="66">07 // The difference</span>
+      <h2 class="chapter__title" style="max-width:24ch;" data-copy="67">Same servers. Same data. Same viewport.</h2>
+
+      <div class="duo" style="margin-top: var(--space-xl);">
+        <div>
+          <span class="ba__tag" data-copy="68">Before</span>
+          <div class="image-frame image-frame--clickable" data-lightbox>
+            <img src="/projects/SPNKr/00-before-original-design.png" alt="Before: the original dashboard">
+          </div>
+        </div>
+        <div>
+          <span class="ba__tag ba__tag--after" data-copy="69">After</span>
+          <div class="image-frame image-frame--clickable" data-lightbox>
+            <img src="/projects/SPNKr/01-dashboard.png" alt="After: the redesigned dashboard">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container project-content">
+      <table class="changes">
+        <thead>
+          <tr><th>&nbsp;</th><th data-copy="71">Before</th><th data-copy="72">After</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-copy="73">Palette</td>
+            <td data-copy="74">Indigo on blue-black, five semantic colors</td>
+            <td data-copy="75">Gunmetal and amber, three</td>
+          </tr>
+          <tr>
+            <td data-copy="76">The card</td>
+            <td data-copy="77">Four stacked config rows, four separate modals</td>
+            <td data-copy="78">One panel, roughly half the height</td>
+          </tr>
+          <tr>
+            <td data-copy="79">Stopping a server</td>
+            <td data-copy="80">No stop button</td>
+            <td data-copy="81">Explicit stop, with confirmation</td>
+          </tr>
+          <tr>
+            <td data-copy="82">Reading state</td>
+            <td data-copy="83">A side stripe and an eight-pixel dot</td>
+            <td data-copy="84">Whole border keyed, surface recedes, tube readout</td>
+          </tr>
+          <tr>
+            <td data-copy="85">Motion</td>
+            <td data-copy="86">Two animations pulsing forever</td>
+            <td data-copy="87">Nothing moves unless something changed</td>
+          </tr>
+          <tr>
+            <td data-copy="88">Type</td>
+            <td data-copy="89">System sans, and a mono stack that resolved on neither platform</td>
+            <td data-copy="90">Barlow Condensed and IBM Plex Mono, self-hosted</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p data-copy="91">
+        The rule that shaped the card: <strong>the card shows state, the panel owns
+        settings.</strong> A chip only appears when something needs doing, and clicking it
+        opens the panel scrolled to the fix.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       DETAILS
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container">
+      <span class="label chapter__label" style="display:block;" data-copy="92">08 // Details</span>
+      <h2 class="chapter__title" data-copy="93">Four modals became one panel.</h2>
+    </div>
+
+    <div class="container">
+      <div class="figure figure--wide" style="margin-top: var(--space-lg);">
+        <div class="image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/03-configure.png" alt="The consolidated configure panel">
+        </div>
+        <p class="figure__caption" data-copy="94">Everything for one server, in one place.</p>
+      </div>
+
+      <div class="duo" style="margin-top: var(--space-2xl);">
+        <div class="figure" style="margin:0;">
+          <div class="image-frame image-frame--clickable" data-lightbox>
+            <img src="/projects/SPNKr/04-port-forwarding.png" alt="Port forwarding instructions with the machine's LAN address filled in">
+          </div>
+          <p class="figure__caption" data-copy="95">
+            The step that trips everyone up, with real instructions and my actual internal IP
+            filled in.
+          </p>
+        </div>
+        <div class="figure" style="margin:0;">
+          <div class="image-frame image-frame--clickable" data-lightbox>
+            <img src="/projects/SPNKr/05-setup-agent-prompts.png" alt="Setup panel with copy-paste prompts for a coding agent">
+          </div>
+          <p class="figure__caption" data-copy="96">
+            Installing servers and registering Windows services, handed to an agent with
+            prompts ready to copy.
+          </p>
+        </div>
+      </div>
+
+      <div class="figure figure--wide" style="margin-top: var(--space-2xl);">
+        <div class="image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/08-states-in-flight.png" alt="Servers starting, stopping and updating, showing the travelling border">
+        </div>
+        <p class="figure__caption" data-copy="97">
+          The one place motion is allowed. It stops the moment the server settles.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       GALLERY
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container">
+      <span class="label chapter__label" style="display:block;" data-copy="98">09 // In use</span>
+      <h2 class="chapter__title" data-copy="99">Mostly read from a phone.</h2>
+
+      <div class="gallery">
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0550.jpg" alt="The dashboard on a phone, propped on the desk">
+        </a>
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0555.jpg" alt="Phone beside the sketched mark">
+        </a>
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0553.jpg" alt="The dashboard on a phone at the monitor">
+        </a>
+        <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/11-mobile.png" alt="Mobile layout">
+        </a>
+        <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/14-compact-mobile.png" alt="Mobile layout, compact">
+        </a>
+        <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/07-image-cropper.png" alt="The built-in image cropper">
+        </a>
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/02-dashboard-compact.png" alt="Compact view with header images off">
+        </a>
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/15-compact-event-log.png" alt="The event log">
+        </a>
+        <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
+          <img src="/projects/SPNKr/photo-IMG_0557.jpg" alt="The full dashboard on the home server">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       CLOSE
+       ==================================================================== -->
+  <section class="chapter">
+    <div class="container project-content">
+      <span class="label chapter__label" data-copy="100">10 // Where it stands</span>
+      <h2 class="chapter__title" data-copy="101">Running, at home, right now.</h2>
+
+      <p data-copy="102">
+        Eight games on the spare machine, controlled from a browser or from Discord, and
+        nobody pays a hosting company anything. It&rsquo;s on GitHub so anyone can do the same.
+      </p>
+      <p data-copy="103">
+        The design pass also turned up a pile of engineering, because redesigning something
+        means reading every file. The repository couldn&rsquo;t start from a clean clone. An
+        apostrophe in a server password broke the copy button. The card grid was being
+        destroyed and rebuilt four times a minute. And the player-count fallback reported
+        &ldquo;unknown&rdquo; as &ldquo;zero&rdquo; &mdash; which mattered, because the
+        auto-shutdown feature turns off servers it believes are empty.
+      </p>
+
+      <p class="pull" data-copy="104">
+        The design pass found the bugs. You have to read everything to redesign it.
+      </p>
+
+      <div style="margin-top: var(--space-2xl); display:flex; gap: var(--space-md); flex-wrap:wrap;">
+        <a href="https://github.com/hparamore/game-server-dashboard" class="btn btn--primary" target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+        <a href="/work.html" class="btn btn--ghost">All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="/build.html">For Business</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <!-- Transparent placeholder: an empty src counts as a broken image. -->
+    <img id="lightboxImg" alt=""
+         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    document.querySelectorAll('[data-lightbox]').forEach(frame => {
+      frame.addEventListener('click', () => {
+        const img = frame.querySelector('img');
+        if (!img) return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
