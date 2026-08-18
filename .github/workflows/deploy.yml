@@ -1,0 +1,53 @@
+# Builds the Astro site and publishes it to GitHub Pages.
+#
+# This exists because the site is no longer plain HTML served from the repo
+# root — it needs `astro build` to produce dist/, and dist/ is gitignored.
+# Without this workflow, pushing the Astro site to main would serve an empty
+# repository root.
+#
+# One-time setup, which must be done in the GitHub UI (it cannot be scripted):
+#   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+#
+# public/CNAME carries the custom domain through into dist/, so paramore.design
+# keeps working with no DNS change.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
