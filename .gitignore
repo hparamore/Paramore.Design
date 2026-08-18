@@ -17,3 +17,7 @@ projects/TreeService Assets/
 *.zip
 *.url
 *.webloc
+
+# Astro
+dist/
+.astro/

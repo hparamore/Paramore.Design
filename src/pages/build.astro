@@ -1,15 +1,268 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Business, AI Tools, Custom-Built · Paramore.Design</title>
-  <meta name="description" content="One designer-developer building custom AI-powered tools that replace the stack of half-used SaaS small businesses get nickel-and-dimed by.">
-  <link rel="stylesheet" href="css/styles.css?v=8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+---
+import Base from '../layouts/Base.astro';
+---
 
-  <!-- DRAFT: scoped styles for new AI-positioning homepage. Move to styles.css once approved. -->
-  <style>
+<Base
+  title={"For Business, AI Tools, Custom-Built · Paramore.Design"}
+  description={"One designer-developer building custom AI-powered tools that replace the stack of half-used SaaS small businesses get nickel-and-dimed by."}
+>
+<!-- Hero -->
+  <section class="hero section pitch-hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__eyebrow">Now booking small business AI projects</span>
+        <h1 class="display-xl hero__title">
+          AI Tools, Built<br>
+          For The Way Your<br>
+          <span class="accent-text">Business Actually Runs.</span>
+        </h1>
+        <p class="hero__subtitle">
+          You're paying ten different tools to do one job each. I'm one designer-developer
+          who builds custom software, powered by AI, that replaces the stack and fits
+          how <em>you</em> actually work.
+        </p>
+        <p class="hero__subtitle hero__subtitle--closer">
+          No bloat. No retainers for features you'll never use. Just the tool you wish existed.
+        </p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary">
+            Book a 20-min Call <span class="btn__arrow">&rarr;</span>
+          </a>
+          <a href="#services" class="btn btn--secondary">See How It Works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Strip -->
+  <section class="section problem" aria-labelledby="problem-heading">
+    <div class="container">
+      <span class="label">The Problem</span>
+      <h2 id="problem-heading" class="section-intro" style="margin-top: var(--space-sm);">
+        You didn't start a business to manage software.
+      </h2>
+      <div class="problem__grid">
+        <div class="problem__item">
+          <h3>Death by Subscriptions</h3>
+          <p>Scheduling here. Invoicing there. CRM somewhere else. Each tool used for one feature, and the bills add up to thousands a year.</p>
+        </div>
+        <div class="problem__item">
+          <h3>Spreadsheet Sprawl</h3>
+          <p>Critical info lives in twelve different sheets, three inboxes, and one person's head. Nothing talks to anything.</p>
+        </div>
+        <div class="problem__item">
+          <h3>Built For Someone Else</h3>
+          <p>Big platforms are built for the average customer. You're not the average. The workflow you actually need doesn't exist yet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Work -->
+  <section class="section" aria-labelledby="recent-heading">
+    <div class="container">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
+        <div>
+          <span class="label">Recent Builds</span>
+          <h2 id="recent-heading" style="margin-top: var(--space-sm);">Real Tools, Real Businesses.</h2>
+        </div>
+        <a href="/work" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
+      </div>
+
+      <div class="project-grid section-content">
+
+        <a href="/projects/mutual" class="project-card project-card--featured">
+          <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
+            <img src="/assets/projects/mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
+            <h3 class="project-card__title">Mutual</h3>
+            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
+          </div>
+        </a>
+
+        <a href="/projects/the-tree-service" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
+            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
+            <h3 class="project-card__title">The Tree Service</h3>
+            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
+          </div>
+        </a>
+
+        <a href="/projects/mutual-design-system.html" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
+            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
+                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
+            <h3 class="project-card__title">Mutual Design System</h3>
+            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
+          </div>
+        </a>
+
+        <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 939 / 827;">
+            <img src="/assets/projects/checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Personal Project // iOS &amp; Android</span>
+            <h3 class="project-card__title">Checkin</h3>
+            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="section" id="services" aria-labelledby="solution-heading">
+    <div class="container">
+      <span class="label">What I Do</span>
+      <h2 id="solution-heading" style="margin-top: var(--space-sm);">One Person. Custom Built. AI Inside.</h2>
+      <p class="solution__lead">
+        I sit down with you, learn your business in plain language, then build software shaped
+        around it. AI does the heavy lifting under the hood, drafting messages, parsing receipts,
+        tracking inventory, summarizing leads, so the tool feels less like work and more like a
+        smart assistant that already knows the job.
+      </p>
+
+      <div class="solution__grid">
+        <div class="solution__card">
+          <h3>Replace The Stack</h3>
+          <p>One tool, your logo, your workflow. Built to do what your six current subscriptions do, minus the parts you never used.</p>
+        </div>
+        <div class="solution__card">
+          <h3>AI That Earns Its Keep</h3>
+          <p>Auto-categorize expenses. Draft client follow-ups. Turn a photo of a receipt into a logged transaction. Real time saved, every day.</p>
+        </div>
+        <div class="solution__card">
+          <h3>Designed, Not Just Built</h3>
+          <p>12+ years of product design means tools your team will actually use, not abandoned three weeks in because the UI fights them.</p>
+        </div>
+        <div class="solution__card">
+          <h3>You Own It</h3>
+          <p>No per-seat fees forever. No vendor lock-in. Build, ship, and let it run, I'm here when you want to grow it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section class="section" aria-labelledby="industries-heading">
+    <div class="container">
+      <span class="label">Built For</span>
+      <h2 id="industries-heading" style="margin-top: var(--space-sm);">Small businesses with real workflows.</h2>
+
+      <div class="industries__grid">
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">🌳</span>
+          <h3>Trades &amp; Services</h3>
+          <p>Tree work, plumbing, HVAC, electricians. Crews, equipment, fuel, receipts, jobs, one place.</p>
+        </div>
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">🌿</span>
+          <h3>Yard &amp; Property</h3>
+          <p>Lawn care, landscaping, pool service. Routes, clients, equipment, recurring billing.</p>
+        </div>
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">🏠</span>
+          <h3>Real Estate Agents</h3>
+          <p>Lead intake, follow-up drafts, property notes, custom client-facing pages.</p>
+        </div>
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">💍</span>
+          <h3>Events &amp; Magazines</h3>
+          <p>Submissions, status, payments, scheduling, designer handoff. The thing your spreadsheet wishes it was.</p>
+        </div>
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">🍽️</span>
+          <h3>Restaurants &amp; Shops</h3>
+          <p>Shift approvals, task lists, daily ops, employee comms, without buying a fortune-500 platform.</p>
+        </div>
+        <div class="industry-card">
+          <span class="industry-card__icon" aria-hidden="true">💡</span>
+          <h3>Founders With An Idea</h3>
+          <p>You've had the napkin sketch in your head for two years. Let's make it real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section" aria-labelledby="process-heading">
+    <div class="container">
+      <span class="label">How It Works</span>
+      <h2 id="process-heading" style="margin-top: var(--space-sm);">Four steps, no surprises.</h2>
+
+      <div class="process__grid">
+        <div class="process__step">
+          <h3>Talk</h3>
+          <p>20 minutes, free. You walk me through what's eating your time. I tell you, plainly, whether I can help.</p>
+        </div>
+        <div class="process__step">
+          <h3>Map</h3>
+          <p>I sketch the tool, the AI pieces, what it replaces, and what it costs. Fixed price, not hourly.</p>
+        </div>
+        <div class="process__step">
+          <h3>Build</h3>
+          <p>I design and build it. You see progress weekly. We adjust as you actually use it.</p>
+        </div>
+        <div class="process__step">
+          <h3>Ship</h3>
+          <p>It's yours. I stick around for tweaks and improvements when you want them, never on a meter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="section trust" aria-labelledby="trust-heading">
+    <div class="container" style="text-align: center;">
+      <span class="label">Past Clients &amp; Teams</span>
+      <h2 id="trust-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ Years Across Brands You Know.</h2>
+      <div class="trust__logos">
+        <span class="trust__logo">Mutual Dating</span>
+        <span class="trust__logo">Ark Dating</span>
+        <span class="trust__logo">Nu Skin</span>
+        <span class="trust__logo">Angel Studios</span>
+        <span class="trust__logo">Tech 9</span>
+        <span class="trust__logo">Stotion</span>
+        <span class="trust__logo">Paramore Real Estate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big CTA -->
+  <section class="big-cta" id="contact">
+    <div class="container container--narrow">
+      <span class="label">Let's Talk</span>
+      <h2 class="display-lg" style="margin-top: var(--space-md);">
+        Tell me what's <span class="accent-text">eating your week.</span>
+      </h2>
+      <p>
+        Free 20-minute call. Bring the spreadsheet, the tool you hate, the workflow that's
+        held together with tape. I'll tell you straight whether AI can fix it, and what it'd
+        cost to find out.
+      </p>
+      <div class="hero__cta" style="justify-content: center;">
+        <a href="mailto:hunter@paramore.design" class="btn btn--primary">
+          Book a Call <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="/work" class="btn btn--secondary">See More Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+</Base>
+
+<style is:global>
     /* ---------- Pitch / Hero refinements ---------- */
     .pitch-hero { padding-bottom: calc(var(--space-2xl) + 40px); }
     .pitch-hero .hero__content { max-width: 1200px; }
@@ -221,294 +474,3 @@
       border: 1px solid var(--color-border-subtle);
     }
   </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="/work.html" class="nav__link">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li><a href="/blog/" class="nav__link">Blog</a></li>
-      </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="nav__overlay" id="navOverlay"></div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero section pitch-hero">
-    <div class="container">
-      <div class="hero__content">
-        <span class="hero__eyebrow">Now booking small business AI projects</span>
-        <h1 class="display-xl hero__title">
-          AI Tools, Built<br>
-          For The Way Your<br>
-          <span class="accent-text">Business Actually Runs.</span>
-        </h1>
-        <p class="hero__subtitle">
-          You're paying ten different tools to do one job each. I'm one designer-developer
-          who builds custom software, powered by AI, that replaces the stack and fits
-          how <em>you</em> actually work.
-        </p>
-        <p class="hero__subtitle hero__subtitle--closer">
-          No bloat. No retainers for features you'll never use. Just the tool you wish existed.
-        </p>
-        <div class="hero__cta">
-          <a href="#contact" class="btn btn--primary">
-            Book a 20-min Call <span class="btn__arrow">&rarr;</span>
-          </a>
-          <a href="#services" class="btn btn--secondary">See How It Works</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Problem Strip -->
-  <section class="section problem" aria-labelledby="problem-heading">
-    <div class="container">
-      <span class="label">The Problem</span>
-      <h2 id="problem-heading" class="section-intro" style="margin-top: var(--space-sm);">
-        You didn't start a business to manage software.
-      </h2>
-      <div class="problem__grid">
-        <div class="problem__item">
-          <h3>Death by Subscriptions</h3>
-          <p>Scheduling here. Invoicing there. CRM somewhere else. Each tool used for one feature, and the bills add up to thousands a year.</p>
-        </div>
-        <div class="problem__item">
-          <h3>Spreadsheet Sprawl</h3>
-          <p>Critical info lives in twelve different sheets, three inboxes, and one person's head. Nothing talks to anything.</p>
-        </div>
-        <div class="problem__item">
-          <h3>Built For Someone Else</h3>
-          <p>Big platforms are built for the average customer. You're not the average. The workflow you actually need doesn't exist yet.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Recent Work -->
-  <section class="section" aria-labelledby="recent-heading">
-    <div class="container">
-      <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
-        <div>
-          <span class="label">Recent Builds</span>
-          <h2 id="recent-heading" style="margin-top: var(--space-sm);">Real Tools, Real Businesses.</h2>
-        </div>
-        <a href="/work.html" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
-      </div>
-
-      <div class="project-grid section-content">
-
-        <a href="/projects/mutual.html" class="project-card project-card--featured">
-          <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
-            <img src="/projects/Mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
-            <h3 class="project-card__title">Mutual</h3>
-            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
-          </div>
-        </a>
-
-        <a href="/projects/the-tree-service.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
-            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
-            <h3 class="project-card__title">The Tree Service</h3>
-            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
-          </div>
-        </a>
-
-        <a href="/projects/mutual-design-system.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
-            <h3 class="project-card__title">Mutual Design System</h3>
-            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
-          </div>
-        </a>
-
-        <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 939 / 827;">
-            <img src="/projects/Checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Project // iOS &amp; Android</span>
-            <h3 class="project-card__title">Checkin</h3>
-            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.</p>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Solution -->
-  <section class="section" id="services" aria-labelledby="solution-heading">
-    <div class="container">
-      <span class="label">What I Do</span>
-      <h2 id="solution-heading" style="margin-top: var(--space-sm);">One Person. Custom Built. AI Inside.</h2>
-      <p class="solution__lead">
-        I sit down with you, learn your business in plain language, then build software shaped
-        around it. AI does the heavy lifting under the hood, drafting messages, parsing receipts,
-        tracking inventory, summarizing leads, so the tool feels less like work and more like a
-        smart assistant that already knows the job.
-      </p>
-
-      <div class="solution__grid">
-        <div class="solution__card">
-          <h3>Replace The Stack</h3>
-          <p>One tool, your logo, your workflow. Built to do what your six current subscriptions do, minus the parts you never used.</p>
-        </div>
-        <div class="solution__card">
-          <h3>AI That Earns Its Keep</h3>
-          <p>Auto-categorize expenses. Draft client follow-ups. Turn a photo of a receipt into a logged transaction. Real time saved, every day.</p>
-        </div>
-        <div class="solution__card">
-          <h3>Designed, Not Just Built</h3>
-          <p>12+ years of product design means tools your team will actually use, not abandoned three weeks in because the UI fights them.</p>
-        </div>
-        <div class="solution__card">
-          <h3>You Own It</h3>
-          <p>No per-seat fees forever. No vendor lock-in. Build, ship, and let it run, I'm here when you want to grow it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Industries -->
-  <section class="section" aria-labelledby="industries-heading">
-    <div class="container">
-      <span class="label">Built For</span>
-      <h2 id="industries-heading" style="margin-top: var(--space-sm);">Small businesses with real workflows.</h2>
-
-      <div class="industries__grid">
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🌳</span>
-          <h3>Trades &amp; Services</h3>
-          <p>Tree work, plumbing, HVAC, electricians. Crews, equipment, fuel, receipts, jobs, one place.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🌿</span>
-          <h3>Yard &amp; Property</h3>
-          <p>Lawn care, landscaping, pool service. Routes, clients, equipment, recurring billing.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🏠</span>
-          <h3>Real Estate Agents</h3>
-          <p>Lead intake, follow-up drafts, property notes, custom client-facing pages.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">💍</span>
-          <h3>Events &amp; Magazines</h3>
-          <p>Submissions, status, payments, scheduling, designer handoff. The thing your spreadsheet wishes it was.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">🍽️</span>
-          <h3>Restaurants &amp; Shops</h3>
-          <p>Shift approvals, task lists, daily ops, employee comms, without buying a fortune-500 platform.</p>
-        </div>
-        <div class="industry-card">
-          <span class="industry-card__icon" aria-hidden="true">💡</span>
-          <h3>Founders With An Idea</h3>
-          <p>You've had the napkin sketch in your head for two years. Let's make it real.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process -->
-  <section class="section" aria-labelledby="process-heading">
-    <div class="container">
-      <span class="label">How It Works</span>
-      <h2 id="process-heading" style="margin-top: var(--space-sm);">Four steps, no surprises.</h2>
-
-      <div class="process__grid">
-        <div class="process__step">
-          <h3>Talk</h3>
-          <p>20 minutes, free. You walk me through what's eating your time. I tell you, plainly, whether I can help.</p>
-        </div>
-        <div class="process__step">
-          <h3>Map</h3>
-          <p>I sketch the tool, the AI pieces, what it replaces, and what it costs. Fixed price, not hourly.</p>
-        </div>
-        <div class="process__step">
-          <h3>Build</h3>
-          <p>I design and build it. You see progress weekly. We adjust as you actually use it.</p>
-        </div>
-        <div class="process__step">
-          <h3>Ship</h3>
-          <p>It's yours. I stick around for tweaks and improvements when you want them, never on a meter.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust -->
-  <section class="section trust" aria-labelledby="trust-heading">
-    <div class="container" style="text-align: center;">
-      <span class="label">Past Clients &amp; Teams</span>
-      <h2 id="trust-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ Years Across Brands You Know.</h2>
-      <div class="trust__logos">
-        <span class="trust__logo">Mutual Dating</span>
-        <span class="trust__logo">Ark Dating</span>
-        <span class="trust__logo">Nu Skin</span>
-        <span class="trust__logo">Angel Studios</span>
-        <span class="trust__logo">Tech 9</span>
-        <span class="trust__logo">Stotion</span>
-        <span class="trust__logo">Paramore Real Estate</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Big CTA -->
-  <section class="big-cta" id="contact">
-    <div class="container container--narrow">
-      <span class="label">Let's Talk</span>
-      <h2 class="display-lg" style="margin-top: var(--space-md);">
-        Tell me what's <span class="accent-text">eating your week.</span>
-      </h2>
-      <p>
-        Free 20-minute call. Bring the spreadsheet, the tool you hate, the workflow that's
-        held together with tape. I'll tell you straight whether AI can fix it, and what it'd
-        cost to find out.
-      </p>
-      <div class="hero__cta" style="justify-content: center;">
-        <a href="mailto:hunter@paramore.design" class="btn btn--primary">
-          Book a Call <span class="btn__arrow">&rarr;</span>
-        </a>
-        <a href="/work.html" class="btn btn--secondary">See More Work</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__text">&copy; 2026 Paramore.Design</p>
-        <ul class="footer__links" role="list">
-          <li><a href="/build.html">For Business</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js?v=3"></script>
-</body>
-</html>

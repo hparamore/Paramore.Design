@@ -1,0 +1,88 @@
+---
+/**
+ * The shared chrome that used to be copy-pasted into 14 separate files.
+ * Nav, footer, head, and main.js live here and nowhere else — a change to the
+ * nav is now one edit, not fourteen.
+ *
+ * Page-scoped CSS still belongs to the page: pass it through the "head" slot so
+ * the existing `home-` / `pf-` / `sc-` / `ts-` block convention survives intact.
+ */
+interface Props {
+  title: string;
+  description?: string;
+  /** Overrides which nav link renders as active. Defaults to the current URL. */
+  activePath?: string;
+  /** Pages whose last section butts against the footer add top margin (was an inline style). */
+  footerMargin?: boolean;
+}
+
+const { title, description, activePath, footerMargin = false } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
+];
+
+// Normalise trailing slashes so "/work" and "/work/" both match.
+const trim = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+const current = trim(activePath ?? Astro.url.pathname);
+const isActive = (href: string) => trim(href) === current;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="stylesheet" href="/css/styles.css?v=8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <slot name="head" />
+</head>
+<body>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
+      <ul class="nav__links" id="navLinks" role="list">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class:list={['nav__link', { active: isActive(href) }]}
+              aria-current={isActive(href) ? 'page' : undefined}
+            >{label}</a>
+          </li>
+        ))}
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+  </nav>
+
+  <slot />
+
+  <footer class="footer" style={footerMargin ? 'margin-top: var(--space-4xl);' : undefined}>
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__text">&copy; 2026 Paramore.Design</p>
+        <ul class="footer__links" role="list">
+          <li><a href="/build">For Business</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
+          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightboxes and page-specific inline scripts land here, after the footer,
+       exactly where they sat in the hand-written pages. -->
+  <slot name="after-footer" />
+
+  <script src="/js/main.js?v=3" is:inline></script>
+</body>
+</html>

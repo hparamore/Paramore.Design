@@ -1,15 +1,242 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game UI · Paramore.Design</title>
-  <meta name="description" content="Game UI explorations and kits, Zelda: Breath of the Wild, Satisfactory, and Raid Rush.">
-  <link rel="stylesheet" href="../css/styles.css?v=8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+---
+import Base from '../../layouts/Base.astro';
+---
 
-  <!-- Page-specific styles. Move to styles.css once layout is locked. -->
-  <style>
+<Base
+  title={"Game UI · Paramore.Design"}
+  description={"Game UI explorations and kits, Zelda: Breath of the Wild, Satisfactory, and Raid Rush."}
+>
+<!-- Project Hero -->
+  <section class="project-hero">
+    <div class="container">
+      <a href="/work" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
+      </a>
+      <span class="label project-hero__label" style="display: block;">Personal Work // Game UI Studies</span>
+      <h1 class="display-lg project-hero__title">Game UI</h1>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Role</span>
+          <span class="project-hero__meta-value">Solo Designer</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Discipline</span>
+          <span class="project-hero__meta-value">UI Design · Visual Systems</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Tools</span>
+          <span class="project-hero__meta-value">Figma</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Format</span>
+          <span class="project-hero__meta-value">UI Kits · HUD · Menus</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container project-content">
+      <h2>UI is loudest in games.</h2>
+      <p>
+        Game UI lives in the hardest spot in design, it has to communicate fast, sit inside a
+        living world, and never break the spell. These are personal studies of three very
+        different games, rebuilt in Figma to understand how each one solves that problem.
+      </p>
+      <p>
+        Each kit is a complete component library, type, color, iconography, HUD states, menu
+        flows, published on my Figma community profile for anyone to fork or learn from.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       ZELDA: BREATH OF THE WILD
+       ==================================================================== -->
+  <section class="game-section">
+    <div class="container">
+      <div class="game-section__header">
+        <span class="label game-section__label">Kit 01 // Nintendo Switch</span>
+        <h2 class="game-section__title">Zelda <span class="accent">Breath of the Wild</span></h2>
+        <p class="game-section__intro">
+          A study of one of the most quietly confident UI systems ever shipped, restrained
+          color, generous negative space, and iconography that feels carved rather than drawn.
+          The kit covers the pause menu, inventory, map, runes, and shrine UI.
+        </p>
+      </div>
+      <div class="game-grid" id="zeldaGrid" data-folder="/assets/projects/gameui/Zelda" data-aspect="landscape"></div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SATISFACTORY
+       ==================================================================== -->
+  <section class="game-section">
+    <div class="container">
+      <div class="game-section__header">
+        <span class="label game-section__label">Kit 02 // PC</span>
+        <h2 class="game-section__title">Satis<span class="accent">factory</span></h2>
+        <p class="game-section__intro">
+          A factory-builder lives or dies by its UI, players spend hours inside menus, build
+          trees, and production graphs. This kit reconstructs Satisfactory's industrial,
+          schematic-style interface: build menus, the MAM tree, AWESOME shop, and HUD readouts.
+        </p>
+      </div>
+      <div class="game-grid" id="satisfactoryGrid" data-folder="/assets/projects/gameui/Satisfactory" data-aspect="landscape"></div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       RAID RUSH
+       ==================================================================== -->
+  <section class="game-section">
+    <div class="container">
+      <div class="game-section__header">
+        <span class="label game-section__label">Kit 03 // Mobile</span>
+        <h2 class="game-section__title">Raid <span class="accent">Rush</span></h2>
+        <p class="game-section__intro">
+          A mobile RPG UI kit, character screens, gear loadouts, raid queues, and the
+          relentless economy of menus that mobile games run on. Built as a complete component
+          set so the visual language stays consistent across every surface.
+        </p>
+      </div>
+      <div class="game-grid game-grid--portrait" id="raidrushGrid" data-folder="/assets/projects/gameui/RaidRush" data-aspect="portrait"></div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="closing">
+    <div class="container container--narrow">
+      <h2>Want the <span class="accent">files?</span></h2>
+      <p>
+        Every kit is published on my Figma community profile, free to duplicate, fork, or
+        rip apart for your own work.
+      </p>
+      <div style="display: inline-flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
+        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="btn btn--primary">
+          View on Figma <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="/work" class="btn btn--secondary">More Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <section class="section" style="border-top: 1px solid var(--color-border);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <span class="label">Next Project</span>
+      <a href="/projects/mutual" class="btn btn--ghost" style="font-size: var(--text-xl);">
+        Mutual <span class="btn__arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+
+<Fragment slot="after-footer">
+<!-- Lightbox modal -->
+  <div class="lightbox" id="lightbox">
+    <img alt="" id="lightboxImg">
+    <span class="lightbox__close">[ esc to close ]</span>
+    <span class="lightbox__caption" id="lightboxCaption"></span>
+  </div>
+
+  
+
+  <script>
+    // ============================================================
+    //   Game UI galleries, edit each array to add/remove images.
+    //   Drop the PNGs into projects/GameUI/<Game>/ and list the
+    //   filenames here. Empty arrays render placeholder tiles.
+    // ============================================================
+
+    const zeldaCards = [
+      // Example: 'PauseMenu.png', 'Inventory.png', 'Map.png'
+    ];
+
+    const satisfactoryCards = [
+      // Example: 'BuildMenu.png', 'MAMTree.png', 'AwesomeShop.png'
+    ];
+
+    const raidrushCards = [
+      // Example: 'CharacterScreen.png', 'GearLoadout.png', 'RaidQueue.png'
+    ];
+
+    // ============================================================
+    //   Helpers
+    // ============================================================
+    function titleFromFile(f) {
+      return f
+        .replace(/^\d+[-_\s]?/, '')         // strip leading number prefix
+        .replace(/\.(png|jpg|jpeg|webp)$/i, '')
+        .replace(/[-_]/g, ' ')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+        .trim();
+    }
+
+    function renderGrid(gridId, files, placeholderCount) {
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      const folder = grid.dataset.folder;
+
+      if (!files.length) {
+        // Placeholder tiles until images are dropped in
+        for (let i = 0; i < placeholderCount; i++) {
+          const el = document.createElement('div');
+          el.className = 'game-card game-card--empty';
+          el.textContent = 'Drop in';
+          grid.appendChild(el);
+        }
+        return;
+      }
+
+      files.forEach((file) => {
+        const title = titleFromFile(file);
+        const src = folder + '/' + encodeURIComponent(file);
+        const cardEl = document.createElement('div');
+        cardEl.className = 'game-card';
+        cardEl.innerHTML =
+          `<img src="${src}" alt="${title}" loading="lazy">` +
+          `<span class="game-card__title">${title}</span>`;
+        cardEl.addEventListener('click', () => openLightbox(src, title));
+        grid.appendChild(cardEl);
+      });
+    }
+
+    renderGrid('zeldaGrid', zeldaCards, 4);
+    renderGrid('satisfactoryGrid', satisfactoryCards, 4);
+    renderGrid('raidrushGrid', raidrushCards, 8);
+
+    // ============================================================
+    //   Lightbox
+    // ============================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxImg.alt = caption;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxImg.src = ''; }, 200);
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  </script>
+</Fragment>
+</Base>
+
+<style is:global>
     /* ---------- Hero frame (matches Mutual pattern) ---------- */
     .image-frame {
       background: var(--color-surface-elevated);
@@ -214,265 +441,3 @@
       color: var(--color-text-secondary);
     }
   </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="/work.html" class="nav__link">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li><a href="/blog/" class="nav__link">Blog</a></li>
-      </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="nav__overlay" id="navOverlay"></div>
-  </nav>
-
-  <!-- Project Hero -->
-  <section class="project-hero">
-    <div class="container">
-      <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
-        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
-      </a>
-      <span class="label project-hero__label" style="display: block;">Personal Work // Game UI Studies</span>
-      <h1 class="display-lg project-hero__title">Game UI</h1>
-      <div class="project-hero__meta">
-        <div class="project-hero__meta-item">
-          <span class="project-hero__meta-label">Role</span>
-          <span class="project-hero__meta-value">Solo Designer</span>
-        </div>
-        <div class="project-hero__meta-item">
-          <span class="project-hero__meta-label">Discipline</span>
-          <span class="project-hero__meta-value">UI Design · Visual Systems</span>
-        </div>
-        <div class="project-hero__meta-item">
-          <span class="project-hero__meta-label">Tools</span>
-          <span class="project-hero__meta-value">Figma</span>
-        </div>
-        <div class="project-hero__meta-item">
-          <span class="project-hero__meta-label">Format</span>
-          <span class="project-hero__meta-value">UI Kits · HUD · Menus</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Intro -->
-  <section class="section">
-    <div class="container project-content">
-      <h2>UI is loudest in games.</h2>
-      <p>
-        Game UI lives in the hardest spot in design, it has to communicate fast, sit inside a
-        living world, and never break the spell. These are personal studies of three very
-        different games, rebuilt in Figma to understand how each one solves that problem.
-      </p>
-      <p>
-        Each kit is a complete component library, type, color, iconography, HUD states, menu
-        flows, published on my Figma community profile for anyone to fork or learn from.
-      </p>
-    </div>
-  </section>
-
-  <!-- ====================================================================
-       ZELDA: BREATH OF THE WILD
-       ==================================================================== -->
-  <section class="game-section">
-    <div class="container">
-      <div class="game-section__header">
-        <span class="label game-section__label">Kit 01 // Nintendo Switch</span>
-        <h2 class="game-section__title">Zelda <span class="accent">Breath of the Wild</span></h2>
-        <p class="game-section__intro">
-          A study of one of the most quietly confident UI systems ever shipped, restrained
-          color, generous negative space, and iconography that feels carved rather than drawn.
-          The kit covers the pause menu, inventory, map, runes, and shrine UI.
-        </p>
-      </div>
-      <div class="game-grid" id="zeldaGrid" data-folder="GameUI/Zelda" data-aspect="landscape"></div>
-    </div>
-  </section>
-
-  <!-- ====================================================================
-       SATISFACTORY
-       ==================================================================== -->
-  <section class="game-section">
-    <div class="container">
-      <div class="game-section__header">
-        <span class="label game-section__label">Kit 02 // PC</span>
-        <h2 class="game-section__title">Satis<span class="accent">factory</span></h2>
-        <p class="game-section__intro">
-          A factory-builder lives or dies by its UI, players spend hours inside menus, build
-          trees, and production graphs. This kit reconstructs Satisfactory's industrial,
-          schematic-style interface: build menus, the MAM tree, AWESOME shop, and HUD readouts.
-        </p>
-      </div>
-      <div class="game-grid" id="satisfactoryGrid" data-folder="GameUI/Satisfactory" data-aspect="landscape"></div>
-    </div>
-  </section>
-
-  <!-- ====================================================================
-       RAID RUSH
-       ==================================================================== -->
-  <section class="game-section">
-    <div class="container">
-      <div class="game-section__header">
-        <span class="label game-section__label">Kit 03 // Mobile</span>
-        <h2 class="game-section__title">Raid <span class="accent">Rush</span></h2>
-        <p class="game-section__intro">
-          A mobile RPG UI kit, character screens, gear loadouts, raid queues, and the
-          relentless economy of menus that mobile games run on. Built as a complete component
-          set so the visual language stays consistent across every surface.
-        </p>
-      </div>
-      <div class="game-grid game-grid--portrait" id="raidrushGrid" data-folder="GameUI/RaidRush" data-aspect="portrait"></div>
-    </div>
-  </section>
-
-  <!-- Closing -->
-  <section class="closing">
-    <div class="container container--narrow">
-      <h2>Want the <span class="accent">files?</span></h2>
-      <p>
-        Every kit is published on my Figma community profile, free to duplicate, fork, or
-        rip apart for your own work.
-      </p>
-      <div style="display: inline-flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
-        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="btn btn--primary">
-          View on Figma <span class="btn__arrow">&rarr;</span>
-        </a>
-        <a href="/work.html" class="btn btn--secondary">More Work</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Next Project -->
-  <section class="section" style="border-top: 1px solid var(--color-border);">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-      <span class="label">Next Project</span>
-      <a href="/projects/mutual.html" class="btn btn--ghost" style="font-size: var(--text-xl);">
-        Mutual <span class="btn__arrow">&rarr;</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__text">&copy; 2026 Paramore.Design</p>
-        <ul class="footer__links" role="list">
-          <li><a href="/build.html">For Business</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Lightbox modal -->
-  <div class="lightbox" id="lightbox">
-    <img alt="" id="lightboxImg">
-    <span class="lightbox__close">[ esc to close ]</span>
-    <span class="lightbox__caption" id="lightboxCaption"></span>
-  </div>
-
-  <script src="../js/main.js?v=3"></script>
-
-  <script>
-    // ============================================================
-    //   Game UI galleries, edit each array to add/remove images.
-    //   Drop the PNGs into projects/GameUI/<Game>/ and list the
-    //   filenames here. Empty arrays render placeholder tiles.
-    // ============================================================
-
-    const zeldaCards = [
-      // Example: 'PauseMenu.png', 'Inventory.png', 'Map.png'
-    ];
-
-    const satisfactoryCards = [
-      // Example: 'BuildMenu.png', 'MAMTree.png', 'AwesomeShop.png'
-    ];
-
-    const raidrushCards = [
-      // Example: 'CharacterScreen.png', 'GearLoadout.png', 'RaidQueue.png'
-    ];
-
-    // ============================================================
-    //   Helpers
-    // ============================================================
-    function titleFromFile(f) {
-      return f
-        .replace(/^\d+[-_\s]?/, '')         // strip leading number prefix
-        .replace(/\.(png|jpg|jpeg|webp)$/i, '')
-        .replace(/[-_]/g, ' ')
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
-        .trim();
-    }
-
-    function renderGrid(gridId, files, placeholderCount) {
-      const grid = document.getElementById(gridId);
-      if (!grid) return;
-      const folder = grid.dataset.folder;
-
-      if (!files.length) {
-        // Placeholder tiles until images are dropped in
-        for (let i = 0; i < placeholderCount; i++) {
-          const el = document.createElement('div');
-          el.className = 'game-card game-card--empty';
-          el.textContent = 'Drop in';
-          grid.appendChild(el);
-        }
-        return;
-      }
-
-      files.forEach((file) => {
-        const title = titleFromFile(file);
-        const src = folder + '/' + encodeURIComponent(file);
-        const cardEl = document.createElement('div');
-        cardEl.className = 'game-card';
-        cardEl.innerHTML =
-          `<img src="${src}" alt="${title}" loading="lazy">` +
-          `<span class="game-card__title">${title}</span>`;
-        cardEl.addEventListener('click', () => openLightbox(src, title));
-        grid.appendChild(cardEl);
-      });
-    }
-
-    renderGrid('zeldaGrid', zeldaCards, 4);
-    renderGrid('satisfactoryGrid', satisfactoryCards, 4);
-    renderGrid('raidrushGrid', raidrushCards, 8);
-
-    // ============================================================
-    //   Lightbox
-    // ============================================================
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
-
-    function openLightbox(src, caption) {
-      lightboxImg.src = src;
-      lightboxImg.alt = caption;
-      lightboxCaption.textContent = caption;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-      setTimeout(() => { lightboxImg.src = ''; }, 200);
-    }
-    lightbox.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-    });
-  </script>
-
-</body>
-</html>

@@ -2,6 +2,12 @@
   "name": "paramore-design",
   "private": true,
   "scripts": {
-    "copy:apply": "node scripts/apply-copy.mjs projects/spnkr-copy.md projects/spnkr.html"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "copy:apply": "node scripts/apply-copy.mjs projects/spnkr-copy.md src/pages/projects/spnkr.astro"
+  },
+  "dependencies": {
+    "astro": "^7.2.3"
   }
 }

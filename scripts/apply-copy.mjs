@@ -1,6 +1,6 @@
 // Write edited copy from a copy deck back into its page.
 //
-//   node scripts/apply-copy.mjs projects/spnkr-copy.md projects/spnkr.html
+//   node scripts/apply-copy.mjs projects/spnkr-copy.md src/pages/projects/spnkr.astro
 //
 // The deck is generated from the page, and every editable block carries a
 // `data-copy="NN"` attribute. This matches on those IDs, so blocks can be
@@ -60,7 +60,7 @@ if (!changed.length) {
   process.exit(0);
 }
 
-const backup = pagePath.replace(/\.html$/, '.backup.html');
+const backup = pagePath.replace(/\.(html|astro)$/, '.backup.$1');
 copyFileSync(pagePath, backup);
 writeFileSync(pagePath, page);
 

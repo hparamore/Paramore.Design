@@ -1,19 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hunter Paramore · Product Designer · Paramore.Design</title>
-  <meta name="description" content="Hunter Paramore, product designer with 12 years owning the whole surface: design systems, craft, and the code to ship it. Co-founder and sole designer of Mutual.">
-  <link rel="stylesheet" href="css/styles.css?v=8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+---
+import Base from '../layouts/Base.astro';
+---
 
-  <!-- ============================================================
-       Page-scoped styles (home- prefix). Self-contained, same
-       convention as the pf-/sc-/ts- blocks elsewhere. Promote to
-       styles.css if reused.
-       ============================================================ -->
-  <style>
+<Base
+  title={"Hunter Paramore · Product Designer · Paramore.Design"}
+  description={"Hunter Paramore, product designer with 12 years owning the whole surface: design systems, craft, and the code to ship it. Co-founder and sole designer of Mutual."}
+>
+<!-- Hero -->
+  <section class="hero section home-hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="label hero__label">Hunter Paramore · Product Designer</span>
+        <h1 class="display-xl hero__title">
+          I learn things by<br><span class="accent-text">rebuilding</span> them.
+        </h1>
+        <p class="hero__subtitle">
+          I&rsquo;m Hunter, a product designer with twelve years of understanding things by taking
+          them apart. I work the same way on the things I ship, watching how people actually use
+          them, learning from the feedback and the analytics, and reworking whatever isn&rsquo;t
+          right until I understand <em>why</em>. Usually the only designer in the room.
+        </p>
+        <p class="hero__subtitle hero__subtitle--closer">
+          Most of that on Mutual, the #1 LDS dating app I co-founded and designed. It&rsquo;s helped
+          40,000+ couples get married, which still amazes me. Lately I&rsquo;m deep in design systems
+          and AI, sharing what I learn as I go.
+        </p>
+        <div class="hero__cta">
+          <a href="/work" class="btn btn--primary">
+            See the work <span class="btn__arrow">&rarr;</span>
+          </a>
+          <a href="#how-i-work" class="btn btn--secondary">How I work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Work -->
+  <section class="section" aria-labelledby="work-heading">
+    <div class="container">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
+        <div>
+          <span class="label">Selected Work</span>
+          <h2 id="work-heading" style="margin-top: var(--space-sm);">A few things I&rsquo;ve built.</h2>
+        </div>
+        <a href="/work" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
+      </div>
+
+      <div class="project-grid section-content">
+
+        <a href="/projects/mutual" class="project-card project-card--featured">
+          <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
+            <img src="/assets/projects/mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
+            <h3 class="project-card__title">Mutual</h3>
+            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
+          </div>
+        </a>
+
+        <a href="/projects/mutual-design-system.html" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
+            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
+                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
+            <h3 class="project-card__title">Mutual Design System</h3>
+            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
+          </div>
+        </a>
+
+        <a href="/projects/the-tree-service" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
+            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
+            <h3 class="project-card__title">The Tree Service</h3>
+            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
+          </div>
+        </a>
+
+        <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 939 / 827;">
+            <img src="/assets/projects/checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Personal Project // iOS &amp; Android</span>
+            <h3 class="project-card__title">Checkin</h3>
+            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.</p>
+          </div>
+        </a>
+
+        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__image" style="aspect-ratio: 1252 / 1102;">
+            <img src="/assets/images/projects/GameDesignSystem.png" alt="Game design systems, Zelda: Breath of the Wild, Satisfactory (FICSIT), and Raid Rush UI kits">
+          </div>
+          <div class="project-card__info">
+            <span class="label project-card__label">Personal Work // Game UI Kits</span>
+            <h3 class="project-card__title">Game UI Kits</h3>
+            <p class="project-card__description">Fan-made design systems for three games, rebuilt in Figma. Zelda: Breath of the Wild, Satisfactory, and Raid Rush. The Zelda kit was featured on the Figma community homepage.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities glimpse -->
+  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
+    <div class="container">
+      <span class="label">How I Work</span>
+      <h2 id="caps-heading" style="margin-top: var(--space-sm);">Four things I do at depth.</h2>
+
+      <div class="home-caps">
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Design Systems</h3>
+          <p class="home-cap__desc">Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Craft</h3>
+          <p class="home-cap__desc">The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Mentoring</h3>
+          <p class="home-cap__desc">I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Ship &amp; Learn</h3>
+          <p class="home-cap__desc">I&rsquo;d rather build the real thing and watch how people actually use it than debate it in a doc. Shipping fast is how I find what&rsquo;s true and fix what isn&rsquo;t.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- How I Lead -->
+  <section class="section" aria-labelledby="lead-heading">
+    <div class="container">
+      <div class="home-callout">
+        <div class="home-callout__head">
+          <span class="label">How I lead</span>
+          <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
+        </div>
+        <div class="home-callout__body">
+          <p>
+            Doing it solo for years taught me how a design function should actually run, but I&rsquo;m
+            always learning from the people around me. When I bring others in, I&rsquo;m not handing out
+            tasks, I&rsquo;m working alongside them to build and standardize a system that can grow and
+            influence everyone, making the work better and better. The best part is watching that happen
+            because someone else ran with it.
+          </p>
+          <p>
+            My favorite critiques and design reviews are clear, to the point, and aimed at the work
+            itself, focused on one thing: making it better. That kind of honesty only happens when the
+            relationship is there first, so that&rsquo;s what I build before anything else. Once the trust
+            is real, it&rsquo;s easier to focus on the work and improve it together, rather than defending it.
+          </p>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER HIDDEN (2026-06-27): real recommendation needed before un-commenting.
+           Need: one-sentence quote from a manager/peer/mentee about craft, systems thinking,
+           or team impact + Name, Role, Company. LinkedIn recommendations work well here.
+      <figure class="home-pullquote">
+        <blockquote>&ldquo;[Drop in a real quote from a manager, peer, or someone you mentored, one
+          sentence about your craft, your systems thinking, or your impact on the team.]&rdquo;</blockquote>
+        <cite>[Name, Role, Company]</cite>
+      </figure>
+      -->
+      <!-- /PLACEHOLDER HIDDEN -->
+    </div>
+  </section>
+
+  <!-- Toolkit -->
+  <section class="section" aria-labelledby="toolkit-heading">
+    <div class="container">
+      <span class="label">The Toolkit</span>
+      <h2 id="toolkit-heading" style="margin-top: var(--space-sm);">What I build with.</h2>
+      <div class="home-toolkit">
+        <div class="home-toolkit__col">
+          <h4>Design</h4>
+          <ul>
+            <li>Design systems &amp; tokens</li>
+            <li>UI &amp; interaction design</li>
+            <li>Product &amp; UX strategy</li>
+            <li>Research &amp; usability testing</li>
+            <li>Brand &amp; visual identity</li>
+            <li>Prototyping · Figma (expert)</li>
+          </ul>
+        </div>
+        <div class="home-toolkit__col">
+          <h4>Build</h4>
+          <ul>
+            <li>iOS · Swift / SwiftUI</li>
+            <li>Android · Kotlin / Compose</li>
+            <li>Web · React / HTML / CSS</li>
+            <li>Firebase / Cloud Functions</li>
+            <li>Games · Unity / SpriteKit</li>
+            <li>AI · Claude Code · APIs · agents</li>
+          </ul>
+        </div>
+        <div class="home-toolkit__col">
+          <h4>Lead</h4>
+          <ul>
+            <li>Mentoring &amp; design critique</li>
+            <li>Cross-functional influence</li>
+            <li>Design-to-eng collaboration</li>
+            <li>Roadmapping &amp; prioritization</li>
+            <li>Stakeholder communication</li>
+            <li>Hiring &amp; team-building</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Worked-with strip -->
+  <section class="section home-brands" aria-labelledby="brands-heading">
+    <div class="container" style="text-align: center;">
+      <span class="label">Worked With</span>
+      <h2 id="brands-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ years across brands you know.</h2>
+      <div class="home-brands__logos">
+        <span class="home-brands__logo">Mutual</span>
+        <span class="home-brands__logo">Ark Dating</span>
+        <span class="home-brands__logo">Nu Skin</span>
+        <span class="home-brands__logo">Angel Studios</span>
+        <span class="home-brands__logo">Tech 9</span>
+        <span class="home-brands__logo">Stotion</span>
+        <span class="home-brands__logo">Paramore Real Estate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="section" aria-labelledby="about-heading">
+    <div class="container">
+      <span class="label">About</span>
+      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
+      <p class="home-about__text">
+        I studied art with an emphasis on design and have spent my career in the space where
+        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
+        details that make a product feel right, and dig into user feedback to find root causes, not
+        just symptoms. Whether embedded on a team, working directly with a founder, or building
+        something of my own, I bring the same thing: a drive to make the product better and the
+        range to do whatever it takes to get there.
+      </p>
+      <div style="margin-top: var(--space-xl);">
+        <a href="/about" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="home-closing" id="contact">
+    <div class="container container--narrow">
+      <span class="label">Get In Touch</span>
+      <h2 class="display-lg" style="margin-top: var(--space-md);">
+        Let&rsquo;s make something <span class="accent-text">worth shipping.</span>
+      </h2>
+      <p>
+        Whether you&rsquo;re hiring a designer, building a team, or just want to talk product and
+        craft, I&rsquo;d like to hear from you.
+      </p>
+      <div class="hero__cta" style="justify-content: center;">
+        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
+          Email Me <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="/work" class="btn btn--secondary">See the work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+</Base>
+
+<style is:global>
     /* ---------- Hero: hard-left, wide headline, momentum into work ---------- */
     /* The global .hero is display:flex, which made its .container shrink-wrap and
        center (the "stacked + floating" feel). Fill the container so the hero
@@ -249,312 +516,3 @@
     }
     @media (max-width: 768px) { .home-closing h2 { font-size: var(--text-4xl); } }
   </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link active">Home</a></li>
-        <li><a href="/work.html" class="nav__link">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li><a href="/blog/" class="nav__link">Blog</a></li>
-      </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="nav__overlay" id="navOverlay"></div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero section home-hero">
-    <div class="container">
-      <div class="hero__content">
-        <span class="label hero__label">Hunter Paramore · Product Designer</span>
-        <h1 class="display-xl hero__title">
-          I learn things by<br><span class="accent-text">rebuilding</span> them.
-        </h1>
-        <p class="hero__subtitle">
-          I&rsquo;m Hunter, a product designer with twelve years of understanding things by taking
-          them apart. I work the same way on the things I ship, watching how people actually use
-          them, learning from the feedback and the analytics, and reworking whatever isn&rsquo;t
-          right until I understand <em>why</em>. Usually the only designer in the room.
-        </p>
-        <p class="hero__subtitle hero__subtitle--closer">
-          Most of that on Mutual, the #1 LDS dating app I co-founded and designed. It&rsquo;s helped
-          40,000+ couples get married, which still amazes me. Lately I&rsquo;m deep in design systems
-          and AI, sharing what I learn as I go.
-        </p>
-        <div class="hero__cta">
-          <a href="/work.html" class="btn btn--primary">
-            See the work <span class="btn__arrow">&rarr;</span>
-          </a>
-          <a href="#how-i-work" class="btn btn--secondary">How I work</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Selected Work -->
-  <section class="section" aria-labelledby="work-heading">
-    <div class="container">
-      <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
-        <div>
-          <span class="label">Selected Work</span>
-          <h2 id="work-heading" style="margin-top: var(--space-sm);">A few things I&rsquo;ve built.</h2>
-        </div>
-        <a href="/work.html" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
-      </div>
-
-      <div class="project-grid section-content">
-
-        <a href="/projects/mutual.html" class="project-card project-card--featured">
-          <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
-            <img src="/projects/Mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
-            <h3 class="project-card__title">Mutual</h3>
-            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
-          </div>
-        </a>
-
-        <a href="/projects/mutual-design-system.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
-            <h3 class="project-card__title">Mutual Design System</h3>
-            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.</p>
-          </div>
-        </a>
-
-        <a href="/projects/the-tree-service.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
-            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
-            <h3 class="project-card__title">The Tree Service</h3>
-            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
-          </div>
-        </a>
-
-        <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 939 / 827;">
-            <img src="/projects/Checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Project // iOS &amp; Android</span>
-            <h3 class="project-card__title">Checkin</h3>
-            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.</p>
-          </div>
-        </a>
-
-        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1252 / 1102;">
-            <img src="/assets/images/projects/GameDesignSystem.png" alt="Game design systems, Zelda: Breath of the Wild, Satisfactory (FICSIT), and Raid Rush UI kits">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Work // Game UI Kits</span>
-            <h3 class="project-card__title">Game UI Kits</h3>
-            <p class="project-card__description">Fan-made design systems for three games, rebuilt in Figma. Zelda: Breath of the Wild, Satisfactory, and Raid Rush. The Zelda kit was featured on the Figma community homepage.</p>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities glimpse -->
-  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
-    <div class="container">
-      <span class="label">How I Work</span>
-      <h2 id="caps-heading" style="margin-top: var(--space-sm);">Four things I do at depth.</h2>
-
-      <div class="home-caps">
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Design Systems</h3>
-          <p class="home-cap__desc">Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Craft</h3>
-          <p class="home-cap__desc">The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Mentoring</h3>
-          <p class="home-cap__desc">I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Ship &amp; Learn</h3>
-          <p class="home-cap__desc">I&rsquo;d rather build the real thing and watch how people actually use it than debate it in a doc. Shipping fast is how I find what&rsquo;s true and fix what isn&rsquo;t.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- How I Lead -->
-  <section class="section" aria-labelledby="lead-heading">
-    <div class="container">
-      <div class="home-callout">
-        <div class="home-callout__head">
-          <span class="label">How I lead</span>
-          <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
-        </div>
-        <div class="home-callout__body">
-          <p>
-            Doing it solo for years taught me how a design function should actually run, but I&rsquo;m
-            always learning from the people around me. When I bring others in, I&rsquo;m not handing out
-            tasks, I&rsquo;m working alongside them to build and standardize a system that can grow and
-            influence everyone, making the work better and better. The best part is watching that happen
-            because someone else ran with it.
-          </p>
-          <p>
-            My favorite critiques and design reviews are clear, to the point, and aimed at the work
-            itself, focused on one thing: making it better. That kind of honesty only happens when the
-            relationship is there first, so that&rsquo;s what I build before anything else. Once the trust
-            is real, it&rsquo;s easier to focus on the work and improve it together, rather than defending it.
-          </p>
-        </div>
-      </div>
-
-      <!-- PLACEHOLDER HIDDEN (2026-06-27): real recommendation needed before un-commenting.
-           Need: one-sentence quote from a manager/peer/mentee about craft, systems thinking,
-           or team impact + Name, Role, Company. LinkedIn recommendations work well here.
-      <figure class="home-pullquote">
-        <blockquote>&ldquo;[Drop in a real quote from a manager, peer, or someone you mentored, one
-          sentence about your craft, your systems thinking, or your impact on the team.]&rdquo;</blockquote>
-        <cite>[Name, Role, Company]</cite>
-      </figure>
-      -->
-      <!-- /PLACEHOLDER HIDDEN -->
-    </div>
-  </section>
-
-  <!-- Toolkit -->
-  <section class="section" aria-labelledby="toolkit-heading">
-    <div class="container">
-      <span class="label">The Toolkit</span>
-      <h2 id="toolkit-heading" style="margin-top: var(--space-sm);">What I build with.</h2>
-      <div class="home-toolkit">
-        <div class="home-toolkit__col">
-          <h4>Design</h4>
-          <ul>
-            <li>Design systems &amp; tokens</li>
-            <li>UI &amp; interaction design</li>
-            <li>Product &amp; UX strategy</li>
-            <li>Research &amp; usability testing</li>
-            <li>Brand &amp; visual identity</li>
-            <li>Prototyping · Figma (expert)</li>
-          </ul>
-        </div>
-        <div class="home-toolkit__col">
-          <h4>Build</h4>
-          <ul>
-            <li>iOS · Swift / SwiftUI</li>
-            <li>Android · Kotlin / Compose</li>
-            <li>Web · React / HTML / CSS</li>
-            <li>Firebase / Cloud Functions</li>
-            <li>Games · Unity / SpriteKit</li>
-            <li>AI · Claude Code · APIs · agents</li>
-          </ul>
-        </div>
-        <div class="home-toolkit__col">
-          <h4>Lead</h4>
-          <ul>
-            <li>Mentoring &amp; design critique</li>
-            <li>Cross-functional influence</li>
-            <li>Design-to-eng collaboration</li>
-            <li>Roadmapping &amp; prioritization</li>
-            <li>Stakeholder communication</li>
-            <li>Hiring &amp; team-building</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Worked-with strip -->
-  <section class="section home-brands" aria-labelledby="brands-heading">
-    <div class="container" style="text-align: center;">
-      <span class="label">Worked With</span>
-      <h2 id="brands-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ years across brands you know.</h2>
-      <div class="home-brands__logos">
-        <span class="home-brands__logo">Mutual</span>
-        <span class="home-brands__logo">Ark Dating</span>
-        <span class="home-brands__logo">Nu Skin</span>
-        <span class="home-brands__logo">Angel Studios</span>
-        <span class="home-brands__logo">Tech 9</span>
-        <span class="home-brands__logo">Stotion</span>
-        <span class="home-brands__logo">Paramore Real Estate</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- About teaser -->
-  <section class="section" aria-labelledby="about-heading">
-    <div class="container">
-      <span class="label">About</span>
-      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
-      <p class="home-about__text">
-        I studied art with an emphasis on design and have spent my career in the space where
-        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
-        details that make a product feel right, and dig into user feedback to find root causes, not
-        just symptoms. Whether embedded on a team, working directly with a founder, or building
-        something of my own, I bring the same thing: a drive to make the product better and the
-        range to do whatever it takes to get there.
-      </p>
-      <div style="margin-top: var(--space-xl);">
-        <a href="/about.html" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Closing -->
-  <section class="home-closing" id="contact">
-    <div class="container container--narrow">
-      <span class="label">Get In Touch</span>
-      <h2 class="display-lg" style="margin-top: var(--space-md);">
-        Let&rsquo;s make something <span class="accent-text">worth shipping.</span>
-      </h2>
-      <p>
-        Whether you&rsquo;re hiring a designer, building a team, or just want to talk product and
-        craft, I&rsquo;d like to hear from you.
-      </p>
-      <div class="hero__cta" style="justify-content: center;">
-        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
-          Email Me <span class="btn__arrow">&rarr;</span>
-        </a>
-        <a href="/work.html" class="btn btn--secondary">See the work</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__text">&copy; 2026 Paramore.Design</p>
-        <ul class="footer__links" role="list">
-          <li><a href="/build.html">For Business</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js?v=3"></script>
-</body>
-</html>

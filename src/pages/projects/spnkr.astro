@@ -1,183 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPNKr · Paramore.Design</title>
-  <meta name="description" content="Replacing a $30/month game server rental with a spare PC, then redesigning the dashboard out of default AI output.">
-  <link rel="stylesheet" href="../css/styles.css?v=8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+---
+import Base from '../../layouts/Base.astro';
+---
 
-  <!-- Page-specific styles. Move to styles.css once layout is locked. -->
-  <style>
-    /* ---------- Image frames ---------- */
-    .image-frame {
-      background: var(--color-surface-elevated);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: block;
-    }
-    .image-frame img { width: 100%; height: auto; display: block; }
-    .image-frame--clickable { cursor: zoom-in; transition: border-color .2s ease; }
-    .image-frame--clickable:hover { border-color: var(--color-accent); }
-
-    .figure { margin: var(--space-2xl) 0; }
-    .figure__caption {
-      margin-top: var(--space-sm);
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      max-width: 70ch;
-    }
-    .figure--wide { max-width: 1100px; margin-left: auto; margin-right: auto; }
-
-    /* ---------- Two-up ---------- */
-    .duo {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-md);
-      align-items: start;
-    }
-    @media (max-width: 700px) { .duo { grid-template-columns: 1fr; } }
-
-    /* ---------- Section rhythm ---------- */
-    .chapter {
-      padding: var(--space-4xl) 0;
-      border-top: 1px solid var(--color-border-subtle);
-    }
-    .chapter:first-of-type { border-top: none; }
-    .chapter__label { display: block; margin-bottom: var(--space-md); }
-    .chapter__title {
-      font-family: var(--font-display);
-      font-size: var(--text-5xl);
-      line-height: .95;
-      letter-spacing: var(--tracking-display);
-      text-transform: uppercase;
-      margin-bottom: var(--space-lg);
-      max-width: 20ch;
-    }
-    .chapter__title .accent { color: var(--color-accent); }
-
-    /* ---------- Pull quote ---------- */
-    /* Breaks out of the narrow reading column so a quote sits on two lines,
-       not four. */
-    .pull {
-      border-left: 2px solid var(--color-accent);
-      padding-left: var(--space-lg);
-      margin: var(--space-2xl) 0;
-      font-family: var(--font-display);
-      font-size: var(--text-3xl);
-      line-height: 1.08;
-      letter-spacing: var(--tracking-display);
-      text-transform: uppercase;
-      width: calc(100% + 14vw);
-      max-width: 1000px;
-    }
-    @media (max-width: 900px) { .pull { width: 100%; } }
-
-    /* ---------- Numbers ---------- */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-lg);
-      margin: var(--space-2xl) 0;
-    }
-    @media (max-width: 700px) { .stats { grid-template-columns: 1fr; gap: var(--space-md); } }
-    .stat {
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg);
-      background: var(--color-surface);
-    }
-    .stat__value {
-      display: block;
-      font-family: var(--font-display);
-      font-size: var(--text-5xl);
-      line-height: 1;
-      letter-spacing: var(--tracking-display);
-      color: var(--color-accent);
-      margin-bottom: var(--space-xs);
-    }
-    .stat__label { font-size: var(--text-sm); color: var(--color-text-secondary); }
-
-    /* ---------- Before / after ---------- */
-    .ba__tag {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      letter-spacing: var(--tracking-wider);
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-sm);
-    }
-    .ba__tag--after { color: var(--color-accent); }
-
-    /* ---------- Change table ---------- */
-    .changes { width: 100%; border-collapse: collapse; margin: var(--space-xl) 0; }
-    .changes th, .changes td {
-      text-align: left;
-      padding: var(--space-md) var(--space-md) var(--space-md) 0;
-      border-bottom: 1px solid var(--color-border-subtle);
-      vertical-align: top;
-      font-size: var(--text-sm);
-    }
-    .changes th {
-      font-family: var(--font-display);
-      letter-spacing: var(--tracking-wider);
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      font-weight: 400;
-    }
-    .changes td:first-child { color: var(--color-text-muted); width: 22%; }
-    .changes td:last-child { color: var(--color-text-primary); }
-
-    /* ---------- Gallery ---------- */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-      margin-top: var(--space-xl);
-    }
-    @media (max-width: 900px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
-    .gallery__item { overflow: hidden; }
-    .gallery__item img { aspect-ratio: 4 / 3; object-fit: cover; }
-    .gallery__item--tall img { aspect-ratio: 3 / 4; }
-
-    /* ---------- Lightbox ---------- */
-    .lightbox {
-      position: fixed; inset: 0; z-index: 999;
-      background: rgba(0,0,0,.94);
-      display: none; align-items: center; justify-content: center;
-      padding: var(--space-lg); cursor: zoom-out;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 100%; max-height: 92vh; object-fit: contain; }
-  </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="/work.html" class="nav__link">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li><a href="/blog/" class="nav__link">Blog</a></li>
-      </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="nav__overlay" id="navOverlay"></div>
-  </nav>
-
-  <!-- Hero -->
+<Base
+  title={"SPNKr · Paramore.Design"}
+  description={"Replacing a $30/month game server rental with a spare PC, then redesigning the dashboard out of default AI output."}
+>
+<!-- Hero -->
   <section class="project-hero">
     <div class="container">
-      <a href="/work.html" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+      <a href="/work" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
         <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
       </a>
       <span class="label project-hero__label" style="display: block;" data-copy="02">Personal Work // Self-Hosted Tooling</span>
@@ -208,7 +40,7 @@
     <div class="container">
       <div class="figure figure--wide" style="margin-top:0;">
         <div class="image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0557.jpg" alt="SPNKr running on the home server, eight game servers listed">
+          <img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="SPNKr running on the home server, eight game servers listed">
         </div>
         <p class="figure__caption" data-copy="12">
           The actual thing, on the actual machine. Eight game servers where I used to
@@ -288,7 +120,7 @@
     <div class="container">
       <div class="figure figure--wide">
         <div class="image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/00-before-original-design.png" alt="The original dashboard: indigo accent, stacked rows, soft shadows">
+          <img src="/assets/projects/spnkr/00-before-original-design.png" alt="The original dashboard: indigo accent, stacked rows, soft shadows">
         </div>
         <p class="figure__caption" data-copy="31">Version one. Functional, and completely anonymous.</p>
       </div>
@@ -440,7 +272,7 @@
     <div class="container">
       <div class="figure figure--wide">
         <div class="image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0556.jpg" alt="The SPNKr mark sketched on a notebook beside the running app">
+          <img src="/assets/projects/spnkr/photo-IMG_0556.jpg" alt="The SPNKr mark sketched on a notebook beside the running app">
         </div>
         <p class="figure__caption" data-copy="59">Working the mark out on paper.</p>
       </div>
@@ -497,13 +329,13 @@
         <div>
           <span class="ba__tag" data-copy="68">Before</span>
           <div class="image-frame image-frame--clickable" data-lightbox>
-            <img src="/projects/SPNKr/00-before-original-design.png" alt="Before: the original dashboard">
+            <img src="/assets/projects/spnkr/00-before-original-design.png" alt="Before: the original dashboard">
           </div>
         </div>
         <div>
           <span class="ba__tag ba__tag--after" data-copy="69">After</span>
           <div class="image-frame image-frame--clickable" data-lightbox>
-            <img src="/projects/SPNKr/01-dashboard.png" alt="After: the redesigned dashboard">
+            <img src="/assets/projects/spnkr/01-dashboard.png" alt="After: the redesigned dashboard">
           </div>
         </div>
       </div>
@@ -568,7 +400,7 @@
     <div class="container">
       <div class="figure figure--wide" style="margin-top: var(--space-lg);">
         <div class="image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/03-configure.png" alt="The consolidated configure panel">
+          <img src="/assets/projects/spnkr/03-configure.png" alt="The consolidated configure panel">
         </div>
         <p class="figure__caption" data-copy="94">Everything for one server, in one place.</p>
       </div>
@@ -576,7 +408,7 @@
       <div class="duo" style="margin-top: var(--space-2xl);">
         <div class="figure" style="margin:0;">
           <div class="image-frame image-frame--clickable" data-lightbox>
-            <img src="/projects/SPNKr/04-port-forwarding.png" alt="Port forwarding instructions with the machine's LAN address filled in">
+            <img src="/assets/projects/spnkr/04-port-forwarding.png" alt="Port forwarding instructions with the machine's LAN address filled in">
           </div>
           <p class="figure__caption" data-copy="95">
             The step that trips everyone up, with real instructions and my actual internal IP
@@ -585,7 +417,7 @@
         </div>
         <div class="figure" style="margin:0;">
           <div class="image-frame image-frame--clickable" data-lightbox>
-            <img src="/projects/SPNKr/05-setup-agent-prompts.png" alt="Setup panel with copy-paste prompts for a coding agent">
+            <img src="/assets/projects/spnkr/05-setup-agent-prompts.png" alt="Setup panel with copy-paste prompts for a coding agent">
           </div>
           <p class="figure__caption" data-copy="96">
             Installing servers and registering Windows services, handed to an agent with
@@ -596,7 +428,7 @@
 
       <div class="figure figure--wide" style="margin-top: var(--space-2xl);">
         <div class="image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/08-states-in-flight.png" alt="Servers starting, stopping and updating, showing the travelling border">
+          <img src="/assets/projects/spnkr/08-states-in-flight.png" alt="Servers starting, stopping and updating, showing the travelling border">
         </div>
         <p class="figure__caption" data-copy="97">
           The one place motion is allowed. It stops the moment the server settles.
@@ -615,31 +447,31 @@
 
       <div class="gallery">
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0550.jpg" alt="The dashboard on a phone, propped on the desk">
+          <img src="/assets/projects/spnkr/photo-IMG_0550.jpg" alt="The dashboard on a phone, propped on the desk">
         </a>
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0555.jpg" alt="Phone beside the sketched mark">
+          <img src="/assets/projects/spnkr/photo-IMG_0555.jpg" alt="Phone beside the sketched mark">
         </a>
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0553.jpg" alt="The dashboard on a phone at the monitor">
+          <img src="/assets/projects/spnkr/photo-IMG_0553.jpg" alt="The dashboard on a phone at the monitor">
         </a>
         <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/11-mobile.png" alt="Mobile layout">
+          <img src="/assets/projects/spnkr/11-mobile.png" alt="Mobile layout">
         </a>
         <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/14-compact-mobile.png" alt="Mobile layout, compact">
+          <img src="/assets/projects/spnkr/14-compact-mobile.png" alt="Mobile layout, compact">
         </a>
         <a class="gallery__item gallery__item--tall image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/07-image-cropper.png" alt="The built-in image cropper">
+          <img src="/assets/projects/spnkr/07-image-cropper.png" alt="The built-in image cropper">
         </a>
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/02-dashboard-compact.png" alt="Compact view with header images off">
+          <img src="/assets/projects/spnkr/02-dashboard-compact.png" alt="Compact view with header images off">
         </a>
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/15-compact-event-log.png" alt="The event log">
+          <img src="/assets/projects/spnkr/15-compact-event-log.png" alt="The event log">
         </a>
         <a class="gallery__item image-frame image-frame--clickable" data-lightbox>
-          <img src="/projects/SPNKr/photo-IMG_0557.jpg" alt="The full dashboard on the home server">
+          <img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="The full dashboard on the home server">
         </a>
       </div>
     </div>
@@ -674,34 +506,22 @@
         <a href="https://github.com/hparamore/game-server-dashboard" class="btn btn--primary" target="_blank" rel="noopener">
           View on GitHub
         </a>
-        <a href="/work.html" class="btn btn--ghost">All Projects</a>
+        <a href="/work" class="btn btn--ghost">All Projects</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__text">&copy; 2026 Paramore.Design</p>
-        <ul class="footer__links" role="list">
-          <li><a href="/build.html">For Business</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
 
-  <!-- Lightbox -->
+<Fragment slot="after-footer">
+<!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <!-- Transparent placeholder: an empty src counts as a broken image. -->
     <img id="lightboxImg" alt=""
          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
   </div>
 
-  <script src="../js/main.js"></script>
+  
   <script>
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
@@ -726,6 +546,151 @@
       if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
     });
   </script>
+</Fragment>
+</Base>
 
-</body>
-</html>
+<style is:global>
+    /* ---------- Image frames ---------- */
+    .image-frame {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: block;
+    }
+    .image-frame img { width: 100%; height: auto; display: block; }
+    .image-frame--clickable { cursor: zoom-in; transition: border-color .2s ease; }
+    .image-frame--clickable:hover { border-color: var(--color-accent); }
+
+    .figure { margin: var(--space-2xl) 0; }
+    .figure__caption {
+      margin-top: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      max-width: 70ch;
+    }
+    .figure--wide { max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+    /* ---------- Two-up ---------- */
+    .duo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+    }
+    @media (max-width: 700px) { .duo { grid-template-columns: 1fr; } }
+
+    /* ---------- Section rhythm ---------- */
+    .chapter {
+      padding: var(--space-4xl) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .chapter:first-of-type { border-top: none; }
+    .chapter__label { display: block; margin-bottom: var(--space-md); }
+    .chapter__title {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      line-height: .95;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      margin-bottom: var(--space-lg);
+      max-width: 20ch;
+    }
+    .chapter__title .accent { color: var(--color-accent); }
+
+    /* ---------- Pull quote ---------- */
+    /* Breaks out of the narrow reading column so a quote sits on two lines,
+       not four. */
+    .pull {
+      border-left: 2px solid var(--color-accent);
+      padding-left: var(--space-lg);
+      margin: var(--space-2xl) 0;
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1.08;
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      width: calc(100% + 14vw);
+      max-width: 1000px;
+    }
+    @media (max-width: 900px) { .pull { width: 100%; } }
+
+    /* ---------- Numbers ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin: var(--space-2xl) 0;
+    }
+    @media (max-width: 700px) { .stats { grid-template-columns: 1fr; gap: var(--space-md); } }
+    .stat {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      background: var(--color-surface);
+    }
+    .stat__value {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      line-height: 1;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+    }
+    .stat__label { font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+    /* ---------- Before / after ---------- */
+    .ba__tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+    .ba__tag--after { color: var(--color-accent); }
+
+    /* ---------- Change table ---------- */
+    .changes { width: 100%; border-collapse: collapse; margin: var(--space-xl) 0; }
+    .changes th, .changes td {
+      text-align: left;
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+      vertical-align: top;
+      font-size: var(--text-sm);
+    }
+    .changes th {
+      font-family: var(--font-display);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+    .changes td:first-child { color: var(--color-text-muted); width: 22%; }
+    .changes td:last-child { color: var(--color-text-primary); }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    @media (max-width: 900px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
+    .gallery__item { overflow: hidden; }
+    .gallery__item img { aspect-ratio: 4 / 3; object-fit: cover; }
+    .gallery__item--tall img { aspect-ratio: 3 / 4; }
+
+    /* ---------- Lightbox ---------- */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.94);
+      display: none; align-items: center; justify-content: center;
+      padding: var(--space-lg); cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 92vh; object-fit: contain; }
+  </style>

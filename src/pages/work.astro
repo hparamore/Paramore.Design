@@ -1,35 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work · Paramore.Design</title>
-  <meta name="description" content="Selected projects by Hunter Paramore, mobile apps, design systems, and digital products.">
-  <link rel="stylesheet" href="css/styles.css?v=8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
-</head>
-<body>
+---
+import Base from '../layouts/Base.astro';
+---
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Paramore<span class="dot">.</span>Design</a>
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="/work.html" class="nav__link active">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li><a href="/blog/" class="nav__link">Blog</a></li>
-      </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-    <div class="nav__overlay" id="navOverlay"></div>
-  </nav>
-
-  <!-- Page Header -->
+<Base
+  title={"Work · Paramore.Design"}
+  description={"Selected projects by Hunter Paramore, mobile apps, design systems, and digital products."}
+  footerMargin
+>
+<!-- Page Header -->
   <section class="section" style="padding-top: calc(var(--space-4xl) + 80px);">
     <div class="container">
       <span class="label mb-md" style="display: block;">Portfolio</span>
@@ -47,9 +25,9 @@
       <div class="project-grid">
 
         <!-- Project 1, Mutual (featured) -->
-        <a href="/projects/mutual.html" class="project-card project-card--featured">
+        <a href="/projects/mutual" class="project-card project-card--featured">
           <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
-            <img src="/projects/Mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
+            <img src="/assets/projects/mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
           </div>
           <div class="project-card__info">
             <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
@@ -59,9 +37,9 @@
         </a>
 
         <!-- Project, SPNKr (self-hosted game server dashboard) -->
-        <a href="/projects/spnkr.html" class="project-card">
+        <a href="/projects/spnkr" class="project-card">
           <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/projects/SPNKr/photo-IMG_0557.jpg" alt="SPNKr, running on the home server"
+            <img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="SPNKr, running on the home server"
                  onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
           </div>
           <div class="project-card__info">
@@ -85,7 +63,7 @@
         </a>
 
         <!-- Project 2, The Tree Service -->
-        <a href="/projects/the-tree-service.html" class="project-card">
+        <a href="/projects/the-tree-service" class="project-card">
           <div class="project-card__image" style="aspect-ratio: 626 / 551;">
             <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
           </div>
@@ -99,7 +77,7 @@
         <!-- Project 3, Checkin (external link to checkinapp.app) -->
         <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
           <div class="project-card__image" style="aspect-ratio: 939 / 827;">
-            <img src="/projects/Checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
+            <img src="/assets/projects/checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
           </div>
           <div class="project-card__info">
             <span class="label project-card__label">Personal Project // iOS & Android</span>
@@ -125,20 +103,4 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer" style="margin-top: var(--space-4xl);">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__text">&copy; 2026 Paramore.Design</p>
-        <ul class="footer__links" role="list">
-          <li><a href="/build.html">For Business</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://dribbble.com/HunterParamore" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://github.com/hparamore" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js?v=3"></script>
-</body>
-</html>
+</Base>
