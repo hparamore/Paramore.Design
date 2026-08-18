@@ -1,3 +1,47 @@
+## 2026-08-18 (later) — SHIPPED. Astro site is live on paramore.design
+
+New project art (Cover 1920x1200, Hero 2048x2048) landed for five projects. Added
+pages for **Tain, Keeper, Magnet**; **Screenshot Maker** is a card-only link-out to
+github.com/hparamore/screenshot-maker. **SPNKr** was cut from 2152 words to 136 —
+cover, one paragraph, then 16 images in a grid; the full writeup and copy deck are
+preserved in `archive/`.
+
+Copy on Tain/Keeper/Magnet is deliberately thin — only Hunter's own taglines plus,
+for Tain, detail from his existing blog post. **No roles, stacks or features were
+invented.** Each page has a `TODO (Hunter)` marker.
+
+Grid order is now Mutual, Checkin, Mutual Design System, SPNKr, Tain, Keeper,
+Magnet, Screenshot Maker, The Tree Service, Game UI Kits. SPNKr had been
+`onHome:false` (absent from the homepage entirely) and is now shown on both.
+
+### Deploy — READ THIS BEFORE CHANGING HOSTING
+- `.github/workflows/deploy.yml` builds with `astro build` and publishes `dist/`.
+- GitHub Pages `build_type` is **`workflow`**. It was `legacy` (serve `main` at root).
+  **Reverting it to `legacy` takes the site down** — there is no `index.html` at the
+  repo root any more. Same if the workflow is deleted.
+- `public/CNAME` carries paramore.design into `dist/`. No DNS change was needed and
+  Cloudflare was never used, despite earlier planning.
+- First run was green: build 20s, deploy 9s.
+
+### One regression caught in production
+The merge deleted `venture-generator.html` (lowercase). It and `Venture-Generator.html`
+were byte-identical duplicates, and nothing on the site linked to either — but
+`ForPhilo-Venture Generator-HunterParamore.url` points at the **lowercase** URL, which
+started 404ing the instant main was pushed. Restored via `git update-index` rather than
+the working tree, because writing the file on case-insensitive macOS collides with the
+capitalised one. Both casings now return 200. **Both must stay tracked.**
+
+### Verified live
+22 routes return 200; all five passthroughs are byte-identical to their local copies;
+old `.html` URLs meta-refresh to the clean routes; every hero/cover image serves; HTTPS
+cert approved and enforced.
+
+### Next
+- [ ] Hunter to write the Tain / Keeper / Magnet copy.
+- [ ] Keystatic admin (task 5) — still not installed; the YAML is hand-edited for now.
+- [ ] Blog posts are still hand-written pages, not a collection.
+- [ ] `src/pages/projects/game-ui.astro` remains an orphan (the card links to Figma).
+
 # Work Status — Paramore.Design Portfolio
 
 ## 2026-08-18 — Migrated the site to Astro (phases 1–2 of the CMS project)
