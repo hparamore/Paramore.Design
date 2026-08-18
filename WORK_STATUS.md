@@ -1,5 +1,85 @@
 # Work Status — Paramore.Design Portfolio
 
+## 2026-08-18 — Migrated the site to Astro (phases 1–2 of the CMS project)
+
+Hunter wanted an editor/CMS so he could nitpick content without going through
+chat. The blocker: the site had **no content layer** — every word and layout
+decision lived inline in 14 standalone HTML files, and no git-based CMS
+(Keystatic, Sveltia, Pages CMS, Decap) can attach to hand-written HTML. So the
+migration to Astro is the prerequisite, not the goal.
+
+Decisions Hunter made up front:
+- **Astro first**, before adding the ready projects (avoids converting them twice).
+- **Cloudflare Pages / Netlify**, moving off GitHub Pages, so Keystatic can run in
+  GitHub mode and he can edit from a phone.
+- **`projects/mutual-design-system.html` is hands-off** — a "site preview", not a
+  case study. It is a `public/` passthrough, served byte-identical, permanently
+  excluded from the component system.
+
+### What changed
+- **`src/layouts/Base.astro`** — the nav, footer, head, and `main.js` that were
+  copy-pasted into 14 files now live here once. Active nav state derives from the
+  URL. Two props preserve existing variation: `footerMargin` (4 pages carried an
+  inline `margin-top` on the footer) and an `after-footer` slot (the mutual/game-ui
+  lightbox markup sat after the footer).
+- **12 pages ported** to `src/pages/`. Page-scoped `<style>` blocks were kept
+  page-scoped via `is:global`, preserving the existing `home-`/`pf-`/`sc-`/`ts-`
+  convention rather than converting to Astro scoped styles.
+- **Static assets → `public/`** (git tracked all moves as renames, history intact).
+- **Originals deleted** only after verification (below). Git history retains them.
+- `serve.sh` removed — `npm run dev` replaces it. `package.json` gains dev/build/preview.
+
+### How it was verified (not assumed)
+A git worktree was checked out at the pre-migration commit, and each ported page
+was compared against its original by **tag+class structure and visible text**,
+parsed rather than string-diffed. All 12 pages came back identical; only
+whitespace and stripped comments differ. A link checker confirmed all 173 local
+asset references resolve. Browser checks confirmed the Mutual gallery (68 images),
+the game-ui placeholder path, and the mobile nav drawer on a scrolled page.
+
+### Three real bugs the migration surfaced
+1. **Case collision (the serious one).** `/projects/Mutual/` (gallery assets) and
+   the `/projects/mutual/` page route are the same path on case-insensitive macOS.
+   The build silently merged them, so the local `dist` did **not** match what Linux
+   would produce on Cloudflare. Fixed by moving gallery assets to
+   `/assets/projects/<name>/`, out of the route namespace entirely.
+2. **Runtime-built image paths.** `mutual.html` and `game-ui.html` construct
+   gallery `src` values in JavaScript (`'Mutual/' + file`). No static analysis
+   catches these; they only fail in the browser.
+3. **A bare-relative hero image** (`src="Mutual/MutualHero-wide.jpg"`) that worked
+   from `/projects/mutual.html` but 404s from the `/projects/mutual/` directory URL.
+   The first link checker missed it because it only validated absolute paths.
+
+### Things confirmed NOT broken (checked and cleared)
+- `about` headshot and the Tain wordmark are **commented-out placeholders**, not
+  broken images.
+- `game-ui`'s empty galleries are intentional — the arrays are empty with example
+  comments, and the page renders 16 "Drop in" placeholder tiles by design.
+- The SPNKr copy deck still round-trips against the ported `.astro` page; every
+  `data-copy` ID resolves. `apply-copy.mjs` had a latent bug (backup filename
+  assumed `.html`) — fixed to handle `.astro`.
+
+### Connections / gotchas for next time
+- `scripts/port-to-astro.mjs` is a spent one-shot tool, but it **documents every
+  path rewrite applied**. Read it before touching asset paths.
+- Old `.html` URLs are kept alive via `astro.config.mjs` redirects. They exist in
+  the wild (LinkedIn, the Medium post). Do not remove them.
+- SPNKr images are committed unoptimized (~11MB). Astro's image pipeline should
+  handle this during the content-collection phase rather than resizing originals
+  in place — `projects/SPNKr/` may be the only copy.
+
+### Open / next
+- [ ] **Needs Hunter:** classify `clozd.html`, `veras.html`, `Venture-Generator.html`,
+      `resume.html`. All four have no site chrome, use Inter/Instrument Serif rather
+      than Bebas/Space Grotesk, and are linked from nowhere. They look like
+      passthroughs in the same category as mutual-design-system, but that is a guess.
+- [ ] **Needs Hunter:** which raw projects to add, and where their material lives.
+      `projects/Checkin/` had one hero image; `projects/GameUI/` was empty.
+- [ ] Phase 3: blog + case studies → content collections.
+- [ ] Phase 4: Keystatic admin + Cloudflare Pages deploy + DNS repoint.
+- [ ] Phase 6: CSS token slider panel (the actual direct-manipulation nitpicking tool
+      — worth being clear that a git CMS is form-based and will NOT feel like Squarespace).
+
 > **Related log:** the Mutual design-system explorer here is built *from* the React package at
 > `~/Documents/Mutual/Dev & Exports/Design System/Mutual Design System Files/Design System - Web (React)/`,
 > which has its own `WORK_STATUS.md` (covers the `/design-sync` to Claude Design + this explorer).
