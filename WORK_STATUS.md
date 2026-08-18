@@ -68,13 +68,39 @@ the game-ui placeholder path, and the mobile nav drawer on a scrolled page.
   handle this during the content-collection phase rather than resizing originals
   in place — `projects/SPNKr/` may be the only copy.
 
+### Phase 3a (same day) — project cards became a content collection
+The 5 projects shared by `work` and `index` were duplicated markup, and had already
+drifted: Checkin's description was longer on the homepage, Mutual Design System's was
+longer on work. Neither page was authoritative. **The longer variant of each won** —
+Hunter should confirm, it is a one-field change in the YAML.
+
+- `src/content/projects/*.yaml` — one file per project, drives both grids.
+- `src/components/ProjectCard.astro`, `src/content.config.ts` (zod schema).
+- `href` doubles as the internal/external switch: anything starting with `http` gets
+  `target="_blank" rel="noopener"` automatically. Per Hunter, linking straight out to a
+  live app / Figma / **GitHub repo** is a convention he will keep using, so it is
+  first-class rather than special-cased markup.
+- SPNKr is on the work grid but NOT the homepage (`onHome: false`). That matches the
+  pre-migration state — flag for Hunter, it may just be an oversight.
+- Verified by building the previous commit in a worktree and diffing every rendered
+  card; only the two intended description merges changed.
+
+**Gotcha:** the Astro dev server cannot HMR a NEW `content.config.ts`. It renders the
+grid empty and logs "The collection projects does not exist or is empty". Restart it.
+The production build was correct the whole time.
+
+Passthroughs now settled per Hunter: `clozd.html`, `veras.html`, `Venture-Generator.html`,
+`resume.html` all keep their exact current form in `public/`, byte-identical, same URLs.
+`build-resume.sh` was repointed at `public/resume.html`.
+
 ### Open / next
-- [ ] **Needs Hunter:** classify `clozd.html`, `veras.html`, `Venture-Generator.html`,
-      `resume.html`. All four have no site chrome, use Inter/Instrument Serif rather
-      than Bebas/Space Grotesk, and are linked from nowhere. They look like
-      passthroughs in the same category as mutual-design-system, but that is a guess.
-- [ ] **Needs Hunter:** which raw projects to add, and where their material lives.
-      `projects/Checkin/` had one hero image; `projects/GameUI/` was empty.
+- [x] One-off pages classified — all four are passthroughs, kept exactly as-is.
+- [ ] **Needs Hunter:** confirm the two merged descriptions, and whether SPNKr should
+      appear on the homepage.
+- [ ] **Needs Hunter:** the raw projects to add. Per Hunter these are mostly link-outs
+      to sites/GitHub, which the schema now supports — each is one YAML file.
+- [ ] `src/pages/projects/game-ui.astro` is an ORPHAN: the "Game UI Kits" card links to
+      figma.com/@hparamore, so nothing links to the local page. Delete it or link it.
 - [ ] Phase 3: blog + case studies → content collections.
 - [ ] Phase 4: Keystatic admin + Cloudflare Pages deploy + DNS repoint.
 - [ ] Phase 6: CSS token slider panel (the actual direct-manipulation nitpicking tool
