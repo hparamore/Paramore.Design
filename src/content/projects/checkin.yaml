@@ -2,7 +2,7 @@ title: Checkin
 label: "Personal Project // iOS & Android"
 description: Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy, start to ship.
 href: "https://checkinapp.app"
-order: 5
+order: 2
 onHome: true
 image: /assets/projects/checkin/CheckinHero.jpg
 imageAlt: Checkin app, campfire check-in flow
