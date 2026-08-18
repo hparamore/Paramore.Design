@@ -1,5 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
 import Base from '../layouts/Base.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base
@@ -24,79 +30,7 @@ import Base from '../layouts/Base.astro';
     <div class="container">
       <div class="project-grid">
 
-        <!-- Project 1, Mutual (featured) -->
-        <a href="/projects/mutual" class="project-card project-card--featured">
-          <div class="project-card__image" style="aspect-ratio: 2564 / 1275;">
-            <img src="/assets/projects/mutual/MutualHero-wide.jpg" alt="Mutual, case study hero">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Founder // 10 Years // Solo Designer</span>
-            <h3 class="project-card__title">Mutual</h3>
-            <p class="project-card__description">Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.</p>
-          </div>
-        </a>
-
-        <!-- Project, SPNKr (self-hosted game server dashboard) -->
-        <a href="/projects/spnkr" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="SPNKr, running on the home server"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Work // Design &amp; Build</span>
-            <h3 class="project-card__title">SPNKr</h3>
-            <p class="project-card__description">Replaced a $30/month game server rental with a spare PC running eight games, controllable from Discord. Then redesigned the dashboard out of default AI output, with the art direction spec enforced by a script.</p>
-          </div>
-        </a>
-
-        <!-- Project, Mutual Design System (live token explorer) -->
-        <a href="/projects/mutual-design-system.html" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1 / 1;">
-            <img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="Mutual Design System, live token explorer"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Design System // Engineers &amp; AI Agents</span>
-            <h3 class="project-card__title">Mutual Design System</h3>
-            <p class="project-card__description">An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source. Switch themes and watch the whole thing re-skin.</p>
-          </div>
-        </a>
-
-        <!-- Project 2, The Tree Service -->
-        <a href="/projects/the-tree-service" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 626 / 551;">
-            <img src="/assets/images/projects/TreeServiceIpad.png" alt="The Tree Service, iPad view">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Client Project // Field Ops &amp; AI</span>
-            <h3 class="project-card__title">The Tree Service</h3>
-            <p class="project-card__description">Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in three weeks.</p>
-          </div>
-        </a>
-
-        <!-- Project 3, Checkin (external link to checkinapp.app) -->
-        <a href="https://checkinapp.app" target="_blank" rel="noopener" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 939 / 827;">
-            <img src="/assets/projects/checkin/CheckinHero.jpg" alt="Checkin app, campfire check-in flow">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Project // iOS & Android</span>
-            <h3 class="project-card__title">Checkin</h3>
-            <p class="project-card__description">Social coordination app where friends signal availability through campfire check-ins. Design, development, and product strategy.</p>
-          </div>
-        </a>
-
-        <!-- Project 4, Game UI (links out to Figma profile) -->
-        <a href="https://www.figma.com/@hparamore" target="_blank" rel="noopener" class="project-card">
-          <div class="project-card__image" style="aspect-ratio: 1252 / 1102;">
-            <img src="/assets/images/projects/GameDesignSystem.png" alt="Game design systems, Zelda: Breath of the Wild, Satisfactory (FICSIT), and Raid Rush UI kits">
-          </div>
-          <div class="project-card__info">
-            <span class="label project-card__label">Personal Work // Game UI Kits</span>
-            <h3 class="project-card__title">Game UI Kits</h3>
-            <p class="project-card__description">Fan-made design systems for three games, rebuilt in Figma. Zelda: Breath of the Wild, Satisfactory, and Raid Rush. The Zelda kit was featured on the Figma community homepage.</p>
-          </div>
-        </a>
+        {projects.map((p) => <ProjectCard project={p.data} />)}
 
       </div>
     </div>

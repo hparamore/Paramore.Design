@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { project: CollectionEntry<'projects'>['data'] }
+const { project } = Astro.props;
+const { title, label, description, href, image, imageAlt, aspect, featured, imageFallback } = project;
+
+// Work often lives elsewhere — a live app, a Figma profile, a GitHub repo.
+const isExternal = /^https?:\/\//.test(href);
+---
+<a
+  href={href}
+  class:list={['project-card', { 'project-card--featured': featured }]}
+  {...isExternal ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  {image && (
+    <div class="project-card__image" style={aspect ? `aspect-ratio: ${aspect};` : undefined}>
+      <img
+        src={image}
+        alt={imageAlt}
+        {...imageFallback
+          ? { onerror: "this.style.display='none'; this.parentElement.style.background='var(--color-surface-elevated)';" }
+          : {}}
+      />
+    </div>
+  )}
+  <div class="project-card__info">
+    <span class="label project-card__label">{label}</span>
+    <h3 class="project-card__title">{title}</h3>
+    <p class="project-card__description">{description}</p>
+  </div>
+</a>

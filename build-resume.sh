@@ -5,8 +5,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-HTML="$ROOT/resume.html"
-PDF="$ROOT/assets/Hunter-Paramore-Resume.pdf"
+HTML="$ROOT/public/resume.html"
+PDF="$ROOT/public/assets/Hunter-Paramore-Resume.pdf"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 if [[ ! -f "$HTML" ]]; then
@@ -19,7 +19,7 @@ if [[ ! -x "$CHROME" ]]; then
   exit 1
 fi
 
-mkdir -p "$ROOT/assets"
+mkdir -p "$ROOT/public/assets"
 
 echo "📄 Building resume PDF..."
 "$CHROME" \
@@ -35,7 +35,7 @@ if [[ -f "$PDF" ]]; then
   echo "✅ Done — $PDF ($SIZE)"
   echo ""
   echo "Next: commit and push"
-  echo "  git add resume.html assets/Hunter-Paramore-Resume.pdf"
+  echo "  git add public/resume.html public/assets/Hunter-Paramore-Resume.pdf"
   echo "  git commit -m \"chore: update resume content\""
   echo "  git push origin main"
 else
