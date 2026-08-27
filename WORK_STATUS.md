@@ -1,3 +1,45 @@
+## 2026-08-27 (later) — Image optimization pass. 37MB -> 12MB, homepage 7.4MB -> 1.05MB
+
+`scripts/optimize-images.mjs` (reusable, `--dry` to preview) resizes to display size
+and re-encodes per image rather than blanket-converting:
+- **opaque -> .jpg** at q85. Four files (PRE hero/cover/icon, GameDesignSystem)
+  carried an alpha channel that was never used — `magick -format '%[opaque]'`
+  returned True — so flattening them was safe.
+- **genuinely transparent -> .webp**. PNG-256 was tested and rejected: it saved less
+  *and* banded the illustrated gradients and profile photos inside the Mutual
+  screenshots.
+
+Max edge is set by where the image actually displays: cards ~700px so 1400 gives 2x
+retina; covers 1600; Mutual gallery cards 900.
+
+### Verified, not assumed
+All 68 Mutual gallery files still report `opaque=False`, so transparency survived.
+The SPNKr hero was inspected at full size — type, hairline border and diagonal
+texture are artifact-free. All 230 built references resolve. 19 live routes return
+200 and the live homepage now ships 1078 KB of images.
+
+### Deliberate exclusion
+`public/assets/venture-generator-og.png` is skipped by the optimizer. It is
+referenced as an absolute `og:image` URL from `Venture-Generator.html`, a passthrough
+that must stay byte-identical — and a link to that page has already been shared.
+Confirmed live: still `image/png`, still exactly 190777 bytes.
+
+### Bug caught mid-flight (watch for this)
+Rewriting references by **bare filename** made PRE's `cover.png -> cover.jpg` rename
+clobber four other projects' cover paths, which had become `.webp`. Several projects
+share the generic name `cover.png`. References are now resolved against what is
+actually on disk. **If the optimizer is re-run, verify covers afterwards.**
+
+### Also this session
+Added **Paramore Real Estate** (see previous entry) with a folder-driven gallery at
+`public/assets/projects/paramore-real-estate/gallery/` — drop photos in, they appear.
+
+### Still open
+- No `PRECover.png` exists; the square hero stands in as that page's cover (1:1 where
+  every other project is 16:10).
+- `MutualCover.png` / `MutualHero.png` are in the Website folder but NOT wired up; the
+  Mutual card still uses the old wide JPEG. Hunter has not asked for that swap.
+
 ## 2026-08-27 — Added Paramore Real Estate (live)
 
 Hunter's 450-word writeup from the old site condensed to **64 words** for the page
