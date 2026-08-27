@@ -1,3 +1,31 @@
+## 2026-08-27 — SPNKr: download CTA under the intro
+
+Added a second "Download for free on GitHub" button to the SPNKr case study, below
+the description paragraph, left-aligned with the body text. Points at the same repo
+as the existing hero button (`hparamore/SPNKr-gameserver-selfhosted-dashboard`), same
+`.btn--primary` style, opens in a new tab.
+
+**Why:** the hero button sits above a full-width cover image, so a reader who scrolls
+through the intro has already passed the only call to action. This puts one where the
+copy finishes selling the project.
+
+**Where it lives:** inline in `src/pages/projects/spnkr.astro`, inside the default
+slot (the `.case-intro` block), NOT in `CaseLayout.astro`. That layout is shared by
+Tain, Keeper and Magnet, and its `action` prop renders exactly one button in the hero.
+Adding a second prop there would have touched three pages that do not need it. If a
+second case study ever wants the same treatment, promote it to a prop then.
+
+**Verified:** dev server, measured left edges of the paragraph and the button — both
+at x=16 inside the 68ch column. Screenshot confirms it matches the hero button.
+
+**Note for next time:** on this site `body` carries `overflow-y: auto`, so `body` is
+the scroller, not `html`. `window.scrollTo` and `scrollIntoView` do nothing from the
+browser tools. Screenshotting something below the fold means setting a tall viewport
+with `resize_window` instead of scrolling to it.
+
+### Next
+- [ ] Nothing outstanding from this change. Not yet committed or deployed.
+
 ## 2026-08-18 (later) — SHIPPED. Astro site is live on paramore.design
 
 New project art (Cover 1920x1200, Hero 2048x2048) landed for five projects. Added
