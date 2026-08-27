@@ -69,6 +69,15 @@ draft: false
 GitHub repo is a deliberate, supported convention — not every project needs a
 local case study page.
 
+**Optimise images before committing them.** Run `node scripts/optimize-images.mjs`
+(add `--dry` to preview). It resizes to display size and re-encodes: opaque images
+become `.jpg`, images with real transparency become `.webp` (not PNG-256, which
+bands the photographic content inside UI screenshots). It rewrites references in
+`src/` automatically, but **verify covers afterwards** — several projects share the
+generic filename `cover.png`, so a bare-filename rewrite can cross-contaminate.
+`public/assets/venture-generator-og.png` is deliberately excluded: a passthrough
+page references it as an absolute `og:image` URL.
+
 Project images go in `public/assets/projects/<slug>/`. **Never** put them under
 `public/projects/` — that is the route namespace, and on case-insensitive macOS a
 folder there silently merges with the page route of the same name, producing a
