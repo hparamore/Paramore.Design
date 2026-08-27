@@ -1,3 +1,31 @@
+## 2026-08-27 — Added Paramore Real Estate (live)
+
+Hunter's 450-word writeup from the old site condensed to **64 words** for the page
+intro and **30** for the card, matching the range everything else sits in (SPNKr
+59/34, Tain 63/29). Kept the beat that carries the story — swapping every sign in
+town in one night — and cut the process detail.
+
+### Folder-driven gallery (new pattern)
+`src/pages/projects/paramore-real-estate.astro` reads
+`public/assets/projects/paramore-real-estate/gallery/` with `fs.readdirSync` at
+build time. **Drop photos in the folder and they appear** — no code change.
+Sorted by filename, so a `NN-` prefix controls order; the rest of the name becomes
+alt text. A README.txt in the folder documents this. Verified with throwaway files.
+Worth reusing for the other project pages.
+
+### Open issues
+- **No `PRECover.png` exists.** The Website folder only has PREHero and PREIconSq,
+  so the square hero currently stands in as the page cover — this page's header is
+  1:1 where every other project is 16:10. One file drop fixes it.
+- **Homepage is now 7.4 MB of images.** Worst offenders: MutualHero-wide.jpg
+  (2.3 MB) and paramore-real-estate/hero.png (2.2 MB). Tested non-destructively:
+  resized to 1024px JPEG q82 they are **93-95% smaller** (2252 KB -> 128 KB) with no
+  visible loss at display size, since cards never render wider than ~700px.
+  Originals untouched pending Hunter's call.
+- Hunter also added `MutualCover.png` / `MutualHero.png` (1.9 MB / 3.7 MB) to the
+  Website folder. **Not wired up** — the Mutual card still uses the old
+  MutualHero-wide.jpg. He did not ask for that swap.
+
 ## 2026-08-27 — SPNKr: download CTA under the intro
 
 Added a second "Download for free on GitHub" button to the SPNKr case study, below
