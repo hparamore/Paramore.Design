@@ -1,3 +1,33 @@
+## 2026-08-27 (later still) — PRE gallery photos live; copy corrected
+
+### Copy correction (Hunter's facts)
+Original logo is **2010** (he was a design student then; he graduated ~2013, so the
+student framing does NOT apply to the 2018 work). Rebrand + WordPress build both
+**2018**. Entire site rebuilt again in **2023** on a custom Wix CMS. Timeline meta was
+wrong (`2014 – 2018, then ongoing`) and is now `2010 – 2023`. The "changed every sign
+in town in one night" line was dropped at his request; the reasoning replaced it —
+old black-and-red blended into the landscape, the bright orange reads from down the
+street. Page intro 64 words, card 31.
+
+### Gallery
+Six photos imported from `Website/Pages/PRE` and optimized: **21 MB -> 456 KB**. The
+hanging wall sign has real transparency so it is webp; the rest are opaque jpg. Named
+`NN-description` so the folder-driven gallery orders them and derives alt text.
+Renders 3x2 at desktop width, 601 KB for the whole page.
+
+### Two files NOT imported — needs Hunter
+- `Keychain 3 (1).png` is byte-identical to `Keychain 3.png` (same sha1). Only one used.
+- **`IMG_0296-Optimized.JPG` is held back.** It shows the OLD pre-2018 storefront
+  branding (the ornate oval mark), not the current orange one, AND it carries a
+  third-party watermark — "Optimized by www.ImageOptimizer.net" down the left edge and
+  along the bottom. It would make a strong "before" image supporting the writeup's
+  argument, but not while watermarked. Needs an unwatermarked original, or a crop.
+
+### Observation, not changed
+Three of the six (keychain, blanket, pens) are product shots on **white** backgrounds,
+which read as bright blocks against the dark site; the other three sit on contextual or
+grey backgrounds. Not touched — that is a design call.
+
 ## 2026-08-27 (later) — Image optimization pass. 37MB -> 12MB, homepage 7.4MB -> 1.05MB
 
 `scripts/optimize-images.mjs` (reusable, `--dry` to preview) resizes to display size
