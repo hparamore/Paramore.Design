@@ -1,0 +1,53 @@
+---
+import fs from 'node:fs';
+import CaseLayout from '../../components/CaseLayout.astro';
+
+/**
+ * The gallery reads its own folder at build time, so adding photos means
+ * dropping files into public/assets/projects/paramore-real-estate/gallery/ —
+ * no code change. Sorted by filename, so a NN- prefix controls order.
+ */
+const DIR = 'public/assets/projects/paramore-real-estate/gallery';
+const photos = fs.existsSync(DIR)
+  ? fs.readdirSync(DIR).filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).sort()
+  : [];
+
+const altFor = (file: string) =>
+  'Paramore Real Estate, ' +
+  file.replace(/^\d+[-_]?/, '').replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').trim();
+---
+<CaseLayout
+  title="Paramore Real Estate"
+  description="Logo, signage, and a WordPress rebuild for my father's real estate business in Burns, Oregon."
+  label="Family Business // Brand, Signage & Web"
+  cover="/assets/projects/paramore-real-estate/cover.png"
+  coverAlt="Paramore Real Estate branding"
+  meta={[
+    { label: 'Role', value: 'Brand, Signage &amp; Web' },
+    { label: 'Timeline', value: '2014 – 2018, then ongoing' },
+    { label: 'Client', value: 'Robert Paramore' },
+    { label: 'Location', value: 'Burns, Oregon' },
+  ]}
+>
+  <p>
+    Ten years ago my father Robert started a real estate business in Burns, Oregon. I was a
+    design student, so I made the logo, the flyers, and the first website. In 2018 we rebuilt
+    all of it &mdash; <strong>WordPress instead of WYSIWYG</strong>, and a brand loud enough to
+    read from down the road. We changed every sign in town in a single night.
+  </p>
+
+  {photos.length > 0 && (
+    <section class="case-gallery" slot="gallery">
+      <div class="container">
+        <span class="label">Gallery</span>
+        <div class="case-grid">
+          {photos.map((f) => (
+            <div class="case-grid__item">
+              <img src={`/assets/projects/paramore-real-estate/gallery/${f}`} alt={altFor(f)} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</CaseLayout>
