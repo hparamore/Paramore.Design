@@ -84,6 +84,48 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- Research: onboarding. The evidence behind the claims above. -->
+  <section class="section">
+    <div class="container project-content">
+      <h2>Giving people <span class="accent">an exit</span>.</h2>
+      <p>
+        Signing up meant one long form, then getting bounced around the app to add photos.
+        Plenty of people never finished. That is a real problem when the product <em>is</em>
+        other people: a half-empty profile is a worse experience for everyone who sees it, and
+        an unverified one gives nobody peace of mind.
+      </p>
+      <p>
+        The risk in asking for more was form fatigue. Ask for too much, get less.
+      </p>
+      <p>
+        So we asked in person. We took over a local waffle place and gave away free waffles in
+        exchange for sitting down and talking about the app. My part was testing two onboarding
+        flows against each other, both built from research into how other apps handle the same
+        moment.
+      </p>
+      <p>
+        What shipped is stepped, with a progress timeline across the top. Once the required
+        basics are in, a button appears beside the timeline that skips straight to the app.
+        <strong>{' '}The exit is deliberate, and impossible to miss.</strong> Almost nobody takes it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--sm">
+    <div class="container">
+      <div class="stats stats--pair">
+        <div class="stat">
+          <div class="stat__value">97%</div>
+          <div class="stat__label">Finished the whole profile instead of skipping, in testing.</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">~80%</div>
+          <div class="stat__label">Completed profile verification, once it was folded into the flow.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- The Wall: 18-month gallery -->
   <section class="section">
     <div class="container">
@@ -313,6 +355,10 @@ import Base from '../../layouts/Base.astro';
       border-top: 1px solid var(--color-border-subtle);
       border-bottom: 1px solid var(--color-border-subtle);
       margin: var(--space-2xl) 0;
+    }
+    .stats--pair { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 640px) {
+      .stats, .stats--pair { grid-template-columns: 1fr; gap: var(--space-xl); }
     }
     .stat__value {
       font-family: var(--font-display);
