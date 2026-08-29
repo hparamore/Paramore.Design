@@ -159,6 +159,14 @@
   };
 
   function shots(a) {
+    // Real screenshots (image paths) take precedence over procedural mocks
+    if (a.screenshots && a.screenshots.length) {
+      return `<div class="shots hscroll">
+        ${a.screenshots
+          .map((src) => `<div class="shot imgshot"><img src="${esc(src)}" alt="${esc(a.name)} screenshot" loading="lazy"></div>`)
+          .join("")}
+      </div>`;
+    }
     return `<div class="shots hscroll">
       ${a.shots
         .map(

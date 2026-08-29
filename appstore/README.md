@@ -53,6 +53,10 @@ repo or drop it on any static host (GitHub Pages, Netlify, Vercel) unchanged.
    - `icon` — an emoji + a CSS gradient (placeholder until real icons)
    - `theme` — two colors used to draw its placeholder screenshots
    - `shots` — pick 3 mock variants: `feed dashboard chat list game profile editor cards grid stats`
+   - `screenshots` — optional array of real image paths (e.g.
+     `["assets/shots/myapp-1.jpg", ...]`); when present these are shown
+     instead of the procedural mocks. Capture at ~390×830 phone size.
+     (Venture Generator uses real captures — see it for reference.)
 3. Add its `id` to any rows/collections/charts you want it to appear in
    (`appsTab`, `gamesTab`, `today`)
 

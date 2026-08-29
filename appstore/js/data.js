@@ -41,6 +41,7 @@ window.STORE = {
       icon: { emoji: "🚀", bg: "linear-gradient(135deg,#FF6B00,#c93900)" },
       theme: ["#FF6B00", "#2b1300"],
       shots: ["cards", "dashboard", "list"],
+      screenshots: ["assets/shots/venture-1.jpg", "assets/shots/venture-2.jpg", "assets/shots/venture-3.jpg"],
       rating: 4.8, ratingCount: 412,
       ratingDist: [82, 12, 3, 2, 1],
       age: "4+",

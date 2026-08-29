@@ -22,7 +22,7 @@
   --shot-chrome: rgba(255, 255, 255, 0.55);
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --blue: #0a84ff;
     --bg: #000000;
     --bg-grouped: #000000;
@@ -38,6 +38,22 @@
     --blur-bg: rgba(12, 12, 13, 0.92);
     --shot-chrome: rgba(255, 255, 255, 0.28);
   }
+}
+:root[data-theme="dark"] {
+  --blue: #0a84ff;
+  --bg: #000000;
+  --bg-grouped: #000000;
+  --bg-card: #1c1c1e;
+  --bg-elevated: #1c1c1e;
+  --bg-fill: rgba(120, 120, 128, 0.24);
+  --bg-fill-strong: rgba(120, 120, 128, 0.36);
+  --text: #ffffff;
+  --text-2: #98989f;
+  --text-3: #636366;
+  --separator: rgba(84, 84, 88, 0.5);
+  --card-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
+  --blur-bg: rgba(12, 12, 13, 0.92);
+  --shot-chrome: rgba(255, 255, 255, 0.28);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -302,6 +318,9 @@ img { max-width: 100%; display: block; }
   padding: 34px 12px 16px;
   display: flex; flex-direction: column; gap: 10px;
 }
+.shot.imgshot { padding: 0; background: var(--bg-elevated); }
+.shot.imgshot::before { display: none; }
+.shot.imgshot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .shot::before { /* status bar */
   content: ""; position: absolute; top: 12px; left: 16px; right: 16px; height: 8px;
   background:
