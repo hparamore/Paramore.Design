@@ -1,0 +1,55 @@
+rules_version = '2';
+
+// PLUG — Firestore security rules
+// Deploy with: firebase deploy --only firestore:rules
+//
+// ⚠️ Replace the admin email list below with your own address(es),
+// and keep it in sync with adminEmails in js/firebase-config.js.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['you@example.com'];
+    }
+
+    // A valid public submission: pending status, sane field types/sizes,
+    // http(s) URL, and no unexpected surprises in the payload.
+    function isValidSubmission() {
+      let d = request.resource.data;
+      return d.status == 'pending'
+        && d.name is string && d.name.size() >= 1 && d.name.size() <= 30
+        && d.subtitle is string && d.subtitle.size() >= 1 && d.subtitle.size() <= 40
+        && d.developer is string && d.developer.size() >= 1 && d.developer.size() <= 30
+        && d.category is string && d.category.size() <= 20
+        && d.url is string && d.url.size() <= 300
+        && (d.url.matches('https://.*') || d.url.matches('http://.*'))
+        && d.id is string && d.id.size() <= 40
+        && d.description is list && d.description.size() >= 1 && d.description.size() <= 5
+        && d.icon is map
+        && d.icon.emoji is string && d.icon.emoji.size() <= 8
+        && d.icon.bg is string && d.icon.bg.size() <= 120
+        && d.keys().hasOnly(['id','name','subtitle','developer','category','url',
+             'icon','theme','shots','rating','ratingCount','ratingDist','age',
+             'description','status','submittedAt']);
+    }
+
+    match /submissions/{submissionId} {
+      // Anyone can browse approved apps; only admins see the queue.
+      allow read: if resource.data.status == 'approved' || isAdmin();
+
+      // Anyone can submit — but only a well-formed, pending entry.
+      allow create: if isValidSubmission();
+
+      // Review actions (approve / reject / edit / remove) are admin-only.
+      allow update, delete: if isAdmin();
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

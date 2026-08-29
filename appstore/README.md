@@ -29,8 +29,14 @@ repo or drop it on any static host (GitHub Pages, Netlify, Vercel) unchanged.
 |---|---|
 | `index.html` | Shell page (header, view container, tab bar) |
 | `css/store.css` | Full design system — iOS-style, auto light/dark |
-| `js/data.js` | **The entire catalog.** Apps, categories, editorial cards, rows |
+| `js/data.js` | **The curated catalog.** Apps, categories, editorial cards, rows |
 | `js/store.js` | SPA router + renderers (Today, Apps, Games, Search, Submit, detail pages) |
+| `js/firebase-config.js` | Backend switch — paste your Firebase config here |
+| `js/backend.js` | Firebase glue: submissions, approved-app fetch, sanitization |
+| `admin.html` | Moderation dashboard: sign in, approve/reject/delete submissions |
+| `firestore.rules` | Server-side validation + access control for the queue |
+| `firebase.json` / `.firebaserc` | Firebase Hosting + rules deploy config |
+| `FIREBASE.md` | **10-minute guide to go live** |
 | `manifest.webmanifest` | Makes the store itself installable as a PWA |
 | `IDEA.md` | Original concept capture / product thinking |
 
@@ -63,9 +69,22 @@ repo or drop it on any static host (GitHub Pages, Netlify, Vercel) unchanged.
 The Submit page generates exactly this JSON shape, so user submissions can be
 reviewed and pasted straight in.
 
+## Submission backend (Firebase)
+
+The store has a full submission pipeline, off by default:
+
+- **Not configured** (now): Submit generates a catalog-entry JSON for manual review
+- **Configured** (see `FIREBASE.md`): Submit writes a `pending` doc to Firestore,
+  you approve/reject in `admin.html`, and approved apps appear in the store
+  automatically under "From the Community" — publishing requires no redeploy
+
+Community entries are validated server-side by `firestore.rules` and
+sanitized client-side (`sanitizeApp` in `js/backend.js`) before rendering.
+
 ## Deliberately not built yet
 
-- Backend for submissions / moderation queue (form outputs JSON for manual review)
-- Real ratings & reviews (all placeholder data)
+- Real ratings & reviews (all placeholder data; community apps start at a
+  single placeholder rating)
 - Accounts, payments/boosted listings, analytics for makers
-- Real icons & screenshots (procedural placeholders until then)
+- Screenshot upload for community apps (they get procedural placeholders)
+- Spam throttling (add Firebase App Check before promoting widely — see FIREBASE.md)

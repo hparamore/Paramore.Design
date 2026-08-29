@@ -441,6 +441,7 @@
         <div class="inforow"><span class="k">Type</span><span class="v">Progressive Web App</span></div>
         <div class="inforow"><span class="k">Size</span><span class="v">None — it's a link</span></div>
         <div class="inforow"><span class="k">Price</span><span class="v">Free</span></div>
+        ${a.community ? `<div class="inforow"><span class="k">Source</span><span class="v">Community submission</span></div>` : ""}
         <div class="inforow"><span class="k">Age Rating</span><span class="v">${a.age}</span></div>
         <div class="inforow"><span class="k">Website</span><span class="v">${a.url !== "#" ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.url.replace(/^https?:\/\//, ""))}</a>` : "Coming soon"}</span></div>
       </div>
@@ -513,7 +514,7 @@
     document.getElementById("submitpreview").innerHTML = appRow(a);
   }
 
-  function handleSubmit(ev) {
+  async function handleSubmit(ev) {
     ev.preventDefault();
     const f = ev.target;
     const e = f.querySelector("#emojirow .sel");
@@ -536,12 +537,47 @@
     };
     const out = document.getElementById("submitout");
     out.hidden = false;
+
+    // Live backend: write a pending submission to Firestore for review.
+    if (window.Backend && Backend.enabled()) {
+      const btn = f.querySelector(".bigsubmit");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+      const res = await Backend.submitApp(entry);
+      btn.disabled = false;
+      btn.textContent = "Submit for Review";
+      if (res.ok) {
+        out.innerHTML = `
+          <div class="okmsg"><b>🎉 Submitted!</b> <span>“${esc(entry.name)}” is in the review
+          queue. Once a human approves it, it appears in the store for everyone.
+          Thanks for building for the web.</span></div>`;
+        out.scrollIntoView({ behavior: "smooth", block: "start" });
+        f.reset();
+        submitPreview();
+        return;
+      }
+      out.innerHTML = `
+        <div class="okmsg"><b>😕 Couldn't reach the store backend</b>
+        <span>(${res.offline ? "network unavailable" : esc(res.error || "unknown error")}).
+        Here's your catalog entry instead — copy it and send it to the store curator.</span></div>`;
+      // fall through to the manual JSON flow below, keeping the message above
+      showEntryJson(out, entry, true);
+      return;
+    }
+
     out.innerHTML = `
       <div class="okmsg"><b>🎉 Almost there.</b> Store submissions aren't wired to a backend yet —
       this is the catalog entry for your app. Copy it and send it to the store
-      curator, or paste it into <b>js/data.js</b> if you have access.</div>
-      <pre id="submitjson">${esc(JSON.stringify(entry, null, 2))}</pre>
-      <button class="copybtn" id="copyjson" type="button">Copy entry</button>`;
+      curator, or paste it into <b>js/data.js</b> if you have access.</div>`;
+    showEntryJson(out, entry, false);
+  }
+
+  function showEntryJson(out, entry, append) {
+    out.insertAdjacentHTML(
+      "beforeend",
+      `<pre id="submitjson">${esc(JSON.stringify(entry, null, 2))}</pre>
+      <button class="copybtn" id="copyjson" type="button">Copy entry</button>`
+    );
     out.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("copyjson").addEventListener("click", () => {
       navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(entry, null, 2));
@@ -707,4 +743,18 @@
   TABS[0].svg = TABS[0].svg.replace(">18<", ">" + new Date().getDate() + "<");
 
   route();
+
+  /* ---------------- Live community apps (Firebase) ---------------- */
+  if (window.Backend && Backend.enabled()) {
+    Backend.fetchApproved(S.apps.map((a) => a.id), S.categories).then((apps) => {
+      if (!apps.length) return;
+      S.apps.push(...apps);
+      S.appsTab.rows.unshift({
+        title: "From the Community",
+        subtitle: "Fresh maker submissions",
+        apps: apps.slice(0, 9).map((a) => a.id),
+      });
+      route(); // re-render current view with the merged catalog
+    });
+  }
 })();

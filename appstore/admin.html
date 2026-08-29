@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Plug — Review Queue</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff9500'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'>P</text></svg>">
+  <link rel="stylesheet" href="css/store.css">
+  <style>
+    .admin-top { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 4px; }
+    .admin-top h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+    .admin-top .who { font-size: 12px; color: var(--text-2); text-align: right; }
+    .admin-top .who button { color: var(--blue); font-weight: 600; font-size: 13px; }
+    .seg { display: flex; gap: 4px; margin: 14px 20px 6px; background: var(--bg-fill); border-radius: 10px; padding: 3px; }
+    .seg button { flex: 1; padding: 7px 4px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--text-2); }
+    .seg button.on { background: var(--bg-card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+    .seg button .ct { font-size: 11px; opacity: .7; }
+    .queue { padding: 8px 20px 60px; display: flex; flex-direction: column; gap: 14px; }
+    .subcard { background: var(--bg-elevated); border-radius: 14px; padding: 14px; }
+    .subcard .desc { font-size: 13.5px; line-height: 1.45; color: var(--text-2); margin: 8px 0 2px; }
+    .subcard .metaline { font-size: 11px; color: var(--text-3); margin-top: 6px; }
+    .subcard .metaline a { font-weight: 600; }
+    .subactions { display: flex; gap: 8px; margin-top: 12px; }
+    .subactions button { flex: 1; padding: 9px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+    .b-approve { background: #30d158; color: #fff; }
+    .b-reject { background: var(--bg-fill-strong); color: var(--text); }
+    .b-delete { background: rgba(255,59,48,.14); color: #ff3b30; flex: 0 0 auto; padding: 9px 14px; }
+    .b-restore { background: var(--bg-fill-strong); color: var(--text); }
+    .signin, .notice { margin: 40px 20px; text-align: center; }
+    .signin p, .notice p { color: var(--text-2); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+    .signin button { background: var(--blue); color: #fff; font-size: 16px; font-weight: 700; border-radius: 12px; padding: 13px 26px; }
+    .notice code { background: var(--bg-fill); border-radius: 6px; padding: 1px 6px; font-size: 13px; }
+    .empty { text-align: center; color: var(--text-3); font-size: 14px; padding: 50px 20px; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 100px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 99; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div id="shell">
+    <div class="admin-top">
+      <h1>Review Queue</h1>
+      <div class="who" id="who"></div>
+    </div>
+    <div id="adminview"></div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/backend.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const CFG = window.FIREBASE_CONFIG || {};
+      const view = document.getElementById("adminview");
+      const who = document.getElementById("who");
+      const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      let db = null, user = null, filter = "pending", docs = [];
+
+      function toast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 1800);
+      }
+
+      function iconHtml(a) {
+        return `<div class="appicon" style="width:62px;height:62px;font-size:34px;background:${a.icon.bg}"><span>${a.icon.emoji}</span></div>`;
+      }
+
+      function card(d) {
+        const raw = d.data();
+        const a = Backend.sanitizeApp(raw, d.id, new Set(), STORE.categories);
+        if (!a) return "";
+        const when = raw.submittedAt && raw.submittedAt.seconds
+          ? new Date(raw.submittedAt.seconds * 1000).toLocaleString()
+          : "just now";
+        const actions =
+          raw.status === "pending"
+            ? `<button class="b-approve" data-act="approved" data-id="${d.id}">Approve</button>
+               <button class="b-reject" data-act="rejected" data-id="${d.id}">Reject</button>`
+            : `<button class="b-restore" data-act="pending" data-id="${d.id}">Back to Pending</button>
+               <button class="b-delete" data-act="delete" data-id="${d.id}">Delete</button>`;
+        return `<div class="subcard">
+          <div class="approw" style="cursor:default">
+            ${iconHtml(a)}
+            <div class="meta">
+              <div class="n">${esc(a.name)}</div>
+              <div class="s">${esc(a.subtitle)}</div>
+              <div class="r">${esc(a.developer)} · ${esc(a.category)}</div>
+            </div>
+          </div>
+          <div class="desc">${a.description.map(esc).join("<br><br>")}</div>
+          <div class="metaline">
+            ${a.url !== "#" ? `<a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.url)}</a>` : "⚠️ no valid URL"}
+            · submitted ${esc(when)}
+          </div>
+          <div class="subactions">${actions}</div>
+        </div>`;
+      }
+
+      function render() {
+        if (!Backend.enabled()) {
+          view.innerHTML = `<div class="notice"><p><b>Backend not configured.</b><br>
+            Follow <code>FIREBASE.md</code>, paste your config into
+            <code>js/firebase-config.js</code>, and set <code>enabled: true</code>.</p></div>`;
+          return;
+        }
+        if (!user) {
+          view.innerHTML = `<div class="signin">
+            <p>Sign in with an admin account to review submissions.</p>
+            <button id="signinbtn">Sign in with Google</button></div>`;
+          document.getElementById("signinbtn").onclick = signIn;
+          return;
+        }
+        const counts = { pending: 0, approved: 0, rejected: 0 };
+        docs.forEach((d) => { const s = d.data().status; if (counts[s] != null) counts[s]++; });
+        const list = docs.filter((d) => d.data().status === filter);
+        view.innerHTML = `
+          <div class="seg">
+            ${["pending", "approved", "rejected"]
+              .map((s) => `<button data-f="${s}" class="${filter === s ? "on" : ""}">
+                ${s[0].toUpperCase() + s.slice(1)} <span class="ct">${counts[s]}</span></button>`)
+              .join("")}
+          </div>
+          <div class="queue">
+            ${list.length ? list.map(card).join("") : `<div class="empty">Nothing ${esc(filter)}.</div>`}
+          </div>`;
+      }
+
+      async function signIn() {
+        try {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          await firebase.auth().signInWithPopup(provider);
+        } catch (e) { toast("Sign-in failed: " + (e && e.message)); }
+      }
+
+      function watchQueue() {
+        db.collection("submissions").onSnapshot(
+          (snap) => {
+            docs = snap.docs.slice().sort((a, b) => {
+              const ta = a.data().submittedAt, tb = b.data().submittedAt;
+              return (tb && tb.seconds ? tb.seconds : 0) - (ta && ta.seconds ? ta.seconds : 0);
+            });
+            render();
+          },
+          (e) => {
+            view.innerHTML = `<div class="notice"><p><b>Couldn't load the queue.</b><br>
+              ${esc(e.message)}<br><br>Most likely this account isn't in the admin list
+              in <code>firestore.rules</code>.</p></div>`;
+          }
+        );
+      }
+
+      document.addEventListener("click", async (ev) => {
+        const f = ev.target.closest("[data-f]");
+        if (f) { filter = f.dataset.f; render(); return; }
+        const act = ev.target.closest("[data-act]");
+        if (!act || !db) return;
+        const id = act.dataset.id, action = act.dataset.act;
+        act.disabled = true;
+        try {
+          if (action === "delete") {
+            if (!confirm("Permanently delete this submission?")) { act.disabled = false; return; }
+            await db.collection("submissions").doc(id).delete();
+            toast("Deleted");
+          } else {
+            await db.collection("submissions").doc(id).update({
+              status: action,
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            toast(action === "approved" ? "Approved — live in the store" : "Moved to " + action);
+          }
+        } catch (e) { toast("Failed: " + (e && e.message)); act.disabled = false; }
+      });
+
+      (async () => {
+        db = await Backend.init(true);
+        if (!db) { render(); return; }
+        firebase.auth().onAuthStateChanged((u) => {
+          user = u;
+          const admins = CFG.adminEmails || [];
+          if (u) {
+            who.innerHTML = `${esc(u.email)}<br><button id="signout">Sign out</button>`;
+            document.getElementById("signout").onclick = () => firebase.auth().signOut();
+            if (!admins.includes(u.email)) {
+              view.innerHTML = `<div class="notice"><p><b>${esc(u.email)}</b> isn't an admin.<br>
+                Add it to <code>adminEmails</code> in <code>js/firebase-config.js</code>
+                and to the list in <code>firestore.rules</code>.</p></div>`;
+              return;
+            }
+            watchQueue();
+          } else {
+            who.innerHTML = "";
+            render();
+          }
+        });
+      })();
+      render();
+    })();
+  </script>
+</body>
+</html>
