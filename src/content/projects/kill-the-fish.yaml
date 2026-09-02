@@ -1,0 +1,9 @@
+title: Kill The Fish
+label: "Personal Project // Web App"
+description: A whiteboard game from school, finally built. One person draws a fish, everyone else draws a way to finish it off, and the board decides the cause of death.
+href: /projects/kill-the-fish
+order: 8
+onHome: true
+image: /assets/projects/kill-the-fish/hero.jpg
+imageAlt: Kill The Fish — draw a fish, then finish it
+aspect: 1 / 1

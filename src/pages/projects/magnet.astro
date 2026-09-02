@@ -4,13 +4,24 @@ import CaseLayout from '../../components/CaseLayout.astro';
 <CaseLayout
   title="Magnet"
   description="Fridge magnet poetry, with friends."
-  label="Personal Project // iOS"
+  label="Personal Project // Web App"
   cover="/assets/projects/magnet/cover.webp"
   coverAlt="Magnet — fridge magnet poetry with friends"
+  meta={[
+    { label: 'Role', value: 'Solo, Design &amp; Build' },
+    { label: 'Platform', value: 'Installable web app' },
+  ]}
+  action={{ label: 'Open Magnet at magnet.paramore.design', href: 'https://magnet.paramore.design' }}
 >
   <p>
     <strong>Fridge magnet poetry &mdash; with friends.</strong>
   </p>
 
-  <!-- TODO (Hunter): writeup goes here. -->
+
+  <p>
+    Another idea I had kicked around for years. The first generated version gave me a working
+    board and very little feeling. Everything after that was design work: how a tile lifts when
+    you take it, how a phrase settles into place, and what it looks like when someone else moves
+    a word while you are still looking at it.
+  </p>
 </CaseLayout>

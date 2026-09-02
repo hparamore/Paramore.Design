@@ -39,7 +39,7 @@
     }
 
     /* ---------- Page setup ---------- */
-    @page { size: Letter; margin: 0; }
+    @page { size: Letter; margin: 0.45in 0.6in 0.45in; }
 
     html, body {
       margin: 0;
@@ -74,20 +74,32 @@
     .name {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 56pt;
+      font-size: 50pt;
       line-height: 0.92;
       letter-spacing: 0;
       text-transform: uppercase;
       margin: 0;
       color: var(--logo);
     }
-    .name .dot { color: var(--accent); }
+    /* The wordmark reads "Hunter.Paramore" but the text layer must say "Hunter Paramore"
+     so name parsers get two tokens. The gap span holds a real space; the dot is a
+     CSS box drawn inside it, not a period glyph. */
+  .name .gap { position: relative; }
+  .name .gap::after {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: 0.04em;
+    width: 0.17em; height: 0.17em;
+    background: var(--accent);
+    transform: translateX(-50%);
+  }
+  .nb { white-space: nowrap; } /* keep hyphenated compounds on one line; extractors drop a hyphen split across lines */
     .role {
       font-family: var(--font-body);
       font-size: 9pt;
       font-weight: 600;
       color: var(--text-2);
-      letter-spacing: var(--tracking-wider);
+      letter-spacing: var(--tracking-wide);   /* was --tracking-wider: 0.1em split words in the PDF text layer */
       text-transform: uppercase;
       margin: 6px 0 0;
     }
@@ -101,15 +113,10 @@
     .contact a { color: var(--text); text-decoration: none; }
     .contact .accent { color: var(--accent); font-weight: 600; }
 
-    /* ---------- Page-2 header (print only) ---------- */
-    .page-2-header {
-      display: none;
-    }
-
     /* ---------- Pitch ---------- */
     .pitch {
-      font-size: 10pt;
-      line-height: 1.5;
+      font-size: 9.6pt;
+      line-height: 1.45;
       color: var(--text);
       max-width: 100%;
       margin: 0 0 18px;
@@ -117,7 +124,7 @@
     .pitch em { color: var(--accent); font-style: normal; font-weight: 600; }
 
     /* ---------- Section frame ---------- */
-    section { margin-bottom: 16px; }
+    section { margin-bottom: 12px; }
     .section-title {
       font-family: var(--font-display);
       font-weight: 700;
@@ -136,7 +143,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 4px 16px;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
     }
     .job__company {
       font-family: var(--font-body);
@@ -169,33 +176,31 @@
       color: var(--text-2);
     }
     .job__bullets li {
-      font-size: 9pt;
-      line-height: 1.45;
+      font-size: 8.6pt;
+      line-height: 1.4;
       margin-bottom: 2px;
     }
     .job__bullets li::marker { color: var(--accent); }
 
     /* ---------- Two-column tail (skills + education/recognition) ---------- */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 24px;
-    }
+    /* Stacked, not side by side: two columns interleave line-by-line in every
+       PDF text extractor tested, which scrambles the skills for auto-fill parsers. */
+    .grid-2 { display: block; }
 
-    .skill-group { margin-bottom: 10px; }
+    .skill-group { margin-bottom: 6px; }
     .skill-label {
       font-family: var(--font-body);
       font-size: 7.5pt;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: var(--tracking-wider);
+      letter-spacing: var(--tracking-wide);   /* parser-safe tracking, see .role */
       color: var(--text-3);
       margin-bottom: 3px;
     }
     .skill-line {
-      font-size: 9.5pt;
+      font-size: 9pt;
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     /* ---------- Selected Projects ---------- */
@@ -203,7 +208,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 2px 16px;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
     .project__name {
       font-size: 10pt;
@@ -219,8 +224,8 @@
     }
     .project__desc {
       grid-column: 1 / -1;
-      font-size: 9pt;
-      line-height: 1.45;
+      font-size: 8.6pt;
+      line-height: 1.4;
       color: var(--text-2);
       margin: 0;
       padding-left: 14px;
@@ -238,7 +243,7 @@
     }
 
     /* ---------- Education / Certificates ---------- */
-    .cert { margin-bottom: 8px; }
+    .cert { margin-bottom: 4px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
     .cert__title {
       font-family: var(--font-body);
       font-size: 10.5pt;
@@ -318,32 +323,13 @@
         box-shadow: none;
         border: 0;
         background: var(--bg);
-        padding-bottom: 0.75in;       /* clear fixed footer */
+        padding: 0;                    /* margins come from @page so breaks flow naturally */
+        width: auto;
+        min-height: auto;
       }
-
-      /* Page-2 header — small contact strip top-right, forces page break */
-      .page-2-header {
-        display: flex;
-        justify-content: flex-end;
-        page-break-before: always;
-        break-before: page;
-        padding-top: 0.05in;
-        padding-bottom: 14px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 18px;
-      }
-
-      /* Footer fixed — repeats on every printed page */
-      .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 0;
-        padding: 8px 0.6in;
-        background: var(--bg);
-        border-top: 1px solid var(--border-subtle);
-      }
+      .job, .project, .cert, .skill-group { break-inside: avoid; }
+      .section-title { break-after: avoid; }
+      .footer { margin-top: 10px; }
     }
   </style>
 </head>
@@ -361,22 +347,22 @@
 
   <article class="page">
 
-    <!-- Header (page 1) -->
+    <!-- Header -->
     <header class="header">
       <div>
-        <h1 class="name">Hunter<span class="dot">.</span>Paramore</h1>
-        <p class="role">Design Director · UX Designer · AI Tools for Small Business</p>
+        <h1 class="name">Hunter<span class="gap"> </span>Paramore</h1>
+        <p class="role">Product Designer · Design Director · <span class="nb">Designer-Developer</span></p>
       </div>
       <div class="contact">
-        <div><span class="accent">paramore.design</span></div>
+        <div><a class="accent" href="https://paramore.design">paramore.design</a></div>
         <div><a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a></div>
-        <div><a href="https://linkedin.com">LinkedIn</a> · <a href="https://github.com/hparamore">GitHub</a></div>
+        <div><a href="https://github.com/hparamore">github.com/hparamore</a> · <a href="https://linkedin.com">LinkedIn</a></div>
       </div>
     </header>
 
-    <!-- Pitch -->
+    <!-- Summary -->
     <p class="pitch">
-      Designer-developer with 12+ years shipping products across consumer, enterprise, and mobile. Today I build <em>custom AI-powered tools for small businesses</em> – one tool, custom-fit, that replaces the stack of half-used SaaS subscriptions owners get nickel-and-dimed by. Software that used to require a full team and a year of runway, shipped solo in weeks.
+      Product designer and design director with 12+ years shipping consumer, enterprise, and mobile products, usually as the only designer in the room. <span class="nb">Co-founded</span> and designed <em>Mutual</em>, the #1 LDS dating app, over ten years. Today I design and build complete products solo, from research and design systems through SwiftUI, React, and Supabase, using AI tooling to ship in weeks what used to take a team and a year of runway.
     </p>
 
     <!-- Experience -->
@@ -386,23 +372,29 @@
       <div class="job">
         <div>
           <p class="job__company">Paramore.Design</p>
-          <p class="job__role">Founder · Designer-Developer</p>
+          <p class="job__role">Founder · Product Designer &amp; Developer</p>
         </div>
         <p class="job__meta">2025 – Present</p>
         <ul class="job__bullets">
-          <li>Design and build custom AI-powered web and mobile tools for small businesses – field operations, scheduling, intake, reporting, client management, and payment processing. One tool typically replaces 4–6 SaaS subscriptions and ships in weeks, for a fraction of what used to take a full dev team and tens of thousands of dollars.</li>
+          <li>Design and build custom <span class="nb">AI-powered</span> web and mobile tools for small businesses: field operations, intake, scheduling, reporting, client management, and payments. One tool typically replaces four to six SaaS subscriptions and ships in weeks.</li>
+          <li>The Tree Service: <span class="nb">field-operations</span> tool a <span class="nb">tree-care</span> crew uses daily on iPads for safety checklists, <span class="nb">pre-trip</span> inspections, fuel and receipt capture, and fleet maintenance. Retired four subscriptions. Next.js, Supabase, and Vercel, designed and built solo in four weeks after two days riding along with the crew.</li>
+          <li>Utah Valley Bride: submissions and <span class="nb">email-workflow</span> portal for a wedding magazine, replacing a spreadsheet and manual email loop across 138 vendor submissions. Deployed August 2026.</li>
+          <li>GolfSheds: fractional digital product management for a manufacturing company: internal AI knowledge base, task and request system, handbook and checklist framework, department dashboards, JobTread API integration.</li>
+          <li>Brand and identity: Paramore Real Estate rebrand, signage, and two site rebuilds; Sports Transport logo and brand package.</li>
         </ul>
       </div>
 
       <div class="job">
         <div>
           <p class="job__company">Mutual Dating</p>
-          <p class="job__role">App Founder · Director of UI/UX Design</p>
+          <p class="job__role"><span class="nb">Co-Founder</span> · Founding Designer · Director of UI/UX Design</p>
         </div>
         <p class="job__meta">2015 – 2026</p>
         <ul class="job__bullets">
-          <li>Built the #1 LDS dating app in the world – responsible for 40,000+ marriages and counting. Was in charge of all design end-to-end (UI, product and user research, design system, brand identity) and was greatly involved in product direction, strategy, and success. Humbling, and fills me with joy.</li>
-          <li>Co-founder and sole founding designer. Grew Mutual from a scrappy startup into a multi-million-dollar business, part-time from day one, full-time since 2021. Ten years as the only designer in the business: digital product, brand, motion graphics, print, packaging, merch, event collateral – the full spectrum, screen and physical, nearly every project shipped through me.</li>
+          <li><span class="nb">Co-founded</span> and designed the #1 LDS dating app in the world, now responsible for 40,000+ marriages. Sole designer for ten years, owning UI, product and user research, the design system, and brand identity, and a core voice in product direction and strategy.</li>
+          <li>Redesigned onboarding from one long form into a stepped flow with an early exit, validated by testing two competing flows in person. In testing, 97% completed the full profile and about 80% completed verification once it was folded into the flow.</li>
+          <li>Built the Mutual Design System: 3 brands, 6 themes, semantic tokens, and live WCAG contrast checks, structured so engineers and AI agents build correct, <span class="nb">on-brand</span>, accessible UI from one source.</li>
+          <li>Grew the company from a scrappy startup into a <span class="nb">multi-million-dollar</span> business, <span class="nb">part-time</span> from day one and <span class="nb">full-time</span> from 2021. Nearly every surface shipped through me: digital product, brand, motion, print, packaging, merch, and event collateral.</li>
         </ul>
       </div>
 
@@ -413,7 +405,7 @@
         </div>
         <p class="job__meta">2023 – 2026</p>
         <ul class="job__bullets">
-          <li>Spun up a second dating app by white-labeling Mutual. Built and maintained dual design systems and brand assets, each feeding a parallel clone of the same codebase. Owned user research, brand identity, and product design end-to-end.</li>
+          <li>Spun up a second dating app by <span class="nb">white-labeling</span> Mutual. Built and maintained dual design systems and brand assets, each feeding a parallel clone of the same codebase. Owned user research, brand identity, and product design <span class="nb">end-to-end</span>.</li>
         </ul>
       </div>
 
@@ -424,8 +416,8 @@
         </div>
         <p class="job__meta">2019 – 2021</p>
         <ul class="job__bullets">
-          <li>Product design and research on the web team – payment processing, discount codes, and analytics. Streamlined the checkout and discount flows so customers were more likely to complete their orders and actually receive the deals they had earned, lifting completion rates across the business.</li>
-          <li>Built Nu Skin's first Figma design system and led the design team through the full migration off Sketch.</li>
+          <li>Product design and research on the web team: payment processing, discount codes, and analytics. Streamlined the checkout and discount flows so customers completed orders and received the deals they had earned, lifting completion rates across the business.</li>
+          <li>Built Nu Skin's first Figma design system and led the design team through the migration off Sketch. Partnered with engineering to form the first DevOps team and a shared design system for designers and developers.</li>
         </ul>
       </div>
 
@@ -436,19 +428,10 @@
         </div>
         <p class="job__meta">2014 – 2019</p>
         <ul class="job__bullets">
-          <li>Senior designer at a UX-focused studio in Provo, UT. Shipped product work across dozens of clients – 3D roof-scanning drone tools, healthcare portals and dashboards, card decks, battle buses, and everything in between.</li>
+          <li>Senior designer at a <span class="nb">UX-focused</span> studio in Provo, UT. Shipped product work for dozens of clients: 3D <span class="nb">roof-scanning</span> drone tools, healthcare portals and dashboards, card decks, battle buses, and everything in between.</li>
         </ul>
       </div>
     </section>
-
-    <!-- Page 2 starts here in print: small contact strip top-right -->
-    <header class="page-2-header">
-      <div class="contact">
-        <div><span class="accent">paramore.design</span></div>
-        <div><a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a></div>
-        <div><a href="https://linkedin.com">LinkedIn</a> · <a href="https://github.com/hparamore">GitHub</a></div>
-      </div>
-    </header>
 
     <!-- Selected Projects -->
     <section>
@@ -457,91 +440,76 @@
       <div class="project">
         <p class="project__name">Tech 9 – Sr. Product Designer</p>
         <span class="project__tag">Agency · Product Design</span>
-        <p class="project__desc">Senior product design across a range of agency clients. Partnered with engineering in lockstep from kickoff through launch. Worked directly with clients to help them craft their vision into a cohesive product.</p>
+        <p class="project__desc">Senior product design across a range of agency clients. Partnered with engineering in lockstep from kickoff through launch, and worked directly with clients to shape their vision into a cohesive product.</p>
       </div>
 
       <div class="project">
-        <p class="project__name">Checkin App</p>
-        <span class="project__tag">Personal · iOS &amp; Android</span>
-        <p class="project__desc">Social coordination app. Friends signal availability through campfire check-ins. Concept, design, development, and product strategy. Shipped on iOS and Android.</p>
+        <p class="project__name">Angel Studios – Design Systems</p>
+        <span class="project__tag">Contract · 2025</span>
+        <p class="project__desc">Unified and standardized their design systems and documentation into one consistent foundation across multiple platforms.</p>
       </div>
 
       <div class="project">
-        <p class="project__name">Angel Studios</p>
-        <span class="project__tag">Brand · Design Systems</span>
-        <p class="project__desc">Unified and standardized their design systems and documentation into a consistent foundation across multiple platforms.</p>
+        <p class="project__name">Checkin</p>
+        <span class="project__tag">Personal · iOS, Android &amp; Web</span>
+        <p class="project__desc">Social coordination app where friends signal availability through campfire check-ins. Concept, design, development, and product strategy. Shipped on iOS and Android; the web version, ported screen by screen from the Swift source, deployed in 2026.</p>
       </div>
 
       <div class="project">
-        <p class="project__name">The Tree Service – Field Ops Tool</p>
-        <span class="project__tag">Trades · Operations</span>
-        <p class="project__desc">Replaced four SaaS subscriptions with one tool: equipment tracking, fuel logs, AI-parsed receipts, bids, crew scheduling and safety checklists, built around how the crew actually works in the truck. Created custom software to keep track of the crews, business expenses, and vehicle fleet maintenance.</p>
+        <p class="project__name">Paramore Platform</p>
+        <span class="project__tag">Personal · PWA · Supabase</span>
+        <p class="project__desc">Nine small apps on one shared sign-in, storage layer, and PWA shell, each live at its own paramore.design subdomain: Tain, Keeper, Flare, Magnet, Chores, Radio, Upkeep, <span class="nb">Kill The Fish</span>, and Bank. Each one scaffolded, art-directed, built, and deployed solo.</p>
       </div>
 
       <div class="project">
-        <p class="project__name">Utah Bridal – Magazine Workflow</p>
-        <span class="project__tag">Publishing · Operations</span>
-        <p class="project__desc">Photo and article submissions, status, payments, scheduling, and content handoff. Collapsed a tangle of spreadsheets and half a dozen smaller paid services into one tool the entire team uses.</p>
+        <p class="project__name">Screenshot Maker</p>
+        <span class="project__tag">Open Source · Web Tool</span>
+        <p class="project__desc">Browser tool that composes App Store and Play Store screenshots for every device, size, and language from one project, exported at native resolution.</p>
       </div>
 
-      <div class="project">
-        <p class="project__name">Paramore Real Estate</p>
-        <span class="project__tag">Brand · Web</span>
-        <p class="project__desc">Brand identity and website for real estate brokerage, built around a workflow that makes publishing listings and printing brochures effortless. The orange for-sale signs are hard to miss!</p>
-      </div>
     </section>
 
-    <!-- Skills + Education / Certificates / Recognition -->
+    <!-- Skills, Education, Recognition (stacked) -->
     <div class="grid-2">
       <section>
-        <h2 class="section-title">Craft</h2>
+        <h2 class="section-title">Skills</h2>
 
         <div class="skill-group">
           <div class="skill-label">Design</div>
-          <div class="skill-line">Figma (Expert) · Product · UX · Visual and UI · Design Systems · Prototyping · Rive · Illustrator · Photoshop · InDesign · After Effects</div>
+          <div class="skill-line">Figma (Expert) · Product &amp; UX Strategy · UI &amp; Interaction Design · Design Systems &amp; Tokens · Prototyping · User Research &amp; Usability Testing · Brand &amp; Visual Identity · Rive · Illustrator · Photoshop · InDesign · After Effects</div>
         </div>
         <div class="skill-group">
           <div class="skill-label">Engineering</div>
-          <div class="skill-line">SwiftUI · Kotlin / Jetpack Compose · React Native · HTML/CSS · Unity · SpriteKit · RevenueCat · Clevertap Marketing</div>
+          <div class="skill-line">Swift / SwiftUI · Kotlin / Jetpack Compose · React · Next.js · TypeScript · HTML / CSS · Tailwind · Astro · Progressive Web Apps · Unity · SpriteKit</div>
         </div>
         <div class="skill-group">
-          <div class="skill-label">Data &amp; AI</div>
-          <div class="skill-line">Claude Code · Firebase · Supabase · Anthropic API · OpenAI API · Tool-use &amp; Agents · Cloudflare</div>
+          <div class="skill-label">Data, Infrastructure &amp; AI</div>
+          <div class="skill-line">Supabase (Postgres, Auth, RLS) · Firebase &amp; Cloud Functions · Vercel · Cloudflare · Stripe · Twilio · RevenueCat · CleverTap · Claude Code · Anthropic API · OpenAI API · Tool Use &amp; Agents · MCP</div>
         </div>
         <div class="skill-group">
           <div class="skill-label">Practice</div>
-          <div class="skill-line">User Research · Workshop Facilitation · Cross-functional Leadership · Mentoring · Detail-Oriented · UX Focused Design</div>
+          <div class="skill-line">User Research · Workshop Facilitation · <span class="nb">Cross-functional</span> Leadership · Mentoring &amp; Design Critique · Roadmapping &amp; Prioritization · Stakeholder Communication</div>
         </div>
         <div class="skill-group">
-          <div class="skill-label">Hobbies</div>
-          <div class="skill-line">3D Modeling / Printing · Laser Cutting / Engraving · Drumming · Game Design · Jiu-Jitsu · Gardening · Hiking · Airsoft · Painting · Woodworking</div>
+          <div class="skill-label">Interests</div>
+          <div class="skill-line">3D Modeling &amp; Printing · Laser Cutting &amp; Engraving · Drumming · Game Design · Jiu-Jitsu · Woodworking · Hiking</div>
         </div>
       </section>
 
       <section>
         <h2 class="section-title">Education &amp; Certificates</h2>
+        <div class="cert"><p class="cert__title">BFA in Graphic Design</p><p class="cert__sub">BYU-Idaho</p></div>
+        <div class="cert"><p class="cert__title">Product Psychology Masterclass</p><p class="cert__sub">Growth.Design</p></div>
+        <div class="cert"><p class="cert__title">Designing Experiences Your Users Will Love</p><p class="cert__sub">Interaction Design Foundation · Certificate</p></div>
+        <div class="cert"><p class="cert__title">Google Analytics Certification</p><p class="cert__sub">Google</p></div>
+      </section>
 
-        <div class="cert">
-          <p class="cert__title">BYU Idaho Graduate</p>
-          <p class="cert__sub">BFA in Graphic Design</p>
-        </div>
-        <div class="cert">
-          <p class="cert__title">Product Psychology Masterclass</p>
-          <p class="cert__sub">Growth.Design UX Course</p>
-        </div>
-        <div class="cert">
-          <p class="cert__title">Designing Experiences Your Users Will Love</p>
-          <p class="cert__sub">IxDF Course – Certificate</p>
-        </div>
-        <div class="cert">
-          <p class="cert__title">Certified in Google Analytics</p>
-        </div>
-
-        <h2 class="section-title" style="margin-top: 14px;">Recognition</h2>
+      <section>
+        <h2 class="section-title">Recognition &amp; Writing</h2>
         <ul class="job__bullets" style="padding-left: 14px; margin-top: 0;">
-          <li>Frequent guest lecturer at BYU and UVU.</li>
-          <li>Annual UVU Capstone Class mentor.</li>
-          <li>Featured design system on Figma's site – 300k+ views, 17k+ downloads.</li>
+          <li>Frequent guest lecturer at BYU and UVU; annual UVU capstone class mentor.</li>
+          <li>Zelda: Breath of the Wild UI kit featured on the Figma community homepage. 300k+ views, 17k+ downloads.</li>
+          <li>Writing at paramore.design/blog: on AI-built work that only looks finished (June 2026) and on building Tain (July 2026).</li>
         </ul>
       </section>
     </div>
@@ -549,7 +517,7 @@
     <!-- Footer -->
     <footer class="footer">
       <span>Hunter Paramore <span class="accent">·</span> Paramore.Design</span>
-      <span>Updated May 2026</span>
+      <span>Updated September 2026</span>
     </footer>
 
   </article>

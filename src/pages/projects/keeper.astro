@@ -4,13 +4,24 @@ import CaseLayout from '../../components/CaseLayout.astro';
 <CaseLayout
   title="Keeper"
   description="Keeper — remember every birthday."
-  label="Personal Project // iOS"
+  label="Personal Project // Web App"
   cover="/assets/projects/keeper/cover.webp"
   coverAlt="Keeper — remember every birthday"
+  meta={[
+    { label: 'Role', value: 'Solo, Design &amp; Build' },
+    { label: 'Platform', value: 'Installable web app' },
+  ]}
+  action={{ label: 'Open Keeper at keeper.paramore.design', href: 'https://keeper.paramore.design' }}
 >
   <p>
     <strong>Remember every Birthday.</strong>
   </p>
 
-  <!-- TODO (Hunter): writeup goes here. -->
+
+  <p>
+    An idea I had carried around for a long time and finally made real. The first generated
+    pass worked, technically &mdash; it stored dates and showed them back. Getting from there
+    to something I would actually open on a Tuesday morning meant redoing the flows, the
+    typography, and all the small moments in between. That part does not come for free.
+  </p>
 </CaseLayout>

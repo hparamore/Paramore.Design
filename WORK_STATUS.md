@@ -1,3 +1,111 @@
+## 2026-09-02 — /paramore-app skill: donate card on every mini-app, opt-in Stripe billing (no portfolio files changed)
+
+Session ran from this repo but touched only the shared skill at
+`~/.claude/skills/paramore-app/` and the platform home. Nothing in the
+portfolio changed; this entry is a pointer so the session is findable.
+
+- **What:** every scaffolded mini-app now gets a `SupportCard` tip jar in the
+  settings cluster — three Stripe Payment Link tiers (Coffee $5 / Lunch $15 /
+  Pizza $25, platform-wide via `Paramore Platform/tips.json`, created once with
+  `~/.claude/skills/paramore-app/platform/stripe-tips.mjs`), falling back to the
+  Buy Me a Coffee link in `DONATE_URL` — plus a `DonateButton` for ad-hoc
+  placement. Tiers are Stripe, not BMAC, because BMAC has no documented way to
+  preselect an amount and a "Pizza $25" button must charge $25. Paid features are an interview question;
+  choosing them wires a Stripe webhook, a platform-shared `entitlements` table
+  (applied to the live Supabase today, RLS read-own, service-role writes), a
+  `products.js` list, and a `scripts/stripe.mjs` helper for products and links.
+- **Why:** nine apps and no way to receive a dollar. BMAC and Stripe are the
+  accounts Hunter already has; Ko-fi/Polar/Lemon Squeezy/Gumroad were compared and
+  passed on (reasons in the skill's new CHANGELOG.md).
+- **Also fixed:** template sign-in card said "6-digit code"; platform sends 8.
+- **Verified:** throwaway scaffold built clean; card renders between Share and
+  Backup; button opens the tagged URL; migration confirmed via Management API.
+- **Next (Hunter):** fill `STRIPE_SECRET_KEY` (and `DONATE_URL`) in platform.env,
+  then run the tips script once to create the three links;
+  set the BMAC page up as one tip jar for all apps. First billing app must do a
+  Stripe test-mode purchase end to end — the webhook has not seen a real event.
+
+## 2026-09-01 (later) — Resume rewritten in `public/resume.html`; PDF rebuilt, 2 pages, parser-clean
+
+Hunter said "make some of those changes." `resume.html` is now the single source of
+truth; the Figma export on the Desktop is superseded. New PDF at
+`public/assets/Hunter-Paramore-Resume.pdf` and a copy at
+`~/Desktop/Hunter Paramore - Resume 2026-09.pdf`. **Not committed.**
+
+### Format changes (all verified with `pdftotext` after each build)
+- **Wordmark keeps the orange dot but the text layer reads "HUNTER PARAMORE".** The
+  markup is `Hunter<span class="gap"> </span>Paramore`; the dot is a CSS box drawn
+  inside the real space, not a period glyph. A first attempt (period glyph + negative
+  margin) still extracted as one token.
+- `--tracking-wider` (0.1em) dropped from `.role` and `.skill-label`; 0.1em split
+  words in the text layer, 0.05em does not.
+- **Tail is single column** (`.grid-2 { display: block }`). Two columns interleaved
+  line-by-line in both `pdftotext` modes.
+- Page margins moved to `@page`; the forced page-2 header, fixed footer, and
+  `.page` padding are gone in print so content flows. `.job/.project/.cert/.skill-group`
+  carry `break-inside: avoid`.
+- `.nb { white-space: nowrap }` wraps hyphenated compounds; an extractor drops the
+  hyphen when a compound breaks across lines ("end-to-end" became "end-toend").
+- Type tightened to fit two pages: bullets 8.6pt/1.4, name 50pt, section gap 12px.
+
+### Content changes
+- Headline is now **Product Designer · Design Director · Designer-Developer**
+  (Hunter did not choose; this is the job-application framing, easy to flip back).
+- Paramore.Design has five bullets: Tree Service (live, crews on iPads), Utah Valley
+  Bride (deployed Aug 2026), GolfSheds (fractional product management), brand work.
+- Mutual gains the onboarding research numbers (97% / ~80%) and the design system
+  (3 brands, 6 themes). Verbs strengthened; "fills me with joy" line cut.
+- Projects: SPNKr and Paramore Real Estate dropped for space; Paramore Platform and
+  Screenshot Maker added; Checkin notes the 2026 web port; Angel Studios dated 2025
+  (from the tax log). Tech 9 still has no date anywhere on disk.
+- "Craft" → "Skills"; React/Next.js/TypeScript/Tailwind/Astro added; RevenueCat and
+  CleverTap moved out of Engineering; MCP added. Recognition names the Zelda kit.
+
+### Still needs Hunter
+- LinkedIn URL (link still points at linkedin.com), phone, and city/state. None found
+  on disk, so nothing was invented.
+- Tech 9 dates. Cogitech Solutions (2025 1099, $15k) is not on the resume at all;
+  unknown what the work was.
+- A `.docx` export for portals that prefer it.
+
+## 2026-09-01 — Resume review (no site changes)
+
+Hunter asked for a review of `~/Desktop/Hunter Paramore- Resume2026.pdf` against the
+work done since May, plus a read on whether it survives ATS auto-fill. Findings only;
+nothing on the site was changed.
+
+### The two resume PDFs are not the same artifact
+- The Desktop PDF is a **Figma export** (`/Producer (Figma)`, May 6). Figma embeds
+  text as unnamed **Type 3** glyph fonts, so `pdftotext` returns "B uilt", "M utual",
+  "Para more" and a scrambled skills block. Auto-fill parsers will see the same thing.
+- `public/assets/Hunter-Paramore-Resume.pdf` (Aug 18) is built by `build-resume.sh`
+  from `public/resume.html` via headless Chrome. It embeds real CID TrueType fonts and
+  extracts cleanly. **This pipeline is the one to keep.** The `@media print` block
+  already flips it to the light theme, so the PDF is white, not black.
+- Remaining parse defect even in the Chrome build: `letter-spacing` on uppercase
+  labels splits words in the text layer ("AI TOO LS FOR SM AL L BUSIN E SS"). Drop
+  tracking on anything a parser must read (titles, section headers).
+- The two-column tail on page 2 (Craft | Education) interleaves in extraction.
+  Stack it for the ATS version.
+- The three copies (Figma, resume.html, repo PDF) have drifted in wording. Make
+  `resume.html` the single source of truth.
+
+### Content gaps vs work since May (for the rewrite)
+Paramore.Design entry names none of: The Tree Service (live, crews using it), Utah
+Valley Bride portal (deployed Aug 29, launch hardening), GolfSheds fractional
+product-management engagement (approved Aug 24), Sports Transport brand package.
+Personal: the Paramore Platform (9 mini-apps on shared Supabase auth), Checkin web
+port (Firebase Hosting, Aug 29), Screenshot Maker, SPNKr, Mutual Design System
+explorer, Astro portfolio migration, two blog posts. Mutual has research metrics on
+the site (97% profile completion, ~80% verification) that the resume never uses.
+
+### Next (needs Hunter)
+- Decide the headline: "Product Designer / Design Director" for job applications vs
+  the founder framing. Both tracks are active (Tava cheat sheet, Clozd/Veras pages,
+  GolfSheds).
+- Then: rewrite copy in `resume.html`, add a plain single-column print variant,
+  rebuild with `build-resume.sh`, verify with `pdftotext`, and export a `.docx`.
+
 ## 2026-08-27 (later still) — PRE gallery photos live; copy corrected
 
 ### Copy correction (Hunter's facts)

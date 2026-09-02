@@ -1,0 +1,27 @@
+---
+import CaseLayout from '../../components/CaseLayout.astro';
+---
+<CaseLayout
+  title="Kill The Fish"
+  description="Draw a fish. Then everyone takes a turn finishing it off. A whiteboard game from school, finally built as an app."
+  label="Personal Project // Web App"
+  cover="/assets/projects/kill-the-fish/cover.jpg"
+  coverAlt="Kill The Fish — draw a fish, then finish it"
+  meta={[
+    { label: 'Role', value: 'Solo, Design &amp; Build' },
+    { label: 'Platform', value: 'Installable web app' },
+    { label: 'Play', value: 'Pass-and-play, one device' },
+  ]}
+  action={{ label: 'Play it at fish.paramore.design', href: 'https://fish.paramore.design' }}
+>
+  <p>
+    <strong>Draw a fish. Then finish it.</strong> I played this on classroom whiteboards for
+    years &mdash; one person draws a fish, everyone else draws a way to do it in, and it was
+    reliably the best part of the day. I have wanted to make it an app for about as long.
+    Now it is one: pass a single device around, draw your method, name it, and the board
+    decides the cause of death.
+  </p>
+
+  <!-- TODO (Hunter): screenshots can go in a gallery section here, same markup
+       as the SPNKr page. -->
+</CaseLayout>

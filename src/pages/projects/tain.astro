@@ -4,9 +4,14 @@ import CaseLayout from '../../components/CaseLayout.astro';
 <CaseLayout
   title="Tain"
   description="A personal diary of everything you have consumed — books, games, movies, trails — ranked by comparison, with notes from you to future you."
-  label="Personal Project // iOS"
+  label="Personal Project // Web App"
   cover="/assets/projects/tain/cover.webp"
   coverAlt="Tain — everything you loved, in order"
+  meta={[
+    { label: 'Role', value: 'Solo, Design &amp; Build' },
+    { label: 'Platform', value: 'Installable web app' },
+  ]}
+  action={{ label: 'Open Tain at tain.paramore.design', href: 'https://tain.paramore.design' }}
 >
   <p>
     <strong>Everything you loved, in order.</strong> Tain is a personal diary of everything
@@ -16,6 +21,11 @@ import CaseLayout from '../../components/CaseLayout.astro';
     I loved. It started life as &ldquo;Ranklist&rdquo;.
   </p>
 
-  <!-- TODO (Hunter): add the full writeup here. Extra screenshots can go in a
-       gallery section using the same markup as the SPNKr page. -->
+
+  <p>
+    This one sat as an idea for years before I built it. Getting it working was the easy half.
+    The hard half was refusing the first thing the generated design handed back &mdash; it
+    functioned, and it felt like nothing. The comparison flow in particular got pulled apart
+    and rebuilt until ranking something was genuinely satisfying rather than a chore.
+  </p>
 </CaseLayout>
