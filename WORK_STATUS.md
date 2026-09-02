@@ -1,3 +1,28 @@
+## 2026-09-02 — Kill The Fish added; four apps now link to their live subdomains
+
+**Kill The Fish** (`/projects/kill-the-fish`) — the whiteboard game Hunter played in
+class, built as a pass-and-play PWA. Assets from `Website/FishHero.png` +
+`FishIconSq.png`, optimized to jpg. Button goes to fish.paramore.design.
+
+**Tain / Keeper / Magnet** each got a button to their own subdomain and a short
+personal note. The shared thread: these were long-standing ideas, and the work worth
+showing is what happened *after* the generated first draft — flows, type, and the
+small moments. Each note is written differently rather than pasted three times.
+
+### Correction made
+All four were labelled **"Personal Project // iOS"**. They are installable **web apps**
+on Vercel subdomains with web manifests; there is no App Store listing for any of them
+(checked). Labels on pages and cards now read "Web App".
+
+### Open
+- **No `FishCover.png`** in the Website folder — only FishHero and FishIconSq. The
+  square hero stands in as the page cover, so this page's header is 1:1 where most
+  projects are 16:10. Same open item as Paramore Real Estate.
+- **`tain.paramore.design` still serves a page titled "RankList"** — the old name. The
+  portfolio calls it Tain. Worth updating the app's own title/manifest.
+- `.claude/launch.json` is gitignored and had to be recreated this session. Expect that
+  on any fresh clone.
+
 ## 2026-09-02 — /paramore-app skill: donate card on every mini-app, opt-in Stripe billing (no portfolio files changed)
 
 Session ran from this repo but touched only the shared skill at
