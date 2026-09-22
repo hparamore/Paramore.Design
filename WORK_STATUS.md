@@ -1,3 +1,36 @@
+## 2026-09-22 (resume + Tree Service) — New resume PDF published; false claim removed
+
+**New resume PDF installed** at `public/assets/Hunter-Paramore-Resume.pdf` — the file
+Hunter supplied, byte-identical. Redesigned (light), dated September 2026, and now
+includes GolfSheds, the Paramore Platform, Utah Valley Bride and the Zelda UI kit.
+
+**The Tree Service false claim is fixed.** "I rode along for two days" is gone —
+Hunter never did. The paragraph was rewritten rather than having the clause deleted, and
+the FIXME block was removed with it. **Nothing was invented to replace it**; the
+paragraph now leans on the design constraint instead of a research claim. If Hunter did
+have a real way of learning the crew's workflow, saying so would strengthen it.
+
+### Two things still open — both need Hunter
+
+1. **Three weeks or four?** Still contradictory and still live:
+   - `the-tree-service.yaml` → "Built solo in **three weeks**"
+   - `the-tree-service.astro` meta → "**4 Weeks**", and the page description → "four weeks"
+   This is a factual claim about real work, so it was NOT guessed at. Ask, then make all
+   three agree.
+
+2. **The HTML resume and the PDF now disagree.** `/resume.html` is a passthrough page
+   with a "Download PDF" button that hands the visitor a different document:
+   - Headline — HTML: "Product Designer · Design Director" / PDF: "PRODUCT DESIGNER ·
+     DESIGN SYSTEMS · DESIGNER-DEVELOPER"
+   - Experience — HTML: "12+ years" / PDF: "13 years"
+   - The summary paragraphs are different text.
+   Options: bring `resume.html` in line with the PDF, or retire the HTML page and point
+   `/resume.html` at the PDF. Not decided.
+
+`public/resume.html` also still carries **uncommitted** edits from the Sep 2–4 session
+(31 insertions, 23 deletions — links section, phone number, formatting). Hunter has not
+finished reviewing those, so they remain unstaged.
+
 ## 2026-09-22 (final) — Tava framing corrected; walkthrough button moved
 
 **The page called this "unsolicited." It was not.** Tava asked for it as part of their
