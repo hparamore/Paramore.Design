@@ -18,8 +18,15 @@ interface Props {
   meta?: { label: string; value: string }[];
   /** Optional outbound link rendered as a button under the meta row. */
   action?: { label: string; href: string };
+  /**
+   * Move the action button below the cover + intro instead of into the hero.
+   * Opt-in, so the pages that already place it in the hero are untouched — use it
+   * when the button is an invitation to go deeper AFTER reading, rather than a
+   * detail about the project.
+   */
+  actionBelow?: boolean;
 }
-const { title, description, label, cover, coverAlt, meta = [], action } = Astro.props;
+const { title, description, label, cover, coverAlt, meta = [], action, actionBelow = false } = Astro.props;
 ---
 <Base title={`${title} · Paramore.Design`} description={description}>
   <section class="project-hero">
@@ -39,7 +46,7 @@ const { title, description, label, cover, coverAlt, meta = [], action } = Astro.
           ))}
         </div>
       )}
-      {action && (
+      {action && !actionBelow && (
         <a href={action.href} class="btn btn--primary" target="_blank" rel="noopener"
            style="margin-top: var(--space-xl); display: inline-flex;">{action.label}</a>
       )}
@@ -51,7 +58,14 @@ const { title, description, label, cover, coverAlt, meta = [], action } = Astro.
       <div class="case-cover">
         <img src={cover} alt={coverAlt} />
       </div>
-      <div class="case-intro"><slot /></div>
+      <div class="case-intro">
+        <slot />
+        {action && actionBelow && (
+          <a href={action.href} class="btn btn--primary case-intro__action" target="_blank" rel="noopener">
+            {action.label}
+          </a>
+        )}
+      </div>
     </div>
   </section>
 
@@ -78,6 +92,8 @@ const { title, description, label, cover, coverAlt, meta = [], action } = Astro.
     color: var(--color-text-secondary);
   }
   .case-intro strong { color: var(--color-text-primary); font-weight: 600; }
+  /* Reads as the next step after the intro, not as a fact about the project. */
+  .case-intro__action { display: inline-flex; margin-top: var(--space-xl); }
   .case-intro p + p { margin-top: var(--space-lg); }
 
   /* Gallery: everything else, at equal weight, no captions competing for attention. */

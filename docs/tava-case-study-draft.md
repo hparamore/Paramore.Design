@@ -3,15 +3,17 @@
 Drafted 2026-09-22 from the narration transcript of *Tava Design Overview*.
 Wording is Hunter's own, tightened. **Edit freely** — this is a starting point.
 
-Framing: **unsolicited concept.** Not client work, not commissioned by Tava.
+Framing: **design exercise.** Tava asked for it as part of their Senior Product
+Designer process. Hunter took it well past the brief. The page does NOT mention
+what happened after submitting it — his decision, 2026-09-22.
 
 ---
 
 ## Hero
 
-**Label:** `Concept // Product Design`
+**Label:** `Design Exercise // Product Design`
 **Title:** Tava Health
-**Meta:** Role — Solo, unsolicited concept · Scope — Research, Flows, UI, Motion ·
+**Meta:** Role — Solo, start to finish · Scope — Research, Flows, UI, Motion ·
 Tools — Whimsical, Claude Design
 
 ---

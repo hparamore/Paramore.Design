@@ -1,3 +1,30 @@
+## 2026-09-22 (final) — Tava framing corrected; walkthrough button moved
+
+**The page called this "unsolicited." It was not.** Tava asked for it as part of their
+Senior Product Designer process — it was their design exercise. Hunter volunteered this
+after the page had already shipped, and it was corrected the same day:
+
+- Label: `Unsolicited Concept` → **`Design Exercise // Product Design`**
+- Role: `Solo, unsolicited concept` → **`Solo, start to finish`**
+- Status: `Concept, not client work` → **`Design exercise · Not shipped`**
+- Meta description no longer says "unsolicited".
+
+The intro now also carries the reason the work goes this deep, in Hunter's own framing:
+*"This began as a design exercise. I took it well past what it asked for, because the
+problem turned out to be more interesting than the brief."* That line is doing real work
+— eleven explored directions on a take-home is the story, and it was previously invisible.
+
+**Hunter was ghosted after submitting it.** He decided (2026-09-22) that the page will
+NOT mention this. Tradeoffs weighed: it would explain the missing shipped outcome and
+reads as confident when stated flatly, but it is a permanent public statement about a
+named company. **Do not add it back without asking him.**
+
+### Layout
+The walkthrough button moved out of the hero to below the cover + intro, so the case
+study opens on the image. Done with a new opt-in `actionBelow` prop on `CaseLayout`
+rather than changing placement globally — the other five pages using `action=` are
+untouched (verified in the built HTML, not assumed).
+
 ## 2026-09-22 (later) — Tava: four looping recordings added and compressed
 
 Hunter recorded four loops in `~/Desktop/Screenshots/TavaRecordings`. All were 60fps
