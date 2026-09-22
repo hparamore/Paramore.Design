@@ -1,3 +1,408 @@
+## 2026-09-22 (later) — Tava: four looping recordings added and compressed
+
+Hunter recorded four loops in `~/Desktop/Screenshots/TavaRecordings`. All were 60fps
+h264, 35MB total. Re-encoded to **30fps, CRF 24, slow preset, faststart, audio stripped**
+→ **6.4MB total, 84–86% smaller.** Originals untouched on the Desktop.
+
+CRF 28 was also tested (89–90% smaller) and a 1:1 crop of body text was visually
+identical across original / 24 / 28. **CRF 24 was chosen anyway** — a still frame cannot
+show temporal artifacts during motion, and 1.4MB is not worth the risk on a portfolio
+piece. Note: RMSE numbers were useless here; 60→30fps resampling misaligns the frames
+being compared, which is why file 4 scored identically at both levels.
+
+**Two of the four are tall, not one** (430x1024 and 430x900) — worth knowing since Hunter
+expected one.
+
+### Placement
+- `check-in.mp4` (wide) — full width, after the check-in section.
+- `review-send.mp4` (tall) — **beside its copy** in a `.media-split`. This is the
+  argument of the whole piece, so it gets the split treatment.
+- `switch-book.mp4` (wide) — full width, after the switching section.
+- `date-picker.mp4` (tall) — beside a note on booking friction, flipped (text left).
+
+### New component
+`src/components/Loop.astro` — muted autoplaying loop, no controls, so it reads as a
+moving image rather than a video to operate. `preload="none"` + poster; an
+IntersectionObserver only fetches when it is ~200px from the viewport and pauses it when
+it scrolls away. **`prefers-reduced-motion` visitors get the poster and a play button**
+rather than motion they did not ask for. Also ships `.media-split` for tall-clip-beside-
+text, which stacks under 860px.
+
+### Weight
+First load stays light because everything heavy is deferred — see the build output in
+this session. Videos only fetch on scroll; the 3.8MB prototype only on click.
+
+### Bug fixed (same class as before)
+Four more instances of Astro eating whitespace where an inline tag meets a line break,
+e.g. `people who just ghost.They're the majority`. This keeps recurring — **when a line
+starts OR ends with `<strong>`/`<em>`, add `{' '}`.** A scanner for both directions is in
+this session's history.
+
+### Still uncommitted
+Nothing committed. Resume work from Sep 2–4 still awaiting Hunter's review.
+
+## 2026-09-22 — Tava Health case study built (DRAFT, not published)
+
+Unsolicited-concept case study for Tava Health. **Card is `draft: true`**, so it does
+not appear on the work grid or homepage — but `/projects/tava` itself WILL be reachable
+if this is deployed. Keep that in mind before pushing.
+
+### The find that shaped it
+No earlier Tava case study text exists — searched every Claude Code session and the
+whole drive. Only artifacts were the interview cheat sheet and the .mov. **The copy was
+written from the narration transcript**, which the CleanShot share page exposes as
+WEBVTT. It is Hunter's own words, tightened.
+
+### Two embeds, both verified working
+- **Whimsical board**, live and pannable in-page via `https://whimsical.com/embed/<id>`.
+  The main board URL sends `x-frame-options: DENY`; the `/embed/` path does not.
+  Hunter made the board public on 2026-09-22 — before that the embed showed
+  "Sign in to Whimsical to view this content."
+- **The Claude Design prototype, self-hosted.** `claude.ai/artifact/...` sends
+  `x-frame-options: SAMEORIGIN` so it cannot be framed from paramore.design. The artifact
+  is Hunter's and is a self-contained bundle, so a copy now lives at
+  `public/prototypes/tava/index.html` (3.8MB) and is framed same-origin. Fully
+  interactive including the motion studies. It does pull React from unpkg, so it needs
+  a network connection.
+
+### New component
+`src/components/Embed.astro` — click-to-load iframe. The src is only set after a click,
+so neither the 3.8MB prototype nor the Whimsical board downloads for someone who is just
+reading. Takes a poster, aspect ratio, and an "open in new tab" link.
+
+### Interim art — NEEDS REPLACING
+`cover.jpg` / `hero.jpg` are cropped from the video at 255s. They are clean (no menu bar,
+dock or watermark) but they are screen-recording crops, not designed card art. Every other
+project has purpose-made `{Name}Hero.png` 2048x2048 + `{Name}Cover.png` 1920x1200 in the
+Website folder. **Ask Hunter for TavaHero / TavaCover** to match the grid.
+
+### Open
+- [ ] Proper hero/cover art.
+- [ ] The prototype's own description says it is "built on the Mutual design system
+      (Mutual brand)" — on a Tava piece a reviewer will notice the UI wears another
+      product's brand. Either explain it in a line or recolor.
+- [ ] CleanShot share has `comment_settings: everyone` — anyone with the link can comment.
+- [ ] Decide whether the "Made with Claude Design" badge stays in the embedded prototype.
+- [ ] Confirm nothing in the boards came from material Tava shared privately.
+- [ ] Video: still only the CleanShot link (button). The direct MP4 there is a signed URL
+      that expires; for a real inline player it needs YouTube/Vimeo unlisted.
+
+### Still untouched
+The Sep 2–4 resume revisions remain **uncommitted** at Hunter's request. Nothing in this
+session was committed. Do not sweep the resume changes into a Tava commit.
+
+## 2026-09-21 — Editing-tool decision in progress: testing Framer
+
+**Goal (Hunter's words):** get the site into a format he can work with at a design
+level — type text, insert images, move them, add pull quotes, backlinks, video.
+
+**Where the original CMS plan stopped:** Astro migration, shared layout, and the
+`projects` content collection shipped. The editor itself (Keystatic, task 5), blog +
+case studies as content, and the token slider were never started. Every edit still
+goes through Claude or hand-editing `.astro`.
+
+**Options weighed (researched 2026-09-21):**
+- *TinaCMS* — on-page visual editing, React-free for Astro since May 2026; ~$24/mo.
+  Risk: docs say Astro 6, site is on Astro 7.
+- *astro-visual-editor* (plugin) — double-click text on the page, drag sections, edits
+  existing `.astro` files directly. But: can't insert images/video/blocks yet, dev-only,
+  9-star beta.
+- *Writenex* (plugin) — WYSIWYG for content collections only; separate screen.
+- *Keystatic* — form-based admin, free, local-only on GitHub Pages.
+- *CloudCannon* — polished on-page editing, $45–250/mo.
+- *Framer* — the only true free-form design editing. Cost: rebuild the site in Framer
+  and leave this codebase. Basic $10/mo (2 CMS collections — projects + blog fills it).
+  Bandwidth is a non-issue: site pages weigh ~1.3 MB (home) to ~3 MB (SPNKr), so
+  ~2–3 MB/visit; Basic's 50 GB ≈ 20k visits/month.
+
+**Current step:** Framer's official agent integration is installed
+(`npx @framer/agent@latest setup`, run 2026-09-21; skills `framer` and
+`framer-code-components` in `~/.claude/skills`). Node v26.8.1 was already present.
+
+**Next:** in a new session, Hunter pastes a Framer project link. Proposed first test,
+on a free throwaway project: build a Projects CMS collection and populate it from
+`src/content/projects/*.yaml` + images in `public/assets/projects/`. That tests whether
+Framer + Claude is a viable way to work before paying or rebuilding anything.
+
+**Open questions:**
+- Framer says every agent change happens on a branch; branching is listed as a Pro
+  feature. Unconfirmed whether agent branches work on Basic.
+- Split of work if Framer wins: Hunter designs layouts; Claude loads content and edits.
+
+**Unrelated, still pending:** the Sep 2–4 resume revisions (v1–v9), regenerated PDF,
+and the Tree Service FIXME remain **uncommitted** — Hunter is reviewing them first.
+Do not commit them without his go-ahead.
+
+## 2026-09-04 (final, v9) — Links moved to their own section; header slimmed
+
+Hunter did not want the stack of URLs at the top. Restructured:
+
+**Header now holds two lines only** — `hparamore@gmail.com` (accent) and the phone.
+Those are what a recruiter needs at a glance; everything else is a destination, not a
+contact method. The name and role line have room to breathe again.
+
+**New "Links" section** sits under Recognition at the end of page 2, bulleted to match
+Recognition's list style:
+
+- paramore.design — portfolio and case studies
+- hparamore@gmail.com
+- linkedin.com/in/hunter-paramore-958b1247
+- github.com/hparamore
+- figma.com/@hparamore
+
+Only paramore.design carries a description; the rest are self-evident and a gloss on
+each would read as filler. Email appears in both header and Links per Hunter's ask —
+normal for a resume, and it is the one field a reader may look for in either place.
+
+`.links a` styling added (full-strength text, semibold) so the URLs read as links
+rather than grey footer chrome.
+
+**Verified:** still two pages, Stotion still on page 1, and all nine link annotations
+survive the build (paramore.design ×2, email ×3, LinkedIn, GitHub, Figma, tel).
+
+## 2026-09-04 (final, v8) — Footer links; phone is a tel: link; clickability verified
+
+**Clickability confirmed, not assumed.** Decompressed the PDF with
+`qpdf --qdf --object-streams=disable` and inspected the annotation dictionaries.
+Chrome's print-to-PDF preserves every `<a href>` as a real `/Subtype /Link` annotation
+with a `/URI` action, so all links work in any PDF viewer. Re-run that command to
+re-verify after any future build.
+
+**Footer now carries two links** (it had none). Which two, and why: the footer is the
+last thing read after page 2, so it gets the calls to action — the portfolio and the
+email. The evidence links (LinkedIn, GitHub, Figma) stay in the header, where a
+recruiter looks for them; repeating all six would just rebuild the contact block.
+Footer reads: `Hunter Paramore · paramore.design · hparamore@gmail.com`.
+
+Phone is now a `tel:+15415890294` link, so it dials from a phone or laptop.
+
+Eight link annotations total: paramore.design ×2, email ×2, LinkedIn, GitHub, Figma,
+phone. Still two pages.
+
+## 2026-09-04 (final, v7) — Real contact details; header links separated
+
+Hunter supplied the missing details and flagged that the header links read as one URL.
+
+**The link ambiguity.** The block had `github.com/hparamore · LinkedIn` on a single
+line, so the middot made "LinkedIn" look like a path segment of the GitHub URL. Every
+link is now on its own line, and each shows its real address rather than a word:
+
+```
+paramore.design                            (accent)
+hparamore@gmail.com
+541.589.0294
+linkedin.com/in/hunter-paramore-958b1247
+github.com/hparamore
+figma.com/@hparamore
+```
+
+- The LinkedIn href had been pointing at the bare `linkedin.com` domain. It is now his
+  actual profile. Displaying the full URL (with the `958b1247` suffix) rather than the
+  word "LinkedIn" so a parser captures a working address and a printed copy is typeable.
+  **If he claims a custom LinkedIn vanity URL, shorten this.**
+- Figma was tried in the Recognition bullet first, where it wrapped onto a line of its
+  own. Moved to the header link stack instead. The header grew one line, which page 1
+  had slack for — Stotion is still on page 1 and the file is still two pages.
+- Phone kept in his dot format. Widely parsed; hyphens are marginally safer on older
+  ATS software if it ever matters.
+
+**Verified after build:** all six contact values extract as intact tokens.
+
+## 2026-09-04 (final, v6) — Stotion pulled onto page 1; widows removed; a false claim cut
+
+**All five jobs now fit on page 1**; page 2 holds projects, skills, education,
+recognition. Stotion had been orphaned at the top of page 2.
+
+**How the space was reclaimed.** No type-size or margin changes — seven bullets were
+reworded so none ends in a stranded line. Each fix removed a full line (~12pt), and
+Stotion needed about 55pt.
+
+| Entry | Was stranded on its last line | Fix |
+|---|---|---|
+| Mutual, bullet 1 | "and strategy." | dropped "now", "owning", and the trailing "and strategy" |
+| Mutual, bullet 2 | "flow." | "In testing," removed; "into the flow" → "in" |
+| Ark | "and product design end-to-end." | dropped "and brand assets" and "same" |
+| Nu Skin, bullet 1 | "rates across the business." | dropped "the" and "across the business" |
+| Angel Studios | "platforms." | dropped "multiple" |
+| Checkin | "2026." | "product strategy" → "strategy"; "deployed in 2026" → "shipped 2026" |
+
+**Factual correction (Hunter).** The Tree Service bullet claimed the tool was
+"designed and built solo in four weeks after two days riding along with the crew."
+**He did not ride along with the crew.** The whole tail is gone; the bullet now ends
+"Retired four subscriptions. Built on Next.js, Supabase, and Vercel." The four-week
+timeline went with it.
+
+> ⚠️ **The same false claim is live on the site.**
+> `src/pages/projects/the-tree-service.astro:102` reads "I rode along for two days,
+> designed for the truck instead of the office, and shipped a single tool in four
+> weeks..." Not changed — flagged for Hunter, since the surrounding paragraph is built
+> on that sentence and needs a rewrite, not a deletion. The card in
+> `src/content/projects/the-tree-service.yaml` also says "three weeks" where the case
+> study says four; that contradiction predates this session.
+
+## 2026-09-04 (final, v5) — Hunter's wording, mechanical fixes only
+
+Hunter supplied the near-final summary and said to stick close to it. Only three
+mechanical changes; every word choice is his.
+
+- Missing conjunction: "the #1 LDS dating app Ark, the #2 Christian Dating app" now
+  reads "the #1 LDS dating app, **and** Ark, the #2 Christian dating app." Without it
+  the two apps ran together as one name.
+- "Christian Dating app" → "Christian dating app," matching "LDS dating app."
+- Kept his "am experienced with the flow from project start to finish, both alone and
+  together with a team" verbatim.
+
+Accent moved (Hunter's call) off "entire experiences, not just designs" and onto the
+whole credential sentence: "Solo designer on Mutual, the #1 LDS dating app, and Ark,
+the #2 Christian dating app." It spans a line and a half, so it is the heaviest use
+of accent the summary has had — deliberate, since the two app rankings are the
+strongest proof on the page.
+
+**Ark's ranking now appears in its Experience entry too** (Hunter approved). The
+summary was claiming a ranking the body never supported, which is the kind of gap a
+hiring manager notices.
+
+Hunter then corrected the phrasing: the appositive version ("...white-labeling Mutual,
+now the #2 Christian dating app") let the ranking attach grammatically to **Mutual**,
+the nearer noun. It is now two sentences with the subject named: "Spun up a second
+dating app by white-labeling Mutual. Ark is now the #2 Christian dating app." No
+reflow — still two pages.
+
+"Solo designer on Mutual... and Ark" keeps the v4 role separation intact: that
+sentence claims design only, and the shipping claim lives in its own sentence.
+
+Five lines, still two pages.
+
+## 2026-09-04 (final, v4) — Split the design role from the build role
+
+**Accuracy fix Hunter caught.** The previous line — "I have shipped apps to the App
+Store, Google Play, and the web, including Mutual" — implied he shipped *code* on
+Mutual. He did not; he was principally the designer there. On his own products he
+does write and ship the code. One sentence was collapsing two different roles.
+
+Now two sentences:
+- "I led design on Mutual, the #1 LDS dating app."
+- "On my own products I design and build, shipping to the App Store, Google Play,
+  and the web."
+
+Also per Hunter: "high-density web apps like dashboards" → "complex dashboards."
+Closing fragment is now "Kickoff to launch, solo or on a team."
+
+**Rule for this resume:** never let one verb cover both Mutual and the solo work.
+Design leadership and shipping code are separate claims and a hiring manager will
+read the stronger one as the claim being made about everything.
+
+## 2026-09-04 (final, v3) — Hunter wrote the summary; I tightened it
+
+Hunter supplied his own draft and said "this is more the vibe I am going for." It is
+factual and credential-forward with no metaphors — a different register from the
+story-driven versions above, and the right one for a resume. Kept his structure and
+every claim; only tightened.
+
+**Edits made to his draft**
+- "Experienced product designer" → "Product designer with twelve years." The number
+  does the work that the adjective was trying to do.
+- "(dashboards, etc)" → "like dashboards." Parentheticals read as afterthoughts.
+- "small details that help make an experience seamless, while moving quickly" →
+  "...feel seamless, and I move fast doing it." Two claims, two clauses.
+- "pass off" → "hand off" (standard term for design handoff).
+- "multiple apps to the app stores, as well as online" → "the App Store, Google Play,
+  and the web." Named stores beat "multiple."
+- **Added Mutual back** as an appositive inside that sentence. His draft dropped it,
+  but "shipped apps" needs a proof point and it is his strongest one. One clause, no
+  new sentence. Easy to cut if he wants it gone.
+- "from project start to finished" → "from kickoff to launch."
+- Accent on "entire experiences, not just designs" — his differentiator, his phrasing.
+
+Four lines, still two pages.
+
+## 2026-09-04 (final, v2) — Fixed the opening line's framing
+
+Hunter read the previous opener as a hiring manager would: "I design the stuff that
+usually gets skipped... the scenario nobody asked for" describes the *work* as
+skippable and unwanted. Correct read — it made thoroughness sound like busywork on
+low-priority things.
+
+Now: **"I design the whole surface, not just the happy path: every edge case, every
+empty state, every way a screen can go sideways."** Same rigor, but "happy path" is
+language a product hiring manager already respects, and "whole surface" claims scope
+rather than leftovers. Nothing else changed; still three lines, two pages.
+
+**Rule for future resume copy:** describe what the work covers, never what other
+people neglect. The second framing borrows their disinterest.
+
+## 2026-09-04 (final) — Summary cut to three lines
+
+Hunter on the previous draft: "sounds sooo AI and long." He was right. It had the
+tells — a three-part list of benefits, balanced clause rhythm, abstract nouns
+("teams react to the actual experience"). Replaced with plain speech:
+
+> I design the stuff that usually gets skipped: edge cases, empty states, the
+> scenario nobody asked for. I used to write it up and hand it to a developer.
+> **Now I build it too**, so you are testing the real thing in days instead of
+> reading a spec. Ten years designing Mutual, the #1 LDS dating app. 40,000+ marriages.
+
+Five lines to three, ~500 chars to ~310. The value is now in one clause the reader
+does not have to parse ("testing the real thing in days instead of reading a spec"),
+and Mutual is two short fragments instead of a subordinate clause. Accent is on
+"Now I build it too" — the shortest possible statement of the hinge.
+
+## 2026-09-04 (later) — Summary rewritten again: reader value, not autobiography
+
+Hunter's read on the previous draft: still "me me me," and "now I hand them to
+Claude" made it sound like reliance rather than collaboration. He wants a reader to
+picture him inside *their* company doing things that make or save money, and he
+wants the AI part to read as working alongside to reach a testable state faster.
+
+**What changed structurally.** The old draft ended on his own craft ("what ships is
+what I designed"). The new one ends on what the team gets: they react to the real
+experience, catch wrong turns while they are cheap, and spend build time on what
+survived. The last of those is the money sentence, since wasted build time is the
+expensive part of any product org.
+
+- "Now I hand them to Claude" is gone. It is now "Working alongside AI," which
+  keeps him as the one doing the designing. Claude Code stays named in Skills, so
+  the specific tool is still on the page without the summary sounding delegated.
+- Accent moved to "the same thinking standing up as real, testable product in days."
+  That is the claim a hiring manager is actually buying.
+- Still five lines, two pages, parser-clean.
+
+## 2026-09-04 — Resume summary rewritten around the handoff story
+
+Hunter: the opening was "unflavored corporate speech" and needed to leave an
+impression. He also wanted "usually as the only designer in the room" cut.
+
+The new summary is built on the story he tells in person: years spent designing
+edge cases and writing implementation notes for a developer, and now he still
+writes the notes but hands them to Claude and shapes the result back and forth.
+That reframes AI as **continuity of his existing craft**, not a new tool he picked
+up, which is the point a hiring manager needs to get in one read.
+
+- Structure: the specific detail (edge cases, empty states, the fifth scenario) →
+  the old handoff → the pivot → the Mutual credential → a closing turn on "handoff."
+- The orange `<em>` accent moved off "Mutual" and onto **"I still write the notes."**
+  That is the hinge of the story, so it is the line the eye should catch. Mutual is
+  still named a sentence later and keeps its numbers.
+- Runs five lines instead of four; still two pages, still parser-clean.
+
+Everything else on the resume is unchanged from the Angel Studios pass.
+
+## 2026-09-02 — Resume: Angel Studios version
+
+Hunter said this resume is for applying to **Angel Studios**. Changes in
+`public/resume.html`, PDF rebuilt (still 2 pages, still parser-clean), Desktop copy
+refreshed. Not committed.
+
+- Screenshot Maker project removed. SPNKr Server Manager folded into the Paramore
+  Platform entry as a "plus" sentence (it is self-hosted, not on the shared sign-in,
+  so the "nine apps" count is unchanged).
+- Writing bullet removed; section is "Recognition" again.
+- **Wordmark dot fix.** The CSS dot was anchored at `bottom: 0.04em` of the inline box,
+  which in Bebas Neue is the bottom of a 0.25em descent, so it sat under the baseline.
+  Now `bottom: 0.25em`, 0.106em square, matching the face's own period metrics read
+  from `public/fonts/BebasNeue-Bold.ttf` with fontTools. The gap span carries
+  0.015em side padding so the space plus padding equals the period's 0.186em advance.
+
 ## 2026-09-02 — Kill The Fish added; four apps now link to their live subdomains
 
 **Kill The Fish** (`/projects/kill-the-fish`) — the whiteboard game Hunter played in
@@ -23,7 +428,7 @@ on Vercel subdomains with web manifests; there is no App Store listing for any o
 - `.claude/launch.json` is gitignored and had to be recreated this session. Expect that
   on any fresh clone.
 
-## 2026-09-02 — /paramore-app skill: donate card on every mini-app, opt-in Stripe billing (no portfolio files changed)
+## 2026-09-02 — /paramore-app skill: tip jar on every mini-app, opt-in Stripe billing, backup screen (no portfolio files changed)
 
 Session ran from this repo but touched only the shared skill at
 `~/.claude/skills/paramore-app/` and the platform home. Nothing in the
@@ -42,9 +447,20 @@ portfolio changed; this entry is a pointer so the session is findable.
 - **Why:** nine apps and no way to receive a dollar. BMAC and Stripe are the
   accounts Hunter already has; Ko-fi/Polar/Lemon Squeezy/Gumroad were compared and
   passed on (reasons in the skill's new CHANGELOG.md).
+- **Backup is now a screen.** The inline copy/paste section became a
+  "Save / restore backup" button that swaps in `BackupScreen`
+  (`src/platform-backup.jsx`; screens, never fixed modals). Two rails: dated
+  snapshots on the account (new platform-shared `app_backups` table, applied
+  today, owner-only RLS, 10 kept, Restore/Delete) and a file (download / share /
+  copy; choose, drop, or paste to restore). Files carry a `paramore-backup`
+  envelope so another app's file is refused by name; restores confirm first and
+  offer Undo. `store.backups` added to paramore-auth.js.
 - **Also fixed:** template sign-in card said "6-digit code"; platform sends 8.
-- **Verified:** throwaway scaffold built clean; card renders between Share and
-  Backup; button opens the tagged URL; migration confirmed via Management API.
+- **Verified:** throwaway scaffold built clean; tip tiers render and open their
+  own tagged links; Backup screen opens, refuses a Keeper file, confirms and
+  restores a valid paste, Undo reverts; both migrations confirmed via the
+  Management API. NOT verified: the account-snapshot rail (needs a real sign-in)
+  and file download on an installed iOS PWA.
 - **Next (Hunter):** fill `STRIPE_SECRET_KEY` (and `DONATE_URL`) in platform.env,
   then run the tips script once to create the three links;
   set the BMAC page up as one tip jar for all apps. First billing app must do a

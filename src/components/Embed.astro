@@ -1,0 +1,89 @@
+---
+/**
+ * Click-to-load iframe for live embeds (prototypes, Whimsical boards).
+ *
+ * The iframe src is only set after the visitor clicks, so a 3.8MB prototype or a
+ * Whimsical board never downloads for someone who is just reading the page.
+ * Until then it shows a poster or a plain surface with a label.
+ */
+interface Props {
+  src: string;
+  title: string;
+  /** Shown on the placeholder before load. */
+  label: string;
+  note?: string;
+  poster?: string;
+  /** CSS aspect-ratio for the frame. */
+  aspect?: string;
+  /** Link shown alongside, for opening the real thing in a new tab. */
+  openHref?: string;
+  openLabel?: string;
+}
+const { src, title, label, note, poster, aspect = '16 / 10', openHref, openLabel = 'Open in a new tab' } = Astro.props;
+---
+<figure class="embed">
+  <div class="embed__frame" style={`aspect-ratio: ${aspect};`} data-embed data-src={src}>
+    {poster && <img class="embed__poster" src={poster} alt="" loading="lazy" />}
+    <button type="button" class="embed__play" aria-label={`Load ${title}`}>
+      <span class="embed__play-icon" aria-hidden="true">▶</span>
+      <span class="embed__play-label">{label}</span>
+      {note && <span class="embed__play-note">{note}</span>}
+    </button>
+  </div>
+  {openHref && (
+    <figcaption class="embed__caption">
+      <a href={openHref} target="_blank" rel="noopener">{openLabel} &rarr;</a>
+    </figcaption>
+  )}
+</figure>
+
+<style is:global>
+  .embed { margin: var(--space-2xl) 0 0; }
+  .embed__frame {
+    position: relative;
+    width: 100%;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .embed__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .embed__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+  .embed__play {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-sm);
+    background: transparent; border: 0; cursor: pointer;
+    font-family: var(--font-body); color: var(--color-text-primary);
+    transition: background var(--duration-normal) var(--ease-out);
+  }
+  .embed__play:hover { background: rgba(255, 107, 0, 0.06); }
+  .embed__play-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--color-accent); color: #0A0A0A; font-size: 20px;
+  }
+  .embed__play-label {
+    font-family: var(--font-display); font-size: var(--text-xl);
+    letter-spacing: var(--tracking-display); text-transform: uppercase;
+  }
+  .embed__play-note { font-size: var(--text-sm); color: var(--color-text-tertiary); }
+  .embed__caption { margin-top: var(--space-sm); font-size: var(--text-sm); }
+  .embed__caption a { color: var(--color-text-tertiary); }
+  .embed__caption a:hover { color: var(--color-accent); }
+</style>
+
+<script is:inline>
+  document.querySelectorAll('[data-embed]').forEach(function (box) {
+    var btn = box.querySelector('.embed__play');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = box.dataset.src;
+      f.setAttribute('loading', 'lazy');
+      f.setAttribute('allowfullscreen', '');
+      box.innerHTML = '';
+      box.appendChild(f);
+    });
+  });
+</script>

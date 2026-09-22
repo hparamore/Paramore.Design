@@ -1,0 +1,186 @@
+---
+import CaseLayout from '../../components/CaseLayout.astro';
+import Embed from '../../components/Embed.astro';
+import Loop from '../../components/Loop.astro';
+---
+<CaseLayout
+  title="Tava Health"
+  description="An unsolicited concept for the moment people quietly stop going to therapy — a post-session check-in that turns a silent exit into a conversation."
+  label="Unsolicited Concept // Product Design"
+  cover="/assets/projects/tava/cover.jpg"
+  coverAlt="Case Study: Tava Health — session recap, what felt off, and the options offered"
+  meta={[
+    { label: 'Role', value: 'Solo, unsolicited concept' },
+    { label: 'Scope', value: 'Research · Flows · UI · Motion' },
+    { label: 'Tools', value: 'Whimsical · Claude Design' },
+    { label: 'Status', value: 'Concept, not client work' },
+  ]}
+  action={{ label: 'Watch the 5-minute walkthrough', href: 'https://cleanshot.com/share/NnpG0hZS' }}
+>
+  <p>
+    Tava lets you switch therapists quickly, and it does that part well. The problem is the
+    people who never get that far &mdash; one or two sessions in, no rebooking, then silence.
+    They don&rsquo;t complain and they don&rsquo;t switch. They just stop. This is a concept
+    for the moment that catches them: <strong>a post-session check-in that turns a quiet exit
+    into a conversation.</strong>
+  </p>
+
+  <section class="case-gallery" slot="gallery">
+    <div class="container project-content">
+      <h2>The two ways people <span class="accent">leave</span>.</h2>
+      <p>
+        Two failure modes, and only one of them is visible.
+      </p>
+      <p>
+        The first is switching. It works &mdash; but every switch costs a first session. You
+        restart your history with someone new, and the intake burns the hour you came for.
+        That came up constantly in research as the biggest complaint about changing providers.
+      </p>
+      <p>
+        The second is the one I wanted to solve: <strong>people who just ghost.</strong>{' '}
+        They&rsquo;re the majority, and the product never hears from them. The question
+        isn&rsquo;t &ldquo;why did they leave?&rdquo; It&rsquo;s <em>why didn&rsquo;t they
+        rebook?</em>
+      </p>
+    </div>
+
+    <div class="container">
+      <Embed
+        src="https://whimsical.com/embed/6nyXiBadHgYp5eWFwiDqwh"
+        title="Tava research board"
+        label="Open the research board"
+        note="Whimsical — start at the green marker, top left"
+        aspect="16 / 11"
+        openHref="https://whimsical.com/hunter-s-workspace84/tava-6nyXiBadHgYp5eWFwiDqwh"
+        openLabel="Open the board in Whimsical"
+      />
+    </div>
+
+    <div class="container project-content">
+      <h2>Eleven directions, then <span class="accent">two</span>.</h2>
+      <p>
+        I started in Whimsical with sketches and wireframes &mdash; about eleven directions for
+        where an intervention could live. I compared all of them against the same four
+        questions: <strong>when</strong> do you ask, <strong>what</strong> do you ask for,{' '}
+        <strong>how</strong> is it framed, and <strong>who</strong> starts it.
+      </p>
+      <p>
+        Two survived. A <strong>concierge chat</strong>, where a person or an AI sits between
+        you and the problem and surfaces prebuilt cards &mdash; here&rsquo;s a fix, here are
+        people you could try, here are open times. And a <strong>post-session check-in</strong>,
+        which is simpler and lands while the feeling is still fresh.
+      </p>
+      <p>
+        I flowcharted both and compared them side by side. The check-in ran bigger as a flow,
+        and it&rsquo;s the one I picked.
+      </p>
+
+    </div>
+
+    <div class="container">
+      <Loop
+        src="/assets/projects/tava/motion/check-in.mp4"
+        poster="/assets/projects/tava/motion/check-in.jpg"
+        alt="The post-session check-in: session recap, then what felt off, then sent"
+        caption="The check-in, end to end: recap &rarr; what felt off &rarr; sent."
+      />
+    </div>
+
+    <div class="container project-content">
+      <h2>The part I&rsquo;m <span class="accent">proud</span> of.</h2>
+      <p>
+        Most of the time, leaving isn&rsquo;t about the therapist being wrong. It&rsquo;s about
+        one thing that never got said.
+      </p>
+      <p>
+        So the check-in offers to say it for you. <em>&ldquo;What would you like them to
+        know?&rdquo;</em> &mdash; a few starter prompts, or write your own. Then, before
+        anything sends: <strong>&ldquo;Here&rsquo;s exactly what we&rsquo;ll send.&rdquo;</strong>{' '}
+        You see the message, you can edit it, you can back out.
+      </p>
+      <div class="media-split">
+        <div class="media-split__media">
+          <Loop
+            variant="tall"
+            src="/assets/projects/tava/motion/review-send.mp4"
+            poster="/assets/projects/tava/motion/review-send.jpg"
+            alt="Review and send: the exact message, who it comes from, and when it arrives"
+          />
+        </div>
+        <div class="media-split__text">
+          <p>
+            <strong>It isn&rsquo;t anonymous, on purpose.</strong> If a provider has one
+            client, anonymity is a promise you can&rsquo;t keep &mdash; so don&rsquo;t make it.
+            What Tava can offer instead is mediation: it comes from Tava, on your behalf, and
+            there&rsquo;s a paper trail.
+          </p>
+          <p>
+            The three lines under the message are doing the real work &mdash;{' '}
+            <em>they&rsquo;ll get it before Friday, she&rsquo;ll know it&rsquo;s from you, you
+            don&rsquo;t have to bring it up.</em> Every one answers a reason somebody would
+            close the screen instead of sending.
+          </p>
+        </div>
+      </div>
+
+      <h2>And if you do want <span class="accent">someone new</span>.</h2>
+      <p>
+        The switch path attacks the thing that makes switching expensive: starting over. You
+        pick from a short list of providers, then choose what goes with you &mdash; past notes,
+        AI summaries, assessments. Your next therapist starts already knowing something about
+        you, so session one isn&rsquo;t spent rehashing. Then date, time, summary, and
+        it&rsquo;s on your calendar.
+      </p>
+    </div>
+
+    <div class="container">
+      <Loop
+        src="/assets/projects/tava/motion/switch-book.mp4"
+        poster="/assets/projects/tava/motion/switch-book.jpg"
+        alt="Switching: choose a provider, choose what to share, book the first session"
+        caption="Switching without starting over: pick someone, choose what goes with you, book."
+      />
+    </div>
+
+    <div class="container">
+      <Embed
+        src="/prototypes/tava/index.html"
+        title="Tava post-session flow prototype"
+        label="Open the live prototype"
+        note="Interactive — includes the motion studies"
+        poster="/assets/projects/tava/cover.jpg"
+        aspect="16 / 10"
+        openHref="/prototypes/tava/index.html"
+        openLabel="Open the prototype full screen"
+      />
+    </div>
+
+    <div class="container project-content">
+      <div class="media-split media-split--flip">
+        <div class="media-split__text">
+          <p>
+            Booking is where good intentions go to die, so it stays inside the same sheet
+            &mdash; month, day, time, confirm. No hand-off to a separate scheduler, no
+            second app, no losing the thread you just worked up the nerve to pull.
+          </p>
+        </div>
+        <div class="media-split__media">
+          <Loop
+            variant="tall"
+            src="/assets/projects/tava/motion/date-picker.mp4"
+            poster="/assets/projects/tava/motion/date-picker.jpg"
+            alt="Choosing a date and time inside the same sheet"
+          />
+        </div>
+      </div>
+
+      <h2>Motion, because it&rsquo;s the <span class="accent">whole question</span>.</h2>
+      <p>
+        Calm, functional motion &mdash; no celebration. Nothing cheers when you tell your
+        therapist something isn&rsquo;t working. Whether a flow like this feels gentle or
+        clinical can&rsquo;t be answered in a static frame, so every transition is a replayable
+        study in the prototype above.
+      </p>
+    </div>
+  </section>
+</CaseLayout>

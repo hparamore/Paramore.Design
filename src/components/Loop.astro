@@ -1,0 +1,107 @@
+---
+/**
+ * Short looping screen recording. Muted, autoplaying, no controls — it reads as a
+ * moving image rather than a video the visitor has to operate.
+ *
+ * preload="none" plus a poster means nothing downloads until the clip scrolls into
+ * view, and `prefers-reduced-motion` visitors get the poster with a play button
+ * instead of motion they did not ask for.
+ */
+interface Props {
+  src: string;
+  poster: string;
+  alt: string;
+  caption?: string;
+  /** "wide" fills the content column; "tall" is a portrait clip meant to sit beside text. */
+  variant?: 'wide' | 'tall';
+}
+const { src, poster, alt, caption, variant = 'wide' } = Astro.props;
+---
+<figure class:list={['loop', `loop--${variant}`]}>
+  <video
+    class="loop__video"
+    src={src}
+    poster={poster}
+    preload="none"
+    muted
+    loop
+    playsinline
+    autoplay
+    aria-label={alt}
+    data-loop
+  ></video>
+  <button type="button" class="loop__play" data-loop-play hidden aria-label={`Play: ${alt}`}>
+    <span aria-hidden="true">▶</span>
+  </button>
+  {caption && <figcaption class="loop__caption">{caption}</figcaption>}
+</figure>
+
+<style is:global>
+  .loop { margin: 0; position: relative; }
+  .loop__video {
+    width: 100%; height: auto; display: block;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .loop--wide { margin: var(--space-2xl) auto; max-width: 1100px; }
+  .loop--tall .loop__video { border-radius: var(--radius-lg); }
+  .loop__caption {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .loop__play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 56px; height: 56px; border-radius: 50%; border: 0; cursor: pointer;
+    background: var(--color-accent); color: #0A0A0A; font-size: 20px;
+  }
+
+  /* A portrait clip sitting beside its explanation. */
+  .media-split {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: center;
+    margin: var(--space-3xl) 0;
+  }
+  .media-split--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+  .media-split__text p { margin-bottom: var(--space-lg); }
+  .media-split__text p:last-child { margin-bottom: 0; }
+  @media (max-width: 860px) {
+    .media-split, .media-split--flip { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .media-split__media { max-width: 360px; margin: 0 auto; }
+    .media-split--flip .media-split__media { order: -1; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    document.querySelectorAll('[data-loop]').forEach(function (v) {
+      var btn = v.parentElement.querySelector('[data-loop-play]');
+      if (reduce.matches) {
+        // Never start on its own; offer the clip instead of imposing it.
+        v.removeAttribute('autoplay');
+        v.pause();
+        if (btn) {
+          btn.hidden = false;
+          btn.addEventListener('click', function () { v.play(); btn.hidden = true; });
+        }
+        return;
+      }
+      // Only fetch once it is actually near the viewport.
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            if (v.preload === 'none') { v.preload = 'auto'; v.load(); }
+            v.play().catch(function () {});
+          } else {
+            v.pause();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(v);
+    });
+  })();
+</script>
