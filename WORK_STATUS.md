@@ -1,3 +1,37 @@
+## 2026-09-23 — Tree Service timeline settled; HTML resume aligned to the PDF
+
+**Timeline: four weeks.** Hunter confirmed. `the-tree-service.yaml` said "three weeks" and
+was corrected; the page meta and description already said four. The Tree Service card on
+`src/pages/build.astro` also said three and was fixed. Left alone deliberately:
+build.astro's "abandoned three weeks in" — an idiom about abandoned software, not a claim
+about this project.
+
+**`public/resume.html` now mirrors the new PDF.** It had drifted: different headline,
+"twelve years" vs 13, a three-paragraph summary vs one, and it claimed Ark was the
+**#2** Christian dating app where the PDF says **top 5**. Changes:
+
+- Headline: "Product Designer · Design Director" → "Product Designer · Design Systems"
+- Summary replaced with the PDF's single paragraph (13 years)
+- All five Paramore.Design bullets, and Mutual / Ark / Nu Skin / Stotion rewritten to the
+  PDF's wording. Mutual's bullets were also **reordered** — the PDF puts the design system
+  before onboarding.
+- "Selected Projects" split into **Contract & Agency Experience** (Angel Studios, Tech 9)
+  and **Selected Independent Products** (Checkin, Zelda UI Kit, Paramore Platform), matching
+  the PDF. The Zelda kit was promoted from a Recognition bullet to its own entry.
+- Skills: "Practice" → "Leadership & Practice"; the **Interests** group was dropped (not in
+  the PDF).
+- Links: email removed (the PDF keeps it in the header and footer only).
+
+Verified by extracting the PDF text and checking 19 distinctive phrases present and 6
+removed, plus tag balance and byte-identical passthrough.
+
+**These two are now coupled.** Change one, change the other — resume.html has a "Download
+PDF" button, so a drift means the page and the download disagree.
+
+### Note
+`src/pages/build.astro` still says "12+ years of product design" while the resume now says
+13. Not changed — it is marketing copy on a different page, and it was not part of the ask.
+
 ## 2026-09-22 (resume + Tree Service) — New resume PDF published; false claim removed
 
 **New resume PDF installed** at `public/assets/Hunter-Paramore-Resume.pdf` — the file

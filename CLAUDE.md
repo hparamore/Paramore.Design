@@ -99,11 +99,15 @@ claim is gone; the paragraph was rewritten rather than having the clause cut out
 FIXME went with it. Nothing was invented to replace it — if there was a real method by
 which Hunter learned the crew's workflow, the paragraph would be stronger for saying so.
 
-**The Tree Service timeline contradicts itself.** The case study hero and body both say
-four weeks; `src/content/projects/the-tree-service.yaml` says "three weeks." Ask Hunter
-which is right, then make all three agree.
+**~~The Tree Service timeline~~ — RESOLVED 2026-09-23.** Hunter confirmed **four weeks**.
+The yaml and the Build page card were corrected; the hero meta and page description already
+said four. `src/pages/build.astro` also says "abandoned three weeks in" — that is an idiom,
+not a claim about this project, and was left alone.
 
-Both claims have already been removed from `public/resume.html`.
+**`public/resume.html` mirrors the PDF.** As of 2026-09-23 the HTML resume was brought in
+line with `public/assets/Hunter-Paramore-Resume.pdf` — same headline, summary, bullets,
+section structure, and facts. **If one changes, change the other**, or the "Download PDF"
+button on that page hands the reader a different document.
 
 ## Conventions
 - Dark theme only (#0A0A0A bg, #FF6B00 accent)

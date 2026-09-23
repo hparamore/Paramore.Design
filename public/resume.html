@@ -84,12 +84,12 @@
     /* The wordmark reads "Hunter.Paramore" but the text layer must say "Hunter Paramore"
      so name parsers get two tokens. The gap span holds a real space; the dot is a
      CSS box drawn inside it, not a period glyph. */
-  .name .gap { position: relative; }
+  .name .gap { position: relative; padding: 0 0.015em; } /* space (0.155em) + padding ≈ the period's 0.186em advance */
   .name .gap::after {
     content: "";
     position: absolute;
-    left: 50%; bottom: 0.04em;
-    width: 0.17em; height: 0.17em;
+    left: 50%; bottom: 0.25em;            /* the face's descent, so the dot sits on the baseline */
+    width: 0.106em; height: 0.106em;      /* same size as Bebas Neue's period */
     background: var(--accent);
     transform: translateX(-50%);
   }
@@ -275,6 +275,10 @@
       text-transform: uppercase;
     }
     .footer .accent { color: var(--accent); font-weight: 600; }
+    .footer a { color: var(--text-2); text-decoration: none; }
+
+    /* ---------- Links list ---------- */
+    .links a { color: var(--text); text-decoration: none; font-weight: 600; }
 
     /* ---------- Web-only chrome ---------- */
     @media screen {
@@ -351,18 +355,17 @@
     <header class="header">
       <div>
         <h1 class="name">Hunter<span class="gap"> </span>Paramore</h1>
-        <p class="role">Product Designer · Design Director · <span class="nb">Designer-Developer</span></p>
+        <p class="role">Product Designer · Design Systems · <span class="nb">Designer-Developer</span></p>
       </div>
       <div class="contact">
-        <div><a class="accent" href="https://paramore.design">paramore.design</a></div>
-        <div><a href="mailto:hparamore@gmail.com">hparamore@gmail.com</a></div>
-        <div><a href="https://github.com/hparamore">github.com/hparamore</a> · <a href="https://linkedin.com">LinkedIn</a></div>
+        <div><a class="accent" href="mailto:hparamore@gmail.com">hparamore@gmail.com</a></div>
+        <div><a href="tel:+15415890294"><span class="nb">541.589.0294</span></a></div>
       </div>
     </header>
 
     <!-- Summary -->
     <p class="pitch">
-      Product designer and design director with 12+ years shipping consumer, enterprise, and mobile products, usually as the only designer in the room. <span class="nb">Co-founded</span> and designed <em>Mutual</em>, the #1 LDS dating app, over ten years. Today I design and build complete products solo, from research and design systems through SwiftUI, React, and Supabase, using AI tooling to ship in weeks what used to take a team and a year of runway.
+      Product designer and <span class="nb">designer-developer</span> with 13 years of experience across mobile apps, design systems, branding, and complex web products. <em>Co-founded and led design for Mutual, the #1 LDS dating app, as well as Ark, one of the top Christian dating apps in the App Store.</em> Combines product strategy, research, polished interaction design, and production code to take products from concept through launch. Early AI adopter using AI across research, prototyping, implementation, testing, and handoff.
     </p>
 
     <!-- Experience -->
@@ -376,11 +379,11 @@
         </div>
         <p class="job__meta">2025 – Present</p>
         <ul class="job__bullets">
-          <li>Design and build custom <span class="nb">AI-powered</span> web and mobile tools for small businesses: field operations, intake, scheduling, reporting, client management, and payments. One tool typically replaces four to six SaaS subscriptions and ships in weeks.</li>
-          <li>The Tree Service: <span class="nb">field-operations</span> tool a <span class="nb">tree-care</span> crew uses daily on iPads for safety checklists, <span class="nb">pre-trip</span> inspections, fuel and receipt capture, and fleet maintenance. Retired four subscriptions. Next.js, Supabase, and Vercel, designed and built solo in four weeks after two days riding along with the crew.</li>
-          <li>Utah Valley Bride: submissions and <span class="nb">email-workflow</span> portal for a wedding magazine, replacing a spreadsheet and manual email loop across 138 vendor submissions. Deployed August 2026.</li>
-          <li>GolfSheds: fractional digital product management for a manufacturing company: internal AI knowledge base, task and request system, handbook and checklist framework, department dashboards, JobTread API integration.</li>
-          <li>Brand and identity: Paramore Real Estate rebrand, signage, and two site rebuilds; Sports Transport logo and brand package.</li>
+          <li>Design and build custom <span class="nb">AI-powered</span> web and mobile tools for small businesses across field operations, intake, scheduling, reporting, client management, and payments. A typical tool replaces four to six SaaS subscriptions and ships in weeks.</li>
+          <li>The Tree Service: Built a <span class="nb">field-operations</span> tool used daily on iPads for safety checklists, <span class="nb">pre-trip</span> inspections, fuel and receipt capture, and fleet maintenance; retired four subscriptions.</li>
+          <li>Utah Valley Bride: Replaced a spreadsheet and manual email loop with a submissions and workflow portal spanning 138 vendor submissions; deployed August 2026.</li>
+          <li>GolfSheds: Lead fractional digital product management across an AI knowledge base, request system, handbook and checklist framework, department dashboards, and JobTread API integration.</li>
+          <li>Brand and identity: Delivered the Paramore Real Estate rebrand, signage, and two website rebuilds, plus the Sports Transport logo and brand package.</li>
         </ul>
       </div>
 
@@ -391,10 +394,10 @@
         </div>
         <p class="job__meta">2015 – 2026</p>
         <ul class="job__bullets">
-          <li><span class="nb">Co-founded</span> and designed the #1 LDS dating app in the world, now responsible for 40,000+ marriages. Sole designer for ten years, owning UI, product and user research, the design system, and brand identity, and a core voice in product direction and strategy.</li>
-          <li>Redesigned onboarding from one long form into a stepped flow with an early exit, validated by testing two competing flows in person. In testing, 97% completed the full profile and about 80% completed verification once it was folded into the flow.</li>
-          <li>Built the Mutual Design System: 3 brands, 6 themes, semantic tokens, and live WCAG contrast checks, structured so engineers and AI agents build correct, <span class="nb">on-brand</span>, accessible UI from one source.</li>
-          <li>Grew the company from a scrappy startup into a <span class="nb">multi-million-dollar</span> business, <span class="nb">part-time</span> from day one and <span class="nb">full-time</span> from 2021. Nearly every surface shipped through me: digital product, brand, motion, print, packaging, merch, and event collateral.</li>
+          <li><span class="nb">Co-founded</span> and designed the #1 LDS dating app in the world, responsible for 40,000+ marriages. Served as sole designer for ten years across product, research, brand, and design direction.</li>
+          <li>Built the Mutual Design System across three brands and six themes, with semantic tokens and live Web Content Accessibility Guidelines (WCAG) contrast checks so engineers and AI agents could build accessible, <span class="nb">on-brand</span> UI from one source.</li>
+          <li>Redesigned onboarding from one long form into a stepped flow with an early exit, validated through <span class="nb">in-person</span> testing of two competing concepts. The result: 97% completed the full profile and about 80% completed verification after it was folded into onboarding.</li>
+          <li>Helped grow Mutual from a scrappy startup into a <span class="nb">multi-million-dollar</span> business, working <span class="nb">part-time</span> for five years before moving <span class="nb">full-time</span> in 2021. Shipped nearly every <span class="nb">customer-facing</span> and brand surface.</li>
         </ul>
       </div>
 
@@ -405,7 +408,7 @@
         </div>
         <p class="job__meta">2023 – 2026</p>
         <ul class="job__bullets">
-          <li>Spun up a second dating app by <span class="nb">white-labeling</span> Mutual. Built and maintained dual design systems and brand assets, each feeding a parallel clone of the same codebase. Owned user research, brand identity, and product design <span class="nb">end-to-end</span>.</li>
+          <li>Launched a second dating app by <span class="nb">white-labeling</span> Mutual; Ark is now one of the top 5 Christian dating apps in the App Store. Built and maintained dual design systems feeding parallel codebases, and owned research, brand, and product design end to end.</li>
         </ul>
       </div>
 
@@ -416,8 +419,8 @@
         </div>
         <p class="job__meta">2019 – 2021</p>
         <ul class="job__bullets">
-          <li>Product design and research on the web team: payment processing, discount codes, and analytics. Streamlined the checkout and discount flows so customers completed orders and received the deals they had earned, lifting completion rates across the business.</li>
-          <li>Built Nu Skin's first Figma design system and led the design team through the migration off Sketch. Partnered with engineering to form the first DevOps team and a shared design system for designers and developers.</li>
+          <li>Designed and researched payment processing, <span class="nb">discount-code</span>, and analytics experiences for the web team, streamlining checkout and discount flows so customers could complete orders and receive earned offers.</li>
+          <li>Built Nu Skin's first Figma design system and led the design team's migration from Sketch. Partnered with engineering to form the first DevOps team and establish a shared system for designers and developers.</li>
         </ul>
       </div>
 
@@ -428,45 +431,49 @@
         </div>
         <p class="job__meta">2014 – 2019</p>
         <ul class="job__bullets">
-          <li>Senior designer at a <span class="nb">UX-focused</span> studio in Provo, UT. Shipped product work for dozens of clients: 3D <span class="nb">roof-scanning</span> drone tools, healthcare portals and dashboards, card decks, battle buses, and everything in between.</li>
+          <li>Shipped product work for dozens of clients at a <span class="nb">UX-focused</span> studio, including 3D <span class="nb">roof-scanning</span> drone tools, healthcare portals and dashboards, card decks, and event experiences.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Selected Projects -->
+    <!-- Contract & Agency Experience -->
     <section>
-      <h2 class="section-title">Selected Projects</h2>
+      <h2 class="section-title">Contract &amp; Agency Experience</h2>
 
       <div class="project">
-        <p class="project__name">Tech 9 – Sr. Product Designer</p>
-        <span class="project__tag">Agency · Product Design</span>
-        <p class="project__desc">Senior product design across a range of agency clients. Partnered with engineering in lockstep from kickoff through launch, and worked directly with clients to shape their vision into a cohesive product.</p>
+        <p class="project__name">Angel Studios</p>
+        <span class="project__tag">Design Systems · Contract · 2025</span>
+        <p class="project__desc">Unified and standardized design systems and documentation into one consistent foundation across platforms.</p>
       </div>
 
       <div class="project">
-        <p class="project__name">Angel Studios – Design Systems</p>
-        <span class="project__tag">Contract · 2025</span>
-        <p class="project__desc">Unified and standardized their design systems and documentation into one consistent foundation across multiple platforms.</p>
+        <p class="project__name">Tech 9</p>
+        <span class="project__tag">Senior Product Designer · Agency</span>
+        <p class="project__desc">Led product design across agency clients, partnering with engineering from kickoff through launch and working directly with clients to shape their vision into cohesive products.</p>
       </div>
+    </section>
+
+    <!-- Selected Independent Products -->
+    <section>
+      <h2 class="section-title">Selected Independent Products</h2>
 
       <div class="project">
         <p class="project__name">Checkin</p>
-        <span class="project__tag">Personal · iOS, Android &amp; Web</span>
-        <p class="project__desc">Social coordination app where friends signal availability through campfire check-ins. Concept, design, development, and product strategy. Shipped on iOS and Android; the web version, ported screen by screen from the Swift source, deployed in 2026.</p>
+        <span class="project__tag">iOS · Android · Web</span>
+        <p class="project__desc">Social coordination app where friends signal availability through campfire <span class="nb">check-ins</span>. Owned concept, strategy, design, and development. Shipped on iOS and Android; shipped the web version in 2026 after porting it screen by screen from the Swift source.</p>
+      </div>
+
+      <div class="project">
+        <p class="project__name">Zelda: Breath of the Wild UI Kit</p>
+        <span class="project__tag">Figma Community · UI Kit</span>
+        <p class="project__desc">Created and published a reusable Figma UI kit inspired by the game&rsquo;s interface system. Featured on the Figma Community homepage, the resource has reached 300k+ views and 17k+ downloads.</p>
       </div>
 
       <div class="project">
         <p class="project__name">Paramore Platform</p>
-        <span class="project__tag">Personal · PWA · Supabase</span>
-        <p class="project__desc">Nine small apps on one shared sign-in, storage layer, and PWA shell, each live at its own paramore.design subdomain: Tain, Keeper, Flare, Magnet, Chores, Radio, Upkeep, <span class="nb">Kill The Fish</span>, and Bank. Each one scaffolded, art-directed, built, and deployed solo.</p>
+        <span class="project__tag">PWA · Supabase</span>
+        <p class="project__desc">Nine small apps on a shared <span class="nb">sign-in</span>, storage layer, and progressive web app shell, each live at its own paramore.design subdomain: Tain, Keeper, Flare, Magnet, Chores, Radio, Upkeep, <span class="nb">Kill The Fish</span>, and Bank. Also built SPNKr Server Manager, a <span class="nb">self-hosted</span> <span class="nb">game-server</span> dashboard controllable from Discord. Scaffolded, <span class="nb">art-directed</span>, built, and deployed every product solo.</p>
       </div>
-
-      <div class="project">
-        <p class="project__name">Screenshot Maker</p>
-        <span class="project__tag">Open Source · Web Tool</span>
-        <p class="project__desc">Browser tool that composes App Store and Play Store screenshots for every device, size, and language from one project, exported at native resolution.</p>
-      </div>
-
     </section>
 
     <!-- Skills, Education, Recognition (stacked) -->
@@ -487,13 +494,10 @@
           <div class="skill-line">Supabase (Postgres, Auth, RLS) · Firebase &amp; Cloud Functions · Vercel · Cloudflare · Stripe · Twilio · RevenueCat · CleverTap · Claude Code · Anthropic API · OpenAI API · Tool Use &amp; Agents · MCP</div>
         </div>
         <div class="skill-group">
-          <div class="skill-label">Practice</div>
-          <div class="skill-line">User Research · Workshop Facilitation · <span class="nb">Cross-functional</span> Leadership · Mentoring &amp; Design Critique · Roadmapping &amp; Prioritization · Stakeholder Communication</div>
+          <div class="skill-label">Leadership &amp; Practice</div>
+          <div class="skill-line">Workshop Facilitation · <span class="nb">Cross-functional</span> Leadership · Mentoring &amp; Design Critique · Roadmapping &amp; Prioritization · Stakeholder Communication</div>
         </div>
-        <div class="skill-group">
-          <div class="skill-label">Interests</div>
-          <div class="skill-line">3D Modeling &amp; Printing · Laser Cutting &amp; Engraving · Drumming · Game Design · Jiu-Jitsu · Woodworking · Hiking</div>
-        </div>
+        
       </section>
 
       <section>
@@ -505,18 +509,26 @@
       </section>
 
       <section>
-        <h2 class="section-title">Recognition &amp; Writing</h2>
+        <h2 class="section-title">Recognition</h2>
         <ul class="job__bullets" style="padding-left: 14px; margin-top: 0;">
           <li>Frequent guest lecturer at BYU and UVU; annual UVU capstone class mentor.</li>
-          <li>Zelda: Breath of the Wild UI kit featured on the Figma community homepage. 300k+ views, 17k+ downloads.</li>
-          <li>Writing at paramore.design/blog: on AI-built work that only looks finished (June 2026) and on building Tain (July 2026).</li>
+          </ul>
+      </section>
+
+      <section>
+        <h2 class="section-title">Links</h2>
+        <ul class="job__bullets links" style="padding-left: 14px; margin-top: 0;">
+          <li><a href="https://paramore.design">paramore.design</a> &mdash; portfolio and case studies</li>
+          <li><a href="https://www.linkedin.com/in/hunter-paramore-958b1247/"><span class="nb">linkedin.com/in/hunter-paramore-958b1247</span></a></li>
+          <li><a href="https://github.com/hparamore"><span class="nb">github.com/hparamore</span></a></li>
+          <li><a href="https://www.figma.com/@hparamore"><span class="nb">figma.com/@hparamore</span></a></li>
         </ul>
       </section>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-      <span>Hunter Paramore <span class="accent">·</span> Paramore.Design</span>
+      <span>Hunter Paramore <span class="accent">·</span> <a href="https://paramore.design"><span class="nb">paramore.design</span></a> <span class="accent">·</span> <a href="mailto:hparamore@gmail.com"><span class="nb">hparamore@gmail.com</span></a></span>
       <span>Updated September 2026</span>
     </footer>
 
