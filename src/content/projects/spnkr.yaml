@@ -2,7 +2,7 @@ title: SPNKr
 label: "Personal Work // Design & Build"
 description: Replaced a $30/month game server rental with a spare PC running eight games, controllable from Discord. Then redesigned the dashboard out of default AI output, with the art direction spec enforced by a script.
 href: /projects/spnkr
-order: 4
+order: 5
 onHome: true
 image: /assets/projects/spnkr/hero.jpg
 imageAlt: SPNKr — game server control

@@ -2,7 +2,7 @@ title: Tain
 label: "Personal Project // Web App"
 description: A personal diary of everything you loved — books, games, movies, even hiking trails — ranked by comparison instead of star ratings, with notes from you to future you.
 href: /projects/tain
-order: 5
+order: 6
 onHome: true
 image: /assets/projects/tain/hero.jpg
 imageAlt: Tain — everything you loved, in order
