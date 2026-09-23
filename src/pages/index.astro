@@ -66,6 +66,18 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
+  <!-- Availability: the question this audience actually arrived with -->
+  <section class="home-avail">
+    <div class="container">
+      <p class="home-avail__text">
+        <span class="home-avail__dot" aria-hidden="true"></span>
+        <strong>Open to new roles.</strong> Senior product design, design systems, or
+        designer-developer &mdash; in Utah or remote. Also taking select client work through
+        Paramore.Design. <a href="mailto:hparamore@gmail.com">Get in touch &rarr;</a>
+      </p>
+    </div>
+  </section>
+
   <!-- Selected Work -->
   <section class="section" aria-labelledby="work-heading">
     <div class="container">
@@ -81,6 +93,25 @@ const projects = (await getCollection('projects'))
 
         {projects.filter((p) => p.data.onHome).map((p) => <ProjectCard project={p.data} />)}
 
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="section" aria-labelledby="about-heading">
+    <div class="container">
+      <span class="label">About</span>
+      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
+      <p class="home-about__text">
+        I studied art with an emphasis on design and have spent my career in the space where{' '}
+        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
+        details that make a product feel right, and dig into user feedback to find root causes, not
+        just symptoms. Whether embedded on a team, working directly with a founder, or building
+        something of my own, I bring the same thing: a drive to make the product better and the
+        range to do whatever it takes to get there.
+      </p>
+      <div style="margin-top: var(--space-xl);">
+        <a href="/about" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -161,38 +192,17 @@ const projects = (await getCollection('projects'))
       <span class="label">The Toolkit</span>
       <h2 id="toolkit-heading" style="margin-top: var(--space-sm);">What I build with.</h2>
       <div class="home-toolkit">
-        <div class="home-toolkit__col">
+        <div class="home-toolkit__row">
           <h4>Design</h4>
-          <ul>
-            <li>Design systems &amp; tokens</li>
-            <li>UI &amp; interaction design</li>
-            <li>Product &amp; UX strategy</li>
-            <li>Research &amp; usability testing</li>
-            <li>Brand &amp; visual identity</li>
-            <li>Prototyping · Figma (expert)</li>
-          </ul>
+          <p>Design systems &amp; tokens · UI &amp; interaction · Product &amp; UX strategy · Research &amp; usability testing · Brand &amp; visual identity · Prototyping · Figma (expert)</p>
         </div>
-        <div class="home-toolkit__col">
+        <div class="home-toolkit__row">
           <h4>Build</h4>
-          <ul>
-            <li>iOS · Swift / SwiftUI</li>
-            <li>Android · Kotlin / Compose</li>
-            <li>Web · React / HTML / CSS</li>
-            <li>Firebase / Cloud Functions</li>
-            <li>Games · Unity / SpriteKit</li>
-            <li>AI · Claude Code · APIs · agents</li>
-          </ul>
+          <p>iOS · Swift / SwiftUI · Android · Kotlin / Compose · Web · React / HTML / CSS · Astro · Supabase · Firebase · Unity / SpriteKit · Claude Code · APIs &amp; agents</p>
         </div>
-        <div class="home-toolkit__col">
+        <div class="home-toolkit__row">
           <h4>Lead</h4>
-          <ul>
-            <li>Mentoring &amp; design critique</li>
-            <li>Cross-functional influence</li>
-            <li>Design-to-eng collaboration</li>
-            <li>Roadmapping &amp; prioritization</li>
-            <li>Stakeholder communication</li>
-            <li>Hiring &amp; team-building</li>
-          </ul>
+          <p>Mentoring &amp; design critique · Cross-functional influence · Design-to-eng collaboration · Roadmapping &amp; prioritization · Stakeholder communication · Hiring &amp; team-building</p>
         </div>
       </div>
     </div>
@@ -211,25 +221,6 @@ const projects = (await getCollection('projects'))
         <span class="home-brands__logo">Tech 9</span>
         <span class="home-brands__logo">Stotion</span>
         <span class="home-brands__logo">Paramore Real Estate</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- About teaser -->
-  <section class="section" aria-labelledby="about-heading">
-    <div class="container">
-      <span class="label">About</span>
-      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
-      <p class="home-about__text">
-        I studied art with an emphasis on design and have spent my career in the space where{' '}
-        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
-        details that make a product feel right, and dig into user feedback to find root causes, not
-        just symptoms. Whether embedded on a team, working directly with a founder, or building
-        something of my own, I bring the same thing: a drive to make the product better and the
-        range to do whatever it takes to get there.
-      </p>
-      <div style="margin-top: var(--space-xl);">
-        <a href="/about" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -379,6 +370,36 @@ const projects = (await getCollection('projects'))
       .home-stat__label { font-size: var(--text-xs); }
     }
 
+    /* ---------- Availability ----------
+       A single quiet line. It answers "are you even looking?" without turning the
+       page into a job board. The dot is the only ornament it gets. */
+    .home-avail { padding: var(--space-lg) 0 0; }
+    .home-avail__text {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 78ch;
+    }
+    .home-avail__text strong { color: var(--color-text-primary); }
+    .home-avail__text a { color: var(--color-accent); }
+    .home-avail__dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      margin-right: var(--space-sm);
+      vertical-align: middle;
+    }
+
+    .home-toolkit__row h4 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      letter-spacing: var(--tracking-display);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0;
+    }
+
     /* ---------- Worked-with strip ---------- */
     .home-brands {
       background: var(--color-surface);
@@ -490,31 +511,31 @@ const projects = (await getCollection('projects'))
     }
 
     /* ---------- Toolkit columns ---------- */
-    .home-toolkit {
+    .home-toolkit { margin-top: var(--space-2xl); }
+    /* Label left, the list as one flowing line right — a third of the height of the
+       old three-column bullet lists, and still every keyword a filter might want. */
+    .home-toolkit__row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-2xl);
-      margin-top: var(--space-2xl);
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) 0;
+      border-top: 1px solid var(--color-border-subtle);
+      align-items: baseline;
     }
-    .home-toolkit__col h4 {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      letter-spacing: var(--tracking-display);
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: var(--space-md);
-    }
-    .home-toolkit__col ul { list-style: none; padding: 0; margin: 0; }
-    .home-toolkit__col li {
+    .home-toolkit__row:last-child { border-bottom: 1px solid var(--color-border-subtle); }
+    .home-toolkit__row p {
       font-size: var(--text-base);
       color: var(--color-text-secondary);
-      padding: var(--space-sm) 0;
-      border-bottom: 1px solid var(--color-border-subtle);
+      line-height: 1.6;
     }
-    .home-toolkit__col li:last-child { border-bottom: 0; }
-    @media (max-width: 768px) {
-      .home-toolkit { grid-template-columns: 1fr; gap: var(--space-xl); }
+    @media (max-width: 700px) {
+      .home-toolkit__row { grid-template-columns: 1fr; gap: var(--space-xs); }
     }
+    
+    
+    
+    
+
 
     /* ---------- Closing ---------- */
     .home-closing { text-align: center; padding: var(--space-5xl) var(--content-padding); }
