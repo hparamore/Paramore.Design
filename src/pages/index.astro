@@ -42,6 +42,30 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
+  <!-- Proof strip: the numbers, scannable, before anything else -->
+  <section class="home-proof">
+    <div class="container">
+      <div class="home-stats">
+        <div class="home-stat">
+          <div class="home-stat__value">13 yrs</div>
+          <div class="home-stat__label">Designing and shipping product.</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat__value">40k+</div>
+          <div class="home-stat__label">Marriages from Mutual, the app I co-founded.</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat__value">#1</div>
+          <div class="home-stat__label">LDS dating app worldwide. Sole designer, ten years.</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat__value">9</div>
+          <div class="home-stat__label">Apps of my own, designed, built and deployed solo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Selected Work -->
   <section class="section" aria-labelledby="work-heading">
     <div class="container">
@@ -225,6 +249,7 @@ const projects = (await getCollection('projects'))
         <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
           Email Me <span class="btn__arrow">&rarr;</span>
         </a>
+        <a href="/resume" class="btn btn--secondary">Résumé</a>
         <a href="/work" class="btn btn--secondary">See the work</a>
       </div>
     </div>
@@ -314,6 +339,44 @@ const projects = (await getCollection('projects'))
       .home-caps { row-gap: var(--space-2xl); }
       .home-cap { grid-column: 1 / 13 !important; margin-top: 0 !important; }
       .home-cap__name { font-size: var(--text-3xl) !important; }
+    }
+
+    /* ---------- Proof strip ----------
+       Sits directly under the hero so the numbers land before any scrolling.
+       Four across on desktop, two on tablet, two on phones — never one column,
+       because a single stack reads as a list instead of a scoreboard. */
+    .home-proof {
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-xl);
+    }
+    .home-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .home-stat__value {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 4.5vw, var(--text-5xl));
+      line-height: 0.95;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+    }
+    .home-stat__label {
+      font-size: var(--text-sm);
+      line-height: 1.4;
+      color: var(--color-text-secondary);
+      max-width: 24ch;
+    }
+    @media (max-width: 900px) {
+      .home-stats { grid-template-columns: repeat(2, 1fr); gap: var(--space-xl); }
+    }
+    @media (max-width: 560px) {
+      .home-stats { gap: var(--space-lg); }
+      .home-stat__label { font-size: var(--text-xs); }
     }
 
     /* ---------- Worked-with strip ---------- */

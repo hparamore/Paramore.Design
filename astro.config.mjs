@@ -19,5 +19,7 @@ export default defineConfig({
     '/projects/mutual.html': '/projects/mutual',
     '/projects/game-ui.html': '/projects/game-ui',
     '/projects/the-tree-service.html': '/projects/the-tree-service',
+    // The résumé is a public/ passthrough; this just gives it a tidy URL to link.
+    '/resume': '/resume.html',
   },
 });
