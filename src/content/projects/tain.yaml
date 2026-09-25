@@ -7,3 +7,4 @@ onHome: true
 image: /assets/projects/tain/hero.jpg
 imageAlt: Tain — everything you loved, in order
 aspect: 1 / 1
+draft: true

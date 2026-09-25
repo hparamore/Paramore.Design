@@ -1,3 +1,120 @@
+## 2026-09-25 (later still) — Homepage hero retargeted: portfolio, not services
+
+Hunter is applying to Senior/Staff roles and wants the site to read as **a portfolio**,
+not a services pitch.
+
+The hero's closing sentence was the problem: *"Now I build AI-powered tools for small
+businesses, plus nine apps of my own running at paramore.design."* That is the freelance
+offer, on the page a hiring manager lands on first, and it reads "consultant" to someone
+screening for an IC design role. Same audience mismatch flagged on the business card.
+
+Now: *"...and later Ark, one of the top Christian dating apps. ... These days I build
+design systems that engineers and AI agents can both build from, and I use AI to take my
+own work from flowchart to shipped — nine apps of mine are running at paramore.design."*
+
+- **Small-business framing removed.** The capability stays, restated as design-systems
+  and AI-workflow work, which is what Senior/Staff postings actually ask for.
+- **Ark added**, which the hero never mentioned.
+- **"Nine apps of my own" kept** — as a portfolio proof point it works for employers too;
+  it was only the "for small businesses" clause that aimed at the wrong reader.
+- Voice, headline ("I learn things by rebuilding them"), proof strip and CTAs untouched.
+
+**No "I'm available" banner in the hero** — deliberately. Hunter asked for a portfolio
+feel, and the availability line now lives at the end of the About intro, with the
+Résumé link already in the nav.
+
+Rest of the homepage was scanned for client/services/freelance language: nothing else
+hit. Builds clean at 18 pages. **Not committed or deployed.**
+
+## 2026-09-25 (later) — About page rewritten with real proof
+
+The About intro was the weakest page on the site: it never named Mutual or Ark, had
+one free-floating number ("hundreds of thousands of users"), and leaned on claims no
+reader can check — "I think in systems," "I obsess over the details," "a relentless
+drive... to do whatever it takes." Every designer writes those. It also never mentioned
+AI, even though the resume, the LinkedIn headline and the homepage hero all lead with it,
+so anyone arriving from LinkedIn met a more generic designer than the one they clicked on.
+
+Rewrote `src/pages/about.astro`'s five intro paragraphs from Hunter's own intro-pitch
+exercise. Structure now: Mutual (ten years, first designer, last five full-time, #1 +
+40,000 marriages) → Ark → design systems (three brands, six themes, live WCAG checks;
+Figma homepage feature, 300k views / 17k downloads) → AI (builds what he designs;
+systems AI agents can consume) → background plus **an explicit "currently looking for
+Senior or Staff, full-time or fractional" line**, which the site did not say anywhere.
+
+The "What I Bring" skills grid, the photo placeholder and everything below the divider
+are untouched. Comment structure verified balanced; builds clean at 18 pages.
+
+### Two claims deliberately NOT used
+- **"Hundreds of thousands of monthly active users."** It appears in Hunter's spoken
+  pitch but nowhere on the site or resume. The page uses the 40,000+ marriages figure
+  instead, which is already published and stronger.
+- **"#2 or #3 Christian dating app."** Kept as "one of the top Christian dating apps in
+  the App Store" — the wording already used in his LinkedIn post and resume. A ranking
+  that moves should not be pinned in evergreen copy.
+
+### Still open — the homepage hero's audience conflict
+The hero ends "Now I build AI-powered tools for small businesses, plus nine apps of my
+own." That is the **freelance** pitch, aimed at small-business clients, on the page a
+hiring manager lands on first. It is the same front-of-card mismatch flagged on the
+business card. Not changed — needs Hunter's call on whether the homepage should sell to
+employers or to clients. Ark and the Figma numbers are also absent from the hero.
+
+**Not committed or deployed.**
+
+## 2026-09-25 — Years-of-experience corrected to 13 across the site
+
+Hunter confirmed **13 years is accurate** — he started out of college in August/
+September 2013, and that anniversary has now passed. The 12/13 split flagged earlier
+was just the site lagging the anniversary.
+
+Fixed three places that still said 12:
+- `src/pages/about.astro` — page meta description **and** the body copy (the body one
+  was missed on the first pass; grep for the spelled-out and numeral forms both).
+- `public/resume.html` — the `<meta name="description">` said "12+ years" while the
+  resume body already said 13. **Note the CLAUDE.md rule:** resume.html mirrors the
+  PDF, and the PDF's own metadata was not rebuilt here, so this is HTML-only.
+- `src/pages/index.astro` already said 13; left alone.
+
+**"Ten years" references are correct and were left alone** — those describe the Mutual
+tenure, not total career: `src/content/projects/mutual.yaml`, `src/pages/build.astro`,
+and the Mutual bullet in `resume.html`.
+
+**Deliberately NOT touched:** `public/clozd.html` and `public/veras.html` both say
+"twelve years" in several places. They are point-in-time application artifacts already
+sent to those companies; editing them now would rewrite a document someone already
+read. Leave them unless Hunter says otherwise.
+
+Also clarified for future copy: **Mutual is ten years total** — he was the first
+designer, from nothing — with the **last five full-time**, which is when the growth
+happened. Both numbers are true and the pitch should carry both rather than pick one.
+
+Built clean, 18 pages. **Not committed or deployed.**
+
+## 2026-09-23 — Tain and Magnet pulled from the project grids
+
+Hunter is applying to Senior/Staff/Lead design roles and asked why a third of
+applications come back as fast rejections. Measured the live case studies: only
+**Mutual (733 words) and The Tree Service (630)** are real case studies. Everything
+else sits at 145–204 words, which is a cover image and a sentence. For roles at this
+level the portfolio review *is* the screen, and thin pages lower a reviewer's estimate
+of the whole grid.
+
+He asked to drop the two thinnest personal projects.
+
+- `src/content/projects/tain.yaml` and `magnet.yaml` now carry `draft: true`.
+- Both `index.astro` and `work.astro` already filter on `!p.data.draft`, so one line
+  per file removes them from the homepage **and** the work grid. Nothing else changed.
+- **The pages still build and still resolve** at `/projects/tain/` and
+  `/projects/magnet/`. They are unlinked, not deleted — any URL already shared keeps
+  working, and deleting the `draft` line puts the cards straight back.
+- Grid went from 13 cards to 11.
+
+**If the intent was homepage-only**, swap `draft: true` for `onHome: false`; that keeps
+them on `/work` while hiding them from Selected Work.
+
+Built clean, 18 pages. **Not committed or deployed.**
+
 ## 2026-09-23 — Tree Service timeline settled; HTML resume aligned to the PDF
 
 **Timeline: four weeks.** Hunter confirmed. `the-tree-service.yaml` said "three weeks" and
