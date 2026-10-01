@@ -134,6 +134,8 @@
 .lcp-steps li::before { content: counter(step); justify-self: start; font-family: var(--font-display); font-size: var(--text-3xl); line-height: 1; color: var(--color-accent); font-variant-numeric: tabular-nums; }
 /* .section supplies the bottom padding; this keeps the buttons off the footer rule on every width */
 .lcp-next__cta { justify-content: flex-start; }
+.lcp-next__email { margin-top: var(--space-md); color: var(--color-text-secondary); font-size: var(--text-sm); }
+.lcp-next__email a { color: var(--color-text-primary); text-underline-offset: 0.2em; user-select: all; }
 .lcp-steps strong { color: var(--color-text-primary); }
 
 @media (prefers-reduced-motion: reduce) { .lcp-idea { transition: none; } }

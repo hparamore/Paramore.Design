@@ -2232,3 +2232,9 @@ Hunter liked the proposal's changes and asked for them on the main site (all of 
   - The concept's source of truth stays in the Spec Work project. Its `sync-to-portfolio.sh` copies it in and rewrites links and image paths.
   - CLAUDE.md documents the `/<client>` + `/<client>/pricing` convention.
 - Dev-server note: the long-running `astro dev` (started 12:40) 404s on the new `/lehichiropractic` route after the HMR route errors. The production build serves both routes. Restart the dev server to see it locally.
+
+## 2026-10-01 — Live fixes (cache bust + contact email)
+- The live site showed old header styles because browsers cached `styles.css?v=8` from before today. Bumped to `v=9` in Base.astro. CLAUDE.md now says to bump it whenever styles.css changes.
+- Every mailto now goes to hparamore@gmail.com (changed /build "Book a Call", /about "Email Me" (was hello@), and the Lehi pricing "Email Hunter"). Recorded in CLAUDE.md.
+- Pricing next steps gained a visible "Or write to hparamore@gmail.com" line, because a mailto button does nothing without a configured mail app.
+- Noticed, not fixed: /about LinkedIn button links to the generic linkedin.com.

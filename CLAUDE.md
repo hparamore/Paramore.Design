@@ -110,6 +110,8 @@ section structure, and facts. **If one changes, change the other**, or the "Down
 button on that page hands the reader a different document.
 
 ## Conventions
+- **Contact email is `hparamore@gmail.com` everywhere** (every mailto button and link). Hunter doesn't check hunter@ / hello@paramore.design.
+- **Bump the `styles.css?v=` number in `Base.astro` whenever `public/css/styles.css` changes.** Otherwise browsers keep the old cached copy on the live site.
 - Dark theme only (#0A0A0A bg, #FF6B00 accent)
 - Headings use Bebas Neue, uppercase, display sizes
 - Body text uses Space Grotesk
