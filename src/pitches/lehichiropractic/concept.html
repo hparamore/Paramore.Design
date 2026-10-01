@@ -332,6 +332,28 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
   .hero-actions .btn, .reviews-link, .visit .btn { width: 100%; }
 }
 
+/* Light / dark toggle. Shows the moon in light mode and the sun in dark mode, whether the theme came
+   from the system setting or from a tap (which sets data-theme on <html>). */
+.theme-toggle { display: inline-grid; place-items: center; width: 42px; height: 42px; flex: none; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .15s ease; }
+.theme-toggle:hover { border-color: var(--ink-soft); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+}
+@media (max-width: 860px) { .nav { gap: 10px; } }
+@media (max-width: 420px) {
+  .topbar .wrap { gap: 10px; }
+  .nav { gap: 8px; }
+  .wordmark { font-size: 1.05rem; gap: 5px; }
+  .wordmark .bar { height: 22px; }
+  .nav .btn { padding: 0 12px; min-height: 40px; font-size: 1rem; }
+  .theme-toggle { width: 40px; height: 40px; }
+}
+
 /* Mobile action bar — call and directions always under the thumb */
 .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); }
 .dock .btn { flex: 1; min-height: 50px; font-size: 1.1rem; padding: 0 12px; }
@@ -397,6 +419,10 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
       <a class="link" href="#reviews">Reviews</a>
       <a class="link" href="#hours">Hours &amp; location</a>
       <a class="btn btn-door" href="#book">Book a time</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
     </nav>
   </div>
 </header>
@@ -815,6 +841,22 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
     form.querySelector("[data-form-body]").hidden = false;
     form.querySelector("[data-confirm]").hidden = true;
   });
+
+  // Light/dark toggle: follows the device setting until tapped, then remembers the choice on this device.
+  const themeBtn = document.querySelector("[data-theme-toggle]");
+  const root = document.documentElement;
+  const systemDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const effective = () => root.dataset.theme || (systemDark() ? "dark" : "light");
+  const labelThemeBtn = () => themeBtn.setAttribute("aria-label", effective() === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  try { const saved = localStorage.getItem("lehi-theme"); if (saved === "dark" || saved === "light") root.dataset.theme = saved; } catch (e) {}
+  labelThemeBtn();
+  themeBtn.addEventListener("click", () => {
+    const next = effective() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("lehi-theme", next); } catch (e) {}
+    labelThemeBtn();
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", labelThemeBtn);
 
   renderStatus(); renderHours(); fillDays();
   setInterval(() => { renderStatus(); renderHours(); }, 60000);
