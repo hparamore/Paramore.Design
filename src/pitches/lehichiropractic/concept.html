@@ -23,6 +23,7 @@
   --panel: #15202b;         /* dark band behind the walk-in board */
   --panel-ink: #eef2f5;
   --panel-soft: #9fb0bf;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%2315202b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
   --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -41,13 +42,13 @@
   :root:not([data-theme="light"]) {
     --ground: #0f161d; --surface: #17212b; --ink: #e9eef2; --ink-soft: #a5b2be; --line: #2a3742;
     --door: #e5625a; --door-fill: #c4463c; --door-ink: #ffffff; --sign-blue: #2b4a68; --open: #4cc283; --closed: #e3a556;
-    --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; color-scheme: dark;
+    --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23e9eef2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --ground: #0f161d; --surface: #17212b; --ink: #e9eef2; --ink-soft: #a5b2be; --line: #2a3742;
   --door: #e5625a; --door-fill: #c4463c; --door-ink: #ffffff; --sign-blue: #2b4a68; --open: #4cc283; --closed: #e3a556;
-  --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; color-scheme: dark;
+  --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23e9eef2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -146,7 +147,6 @@ p { margin: 0; }
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); counter-reset: step; }
 .step { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 3px solid var(--ink); min-width: 0; }
 .step .num { font-family: var(--font-display); font-weight: 800; font-size: 1rem; letter-spacing: .12em; color: var(--door); }
-.step .time { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
 .step p { color: var(--ink-soft); }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 
@@ -162,7 +162,8 @@ p { margin: 0; }
 .menu-row .price { display: grid; justify-items: end; align-content: start; gap: 0.4rem; font-family: var(--font-display); font-weight: 800; font-size: 2.3rem; line-height: 1; text-align: right; } /* gap clears the numerals' descenders, same as the stat rows */
 .menu-row .price small { font-size: 0.95rem; line-height: 1.2; font-weight: 600; letter-spacing: .06em; color: var(--ink-soft); text-transform: uppercase; }
 .menu-row p { grid-column: 1 / -1; color: var(--ink-soft); max-width: 58ch; }
-.menu-row .tag { display: inline-block; margin-left: 10px; vertical-align: middle; font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--sign-blue); color: var(--ink); }
+.menu-row h3:has(.tag) { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.menu-row .tag { display: inline-block; font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--sign-blue); color: var(--ink); }
 .menu-row.muted h3, .menu-row.muted .price { color: var(--ink-soft); }
 @media (max-width: 860px) { .services .wrap { grid-template-columns: 1fr; } .services .side { position: static; } .services .side img { aspect-ratio: 16/10; } }
 
@@ -254,6 +255,10 @@ figcaption { font-family: var(--font-display); font-weight: 700; letter-spacing:
 .field { display: grid; gap: 8px; min-width: 0; }
 .field label, .field legend { font-weight: 600; font-size: .95rem; padding: 0; }
 .field input, .field select { font: inherit; color: var(--ink); background: var(--ground); border: 1px solid var(--line); border-radius: var(--radius); min-height: 50px; padding: 0 14px; width: 100%; }
+/* iOS Safari ignores height on a natively styled <select> and renders it about half as tall as the inputs.
+   Drop the native look, pin the height, and draw the arrow ourselves (themed via --chevron). */
+.field input, .field select { height: 50px; }
+.field select { -webkit-appearance: none; appearance: none; padding-right: 40px; background-image: var(--chevron); background-repeat: no-repeat; background-position: right 14px center; background-size: 14px 14px; }
 .field-error { font-size: var(--step--1); color: var(--door); font-weight: 600; line-height: 1.35; }
 .field input[aria-invalid="true"] { border-color: var(--door); }
 .field input:focus, .field select:focus { outline: 2px solid var(--door); outline-offset: 1px; }
@@ -278,6 +283,54 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 /* Footer */
 footer { border-top: 1px solid var(--line); padding-block: 40px; color: var(--ink-soft); font-size: .9rem; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; }
+
+/* ---------- Phones (Hunter, 2026-10-01): one step smaller and consistent, tighter rhythm, full-width buttons ----------
+   The type tokens shrink here, and the components that hard-coded sizes are pointed back at the tokens,
+   so there's one scale instead of a dozen one-off sizes. */
+@media (max-width: 600px) {
+  :root {
+    --step--1: 0.8125rem;  /* 13 */
+    --step-0: 0.9375rem;   /* 15 body */
+    --step-1: 1.0625rem;   /* 17 lede */
+    --step-2: 1.375rem;    /* 22 h3 */
+    --step-3: 2rem;        /* 32 h2 */
+    --step-4: 2.75rem;     /* 44 h1 */
+  }
+  .section { padding-block: 40px; }
+  .hero { padding-block: 24px 40px; }
+  .how { padding-top: 0; }
+  .section-head { margin-bottom: 24px; gap: 10px; }
+  .services .wrap, .injury .wrap, .doctor .wrap, .board .wrap, .book .wrap { gap: 28px; }
+  .services .side { gap: 14px; }
+  .steps { gap: 28px; }
+
+  .menu-row h3, .step h3 { font-size: var(--step-2); }
+  .price-strip strong { font-size: 1.6rem; }
+  .feature-quote blockquote { font-size: 1.375rem; }
+  .visit address { font-size: 1.5rem; }
+  .phone-line a { font-size: 1.375rem; }
+  .status b { font-size: 1rem; }
+  .status span { font-size: var(--step--1); }
+
+  /* Price sits under the service name, unit on the same line: "$35  PER VISIT" */
+  .menu-row { grid-template-columns: 1fr; gap: 6px; padding-block: 20px; }
+  .menu-row .price { display: flex; align-items: baseline; justify-content: flex-start; gap: 8px; font-size: 1.5rem; text-align: left; }
+  .menu-row .price small { font-size: 0.8125rem; }
+
+  /* Collapse the one-off sizes onto the scale: 12 (chips/ticks) · 13 · 15 · 17 · 22 · 24 (prices) · 32 · 44 */
+  .menu-row .tag, .now-line::after { font-size: 0.75rem; }
+  .photo-credit, .day .text, .hours-scale { font-size: var(--step--1); }
+  .nav a.link, .field label, .field legend, .chip span, .status b, .step .num, figcaption, .quote blockquote, .rating-meta { font-size: var(--step-0); }
+  .btn, .nav .btn, .dock .btn { font-size: var(--step-1); }
+  .day .name { font-size: var(--step-1); }
+  .confirm h3 { font-size: var(--step-2); }
+  .price-strip strong, .menu-row .price { font-size: 1.5rem; }
+  .rating strong { font-size: var(--step-4); }
+
+  /* Buttons go full width (inside the page gutter) */
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn, .reviews-link, .visit .btn { width: 100%; }
+}
 
 /* Mobile action bar — call and directions always under the thumb */
 .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); }
@@ -382,21 +435,18 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
       </div>
       <ol class="steps">
         <li class="step">
-          <span class="num">Step 1</span>
+          <span class="num">Step 1 · Any time we're open</span>
           <h3>Walk through the red door</h3>
-          <span class="time">Any time we're open</span>
           <p>Park out front on Main Street or in the back lot by the Lehi Legacy Center. No call ahead needed.</p>
         </li>
         <li class="step">
-          <span class="num">Step 2</span>
+          <span class="num">Step 2 · About 10 min, first visit only</span>
           <h3>Quick intake</h3>
-          <span class="time">About 10 min, first visit only</span>
           <p>Tell Dr. Miles what's going on. One short form the first time, then you're on the table.</p>
         </li>
         <li class="step">
-          <span class="num">Step 3</span>
+          <span class="num">Step 3 · About 5 min</span>
           <h3>Get adjusted</h3>
-          <span class="time">About 5 min</span>
           <p>A focused adjustment and practical tips for home. Come back whenever you need it. No treatment plan to sign up for.</p>
         </li>
       </ol>
