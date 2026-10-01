@@ -335,7 +335,12 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
 /* Mobile action bar — call and directions always under the thumb */
 .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); }
 .dock .btn { flex: 1; min-height: 50px; font-size: 1.1rem; padding: 0 12px; }
-@media (max-width: 760px) { .dock { display: flex; } }
+@media (max-width: 760px) {
+  .dock { display: flex; }
+  /* The dock (Call / Directions) and the header's Book a time already cover these, so the hero
+     drops its own buttons on phones and the prices, rating and photo move up. */
+  .hero .hero-actions { display: none; }
+}
 
 /* ---------- Paramore.Design wrapper (not part of the Lehi site) ----------
    Deliberately its own world: Hunter's dark-only brand, so the line between
