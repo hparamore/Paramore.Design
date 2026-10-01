@@ -326,6 +326,9 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: 
   .day .name { font-size: var(--step-1); }
   .confirm h3 { font-size: var(--step-2); }
   .price-strip strong, .menu-row .price { font-size: 1.5rem; }
+  /* Keep the stars on the score's line; they shrink instead of wrapping under it */
+  .price-strip .with-stars { flex-wrap: nowrap; gap: 6px; }
+  .price-strip .with-stars .stars { font-size: 0.8rem; }
   .rating strong { font-size: var(--step-4); }
 
   /* Buttons go full width (inside the page gutter) */
