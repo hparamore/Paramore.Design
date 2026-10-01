@@ -85,8 +85,8 @@ const projects = (await getCollection('projects'))
     <div class="container">
       <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
         <div>
-          <span class="label">Selected Work</span>
-          <h2 id="work-heading" style="margin-top: var(--space-sm);">A few things I&rsquo;ve built.</h2>
+          <span class="section-label">Selected Work</span>
+          <h2 id="work-heading" class="section-title">A few things I&rsquo;ve built.</h2>
         </div>
         <a href="/work" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
       </div>
@@ -102,8 +102,8 @@ const projects = (await getCollection('projects'))
   <!-- About teaser -->
   <section class="section" aria-labelledby="about-heading">
     <div class="container">
-      <span class="label">About</span>
-      <h2 id="about-heading" style="margin-top: var(--space-sm); margin-bottom: var(--space-lg);">Design-first, but I build.</h2>
+      <span class="section-label">About</span>
+      <h2 id="about-heading" style="margin-bottom: var(--space-lg);" class="section-title">Design-first, but I build.</h2>
       <p class="home-about__text">
         I studied art with an emphasis on design and have spent my career in the space where{' '}
         <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
@@ -121,8 +121,8 @@ const projects = (await getCollection('projects'))
   <!-- Capabilities glimpse -->
   <section class="section" id="how-i-work" aria-labelledby="caps-heading">
     <div class="container">
-      <span class="label">How I Work</span>
-      <h2 id="caps-heading" style="margin-top: var(--space-sm);">Four things I do at depth.</h2>
+      <span class="section-label">How I Work</span>
+      <h2 id="caps-heading" class="section-title">Four things I do at depth.</h2>
 
       <div class="home-caps">
         <div class="home-cap">
@@ -191,8 +191,8 @@ const projects = (await getCollection('projects'))
   <!-- Toolkit -->
   <section class="section" aria-labelledby="toolkit-heading">
     <div class="container">
-      <span class="label">The Toolkit</span>
-      <h2 id="toolkit-heading" style="margin-top: var(--space-sm);">What I build with.</h2>
+      <span class="section-label">The Toolkit</span>
+      <h2 id="toolkit-heading" class="section-title">What I build with.</h2>
       <div class="home-toolkit">
         <div class="home-toolkit__row">
           <h4>Design</h4>
@@ -213,8 +213,8 @@ const projects = (await getCollection('projects'))
   <!-- Worked-with strip -->
   <section class="section home-brands" aria-labelledby="brands-heading">
     <div class="container" style="text-align: center;">
-      <span class="label">Worked With</span>
-      <h2 id="brands-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ years across brands you know.</h2>
+      <span class="section-label">Worked With</span>
+      <h2 id="brands-heading" class="section-title">12+ years across brands you know.</h2>
       <div class="home-brands__logos">
         <span class="home-brands__logo">Mutual</span>
         <span class="home-brands__logo">Ark Dating</span>
@@ -229,9 +229,9 @@ const projects = (await getCollection('projects'))
 
   <!-- Closing -->
   <section class="home-closing" id="contact">
-    <div class="container container--narrow">
-      <span class="label">Get In Touch</span>
-      <h2 class="display-lg" style="margin-top: var(--space-md);">
+    <div class="container">
+      <span class="section-label">Get In Touch</span>
+      <h2 class="section-title">
         Let&rsquo;s make something <span class="accent-text">worth shipping.</span>
       </h2>
       <p>
@@ -329,8 +329,9 @@ const projects = (await getCollection('projects'))
     }
     /* Mobile: single column */
     @media (max-width: 560px) {
-      .home-caps { row-gap: var(--space-2xl); }
-      .home-cap { grid-column: 1 / 13 !important; margin-top: 0 !important; }
+      /* One column on phones: 12 tracks with 48px gaps were wider than the screen and got clipped */
+      .home-caps { row-gap: var(--space-2xl); grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+      .home-cap { grid-column: 1 / -1 !important; margin-top: 0 !important; }
       .home-cap__name { font-size: var(--text-3xl) !important; }
     }
 
@@ -540,7 +541,7 @@ const projects = (await getCollection('projects'))
 
 
     /* ---------- Closing ---------- */
-    .home-closing { text-align: center; padding: var(--space-5xl) var(--content-padding); }
+    .home-closing { text-align: center; padding: var(--space-3xl) var(--content-padding); }
     .home-closing h2 {
       font-size: var(--text-5xl);
       max-width: 18ch;

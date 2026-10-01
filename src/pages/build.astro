@@ -37,8 +37,8 @@ import Base from '../layouts/Base.astro';
   <!-- Problem Strip -->
   <section class="section problem" aria-labelledby="problem-heading">
     <div class="container">
-      <span class="label">The Problem</span>
-      <h2 id="problem-heading" class="section-intro" style="margin-top: var(--space-sm);">
+      <span class="section-label">The Problem</span>
+      <h2 id="problem-heading" class="section-title">
         You didn't start a business to manage software.
       </h2>
       <div class="problem__grid">
@@ -63,8 +63,8 @@ import Base from '../layouts/Base.astro';
     <div class="container">
       <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
         <div>
-          <span class="label">Recent Builds</span>
-          <h2 id="recent-heading" style="margin-top: var(--space-sm);">Real Tools, Real Businesses.</h2>
+          <span class="section-label">Recent Builds</span>
+          <h2 id="recent-heading" class="section-title">Real Tools, Real Businesses.</h2>
         </div>
         <a href="/work" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
       </div>
@@ -123,8 +123,8 @@ import Base from '../layouts/Base.astro';
   <!-- Solution -->
   <section class="section" id="services" aria-labelledby="solution-heading">
     <div class="container">
-      <span class="label">What I Do</span>
-      <h2 id="solution-heading" style="margin-top: var(--space-sm);">One Person. Custom Built. AI Inside.</h2>
+      <span class="section-label">What I Do</span>
+      <h2 id="solution-heading" class="section-title">One Person. Custom Built. AI Inside.</h2>
       <p class="solution__lead">
         I sit down with you, learn your business in plain language, then build software shaped
         around it. AI does the heavy lifting under the hood, drafting messages, parsing receipts,
@@ -156,8 +156,8 @@ import Base from '../layouts/Base.astro';
   <!-- Industries -->
   <section class="section" aria-labelledby="industries-heading">
     <div class="container">
-      <span class="label">Built For</span>
-      <h2 id="industries-heading" style="margin-top: var(--space-sm);">Small businesses with real workflows.</h2>
+      <span class="section-label">Built For</span>
+      <h2 id="industries-heading" class="section-title">Small businesses with real workflows.</h2>
 
       <div class="industries__grid">
         <div class="industry-card">
@@ -197,8 +197,8 @@ import Base from '../layouts/Base.astro';
   <!-- Process -->
   <section class="section" aria-labelledby="process-heading">
     <div class="container">
-      <span class="label">How It Works</span>
-      <h2 id="process-heading" style="margin-top: var(--space-sm);">Four steps, no surprises.</h2>
+      <span class="section-label">How It Works</span>
+      <h2 id="process-heading" class="section-title">Four steps, no surprises.</h2>
 
       <div class="process__grid">
         <div class="process__step">
@@ -224,8 +224,8 @@ import Base from '../layouts/Base.astro';
   <!-- Trust -->
   <section class="section trust" aria-labelledby="trust-heading">
     <div class="container" style="text-align: center;">
-      <span class="label">Past Clients &amp; Teams</span>
-      <h2 id="trust-heading" style="margin-top: var(--space-sm); font-size: var(--text-2xl);">12+ Years Across Brands You Know.</h2>
+      <span class="section-label">Past Clients &amp; Teams</span>
+      <h2 id="trust-heading" class="section-title">12+ Years Across Brands You Know.</h2>
       <div class="trust__logos">
         <span class="trust__logo">Mutual Dating</span>
         <span class="trust__logo">Ark Dating</span>
@@ -240,9 +240,9 @@ import Base from '../layouts/Base.astro';
 
   <!-- Big CTA -->
   <section class="big-cta" id="contact">
-    <div class="container container--narrow">
-      <span class="label">Let's Talk</span>
-      <h2 class="display-lg" style="margin-top: var(--space-md);">
+    <div class="container">
+      <span class="section-label">Let's Talk</span>
+      <h2 class="section-title">
         Tell me what's <span class="accent-text">eating your week.</span>
       </h2>
       <p>
@@ -450,7 +450,7 @@ import Base from '../layouts/Base.astro';
     /* ---------- Big CTA ---------- */
     .big-cta {
       text-align: center;
-      padding: var(--space-5xl) var(--content-padding);
+      padding: var(--space-3xl) var(--content-padding);
     }
     .big-cta h2 {
       font-size: var(--text-5xl);

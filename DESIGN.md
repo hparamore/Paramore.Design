@@ -101,3 +101,36 @@ animation needs a `prefers-reduced-motion` fallback.
 Shared across all pages via `css/styles.css`: `.btn--primary`, `.project-card`,
 `.blog-post-link`, plus shared nav and footer. `js/main.js` handles nav scroll
 behavior and the mobile menu.
+
+## Section headers
+
+Hunter's rule (2026-10-01): a section opens with **one big display line**, not a
+small two-line title squeezed into the corner. **Shared classes in `css/styles.css`:**
+`.section-label`, `.section-title`, `.section-sub`. Used on every section-opening h2
+across the site (37 headings, 9 pages + the Lehi proposal).
+
+| Part | Class | Spec |
+|---|---|---|
+| Label (optional) | `.section-label` | `--font-body`, `--text-sm`, weight 500, `--tracking-wide`, uppercase, `--color-text-secondary` (AA, unlike `.label`'s tertiary) |
+| Title | `.section-title` | `--font-display`, `clamp(2.5rem, 6.5vw, 4.5rem)`, bold, uppercase, `line-height: 0.95`, `letter-spacing: 0`, `text-wrap: balance`, `max-width: none` |
+| Subline (optional) | `.section-sub` | `--font-body`, `--text-md`, `--color-text-primary`, max 65ch |
+
+- Spacing: `--space-sm` label → title → subline; a plain `<p>` after a title gets `--space-md`.
+- **Write the title to fit on one line on desktop** (roughly 35 characters or fewer at full width; 30 or fewer
+  inside an 800px reading column). No `<br>`s, no narrow `max-width`.
+- **Phones:** 40px, wrapping to two lines is expected. Fixed rem floor because the text tokens shrink on mobile.
+- `.section-title` is written as `.section-title.section-title` on purpose so it beats page-scoped
+  `.something h2` sizing (`.sc-head h2`, `.closing h2`, `.ts-section-head h2`…) regardless of load order.
+  New pages shouldn't add their own h2 sizing for section openers.
+- Content headings inside a section stay smaller than the section title at every width.
+- Not for: page heroes (h1), blog-post body headings (in-prose), card titles (h3).
+- Closing CTA sections use the full `.container` (not `--narrow`) so their title fits on one line;
+  their paragraphs cap their own width.
+
+## Section rhythm
+
+- `.section`: `--space-3xl` (64px) top and bottom on desktop, 40px on phones (was 96px, which stacked to ~192px).
+  `.section--sm`: `--space-2xl` / `--space-xl` on phones.
+- Closing CTA sections (`.big-cta`, `.home-closing`, `.sc-closing`, `.ts-closing`, `.closing`, `.contact-section`):
+  `--space-3xl` desktop, 48px on phones.
+- Phones (≤600px): bare `p` steps down to 16px; classes that set their own size keep it.

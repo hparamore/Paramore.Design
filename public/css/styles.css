@@ -293,13 +293,64 @@ p {
 }
 
 .section {
-  padding-top: var(--space-4xl);
-  padding-bottom: var(--space-4xl);
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
 }
 
 .section--sm {
-  padding-top: var(--space-3xl);
-  padding-bottom: var(--space-3xl);
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+/* Phones: 96px a side stacked to a third of the screen between sections (2026-10-01). */
+@media (max-width: 600px) {
+  .section { padding-top: 40px; padding-bottom: 40px; }
+  /* Page-scoped closing CTAs set their own padding; bring them to the same phone rhythm */
+  .contact-section, .big-cta, .home-closing, .sc-closing, .ts-closing, .closing { padding-top: 48px; padding-bottom: 48px; }
+  .section--sm { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+}
+
+/* ---------- Section headers (DESIGN.md → "Section headers") ----------
+   Small uppercase label → ONE big display line → optional subline. Titles are written short enough
+   to sit on one line on desktop; on phones they scale down to 40px and may wrap.
+   The doubled class (.section-title.section-title) is deliberate: several pages scope their own
+   `.something h2` sizing, and this has to win over those regardless of stylesheet order. */
+.section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.section-title.section-title {
+  margin-top: var(--space-sm);
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem); /* fixed rem floor: the text tokens shrink on mobile */
+  font-weight: bold;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: normal;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+/* Intro paragraphs that aren't a .section-sub still need breathing room under the big title */
+.section-title + p:not(.section-sub) { margin-top: var(--space-md); }
+.section-sub {
+  margin-top: var(--space-sm);
+  max-width: 65ch;
+  font-size: var(--text-md);
+  color: var(--color-text-primary);
+}
+/* Centered sections (closing CTAs, trust strips) keep the subline centered under the title */
+[style*="text-align: center"] .section-sub, .big-cta .section-sub { margin-inline: auto; }
+
+/* Phones: body copy steps down one size. Classes that set their own size still win. */
+@media (max-width: 600px) {
+  p { font-size: 1rem; }
 }
 
 .divider {
@@ -1068,7 +1119,7 @@ p {
 
 .contact-section {
   text-align: center;
-  padding: var(--space-4xl) 0;
+  padding: var(--space-3xl) 0;
 }
 
 .contact-section h2 {

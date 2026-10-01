@@ -60,7 +60,7 @@ import Base from '../../layouts/Base.astro';
   <section class="section">
     <div class="container">
       <div class="ts-section-head">
-        <h2>The stack Brandon <span class="accent">already had.</span></h2>
+        <h2 class="section-title">The stack Brandon <span class="accent">already had.</span></h2>
         <p>
           The crew wasn&rsquo;t the problem. The tools were too generic, and admin took
           an hour every night reconciling four sources to know what happened that day.
@@ -97,7 +97,7 @@ import Base from '../../layouts/Base.astro';
   <!-- =================== One Tool, Four Subs =================== -->
   <section class="section">
     <div class="container project-content">
-      <h2>One tool, four subscriptions retired.</h2>
+      <h2 class="section-title">One tool, four subscriptions retired.</h2>
       <p>
         I designed for the truck instead of the office, and shipped a single tool that
         replaced the whole stack. Every decision had to survive the same test: does this
@@ -161,7 +161,7 @@ import Base from '../../layouts/Base.astro';
   <section class="section ts-fleet-section">
     <div class="container">
       <div class="ts-section-head ts-section-head--left">
-        <h2>Manage the <span class="accent">entire fleet.</span></h2>
+        <h2 class="section-title">Manage the <span class="accent">entire fleet.</span></h2>
         <p>
           43 pieces of equipment imported from Brandon&rsquo;s insurance schedule on day
           three. Each one tracks its own maintenance schedule, parts costs, fuel logs,
@@ -238,8 +238,8 @@ import Base from '../../layouts/Base.astro';
 
   <!-- =================== Closing CTA =================== -->
   <section class="ts-closing">
-    <div class="container container--narrow">
-      <h2>Your business has its own <span class="accent">Tupperware of receipts.</span></h2>
+    <div class="container">
+      <h2 class="section-title">Your business has its own <span class="accent">Tupperware of receipts.</span></h2>
       <p>
         I build custom AI-assisted tools for small businesses, one tool, custom-fit,
         that replaces the stack of half-used SaaS subscriptions you&rsquo;re paying for.
@@ -422,11 +422,12 @@ import Base from '../../layouts/Base.astro';
     }
 
     /* ---------- Mid-section heading (used between modules) ---------- */
+    /* Title width comes from .section-title (one line on desktop); the section already pads the top */
     .ts-section-head {
-      max-width: 38ch;
-      margin: var(--space-4xl) auto var(--space-xl);
+      margin: 0 auto var(--space-xl);
       text-align: center;
     }
+    .ts-section-head:not(.ts-section-head--left) p { max-width: 60ch; margin-inline: auto; }
     .ts-section-head h2 {
       font-family: var(--font-display);
       font-size: var(--text-4xl);
@@ -451,10 +452,8 @@ import Base from '../../layouts/Base.astro';
       margin: var(--space-2xl) 0 var(--space-xl);
       text-align: left;
     }
+    /* Size now comes from the shared .section-title (DESIGN.md → Section headers) */
     .ts-section-head.ts-section-head--left h2 {
-      font-size: clamp(3rem, 9vw, 6rem); /* roughly text-4xl → text-6xl */
-      line-height: 0.92;
-      white-space: nowrap;
       margin-bottom: var(--space-md);
     }
     .ts-section-head.ts-section-head--left p {
@@ -463,7 +462,6 @@ import Base from '../../layouts/Base.astro';
       font-size: var(--text-md);
     }
     @media (max-width: 900px) {
-      .ts-section-head.ts-section-head--left h2 { white-space: normal; }
     }
     @media (max-width: 640px) {
       .ts-section-head { margin-top: var(--space-3xl); }
