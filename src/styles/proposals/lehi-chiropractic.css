@@ -1,0 +1,159 @@
+/*
+ * Lehi Chiropractic proposal: page-scoped styles (prefix lcp-).
+ * Lives in its own file instead of a <style is:global> block because `astro dev` kept
+ * serving a stale copy of the in-page block after edits (2026-10-01). A plain imported .css
+ * file hot-reloads reliably. Still global CSS, still prefixed, so the house convention holds.
+ */
+/* ---------- Lehi Chiropractic proposal (lcp-) ---------- */
+.lcp-lede { max-width: 60ch; margin-top: var(--space-xl); font-size: var(--text-lg); }
+.lcp-hero .hero__cta { margin-top: var(--space-xl); }
+/* Section headers use the shared .section-label / .section-title / .section-sub (styles.css). */
+
+/* Before / after compare slider. The "after" image is clipped to everything right of --pos;
+   an invisible range input over the stage does the dragging, so it's keyboard-accessible for free. */
+.lcp-compare__stage { position: relative; margin-top: var(--space-xl); aspect-ratio: 1878 / 994; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); user-select: none; }
+.lcp-compare__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.lcp-compare__img--after { clip-path: inset(0 0 0 var(--pos)); }
+.lcp-compare__handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--color-text-primary); box-shadow: 0 0 12px rgba(0, 0, 0, 0.5); pointer-events: none; }
+.lcp-compare__knob { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-text-primary); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45); }
+.lcp-compare__knob::before, .lcp-compare__knob::after { content: ""; position: absolute; top: 50%; width: 8px; height: 8px; border-left: 2px solid var(--color-bg); border-bottom: 2px solid var(--color-bg); }
+.lcp-compare__knob::before { left: 11px; transform: translateY(-50%) rotate(45deg); }
+.lcp-compare__knob::after { right: 11px; transform: translateY(-50%) rotate(-135deg); }
+.lcp-compare__tag { position: absolute; top: var(--space-md); padding: 6px 10px; border-radius: var(--radius-sm); background: rgba(10, 10, 10, 0.75); color: var(--color-text-primary); font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-wider); text-transform: uppercase; pointer-events: none; }
+.lcp-compare__tag--before { left: var(--space-md); }
+.lcp-compare__tag--after { right: var(--space-md); color: var(--color-accent); }
+.lcp-compare__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.lcp-compare__stage:has(.lcp-compare__range:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+@media (max-width: 600px) { .lcp-compare__knob { width: 36px; height: 36px; } .lcp-compare__tag { top: var(--space-sm); font-size: 10px; } }
+
+/* What I noticed: Hunter's Figma. One big line, labeled columns outside the box, banded rows. */
+.lcp-issues { margin-top: var(--space-2xl); width: 100%; border-collapse: collapse; table-layout: fixed; }
+.lcp-issues thead th { padding: 0 0 var(--space-md); text-align: left; font-size: var(--text-sm); font-weight: 500; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-secondary); }
+.lcp-issues thead th:first-child { width: 38%; }
+/* the Solution label and column share one left inset, which is the gap between the two columns */
+.lcp-issues thead th:last-child { padding-left: var(--space-3xl); }
+.lcp-issues tbody tr { border: 1px solid var(--color-border); background: var(--color-surface); }
+.lcp-issues tbody tr:nth-child(odd) { background: var(--color-surface-elevated); }
+.lcp-issues tbody th, .lcp-issues tbody td { padding: var(--space-xl) var(--space-xl); vertical-align: top; text-align: left; }
+.lcp-issues tbody th { font-family: var(--font-display); font-size: 1.75rem; font-weight: bold; line-height: 1; text-transform: uppercase; letter-spacing: 0.01em; color: var(--color-text-primary); }
+.lcp-issues tbody td { padding-left: var(--space-3xl); color: var(--color-text-primary); font-size: var(--text-md); line-height: var(--leading-relaxed); }
+/* Phones: each row stacks, problem over solution; the column labels would only point at nothing */
+@media (max-width: 640px) {
+  .lcp-issues thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .lcp-issues, .lcp-issues tbody, .lcp-issues tr, .lcp-issues th, .lcp-issues td { display: block; width: 100%; }
+  /* title and text share one inset when stacked */
+  .lcp-issues tbody th { padding: var(--space-lg) var(--space-lg) var(--space-xs); font-size: 1.5rem; }
+  .lcp-issues tbody td { padding: 0 var(--space-lg) var(--space-lg); }
+  .lcp-issues tbody tr + tr { border-top: 0; }
+}
+
+/* The offer: one big number, the only place the price gets this much room */
+/* Full-width surface band: the offer and the closing next steps both use it */
+.lcp-offer, .lcp-next { background: var(--color-surface); border-block: 1px solid var(--color-border); }
+.lcp-offer__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: var(--space-3xl); align-items: start; }
+.lcp-offer__price { display: grid; gap: var(--space-md); justify-items: start; }
+.lcp-price { font-family: var(--font-display); font-size: clamp(7rem, 16vw, 12rem); line-height: 0.85; color: var(--color-text-primary); margin: 0; text-shadow: 0 0 48px var(--color-accent-glow); }
+.lcp-price__currency { color: var(--color-accent); font-size: 0.5em; vertical-align: 0.75em; margin-right: 0.04em; }
+.lcp-price__terms { margin: 0; color: var(--color-text-secondary); }
+.lcp-offer__detail { display: grid; gap: var(--space-lg); }
+.lcp-h3 { font-family: var(--font-body); font-size: var(--text-xl); font-weight: 600; text-transform: none; line-height: var(--leading-snug); color: var(--color-text-primary); }
+.lcp-checks { list-style: none; padding: 0; margin: 0 0 var(--space-md); display: grid; gap: var(--space-sm); }
+.lcp-checks li { position: relative; padding-left: 28px; color: var(--color-text-secondary); font-size: var(--text-md); line-height: var(--leading-relaxed); }
+.lcp-checks li::before { content: ""; position: absolute; left: 2px; top: 0.55em; width: 12px; height: 7px; border-left: 2px solid var(--color-accent); border-bottom: 2px solid var(--color-accent); transform: rotate(-45deg); }
+.lcp-need { margin: 0; }
+@media (max-width: 860px) { .lcp-offer__grid { grid-template-columns: 1fr; gap: var(--space-2xl); } }
+
+/* Add-ons: solid tiles on the surface scale (no hairline rows, nothing on the dot grid).
+   Hierarchy inside a tile: name → outcome → price. Prices are quiet body text, never a column;
+   orange is reserved for the "Recommended" tag and the bundle. */
+.lcp-tag { display: inline-flex; align-items: center; width: fit-content; gap: 6px; padding: 5px 10px; border: 1px solid var(--color-accent); border-radius: 999px; color: var(--color-accent); background: var(--color-accent-subtle); font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-wider); text-transform: uppercase; line-height: 1; }
+
+.lcp-bundle { margin-top: var(--space-2xl); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg) var(--space-2xl); padding: var(--space-2xl); border: 1px solid var(--color-accent); border-radius: var(--radius-lg); background: linear-gradient(var(--color-accent-subtle), var(--color-accent-subtle)), var(--color-surface-elevated); }
+.lcp-bundle__intro { display: grid; gap: var(--space-md); align-content: start; }
+.lcp-bundle__title { margin: 0; font-family: var(--font-body); font-size: var(--text-2xl); font-weight: 600; line-height: 1.2; text-transform: none; color: var(--color-text-primary); text-wrap: balance; }
+.lcp-bundle__items { list-style: none; margin: 0; padding: 0; display: grid; align-content: start; }
+/* Dividers are a white tint: the default border gray disappears on the accent-tinted panel */
+/* Each item is a 2×2 grid: name | price on row one, description | unit on row two.
+   Rows align on a shared baseline, and both second-row pieces use one style (.lcp-bundle__meta). */
+.lcp-bundle__items li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 4px var(--space-lg); padding-block: var(--space-md); border-bottom: 1px solid rgba(255, 255, 255, 0.28); }
+.lcp-bundle__name { color: var(--color-text-primary); font-size: var(--text-md); }
+.lcp-bundle__price { color: var(--color-text-primary); font-size: var(--text-md); font-weight: 600; white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.lcp-bundle__meta { color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.4; }
+.lcp-bundle__meta--unit { text-align: right; white-space: nowrap; }
+.lcp-tile__price small { font-size: var(--text-sm); font-weight: 400; color: var(--color-text-secondary); }
+/* flex + baseline so the big number and "to start" share one baseline */
+.lcp-bundle__total { grid-column: 2; margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-sm); color: var(--color-text-secondary); font-size: var(--text-md); }
+.lcp-bundle__total-num { font-family: var(--font-display); font-size: var(--text-4xl); line-height: 1; color: var(--color-accent); }
+@media (max-width: 860px) {
+  .lcp-bundle { grid-template-columns: 1fr; padding: var(--space-xl); }
+  .lcp-bundle__total { grid-column: 1; }
+}
+
+.lcp-groups { margin-top: var(--space-3xl); display: grid; gap: var(--space-3xl); }
+.lcp-group { display: grid; gap: var(--space-lg); }
+.lcp-group__title { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: bold; text-transform: uppercase; line-height: 1; color: var(--color-text-primary); margin: 0; }
+.lcp-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.lcp-tile { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-xl); background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.lcp-tile--wide { grid-column: 1 / -1; }
+.lcp-tile .lcp-tag { margin-bottom: var(--space-xs); }
+.lcp-tile__name { margin: 0; font-size: var(--text-xl); font-weight: 600; line-height: var(--leading-snug); color: var(--color-text-primary); }
+.lcp-tile__short { margin: 0; color: var(--color-text-secondary); font-size: var(--text-md); line-height: var(--leading-relaxed); max-width: 60ch; }
+.lcp-tile__more summary { cursor: pointer; width: fit-content; color: var(--color-text-secondary); font-size: var(--text-sm); text-decoration: none; list-style: none; }
+.lcp-tile__more summary::-webkit-details-marker { display: none; }
+.lcp-tile__more summary::after { content: " +"; }
+.lcp-tile__more[open] summary::after { content: " −"; }
+.lcp-tile__more summary:hover { color: var(--color-text-primary); }
+.lcp-tile__more p { margin: var(--space-sm) 0 0; font-size: var(--text-sm); max-width: 60ch; }
+/* margin-top: auto pins the price to the bottom so prices line up across a row */
+.lcp-tile__price { margin: auto 0 0; padding-top: var(--space-md); border-top: 1px solid var(--color-border); color: var(--color-text-primary); font-size: var(--text-lg); font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .lcp-tiles { grid-template-columns: 1fr; }
+  .lcp-tile { padding: var(--space-lg); }
+}
+
+/* AI tools: the loudest section after the price. Accent rule + glow, no cards-in-a-row template */
+.lcp-ai { position: relative; border-top: 4px solid var(--color-accent); background: radial-gradient(ellipse 70% 60% at 85% 0%, var(--color-accent-subtle), transparent 70%), var(--color-bg); }
+.lcp-ai__title .accent-text { text-shadow: 0 0 40px var(--color-accent-glow); }
+.lcp-ai__lead { margin-top: var(--space-xl); max-width: 60ch; font-size: var(--text-lg); color: var(--color-text-primary); }
+.lcp-ai__ideas-title { margin-top: var(--space-3xl); font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-secondary); }
+.lcp-ai__ideas { margin-top: var(--space-lg); display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border); }
+.lcp-idea { padding: var(--space-xl); border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); display: grid; gap: var(--space-sm); align-content: start; transition: background var(--duration-normal) var(--ease-out); }
+.lcp-idea:hover { background: var(--color-surface); }
+.lcp-idea h4 { margin: 0; font-family: var(--font-display); font-size: var(--text-2xl); font-weight: bold; text-transform: uppercase; line-height: 1; color: var(--color-text-primary); }
+.lcp-idea p { margin: 0; }
+.lcp-ai__foot { margin-top: var(--space-2xl); display: flex; flex-wrap: wrap; gap: var(--space-lg) var(--space-2xl); align-items: center; justify-content: space-between; }
+.lcp-ai__price { margin: 0; max-width: 62ch; }
+.lcp-ai__price strong { color: var(--color-text-primary); }
+@media (max-width: 760px) { .lcp-ai__ideas { grid-template-columns: 1fr; } }
+
+/* Next steps: this one really is a sequence, so it's numbered */
+/* Next steps: left-aligned with every other section. Numbers sit in a fixed left column and share
+   a baseline with the step text, so the three rows line up on both edges. */
+.lcp-steps { list-style: none; counter-reset: step; padding: 0; margin: var(--space-2xl) 0; display: grid; gap: var(--space-lg); max-width: 60ch; }
+.lcp-steps li { counter-increment: step; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--space-md); align-items: baseline; color: var(--color-text-secondary); font-size: var(--text-md); line-height: var(--leading-relaxed); }
+.lcp-steps li::before { content: counter(step); justify-self: start; font-family: var(--font-display); font-size: var(--text-3xl); line-height: 1; color: var(--color-accent); font-variant-numeric: tabular-nums; }
+/* .section supplies the bottom padding; this keeps the buttons off the footer rule on every width */
+.lcp-next__cta { justify-content: flex-start; }
+.lcp-steps strong { color: var(--color-text-primary); }
+
+@media (prefers-reduced-motion: reduce) { .lcp-idea { transition: none; } }
+
+/* ---------- Page rhythm (Hunter, 2026-10-01: sections were too far apart, especially on phones) ----------
+   The shared .section is 96px top + bottom, which stacks to ~192px between sections. This page uses
+   64px per side on desktop and 40px on phones, and the hero hands off without its own bottom padding. */
+.lcp-page .lcp-hero { padding-top: calc(var(--space-3xl) + 80px); padding-bottom: var(--space-md); }
+@media (max-width: 600px) {
+  .lcp-page .lcp-hero { padding-top: calc(var(--space-xl) + 72px); padding-bottom: 0; }
+  .lcp-bundle { margin-top: var(--space-xl); }
+  .lcp-groups { margin-top: var(--space-2xl); gap: var(--space-2xl); }
+  .lcp-issues, .lcp-menu, .lcp-ai__ideas { margin-top: var(--space-xl); }
+  .lcp-ai__ideas-title { margin-top: var(--space-2xl); }
+  .lcp-steps { margin-block: var(--space-xl); }
+
+  /* Body copy steps down one size on phones */
+  .lcp-page p, .lcp-page li, .lcp-page td, .lcp-page dd { font-size: 1rem; }
+  .lcp-page .section-sub, .lcp-page .lcp-lede, .lcp-page .lcp-ai__lead { font-size: 1.0625rem; }
+  .lcp-page .lcp-bundle__meta, .lcp-page .lcp-tile__more p { font-size: 0.875rem; }
+  .lcp-page .lcp-issues tbody td { font-size: 0.9375rem; }
+
+}

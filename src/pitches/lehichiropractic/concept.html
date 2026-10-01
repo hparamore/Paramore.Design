@@ -1,0 +1,767 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lehi Chiropractic</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=Libre+Caslon+Text&family=Bebas+Neue&family=Space+Grotesk:wght@400;600&display=swap">
+<style>
+/* Layout: a Main Street storefront. Condensed window-vinyl headlines, the red front door as the one accent,
+   and a live "walk-in board" (open/closed, computed from real hours) as the signature element. */
+:root {
+  --ground: #f2f4f6;        /* cool sidewalk white, keeps us off the cream default */
+  --surface: #ffffff;
+  --ink: #15202b;           /* storefront window glass */
+  --ink-soft: #4a5764;
+  --line: #d9dee4;
+  --door: #a8322b;          /* the red front door at 72 W Main */
+  --door-fill: #a8322b;     /* button backgrounds; white text = 6.7:1 */
+  --door-ink: #ffffff;
+  --sign-blue: #cfe0f2;     /* the blue highlight behind "Lehi" on the sign */
+  --open: #1f8a4c;
+  --closed: #9a5a12;
+  --panel: #15202b;         /* dark band behind the walk-in board */
+  --panel-ink: #eef2f5;
+  --panel-soft: #9fb0bf;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sign: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(2.2rem, 4.6vw, 3.25rem);
+  --step-4: clamp(3rem, 8.2vw, 6rem);
+  --radius: 6px;
+  --gutter: clamp(16px, 4vw, 40px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0f161d; --surface: #17212b; --ink: #e9eef2; --ink-soft: #a5b2be; --line: #2a3742;
+    --door: #e5625a; --door-fill: #c4463c; --door-ink: #ffffff; --sign-blue: #2b4a68; --open: #4cc283; --closed: #e3a556;
+    --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0f161d; --surface: #17212b; --ink: #e9eef2; --ink-soft: #a5b2be; --line: #2a3742;
+  --door: #e5625a; --door-fill: #c4463c; --door-ink: #ffffff; --sign-blue: #2b4a68; --open: #4cc283; --closed: #e3a556;
+  --panel: #0a1016; --panel-ink: #eef2f5; --panel-soft: #8fa1b1; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+::selection { background: color-mix(in srgb, var(--door) 28%, transparent); color: var(--ink); }
+input, select { caret-color: var(--door); accent-color: var(--door); }
+/* Anchor jumps land below the sticky header instead of under it. */
+section[id] { scroll-margin-top: 76px; }
+html { scrollbar-color: color-mix(in srgb, var(--ink) 30%, transparent) var(--ground); }
+:focus-visible { outline: 3px solid var(--door); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; line-height: 0.95; letter-spacing: 0.005em; text-wrap: balance; margin: 0; }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); font-weight: 700; }
+p { margin: 0; }
+.wrap { max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.lede { font-size: var(--step-1); color: var(--ink-soft); max-width: 36ch; line-height: 1.45; }
+.section { padding-block: clamp(64px, 9vw, 120px); }
+.section-head { display: grid; gap: 14px; margin-bottom: clamp(32px, 5vw, 56px); max-width: 720px; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: var(--radius); font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-door { background: var(--door-fill); color: var(--door-ink); }
+.btn-ghost { border-color: currentColor; background: transparent; color: var(--ink); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* Header */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--ground) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.wordmark { display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--font-sign); font-size: 1.35rem; line-height: 1; white-space: nowrap; }
+.wordmark .lehi { background: var(--sign-blue); padding: 4px 7px 3px; }
+.wordmark .bar { width: 1.5px; height: 28px; background: var(--ink); transform: rotate(10deg); opacity: .7; }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a.link { text-decoration: none; font-weight: 600; font-size: 0.95rem; color: var(--ink-soft); }
+.nav a.link:hover { color: var(--ink); }
+.nav .btn { min-height: 42px; font-size: 1.05rem; padding: 0 18px; white-space: nowrap; }
+@media (max-width: 860px) { .nav a.link { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(36px, 6vw, 72px) clamp(56px, 8vw, 96px); }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero-copy { display: grid; gap: 24px; min-width: 0; }
+.hero h1 { font-size: var(--step-4); }
+.hero h1 .door { color: var(--door); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.price-strip { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; align-items: start; gap: 10px 32px; padding-top: 22px; border-top: 1px solid var(--line); }
+.price-strip div { display: grid; gap: 0.4rem; } /* clears the condensed numerals' descenders (line-height: 1) */
+.price-strip strong { font-family: var(--font-display); font-size: 2.1rem; font-weight: 800; line-height: 1; }
+.price-strip div > span { font-size: var(--step--1); line-height: 1.3; color: var(--ink-soft); }
+.hero-photo { position: relative; min-width: 0; }
+.hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 35%; border-radius: var(--radius); }
+.photo-credit { font-size: 0.8rem; color: var(--ink-soft); }
+
+/* Live status sign — the OPEN sign above the door */
+.status { display: inline-flex; align-items: center; gap: 12px; padding: 10px 24px 10px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; width: fit-content; max-width: 100%; }
+.status .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--open); box-shadow: 0 0 0 4px color-mix(in srgb, var(--open) 22%, transparent); flex: none; }
+.status[data-state="closed"] .dot { background: var(--closed); box-shadow: 0 0 0 4px color-mix(in srgb, var(--closed) 22%, transparent); }
+.status b { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.status span { color: var(--ink-soft); font-size: 0.95rem; }
+.status { position: relative; }
+/* Rotating shine that travels around the pill outline while the office is open.
+   The conic gradient is masked down to a 1.5px ring so only the border glints. */
+@property --shine-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.status[data-state="open"]::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: conic-gradient(from var(--shine-angle), transparent 0deg 250deg,
+    color-mix(in srgb, var(--open) 35%, transparent) 300deg, var(--open) 340deg,
+    color-mix(in srgb, var(--open) 40%, #ffffff) 350deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .status[data-state="open"] .dot { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--open) 0%, transparent); } }
+  .status[data-state="open"]::before { animation: shine 3.6s linear infinite; }
+  @keyframes shine { to { --shine-angle: 360deg; } }
+}
+
+@media (max-width: 480px) {
+  .price-strip { gap: 10px 22px; }
+  .price-strip strong { font-size: 1.8rem; }
+}
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero-photo img { aspect-ratio: 16 / 11; }
+}
+
+/* How a walk-in visit works */
+.how { padding-top: 0; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); counter-reset: step; }
+.step { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 3px solid var(--ink); min-width: 0; }
+.step .num { font-family: var(--font-display); font-weight: 800; font-size: 1rem; letter-spacing: .12em; color: var(--door); }
+.step .time { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.step p { color: var(--ink-soft); }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* Services — a menu board, not a card grid */
+.services { background: var(--surface); border-block: 1px solid var(--line); }
+.services .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+.services .side { display: grid; gap: 20px; position: sticky; top: 100px; }
+.services .side img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; }
+.menu { display: grid; }
+.menu-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; padding-block: 24px; border-bottom: 1px solid var(--line); }
+.menu-row:first-child { padding-top: 0; }
+.menu-row h3 { font-size: 1.9rem; }
+.menu-row .price { display: grid; justify-items: end; align-content: start; gap: 0.4rem; font-family: var(--font-display); font-weight: 800; font-size: 2.3rem; line-height: 1; text-align: right; } /* gap clears the numerals' descenders, same as the stat rows */
+.menu-row .price small { font-size: 0.95rem; line-height: 1.2; font-weight: 600; letter-spacing: .06em; color: var(--ink-soft); text-transform: uppercase; }
+.menu-row p { grid-column: 1 / -1; color: var(--ink-soft); max-width: 58ch; }
+.menu-row .tag { display: inline-block; margin-left: 10px; vertical-align: middle; font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--sign-blue); color: var(--ink); }
+.menu-row.muted h3, .menu-row.muted .price { color: var(--ink-soft); }
+@media (max-width: 860px) { .services .wrap { grid-template-columns: 1fr; } .services .side { position: static; } .services .side img { aspect-ratio: 16/10; } }
+
+/* Car accident feature */
+.injury .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.injury img { border-radius: var(--radius); aspect-ratio: 5 / 4; object-fit: cover; }
+.injury .copy { display: grid; gap: 20px; min-width: 0; }
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.checks li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; }
+.checks svg { width: 22px; height: 22px; color: var(--door); margin-top: 3px; }
+.fine { font-size: var(--step--1); color: var(--ink-soft); }
+@media (max-width: 860px) { .injury .wrap { grid-template-columns: 1fr; } }
+
+/* Doctor */
+.doctor { background: var(--surface); border-block: 1px solid var(--line); }
+.doctor .wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.doctor img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; }
+.doctor .copy { display: grid; gap: 18px; min-width: 0; }
+.doctor .copy p { color: var(--ink-soft); max-width: 60ch; }
+@media (max-width: 860px) { .doctor .wrap { grid-template-columns: 1fr; } .doctor img { aspect-ratio: 16/10; } }
+
+/* Reviews */
+.reviews-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(24px, 4vw, 48px); align-items: start; }
+.feature-quote { margin: 0; display: grid; gap: 22px; }
+.feature-quote blockquote { margin: 0; font-family: var(--font-sign); font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.3; text-wrap: pretty; }
+/* Hanging quote marks: the opening mark sits in the left margin so the text block stays flush and no extra line is spent on it. */
+.feature-quote blockquote::before { content: "\201C"; margin-left: -0.42em; color: var(--door); }
+.feature-quote blockquote::after { content: "\201D"; color: var(--door); }
+.quote-stack { display: grid; gap: 20px; }
+.quote { margin: 0; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 14px; }
+.quote blockquote { margin: 0; color: var(--ink-soft); }
+.quote blockquote strong { color: var(--ink); font-weight: 600; }
+figcaption { font-family: var(--font-display); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 1rem; }
+/* Google rating */
+.rating { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+.rating strong { font-family: var(--font-display); font-weight: 800; font-size: 3.4rem; line-height: 1; }
+.stars { position: relative; display: inline-block; width: 5.8em; height: 1em; font-size: 1.2rem; color: var(--line); flex: none; }
+/* Second copy of the row is clipped to the score (4.8 / 5 = 96%) so the last star is partly filled. */
+.stars-fill { position: absolute; inset: 0 auto 0 0; width: var(--fill); overflow: hidden; color: var(--door); }
+.stars svg { display: block; width: 5.8em; height: 1em; fill: currentColor; }
+.rating-meta { display: grid; gap: 4px; color: var(--ink-soft); font-size: .95rem; line-height: 1.3; }
+/* Hero stat: stars sit beside the number so the stat keeps the same two-line shape as its neighbours. */
+/* On narrow screens the stars drop under the score so all three stats keep one row. */
+.price-strip .with-stars { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.price-strip .with-stars .stars { font-size: 1.05rem; }
+.reviews-link { margin-top: 28px; }
+@media (max-width: 860px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+/* Walk-in board: hours + location */
+.board { background: var(--panel); color: var(--panel-ink); }
+.board .wrap { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(32px, 5vw, 72px); }
+.board h2 { color: var(--panel-ink); }
+.board .status { background: transparent; border-color: color-mix(in srgb, var(--panel-ink) 25%, transparent); }
+.board .status span { color: var(--panel-soft); }
+.hours { display: grid; gap: 4px; margin-top: 28px; }
+.hours-scale, .day { display: grid; grid-template-columns: 56px 1fr 150px; gap: 16px; align-items: center; }
+.hours-scale { font-size: .75rem; color: var(--panel-soft); }
+.hours-scale .ticks { position: relative; height: 18px; }
+.hours-scale .ticks span { position: absolute; transform: translateX(-50%); }
+.day { padding-block: 10px; border-top: 1px solid color-mix(in srgb, var(--panel-ink) 14%, transparent); }
+.day .name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: .08em; text-transform: uppercase; }
+.day .track { position: relative; height: 14px; border-radius: 3px; background: color-mix(in srgb, var(--panel-ink) 8%, transparent); }
+.day .block { position: absolute; top: 0; bottom: 0; border-radius: 3px; background: color-mix(in srgb, var(--panel-ink) 70%, transparent); }
+.day .text { font-size: .9rem; color: var(--panel-soft); text-align: right; }
+.day.today .name { color: color-mix(in srgb, var(--door) 70%, #ffffff); }
+.day.today .block { background: var(--open); }
+.day.today .text { color: var(--panel-ink); }
+.now-line { position: absolute; top: -6px; bottom: -6px; width: 2px; background: #ffffff; border-radius: 1px; }
+.now-line::after { content: "now"; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.day.weekend .text { opacity: .7; }
+@media (max-width: 560px) {
+  .hours-scale, .day { grid-template-columns: 44px 1fr; }
+  .day .text { grid-column: 2; text-align: left; margin-top: -4px; }
+  .hours-scale > :last-child { display: none; }
+}
+.visit { display: grid; gap: 18px; align-content: start; }
+.visit img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; }
+.visit address { font-style: normal; font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; line-height: 1.05; text-transform: uppercase; }
+.visit p { color: var(--panel-soft); }
+.visit .btn-ghost { color: var(--panel-ink); }
+.phone-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.phone-line a { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; letter-spacing: .04em; text-decoration: none; }
+@media (max-width: 960px) { .board .wrap { grid-template-columns: 1fr; } .visit img { aspect-ratio: 16/10; } }
+
+/* Booking */
+.book .wrap { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.book .intro { display: grid; gap: 18px; }
+.form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 3vw, 36px); display: grid; gap: 20px; min-width: 0; }
+.field { display: grid; gap: 8px; min-width: 0; }
+.field label, .field legend { font-weight: 600; font-size: .95rem; padding: 0; }
+.field input, .field select { font: inherit; color: var(--ink); background: var(--ground); border: 1px solid var(--line); border-radius: var(--radius); min-height: 50px; padding: 0 14px; width: 100%; }
+.field-error { font-size: var(--step--1); color: var(--door); font-weight: 600; line-height: 1.35; }
+.field input[aria-invalid="true"] { border-color: var(--door); }
+.field input:focus, .field select:focus { outline: 2px solid var(--door); outline-offset: 1px; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+/* <legend> ignores the fieldset's grid gap, so it gets its own bottom margin to match the 8px label gap */
+.field legend { margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { position: relative; }
+.chip input { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--ground); cursor: pointer; font-weight: 500; font-size: .95rem; }
+.chip input:checked + span { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+.chip input:focus-visible + span { outline: 3px solid var(--door); outline-offset: 2px; }
+.form-body { display: grid; gap: 20px; }
+.form .btn { width: 100%; }
+.form-note { font-size: var(--step--1); color: var(--ink-soft); }
+.confirm { display: grid; gap: 12px; padding: 20px; border-radius: var(--radius); background: color-mix(in srgb, var(--open) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--open) 40%, transparent); }
+.confirm h3 { font-size: 1.7rem; }
+@media (max-width: 860px) { .book .wrap { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .row-2 { grid-template-columns: 1fr; } }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-block: 40px; color: var(--ink-soft); font-size: .9rem; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; }
+
+/* Mobile action bar — call and directions always under the thumb */
+.dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); }
+.dock .btn { flex: 1; min-height: 50px; font-size: 1.1rem; padding: 0 12px; }
+@media (max-width: 760px) { .dock { display: flex; } }
+
+/* ---------- Paramore.Design wrapper (not part of the Lehi site) ----------
+   Deliberately its own world: Hunter's dark-only brand, so the line between
+   "their new website" and "my pitch" is unmistakable in either theme. */
+:root { --pd-bg: #0a0a0a; --pd-surface: #151515; --pd-line: #2a2a2a; --pd-text: #ffffff; --pd-soft: #b4b4b4; --pd-accent: #ff6b00;
+  --pd-display: "Bebas Neue", "Arial Narrow", sans-serif; --pd-body: "Space Grotesk", system-ui, sans-serif; }
+.pd-ribbon { background: var(--pd-bg); color: var(--pd-soft); font-family: var(--pd-body); font-size: .82rem; }
+.pd-ribbon .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; min-height: 40px; padding-block: 8px; }
+.pd-ribbon strong { color: var(--pd-text); font-weight: 600; }
+.pd-ribbon .pd-dot { color: var(--pd-accent); }
+.pd-ribbon a { color: var(--pd-accent); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.pd-ribbon a:hover { text-decoration: underline; }
+.pd-handoff { background: var(--pd-bg); color: var(--pd-text); border-top: 4px solid var(--pd-accent); padding-block: clamp(64px, 10vw, 128px); font-family: var(--pd-body); }
+.pd-handoff .wrap { display: grid; gap: 24px; max-width: 900px; }
+.pd-handoff .pd-label { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--pd-soft); }
+.pd-handoff h2 { font-family: var(--pd-display); font-weight: 400; font-size: clamp(3rem, 8vw, 5.5rem); line-height: .92; letter-spacing: 0; color: var(--pd-text); }
+.pd-handoff h2 span { color: var(--pd-accent); }
+.pd-handoff p { color: var(--pd-soft); font-size: 1.1rem; max-width: 56ch; }
+.pd-handoff p strong { color: var(--pd-text); }
+.pd-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.pd-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 28px; border-radius: 4px; font-family: var(--pd-body); font-weight: 600; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; }
+.pd-btn--primary { background: var(--pd-accent); color: var(--pd-bg); }
+.pd-btn--primary:hover { background: #ff8533; }
+.pd-btn--secondary { border: 1px solid var(--pd-line); color: var(--pd-soft); }
+.pd-btn--secondary:hover { color: var(--pd-text); border-color: #666666; }
+.pd-handoff :focus-visible, .pd-ribbon :focus-visible { outline-color: var(--pd-accent); }
+.pd-handoff .pd-sign { font-family: var(--pd-display); font-size: 1.6rem; letter-spacing: .02em; color: var(--pd-text); }
+.pd-handoff .pd-sign span { color: var(--pd-accent); }
+@media (max-width: 760px) { .pd-handoff { padding-bottom: 140px; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="star-row" viewBox="0 0 116 20">
+    <path id="star" d="M10 .8l2.7 6.1 6.6.6-5 4.4 1.5 6.5L10 15l-5.8 3.4 1.5-6.5-5-4.4 6.6-.6z"/>
+    <use href="#star" x="24"/><use href="#star" x="48"/><use href="#star" x="72"/><use href="#star" x="96"/>
+  </symbol>
+</svg>
+
+<aside class="pd-ribbon" aria-label="About this page">
+  <div class="wrap">
+    <span><strong>Concept redesign</strong> for Lehi Chiropractic by Paramore<span class="pd-dot">.</span>Design. Not the live site.</span>
+    <a href="/lehichiropractic/pricing">See the proposal &rarr;</a>
+  </div>
+</aside>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="#top" aria-label="Lehi Chiropractic, home">
+      <span class="lehi">Lehi</span><span class="bar" aria-hidden="true"></span><span>Chiropractic</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="link" href="#services">Services &amp; prices</a>
+      <a class="link" href="#car-accident">Car accidents</a>
+      <a class="link" href="#reviews">Reviews</a>
+      <a class="link" href="#hours">Hours &amp; location</a>
+      <a class="btn btn-door" href="#book">Book a time</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="status" data-live-status data-state="open" role="status" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <b data-status-title>Walk-ins welcome</b>
+          <span data-status-detail>Mon–Fri on Main Street</span>
+        </div>
+        <h1 id="hero-title">Walk in.<br>Get adjusted.<br><span class="door">Get on with your day.</span></h1>
+        <p class="lede">No appointment and no treatment plan required. Stop by 72 W Main Street during office hours and you'll usually be in and out in about twenty minutes.</p>
+        <div class="hero-actions">
+          <a class="btn btn-door" href="https://www.google.com/maps/dir/?api=1&destination=Lehi+Chiropractic,+72+W+Main+St,+Lehi,+UT+84043" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            Get directions
+          </a>
+          <a class="btn btn-ghost" href="#book">Book a time</a>
+        </div>
+        <div class="price-strip tabular">
+          <div><strong>$35</strong><span>per adjustment</span></div>
+          <div><strong>$250</strong><span>10-visit package</span></div>
+          <div><strong class="with-stars">4.8 <span class="stars" style="--fill: 96%" aria-hidden="true"><svg><use href="#star-row"/></svg><span class="stars-fill"><svg><use href="#star-row"/></svg></span></span></strong><span><a href="#reviews">211 Google reviews</a></span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="/assets/projects/lehi-chiropractic/site/hero-adjustment.webp" alt="A chiropractor adjusting a patient's upper back on a treatment table" width="900" height="1600" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-title">Here's how a visit goes</h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="num">Step 1</span>
+          <h3>Walk through the red door</h3>
+          <span class="time">Any time we're open</span>
+          <p>Park out front on Main Street or in the back lot by the Lehi Legacy Center. No call ahead needed.</p>
+        </li>
+        <li class="step">
+          <span class="num">Step 2</span>
+          <h3>Quick intake</h3>
+          <span class="time">About 10 min, first visit only</span>
+          <p>Tell Dr. Miles what's going on. One short form the first time, then you're on the table.</p>
+        </li>
+        <li class="step">
+          <span class="num">Step 3</span>
+          <h3>Get adjusted</h3>
+          <span class="time">About 5 min</span>
+          <p>A focused adjustment and practical tips for home. Come back whenever you need it. No treatment plan to sign up for.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section services" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="side">
+        <h2 id="services-title">Straight prices, posted up front</h2>
+        <p class="lede">Everything we charge is on this page. No surprise plans, no pressure to prepay.</p>
+        <img src="/assets/projects/lehi-chiropractic/site/treatment-room.webp" alt="The treatment room at Lehi Chiropractic with adjusting tables, wood floors and spine artwork on the wall" loading="lazy" width="1000" height="1000" decoding="async">
+      </div>
+      <div class="menu tabular">
+        <div class="menu-row">
+          <h3>Chiropractic adjustment</h3>
+          <div class="price">$35<small>per visit</small></div>
+          <p>For chronic pain, stiff necks, sore backs, weekend-warrior injuries, or when you just need a tune-up. Walk in any time during office hours.</p>
+        </div>
+        <div class="menu-row">
+          <h3>10-visit package</h3>
+          <div class="price">$250<small>$25 a visit</small></div>
+          <p>Ten adjustments for the price of about seven. Use them whenever you need them.</p>
+        </div>
+        <div class="menu-row">
+          <h3>Car accident care</h3>
+          <div class="price">$65<small>per visit</small></div>
+          <p>Adjustments, stretches, traction, massage and exercises for soft-tissue injuries. We handle the insurance paperwork for you. <a href="#car-accident">How it works</a></p>
+        </div>
+        <div class="menu-row muted">
+          <h3>Massage therapy <span class="tag">Coming soon</span></h3>
+          <div class="price">30 / 60<small>minutes</small></div>
+          <p>We're hiring a licensed massage therapist and will open booking as soon as the right person joins the team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAR ACCIDENT -->
+  <section class="section injury" id="car-accident" aria-labelledby="injury-title">
+    <div class="wrap">
+      <div>
+        <img src="/assets/projects/lehi-chiropractic/site/hands-on-back.webp" alt="A clinician's hands working on a patient's upper back and shoulder" loading="lazy" width="1100" height="735" decoding="async">
+      </div>
+      <div class="copy">
+        <h2 id="injury-title">Been in a car accident? You're covered in Utah.</h2>
+        <p class="lede">Whether or not the accident was your fault, Utah law covers treatment for your injuries. We'll take care of you and the paperwork.</p>
+        <ul class="checks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Dr. Miles documents your accident and injuries and builds a plan to get you back to normal.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>We file everything your auto insurance requires.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>If you need legal help, we'll point you to the right people.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Still no appointment needed. Come in during office hours to get started.</span></li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn btn-door" href="#book" data-reason="reason-car">Book an accident visit</a>
+          <a class="btn btn-ghost" href="tel:+18016532900">Call 801-653-2900</a>
+        </div>
+        <p class="fine">Personal injury adjustments are billed at $65 to cover the added documentation, billing and possible court testimony.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTOR -->
+  <section class="section doctor" aria-labelledby="doctor-title">
+    <div class="wrap">
+      <img src="/assets/projects/lehi-chiropractic/site/knee-exam.webp" alt="A clinician examining a patient's knee on a treatment table" loading="lazy" width="1000" height="668" decoding="async">
+      <div class="copy">
+        <h2 id="doctor-title">Meet Dr. Miles</h2>
+        <p>Dr. Miles Tsujimoto runs Lehi Chiropractic today. Same walk-in policy, same honest prices, same office with the red door.</p>
+        <p>He took over from Dr. Allen, who built the practice over more than a decade on Main Street and treated thousands of patients. Their style and philosophy closely match, so the care you count on carries right on.</p>
+        <p class="photo-credit">Placeholder stock photo · swap for a portrait of Dr. Miles</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="reviews-title">Why people keep walking back in</h2>
+        <div class="rating tabular" role="img" aria-label="Rated 4.8 out of 5 from 211 Google reviews">
+          <strong>4.8</strong>
+          <div class="rating-meta">
+            <span class="stars" style="--fill: 96%" aria-hidden="true"><svg><use href="#star-row"/></svg><span class="stars-fill"><svg><use href="#star-row"/></svg></span></span>
+            <span>211 Google reviews</span>
+          </div>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <figure class="feature-quote">
+          <blockquote>In and out within twenty minutes, and most of that was first-time paperwork. The adjustment was about five minutes and I feel incredible.</blockquote>
+          <figcaption>Jarom H.</figcaption>
+        </figure>
+        <div class="quote-stack">
+          <figure class="quote">
+            <blockquote>Most chiropractors want to set me up on a treatment plan, when really I just want to come in when I need a good adjustment. <strong>I love their walk-in policy!</strong></blockquote>
+            <figcaption>Breanna G.</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>Always professional and attentive to our various needs. <strong>You can trust him with your children.</strong></blockquote>
+            <figcaption>Paul C.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <a class="btn btn-ghost reviews-link" href="https://www.google.com/maps/place/Lehi+Chiropractic/@40.3879562,-111.8502256,17z/data=!4m6!3m5!1s0x874d81d15559d7d3:0xb0b13b997e87eb8e!8m2!3d40.3879562!4d-111.8502256" target="_blank" rel="noopener">Read more reviews on Google</a>
+    </div>
+  </section>
+
+  <!-- HOURS + LOCATION -->
+  <section class="section board" id="hours" aria-labelledby="hours-title">
+    <div class="wrap">
+      <div style="min-width:0">
+        <h2 id="hours-title" style="margin:0 0 24px">Walk in any time we're open</h2>
+        <div class="status" data-live-status data-state="open" role="status" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <b data-status-title>Walk-ins welcome</b>
+          <span data-status-detail>Mon–Fri on Main Street</span>
+        </div>
+        <div class="hours tabular" data-hours aria-label="Weekly office hours"></div>
+      </div>
+      <div class="visit">
+        <img src="/assets/projects/lehi-chiropractic/site/storefront.webp" alt="The Lehi Chiropractic storefront: a red brick building with a red front door, an OPEN sign, and window signs reading No hassle, no wait" loading="lazy" width="900" height="903" decoding="async">
+        <address>72 W Main Street<br>Lehi, UT 84043</address>
+        <p>Park right out front, or use the back lot by the Lehi Legacy Center. Look for the red door.</p>
+        <div class="phone-line"><a href="tel:+18016532900">801-653-2900</a></div>
+        <a class="btn btn-door" href="https://www.google.com/maps/dir/?api=1&destination=Lehi+Chiropractic,+72+W+Main+St,+Lehi,+UT+84043" target="_blank" rel="noopener">Get directions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="section book" id="book" aria-labelledby="book-title">
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="book-title">Rather lock in a time?</h2>
+        <p class="lede">Walk-ins are always welcome. For a first visit, a car accident intake, or a tight lunch break, pick a time and we'll hold it for you.</p>
+      </div>
+      <form class="form" id="book-form" novalidate>
+        <div class="form-body" data-form-body>
+          <fieldset class="field">
+            <legend>What brings you in?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="reason" id="reason-adjust" value="Adjustment" checked><span>Adjustment</span></label>
+              <label class="chip"><input type="radio" name="reason" id="reason-first" value="First visit"><span>First visit</span></label>
+              <label class="chip"><input type="radio" name="reason" id="reason-car" value="Car accident"><span>Car accident</span></label>
+            </div>
+          </fieldset>
+          <div class="row-2">
+            <div class="field">
+              <label for="book-day">Day</label>
+              <select id="book-day" name="day" data-day-select></select>
+            </div>
+            <div class="field">
+              <label for="book-time">Time</label>
+              <select id="book-time" name="time" data-time-select></select>
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="book-name">Name</label>
+              <input id="book-name" name="name" autocomplete="name" placeholder="Jordan Smith" required aria-describedby="book-name-error">
+              <p class="field-error" id="book-name-error" hidden>Add your name so we know who to expect.</p>
+            </div>
+            <div class="field">
+              <label for="book-phone">Mobile number</label>
+              <input id="book-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(801) 555-0123" required aria-describedby="book-phone-error">
+              <p class="field-error" id="book-phone-error" hidden>Enter a 10-digit number so we can text your confirmation.</p>
+            </div>
+          </div>
+          <button class="btn btn-door" type="submit">Hold my spot</button>
+          <p class="form-note">We'll text you to confirm. Need to change or cancel? Call 801-653-2900.</p>
+        </div>
+        <div class="confirm" data-confirm hidden>
+          <h3>Spot requested</h3>
+          <p data-confirm-text></p>
+          <p class="form-note">Design preview: on the live site this request would go to the front desk and text you a confirmation.</p>
+          <button class="btn btn-ghost" type="button" data-reset>Change time</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Lehi Chiropractic · 72 W Main Street, Lehi, UT 84043 · 801-653-2900</span>
+  </div>
+</footer>
+
+<section class="pd-handoff" aria-labelledby="pd-handoff-title">
+  <div class="wrap">
+    <p class="pd-label">Paramore.Design // Website proposal</p>
+    <h2 id="pd-handoff-title">That's the new site.<br><span>Here's the plan.</span></h2>
+    <p>Everything above is ready to launch on your current hosting for <strong>$500</strong>. The proposal covers what's included, a few optional upgrades, and how we get it live.</p>
+    <div class="pd-actions">
+      <a class="pd-btn pd-btn--primary" href="/lehichiropractic/pricing">See pricing &amp; next steps &rarr;</a>
+      <a class="pd-btn pd-btn--secondary" href="/build">AI tools for your business</a>
+    </div>
+    <p class="pd-sign">Hunter Paramore<span>.</span></p>
+  </div>
+</section>
+
+<div class="dock" aria-label="Quick actions">
+  <a class="btn btn-ghost" href="tel:+18016532900">Call</a>
+  <a class="btn btn-door" href="https://www.google.com/maps/dir/?api=1&destination=Lehi+Chiropractic,+72+W+Main+St,+Lehi,+UT+84043" target="_blank" rel="noopener">Directions</a>
+</div>
+
+<script>
+(() => {
+  // Office hours in minutes after midnight, Mountain Time. Index = JS weekday (0 = Sunday).
+  const HOURS = {
+    0: [], 6: [],
+    1: [[510, 780], [870, 1050]],
+    2: [[510, 780]],
+    3: [[510, 780], [870, 1050]],
+    4: [[510, 780]],
+    5: [[510, 780], [870, 1050]],
+  };
+  // Holiday closures, Mountain Time dates. The open/closed sign, the hours board and booking all skip these.
+  // Example: { date: "2026-11-26", name: "Thanksgiving" }
+  const CLOSURES = [];
+
+  const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const SCALE_START = 480, SCALE_END = 1080; // 8:00am – 6:00pm
+
+  const fmt = (m) => {
+    const h = Math.floor(m / 60), min = m % 60, ap = h >= 12 ? "pm" : "am";
+    const h12 = ((h + 11) % 12) + 1;
+    return min ? `${h12}:${String(min).padStart(2, "0")}${ap}` : `${h12}${ap}`;
+  };
+
+  // Read the clock in Lehi's timezone so the sign is right no matter where the visitor is.
+  function lehiNow() {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Denver", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23",
+    }).formatToParts(new Date()).map(p => [p.type, p.value]));
+    const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts.weekday);
+    return { day, minutes: Number(parts.hour) * 60 + Number(parts.minute) };
+  }
+
+  // "YYYY-MM-DD" for today + offset days, in Lehi's timezone.
+  const dateKey = (offset) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Denver" }).format(new Date(Date.now() + offset * 864e5));
+  const closureOn = (offset) => CLOSURES.find(c => c.date === dateKey(offset));
+  // Open blocks for the day `offset` days from now: normal weekly hours unless it's a listed closure.
+  const hoursOn = (day, offset) => closureOn(offset) ? [] : HOURS[(day + offset) % 7];
+
+  function nextOpening(day, minutes) {
+    for (let offset = 0; offset < 21; offset++) {
+      const d = (day + offset) % 7;
+      for (const [start] of hoursOn(day, offset)) {
+        if (offset > 0 || start > minutes) return { d, start, offset };
+      }
+    }
+  }
+
+  function statusText() {
+    const { day, minutes } = lehiNow();
+    const block = hoursOn(day, 0).find(([s, e]) => minutes >= s && minutes < e);
+    if (block) return { state: "open", title: "Open now", detail: `Walk in until ${fmt(block[1])}` };
+    const next = nextOpening(day, minutes);
+    const holiday = closureOn(0);
+    if (holiday) {
+      const back = next.offset === 1 ? "tomorrow" : DAY_NAMES[next.d];
+      return { state: "closed", title: `Closed for ${holiday.name}`, detail: `Walk in ${back} at ${fmt(next.start)}` };
+    }
+    const when = next.offset === 0 ? "today" : next.offset === 1 ? "tomorrow" : DAY_NAMES[next.d];
+    const lunch = next.offset === 0 && HOURS[day].some(([, e]) => e <= minutes);
+    return { state: "closed", title: lunch ? "Back after lunch" : "Closed now", detail: `Walk in ${when} at ${fmt(next.start)}` };
+  }
+
+  function renderStatus() {
+    const s = statusText();
+    document.querySelectorAll("[data-live-status]").forEach(el => {
+      el.dataset.state = s.state;
+      el.querySelector("[data-status-title]").textContent = s.title;
+      el.querySelector("[data-status-detail]").textContent = s.detail;
+    });
+  }
+
+  function renderHours() {
+    const host = document.querySelector("[data-hours]");
+    const { day: today, minutes } = lehiNow();
+    const pct = (m) => ((m - SCALE_START) / (SCALE_END - SCALE_START)) * 100;
+    const ticks = [480, 600, 720, 840, 960, 1080].map(m => `<span style="left:${pct(m)}%">${fmt(m)}</span>`).join("");
+    let html = `<div class="hours-scale" aria-hidden="true"><span></span><div class="ticks">${ticks}</div><span></span></div>`;
+    [1, 2, 3, 4, 5, 6, 0].forEach(d => {
+      // Each row shows the next occurrence of that weekday, so an upcoming holiday shows as closed.
+      const offset = (d - today + 7) % 7;
+      const holiday = closureOn(offset);
+      const blocks = hoursOn(today, offset);
+      const isToday = d === today;
+      const bars = blocks.map(([s, e]) => `<span class="block" style="left:${pct(s)}%;width:${pct(e) - pct(s)}%"></span>`).join("");
+      const now = isToday && minutes >= SCALE_START && minutes <= SCALE_END ? `<span class="now-line" style="left:${pct(minutes)}%"></span>` : "";
+      const text = holiday ? `Closed · ${holiday.name}` : blocks.length ? blocks.map(([s, e]) => `${fmt(s)}–${fmt(e)}`).join(", ") : "Closed";
+      html += `<div class="day${isToday ? " today" : ""}${blocks.length ? "" : " weekend"}">
+        <span class="name">${DAY_NAMES[d].slice(0, 3)}</span>
+        <div class="track" aria-hidden="true">${bars}${now}</div>
+        <span class="text">${isToday ? "Today · " : ""}${text}</span>
+      </div>`;
+    });
+    host.innerHTML = html;
+  }
+
+  // Booking: offer the next 7 open days and 30-minute slots inside office hours.
+  const daySelect = document.querySelector("[data-day-select]");
+  const timeSelect = document.querySelector("[data-time-select]");
+  function fillDays() {
+    const { day, minutes } = lehiNow();
+    const opts = [];
+    for (let offset = 0; opts.length < 7 && offset < 14; offset++) {
+      const slots = hoursOn(day, offset).flatMap(([s, e]) => { const r = []; for (let m = s; m <= e - 30; m += 30) r.push(m); return r; })
+        .filter(m => offset > 0 || m > minutes + 30);
+      if (!slots.length) continue;
+      const date = new Date(Date.now() + offset * 864e5);
+      const label = offset === 0 ? "Today" : offset === 1 ? "Tomorrow" : date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+      opts.push({ label, slots });
+    }
+    daySelect.innerHTML = opts.map((o, i) => `<option value="${i}">${o.label}</option>`).join("");
+    daySelect._opts = opts;
+    fillTimes();
+  }
+  function fillTimes() {
+    const o = daySelect._opts[Number(daySelect.value) || 0];
+    timeSelect.innerHTML = o.slots.map(m => `<option value="${m}">${fmt(m)}</option>`).join("");
+  }
+  daySelect.addEventListener("change", fillTimes);
+
+  const form = document.getElementById("book-form");
+  // Errors show only after a submit attempt, then clear as soon as the field is fixed.
+  function setError(input, show) {
+    input.setAttribute("aria-invalid", show ? "true" : "false");
+    document.getElementById(input.getAttribute("aria-describedby")).hidden = !show;
+  }
+  ["name", "phone"].forEach(n => form.elements[n].addEventListener("input", (e) => {
+    if (e.target.getAttribute("aria-invalid") === "true") setError(e.target, false);
+  }));
+  // "Book an accident visit" preselects the matching reason in the form.
+  document.querySelectorAll("[data-reason]").forEach(a => a.addEventListener("click", () => {
+    const radio = document.getElementById(a.dataset.reason);
+    if (radio) radio.checked = true;
+  }));
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = form.elements.name.value.trim();
+    const phone = form.elements.phone.value.trim();
+    const nameOk = name.length > 0;
+    const phoneOk = phone.replace(/\D/g, "").length >= 10;
+    setError(form.elements.name, !nameOk);
+    setError(form.elements.phone, !phoneOk);
+    if (!nameOk) { form.elements.name.focus(); return; }
+    if (!phoneOk) { form.elements.phone.focus(); return; }
+    const day = daySelect.options[daySelect.selectedIndex].text;
+    const time = timeSelect.options[timeSelect.selectedIndex].text;
+    const reason = form.elements.reason.value;
+    form.querySelector("[data-confirm-text]").textContent = `${name.split(" ")[0]}, we'll see you ${day.toLowerCase() === "today" || day.toLowerCase() === "tomorrow" ? day.toLowerCase() : day} at ${time} for your ${reason.toLowerCase()}.`;
+    form.querySelector("[data-form-body]").hidden = true;
+    form.querySelector("[data-confirm]").hidden = false;
+  });
+  form.querySelector("[data-reset]").addEventListener("click", () => {
+    form.querySelector("[data-form-body]").hidden = false;
+    form.querySelector("[data-confirm]").hidden = true;
+  });
+
+  renderStatus(); renderHours(); fillDays();
+  setInterval(() => { renderStatus(); renderHours(); }, 60000);
+})();
+</script>

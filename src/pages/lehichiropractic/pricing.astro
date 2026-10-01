@@ -1,0 +1,363 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/proposals/lehi-chiropractic.css';
+
+/**
+ * Client proposal for Lehi Chiropractic. Unlisted: not in the nav, not in the
+ * work grid, and noindex'd, because the portfolio's audience is hiring
+ * managers (see PRODUCT.md). Lives at /lehichiropractic/pricing; the concept site is
+ * /lehichiropractic (./index.astro).
+ *
+ * Prices are ballparks Hunter set on 2026-10-01; edit the arrays below, not the markup.
+ */
+const concept = '/lehichiropractic';
+
+const included = [
+  'The full site you just saw, finished with your final photos and copy',
+  'Built for phones first, with call and directions always one tap away',
+  'Live "Open now" status and a weekly hours board, from your real hours',
+  'Services and prices, car accident care, and massage when it launches',
+  'Patient reviews and your Google rating up top',
+  'Booking requests sent to your email, or connected to the scheduling tool you already use',
+  'Launched on your current web hosting and domain',
+];
+
+// "What I noticed": title = the problem in ~5 words; done = what the new site does.
+const fixes = [
+  { title: 'Outdated holiday banner', done: 'The new website pulls from the hours you set on the site, including holiday closures, automatically.' },
+  { title: 'Inconsistent pricing', done: 'The price in the window and the price on the website don\'t match. An easy fix, but an important one.' },
+  { title: 'A goodbye vs. a welcome', done: 'Lead with Dr. Miles and what stays the same, while still honoring Dr. Allen\'s decade on Main Street.' },
+  { title: 'Reviews that name Dr. Allen', done: 'Your 4.8 rating up top, with room for current reviews of Dr. Miles.' },
+  { title: 'Walk-ins in a small blue box', done: 'Walk-in is the headline now, with optional booking for a set time.' },
+  { title: 'Extra pages that go stale', done: 'Everything is on one page, so there\'s only one place to update. Easier to maintain, and easier for AI tools to read.' },
+];
+
+// Starting bundle: the anchor for the upgrades section.
+const bundle = {
+  items: [
+    { name: 'The website', desc: 'The full new site, launched on your current hosting.', price: '$500', unit: 'one time' },
+    { name: 'Hosting, domain & updates', desc: 'I host it, renew the domain, and make small updates for you.', price: '$25/mo', unit: 'billed yearly' },
+    { name: 'Review booster', desc: 'A text after each visit asks happy patients for a Google review.', price: '$300–500', unit: 'one time' },
+  ],
+  total: '$800–1,000',
+  then: 'then $25/mo',
+};
+
+/**
+ * Each tile: name → one short outcome line → optional detail (behind a toggle) → price.
+ * Keep `short` to ~15 words. `wide` spans both columns so no tile sits alone in a row.
+ */
+const groups = [
+  {
+    title: 'Keep it running',
+    items: [
+      {
+        name: 'Hosting, domain & updates',
+        short: 'I host the site, renew the domain, and make small changes for you.',
+        detail: 'I move the site and domain to hosting I manage and cover the bills. Includes security, backups, and small updates like holiday hours or price changes, usually same day.',
+        price: '$25/mo', unit: 'billed yearly', recommended: true, wide: true,
+      },
+    ],
+  },
+  {
+    title: 'Get found',
+    items: [
+      {
+        name: 'AI search & local SEO',
+        short: 'Show up when people ask Google or ChatGPT for a chiropractor in Lehi.',
+        detail: 'Structured data for your hours, prices and services, a cleaned-up Google Business Profile, and the files AI assistants read, so they can find you and recommend you.',
+        price: '$500–800', unit: 'one time',
+      },
+      {
+        name: 'Backlink campaign',
+        short: 'Links from trusted local and health sites that lift you in search.',
+        detail: 'Search engines and AI assistants both weigh links from trusted sites heavily. Run with a partner who does this full time, as an ongoing campaign.',
+        price: 'Quoted with partner', unit: 'ongoing',
+      },
+      {
+        name: 'Review booster',
+        short: 'A text after each visit asks happy patients for a Google review.',
+        detail: 'More recent reviews that mention Dr. Miles, and a faster climb toward the clinics nearby with 300 to 800 reviews.',
+        price: '$300–500', unit: 'one time', recommended: true,
+      },
+      {
+        name: 'Live Google rating',
+        short: 'Your star rating and review count update on the site by themselves.',
+        price: '$300', unit: 'one time',
+      },
+    ],
+  },
+  {
+    title: 'Patient experience',
+    items: [
+      {
+        name: 'Skip the clipboard',
+        short: 'New patients fill out intake on their phone before they walk in.',
+        detail: 'A first visit becomes time on the table, not on paperwork. Especially useful for car accident cases. Built on a HIPAA-compliant form service, which has its own monthly fee.',
+        price: '$600–1,000', unit: '+ form service fee',
+      },
+      {
+        name: 'Live wait indicator',
+        short: 'When it gets busy, one tap at the front desk tells people online. It resets itself.',
+        detail: 'It fails open: by default the site says walk right in. When it\'s busy and someone remembers, one tap from a phone shows a short wait, and it switches back on its own after an hour or two. It could also work the other way, texting patients who opt in when there\'s no wait. Worth talking through.',
+        price: '$400–600', unit: 'one time',
+      },
+    ],
+  },
+  {
+    title: 'Brand & print',
+    items: [
+      { name: 'Logo refresh', short: 'A sharper version of the mark you have, ready for web, print and signs.', price: '$400–700', unit: 'one time' },
+      { name: 'Brand overhaul', short: 'Logo, colors, type and a one-page guide, so everything finally matches.', price: '$800–1,000', unit: 'one time' },
+      { name: 'Business cards', short: 'Designed to match the new site, with walk-ins front and center.', price: '$300', unit: '+ printing at cost' },
+      { name: 'Brochure or rack card', short: 'For your front desk and the gyms and shops that send people your way.', price: '$400–600', unit: 'one time' },
+      {
+        name: 'Storefront & window signage',
+        short: 'New designs for the main sign and windows on Main Street.',
+        detail: 'So the building sells walk-ins as well as the website does. I handle production too: cutting, printing, or lining up a local print shop. Nothing for you to manage.',
+        price: '$500–1,000', unit: '+ materials at cost', wide: true,
+      },
+    ],
+  },
+];
+
+const aiIdeas = [
+  {
+    name: 'After-hours answers',
+    body: '"Are you open Saturday?" "How much is an adjustment?" "Do you take car accident cases?" Patients text or chat and get an instant, accurate answer in your voice. Anything it can\'t answer lands with your front desk in the morning.',
+  },
+  {
+    name: 'Accident case tracker',
+    body: 'Every personal injury case in one place: visits, documentation, insurance and attorney contacts, billing status. AI drafts the letters and flags missing paperwork before it holds up payment.',
+  },
+  {
+    name: 'Review replies, done',
+    body: 'A personal reply drafted for every new Google review. You approve it with one tap, and every patient hears back.',
+  },
+  {
+    name: '"Haven\'t seen you in a while"',
+    body: 'A friendly text to patients who haven\'t been in for a few weeks. Repeat visits are the business, and this asks for them automatically, only for patients who opt in.',
+  },
+];
+---
+
+<Base
+  title={"Proposal for Lehi Chiropractic · Paramore.Design"}
+  description={"A new website for Lehi Chiropractic, plus optional upgrades."}
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <meta slot="head" property="og:title" content="A new website for Lehi Chiropractic" />
+  <meta slot="head" property="og:description" content="Walk-in first, live open hours, honest prices. A proposal from Paramore.Design." />
+  <meta slot="head" property="og:image" content="https://paramore.design/assets/projects/lehi-chiropractic/og-proposal.jpg" />
+  <meta slot="head" property="og:image:width" content="1200" />
+  <meta slot="head" property="og:image:height" content="630" />
+  <meta slot="head" name="twitter:card" content="summary_large_image" />
+  <div class="lcp-page">
+
+  <!-- Hero -->
+  <section class="project-hero lcp-hero">
+    <div class="container">
+      <span class="label project-hero__label" style="display: block;">Proposal // Lehi Chiropractic</span>
+      <h1 class="display-lg project-hero__title">A website that gets people<br><span class="accent-text">through the red door.</span></h1>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">For</span>
+          <span class="project-hero__meta-value">Lehi Chiropractic · Dr. Miles Tsujimoto</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">From</span>
+          <span class="project-hero__meta-value">Hunter Paramore, Paramore.Design</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Date</span>
+          <span class="project-hero__meta-value">October 2026</span>
+        </div>
+      </div>
+      <p class="lcp-lede">
+        You run a walk-in clinic with honest prices and a 4.8-star rating from 211 Google reviews.
+        The current website doesn't say any of that clearly. Here's a ready-to-launch replacement,
+        and a menu of optional upgrades if you want to go further.
+      </p>
+      <div class="hero__cta">
+        <a href={concept} class="btn btn--primary">View the new site <span class="btn__arrow">&rarr;</span></a>
+        <a href="#pricing" class="btn btn--secondary">Jump to pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before / after: Hunter's device screenshots (two phones + desktop), same framing, compared with a drag slider -->
+  <section class="section lcp-compare" aria-labelledby="lcp-compare-heading">
+    <div class="container">
+      <span class="section-label">Before and after</span>
+      <h2 id="lcp-compare-heading" class="section-title">Same clinic, new first impression</h2>
+      <p class="section-sub">Your current site on the left, the new one on the right, on two phones and a desktop. Drag to compare.</p>
+      <div class="lcp-compare__stage" data-compare style="--pos: 50%;">
+        <img class="lcp-compare__img" src="/assets/projects/lehi-chiropractic/compare-before.webp" width="1878" height="994" loading="lazy" decoding="async"
+          alt="The current Lehi Chiropractic site on two phones and a desktop: an expired Labor Day closure notice in a large red box fills the first screen, above a blue box of centered text.">
+        <img class="lcp-compare__img lcp-compare__img--after" src="/assets/projects/lehi-chiropractic/compare-after.webp" width="1878" height="994" loading="lazy" decoding="async"
+          alt="The new Lehi Chiropractic site on the same two phones and desktop: an Open now badge, the headline Walk in. Get adjusted. Get on with your day., directions and booking buttons, prices and the 4.8 Google rating.">
+        <span class="lcp-compare__tag lcp-compare__tag--before" aria-hidden="true">Today</span>
+        <span class="lcp-compare__tag lcp-compare__tag--after" aria-hidden="true">New site</span>
+        <span class="lcp-compare__handle" aria-hidden="true"><span class="lcp-compare__knob"></span></span>
+        <input class="lcp-compare__range" type="range" min="0" max="100" value="50" step="1"
+          aria-label="Compare the current site (left) with the new site (right)">
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Drag (or arrow-key) the divider: the range input sits over the whole image, so clicking anywhere jumps there too.
+    document.querySelectorAll<HTMLElement>('[data-compare]').forEach((stage) => {
+      const range = stage.querySelector<HTMLInputElement>('input[type="range"]');
+      if (!range) return;
+      const update = () => stage.style.setProperty('--pos', `${range.value}%`);
+      range.addEventListener('input', update);
+      update();
+    });
+  </script>
+
+  <!-- What I noticed: problem / solution table (Hunter's Figma, 2026-10-01) -->
+  <section class="section lcp-noticed" aria-labelledby="lcp-noticed-heading">
+    <div class="container">
+      <span class="section-label">What I noticed</span>
+      <h2 id="lcp-noticed-heading" class="section-title">Issues costing you customers</h2>
+      <p class="section-sub">When people look online for a chiropractor, little things will cost you their business.</p>
+      <table class="lcp-issues">
+        <thead>
+          <tr><th scope="col">Problem:</th><th scope="col">Solution:</th></tr>
+        </thead>
+        <tbody>
+          {fixes.map((fix) => (
+            <tr>
+              <th scope="row">{fix.title}</th>
+              <td>{fix.done}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- The offer -->
+  <section class="section lcp-offer" id="pricing" aria-labelledby="lcp-offer-heading">
+    <div class="container lcp-offer__grid">
+      <div class="lcp-offer__price">
+        <span class="section-label">The website</span>
+        <p class="lcp-price" id="lcp-offer-heading"><span class="lcp-price__currency">$</span>500</p>
+        <p class="lcp-price__terms">One time. Launched on your current hosting.</p>
+        <a href={concept} class="btn btn--ghost">See exactly what you get <span class="btn__arrow">&rarr;</span></a>
+      </div>
+      <div class="lcp-offer__detail">
+        <h2 class="lcp-h3">What's included</h2>
+        <ul class="lcp-checks" role="list">
+          {included.map((item) => <li>{item}</li>)}
+        </ul>
+        <h2 class="lcp-h3">What I need from you</h2>
+        <p class="lcp-need">
+          Your hosting login, the correct adjustment price, and a photo of Dr. Miles. I'm happy to
+          take that one myself when I come in for an adjustment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-ons -->
+  <section class="section lcp-addons" aria-labelledby="lcp-addons-heading">
+    <div class="container">
+      <h2 id="lcp-addons-heading" class="section-title">Optional upgrades</h2>
+      <p class="section-sub">Add what's useful, skip what isn't.</p>
+
+      <!-- The anchor: one recommended starting point instead of twelve equals -->
+      <div class="lcp-bundle">
+        <div class="lcp-bundle__intro">
+          <span class="lcp-tag">Where I'd start</span>
+          <h3 class="lcp-bundle__title">The website, kept current, and a steady stream of new reviews.</h3>
+        </div>
+        <ul class="lcp-bundle__items" role="list">
+          {bundle.items.map((item) => (
+            <li>
+              <span class="lcp-bundle__name">{item.name}</span>
+              <span class="lcp-bundle__price">{item.price}</span>
+              <span class="lcp-bundle__meta">{item.desc}</span>
+              <span class="lcp-bundle__meta lcp-bundle__meta--unit">{item.unit}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="lcp-bundle__total"><span class="lcp-bundle__total-num">{bundle.total}</span><span>to start, {bundle.then}</span></p>
+      </div>
+
+      <div class="lcp-groups">
+        {groups.map((group) => (
+          <div class="lcp-group">
+            <h3 class="lcp-group__title">{group.title}</h3>
+            <ul class="lcp-tiles" role="list">
+              {group.items.map((item) => (
+                <li class:list={['lcp-tile', { 'lcp-tile--wide': item.wide }]}>
+                  {item.recommended && <span class="lcp-tag">Recommended</span>}
+                  <h4 class="lcp-tile__name">{item.name}</h4>
+                  <p class="lcp-tile__short">{item.short}</p>
+                  {item.detail && (
+                    <details class="lcp-tile__more">
+                      <summary>What's included</summary>
+                      <p>{item.detail}</p>
+                    </details>
+                  )}
+                  <p class="lcp-tile__price">{item.price} <small>{item.unit}</small></p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom AI tools: the big sell -->
+  <section class="section lcp-ai" aria-labelledby="lcp-ai-heading">
+    <div class="container">
+      <span class="section-label">Custom AI tools</span>
+      <h2 id="lcp-ai-heading" class="section-title lcp-ai__title">The busywork, <span class="accent-text">handled</span></h2>
+      <p class="lcp-ai__lead">
+        This is what I build most. Small, custom tools with AI inside, shaped around how your
+        office actually runs. They answer the same questions you answer fifty times a week, keep
+        the paperwork moving, and bring patients back. You own them. No per-seat fees, no
+        software you have to learn.
+      </p>
+
+      <h3 class="lcp-ai__ideas-title">A few ideas for Lehi Chiropractic</h3>
+      <div class="lcp-ai__ideas">
+        {aiIdeas.map((idea) => (
+          <article class="lcp-idea">
+            <h4>{idea.name}</h4>
+            <p>{idea.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="lcp-ai__foot">
+        <p class="lcp-ai__price"><strong>Fixed price, scoped together.</strong> We start with a free 20-minute conversation about what eats your week. Anything that touches patient information is built on HIPAA-compliant services.</p>
+        <a href="/build" class="btn btn--secondary">More about how I build <span class="btn__arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next steps -->
+  <section class="section lcp-next" id="contact" aria-labelledby="lcp-next-heading">
+    <div class="container">
+      <span class="section-label">Next steps</span>
+      <h2 id="lcp-next-heading" class="section-title">Three steps to <span class="accent-text">launch</span></h2>
+      <ol class="lcp-steps" role="list">
+        <li><span><strong>Say yes.</strong> Reply to my email or tell me next time I'm in.</span></li>
+        <li><span><strong>Send the details.</strong> Hosting login, the correct price, and a photo of Dr. Miles.</span></li>
+        <li><span><strong>I launch it.</strong> Upgrades whenever you're ready, or never.</span></li>
+      </ol>
+      <div class="hero__cta lcp-next__cta">
+        <a href="mailto:hunter@paramore.design?subject=Lehi%20Chiropractic%20website" class="btn btn--primary">
+          Email Hunter <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href={concept} class="btn btn--secondary">Back to the new site</a>
+      </div>
+    </div>
+  </section>
+  </div>
+</Base>

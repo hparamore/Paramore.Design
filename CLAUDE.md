@@ -116,6 +116,22 @@ button on that page hands the reader a different document.
 - `//` separator pattern in labels (e.g., "Mobile App // iOS & Android")
 - Case study pages stay bespoke — customize layout per project
 - Page-scoped CSS uses `<style is:global>` with a page prefix (`home-`, `pf-`, `sc-`, `ts-`)
+  - **Exception for large or frequently-edited page CSS:** put it in `src/styles/<area>/<page>.css` and
+    `import` it in the page's frontmatter (still global, still prefixed). Reason: `astro dev` kept serving a
+    stale copy of big in-page `<style is:global>` blocks after edits, so pages looked broken until the dev
+    server restarted; an imported `.css` file hot-reloads reliably. First used by
+    `src/pages/lehichiropractic/pricing.astro` → `src/styles/proposals/lehi-chiropractic.css` (`lcp-`).
+- **Client pitches** live at short root URLs: `/<client>` is the spec/concept site and `/<client>/pricing` is
+  the proposal (e.g. `/lehichiropractic`, `/lehichiropractic/pricing`). Both are unlisted (not in nav or the
+  work grid) and `noindex`.
+  - The concept is a standalone HTML page rendered raw by `src/pages/<client>/index.astro`
+    (`<Fragment set:html>` of `src/pitches/<client>/concept.html?raw`, no Base layout). Its source of truth
+    lives outside this repo and is copied in by a sync script. Don't hand-edit `concept.html`.
+  - Concept images go in `public/assets/projects/<slug>/site/` (never a `public/<client>/` folder, which
+    would collide with the route).
+  - The proposal (`src/pages/<client>/pricing.astro`) uses Base, the shared section-header classes, and
+    page CSS in `src/styles/...` (see the exception above).
+- Section headers: see DESIGN.md → "Section headers" (one big display line, scales down on phones).
 - Images use placeholder divs until real content is added
 - Nav, footer, and head live ONLY in `Base.astro` — never copy them into a page
 - Old `.html` URLs are kept alive by redirects in `astro.config.mjs`; they exist in the wild

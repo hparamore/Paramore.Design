@@ -1,3 +1,173 @@
+## 2026-09-30 (later) — Merged into one document at the recruiter's request
+
+Sunil asked for "a single PDF or Word document." Hunter's call: merge the two, one after
+the other.
+
+**Deliverable: `~/Desktop/Hunter Paramore - Resume + Follow-Up (Aside).pdf`** — 4 pages.
+Pages 1-2 the tailored resume, pages 3-4 the follow-up answers with their own header.
+The two standalone files are still on the Desktop and unchanged.
+
+### Two things worth remembering
+- **`pdfunite` silently dropped every link annotation.** The merged file had zero `/URI`
+  entries, so portfolio, Mutual gallery, email, phone and all the profile links were dead.
+  **Use `qpdf --empty --pages a.pdf b.pdf -- out.pdf` instead** — it preserved all
+  thirteen. Always verify after a merge with
+  `qpdf --qdf --object-streams=disable out.pdf tmp.pdf && grep -a '/URI' tmp.pdf`.
+- An alternative was built first and then reverted: the answers as a styled third page
+  inside the resume HTML (3 pages, no repeated header, tighter). Hunter asked for a
+  straight concatenation instead. The CSS for that approach is gone from `aside.html`;
+  rebuild it if a 3-page version is ever preferred.
+
+## 2026-09-30 — Aside follow-up: resume rebuilt + a separate answers PDF
+
+Recruiter (Sunil) came back with three gating items before submission: an example of
+shipping ~3 features/week, personal Aside usage with 2-3 concrete fixes, and native
+Windows experience. Produced two files on the Desktop. **Neither is in this repo, and
+`public/resume.html` is still the general version, untouched.**
+
+- `~/Desktop/Hunter Paramore - Resume - Aside.pdf` (2 pages) — rebuilt from
+  `public/resume.html` with the full Aside tailoring re-applied (the prior scratchpad
+  source had been cleaned up), **plus** the new velocity bullet and "Full PST overlap"
+  in the summary.
+- `~/Desktop/Hunter Paramore - Aside Follow-Up.pdf` (2 pages) — the written answers,
+  styled to match the resume (Bebas/Space Grotesk, orange accent, same wordmark dot).
+  Source: session scratchpad `answers.html`.
+
+### Mutual gallery linked as the volume proof (Hunter's suggestion)
+The shipping-pace section now links `paramore.design/projects/mutual/` and names the
+count: **68 thumbnails** covering the last year and a half, each one a complete Figma
+page (feature concepts, A/B tests, prototypes, shipped releases). Count verified against
+`src/pages/projects/mutual.astro`, not estimated. This is the strongest answer to the
+throughput question because it is browsable evidence rather than a claim, and the link
+is a live annotation in the PDF.
+
+### The velocity answer — what is and is not claimed
+**Did not claim 3 features/week.** Mutual shipped a release every two weeks with one to
+two features, which is roughly 0.5-1/week, and saying otherwise would not survive a
+founder interview. The honest stronger answer is **The Tree Service: about eight
+features in four weeks solo (~2/week) while also writing the code**, plus nine platform
+products this year. The closing argument is that at Aside he would be designing three a
+week, not designing *and* coding them. Hunter should sanity-check the eight-feature
+count before it goes out.
+
+### Windows — answered no, then reframed (Hunter's rewrite)
+He has no shipped native Windows work. First draft said "I would rather not claim it"
+and closed on "two of the three platforms in this role are ones I have shipped on."
+**Hunter rejected both, correctly.** The first reads defensive, and counting two of three
+is scorekeeping that invites the reader to count against him.
+
+Rewritten in his own framing: carrying a product across platforms is one discipline, and
+the real skill is knowing which pieces should be custom and which should come from the
+native system. He has done that on iOS, iPadOS, macOS, Android, web, and game UI, where
+conventions are their own thing. Adding Windows is research into its conventions, which
+he does daily anyway, and he works on a Mac and a PC every day.
+
+**Rule worth keeping:** when the answer to a requirement is no, state it once and then
+argue transferability. Never apologise for it and never tally what you do have against
+what was asked. **This stays off the resume** — a "no" belongs in correspondence.
+
+### Aside findings came from Hunter, not invented
+Three findings, each with a proposed fix: first run does not carry the reason you
+downloaded it; long agent runs have no progress or end state; agent tabs are
+indistinguishable from page tabs in the top-bar layout. **Open item: he wrote that he
+switched "to San Francisco, from New York" and then praised San Francisco, which
+contradicts. The PDF says "sidebar" and "top bar" instead, so it reads correctly either
+way — confirm the real names before a founder call.**
+
+### Flagged to Hunter
+The recruiter said he would add the PST line to the resume himself and has said he wants
+a >95% system score. Hunter was advised to ask to review whatever version gets submitted,
+since he is the one who defends it to the founders.
+
+## 2026-09-29 (later) — Audiohook application answers (chat only, no file changes)
+
+Drafted five long-form application answers for **Audiohook**. Nothing in the repo
+changed; logged because it records which claims are backed by evidence and which are
+not, which matters the next time application copy gets written.
+
+### Sourced from verified material
+- **Measured impact / UX problem owned:** the Mutual onboarding redesign — waffle-place
+  research, two flows tested head to head, 97% full-profile completion and ~80%
+  verification. Framed honestly as a signup flow, **not** a landing page, since the
+  question asked for a website and stretching it would not survive an interview.
+- **Design system:** Mutual (3 brands, 6 themes, semantic tokens, live WCAG checks) plus
+  Nu Skin's first Figma system and the Sketch migration. The "what broke at scale"
+  answer is the **Ark dual-system problem** — two systems feeding parallel clones of one
+  codebase, every change made twice, drifting anyway. The lesson given is multi-brand
+  from day one: themes as data, one component set, brand passed in.
+- **AI throwaway example:** the Checkin web randomizer. AI-written code invented its own
+  wire format instead of matching iOS, and wrote a nested array Firestore rejects, so
+  the write failed silently and clients hung on a spinner. Rewritten against the real
+  iOS format. See `~/Documents/Checkin/WORK_STATUS.md`, 2026-08-31.
+
+### Left blank on purpose — Hunter must supply
+- **"What didn't move"** on the onboarding work. No flat-metric data exists in any file
+  I can reach, and inventing one would be the ride-along mistake again.
+- **The engineer/PM pushback story.** No documented disagreement anywhere in his
+  projects. Gave him the structure and one piece of advice (a story where the engineer
+  was right lands better) rather than a fabricated anecdote.
+- **Hindsight change** on the onboarding answer.
+
+### Salary consistency
+Told him to reuse the Aside number (floor $180k, ceiling ~$230k) unless he knows
+Audiohook pays differently. Recruiters compare notes and one consistent figure is worth
+more than per-application optimization.
+
+## 2026-09-29 — Aside-tailored resume variant (NOT the live resume)
+
+Hunter interviewed with recruiter Sunil Shintre (HyperBlu Labs) for **Founding Product
+Designer at Aside** (AI browser, macOS/iOS/Windows, $150-230k, full PST overlap). He
+asked for his real resume tailored to what they want, using the Granola transcript and
+the recruiter's requirements email, and disliked the Muse-generated version's design and
+its "TAILORED FOR ASIDE" footer.
+
+### Where the file lives — read this before editing
+The variant is **not in this repo**. Source HTML is the session scratchpad
+(`aside.html`, copied from `public/resume.html`); output PDF is
+`~/Desktop/Hunter Paramore - Resume (Aside).pdf`. **`public/resume.html` and the live
+PDF are untouched**, deliberately: this variant leans hard toward native/B2C and would
+hurt the fractional and product-design applications the general resume serves. The
+CLAUDE.md rule that resume.html mirrors the PDF still holds for the general pair.
+
+### What the role screens on (from the recruiter's email + call)
+Musts: native app design (macOS/iOS/Windows), portfolio URL at submission, full PST
+overlap, ~3 features/week, **elegant B2C**. Nice: TypeScript design engineering, Liquid
+Glass fluency, public design feed, already uses Aside. **Red flags: SaaS-only background
+centred on whole-page web layouts and brand systems; B2B experience; 3-6 month stints.**
+
+### Changes made against the general resume
+- **Role line** → "Product Designer · Native App Design · Designer-Developer".
+- **paramore.design added to the header.** The recruiter stressed twice that the
+  portfolio URL must be on the resume; it was only in the footer and the Links block.
+- **Summary rewritten** around native components vs page-level layouts, weekly user
+  research, TypeScript/SwiftUI/Compose, and two native apps in the App Store.
+- **Paramore.Design cut 5 bullets to 3.** The B2B client work (Tree Service, Utah Valley
+  Bride, GolfSheds) was the single biggest red-flag surface; it is now one compressed
+  line. Velocity and native shipping lead instead.
+- **Mutual gained three things from the call**: native iOS/Android, a release every two
+  weeks with one to two features, weekly user research, and the **Liquid Glass rebuild**
+  across iOS/iPadOS/macOS in 2026 — a nice-to-have the posting names explicitly.
+- **Checkin reframed** as native Swift + Jetpack Compose built against each platform's
+  own components; the web port is now a trailing clause.
+- **Tech 9 removed** — undated agency work, least relevant here, and it bought the last
+  lines needed to hold two pages.
+- Skills: added Platform-Native Design (HIG, Material) and Motion (Rive, Lottie); dropped
+  Stripe/Twilio/CleverTap/InDesign. Links compacted to one line.
+
+### Caught and corrected mid-build
+A draft bullet read "for millions of consumer shoppers" at Nu Skin. **No source anywhere
+for that number** — replaced with "on the consumer storefront". Same class of error as
+the ride-along claim.
+
+### Needs Hunter before sending
+- **Name the second App Store app.** The resume says "two of my own native apps are live
+  in the App Store" (his words on the call). Checkin is one; the other is unnamed because
+  the registry lists the platform apps as PWAs. A Kill The Fish session mentions iOS App
+  Store publishing — confirm, then name it.
+- Ark rank: resume says "top 5", he said "two or three, depends on the day" on the call.
+- Instagram was mentioned as a public design feed but no URL was on file; only Dribbble,
+  LinkedIn, GitHub and Figma are linked.
+
 ## 2026-09-25 (later still) — Homepage hero retargeted: portfolio, not services
 
 Hunter is applying to Senior/Staff roles and wants the site to read as **a portfolio**,
@@ -1947,3 +2117,118 @@ ParamoreDesign/
 - [ ] Add headshot photo to About page
 - [ ] Customize hero copy and tagline to personal voice
 - [ ] Consider: favicon/logo beyond the emoji placeholder
+
+## 2026-10-01 — Lehi Chiropractic client pitch (unlisted)
+- **Added `public/prototypes/lehi-chiropractic/`**: a spec redesign of a local chiropractor's site.
+  - Standalone passthrough page with its own fonts and theme, same pattern as `prototypes/tava`.
+  - Source of truth lives outside this repo in `~/Documents/Claude/Projects/Spec Work/Lehi Chiropractic/site/`; this is a copy with relative links.
+  - It's `noindex` and carries a "Concept by Paramore.Design" ribbon plus a branded handoff block at the bottom.
+- **Added `src/pages/proposals/lehi-chiropractic.astro`**: the client proposal (pricing, add-ons, AI tools pitch) on the Base layout.
+  - Unlisted: not in the nav or the work grid, and `noindex` via the head slot.
+  - New page-scoped CSS prefix `lcp-`.
+  - New route namespace `/proposals/` for future client pitches.
+- **Suggested CLAUDE.md follow-up** (not done): add `prototypes/lehi-chiropractic/index.html` to the "Passthrough pages — do not restructure" list, and note the `/proposals/` convention.
+- Not committed or pushed.
+- Proposal links to the concept now use `/prototypes/lehi-chiropractic/index.html` (same convention as tava). The dev server 404s on the bare folder URL; GitHub Pages serves both.
+- Proposal "What I noticed": the hairline two-column ledger is replaced by a 2×2 grid of cards (1 column on phones). Each card has "Right now" (the problem, 20px white) above a divider and "The fix" (orange label) on a darker band below. The cards use subgrid so the dividers line up across each row. Hunter found the ledger hard to read over the dot-grid background.
+- **Proposal upgrades section rebuilt as tiles** (after research into Framer and Vercel add-ons, studio service pages, and menu-design research):
+  - **The old price menu failed in three ways.** Orange display-type prices were louder than the item names and formed a right-hand price column. Hairline rows sat over the dot grid. The group titles floated in a left gutter.
+  - **New "Most clients start here" bundle** at the top (orange-bordered panel): Website $500 + Hosting $25/mo + Review booster $300–500 = **$800–1,000 to start, then $25/mo**. It gives the section one clear starting point instead of twelve equal options.
+  - **Each category** is now a Bebas heading directly above a 2-column grid of solid `--color-surface-elevated` tiles (1 column on phones).
+  - **Inside each tile:** an optional "Recommended" tag, then the name (20px white), a one-line outcome (~15 words), an optional "What's included +" `<details>` toggle with the longer copy, then the price pinned to the bottom (`margin-top: auto`, so prices line up across a row) in white body text with the unit in small gray.
+  - `wide: true` tiles (Hosting, Signage) span both columns so no tile sits alone in a row.
+  - Orange is now only used for the tags, the bundle total and the buttons.
+  - Price formats: "$500–800" (one $), "Quoted with partner" instead of "To be discussed".
+  - **Data shape changed:** each item now has `short`, `detail?`, `price`, `unit`, `recommended?`, `wide?`. The old `.lcp-menu` / `.lcp-row*` CSS was removed.
+  - Bundle tag reads "Where I'd start" (not "Most clients start here", which would claim a track record).
+- **Proposal "What I noticed" reframed and simplified** (Hunter: still cluttered, no hierarchy):
+  - Heading changed from "Small things that cost you walk-ins." to **"Four fixes, already built in."**, with the subline "Small things on your current site that cost you walk-ins. The new site handles each one."
+  - Each card now has **two elements**: a ~5-word Bebas problem title (the glance layer) and one fix line with an orange check (detail). The repeated "Right now / The fix" labels and the two-tone split are gone.
+  - Layout: 4 across above 1100px, 2×2 below, stacked under 600px. Subgrid keeps the fix lines aligned.
+  - Content lives in the `fixes` array.
+  - "An expired holiday banner", not "last year's": Labor Day 2026 was Sep 7, so the banner is from this year.
+  - Before/after screenshot crops were offered; Hunter chose text-only.
+- **Proposal: six fixes, three per row** (2 on tablets, 1 on phones). Heading is now "Six fixes, already built in."
+  - New: "A goodbye where a welcome should be". Their copy leads with Dr. Allen stepping away; the new site leads with Dr. Miles and still honors Dr. Allen.
+  - New: "Extra pages that go stale". Multiple pages mean more to keep updated; the concept is one page.
+- **New "On a phone" section right after the hero:** Hunter's own before/after phone screenshots in matching phone frames, captioned "Today" and "New site".
+  - Images: `public/assets/projects/lehi-chiropractic/mobile-before.webp` (cropped to the same aspect as the after shot) and `mobile-after.webp`.
+  - Originals are kept in the Spec Work project's `reference/`.
+- **Proposal "What I noticed" now follows Hunter's Figma (2026-10-01):**
+  - Heading "Issues costing you customers", with the subline "When people look online for a chiropractor, little things will cost you their business."
+  - A semantic `<table class="lcp-issues">` with "Problem:" / "Solution:" column labels outside the box, banded rows (surface / surface-elevated) with 1px borders, Bebas problem titles and white Grotesk solutions. On phones each row stacks.
+  - Copy follows the Figma, with fixes: row 1 title "Outdated holiday banner" (the Figma had "Inconsistent pricing" twice); "dont" → "don't"; "Review that name Dr Allen" → "Reviews that name Dr. Allen"; "AI's" → "AI tools".
+  - **Dev-server gotcha:** after large edits to this page's `<style is:global>`, `astro dev` kept serving stale CSS (the rules were missing in the browser while `npm run build` output was correct). Restarting `npm run dev` fixes it.
+- **Section header pattern applied across the whole proposal and documented in DESIGN.md → "Section headers".**
+  - Every section now opens with the same structure: label → one big Bebas line → optional subline (`.lcp-head__*`).
+  - Titles rewritten to fit one line on desktop: "What people see on their phones", "Add what's useful, skip what isn't", "The busywork, handled", "Three steps to launch".
+  - The phones section gained a subline.
+  - Removed the one-off `.lcp-h2`, `.lcp-sub`, `.lcp-noticed__*`, `.lcp-ai__label` and `.lcp-ai__title` sizing.
+  - Responsive: `clamp(2.5rem, 6.5vw, 4.5rem)`, so 72px on wide screens and 40px with a two-line wrap on phones (Hunter: "on a phone they should shrink down"). On phones the table row titles drop to 24px to stay below the section title.
+  - The hero h1 is unchanged.
+- Bundle panel: each item now has a one-sentence description under its name (same small gray style as the "one time" unit, left-aligned). Item dividers changed from `--color-border` to `rgba(255,255,255,0.28)`, since the gray vanished on the accent-tinted panel. Row padding went from 8px to 16px.
+- Bundle items rebuilt as a 2×2 grid per row (name | price, then description | unit) with `align-items: baseline`. The description and unit share one class, `.lcp-bundle__meta` (14px, secondary), so they match exactly and sit on the same baseline. Verified: both 14px, identical top offset in all three rows.
+- Bundle total: the big "$800–1,000" and "to start, then $25/mo" now share a baseline (flex, `align-items: baseline`, replacing a nudged `vertical-align`). Verified 0px baseline difference.
+- Tiles: the "What's included +" toggle no longer has an underline (it clashed with the price divider below it).
+- **Live wait indicator** copy now explains that it **fails open**: by default the site says walk right in. One tap from a phone marks it busy, and it resets after an hour or two. Possible reverse use: text opted-in patients when there's no wait (talking point).
+- **Signage:** removed "Production is quoted by your sign shop". The copy now says Hunter handles production (cutting, printing, or a local print shop), "Nothing for you to manage." The unit went from "+ production" to "+ materials at cost". Hunter to confirm whether materials are separate or included in the price.
+- **Next steps:** dropped the centered `.big-cta` / `.container--narrow` treatment. The section is now a normal `.section` with the standard container, so the label, title, steps and buttons all start on the same left edge as every other section (verified: all at x=32). Step numbers sit in a fixed 2.5rem left column (left-justified, tabular) on a shared baseline with the text. Added 96px (`--space-4xl`) under the buttons before the footer.
+- **Proposal CSS moved out of the page** into `src/styles/proposals/lehi-chiropractic.css`, imported in the frontmatter. This fixes the recurring stale-CSS problem in `astro dev`: the already-running dev server picked up the new file and every pending fix with no restart. CLAUDE.md now documents this as an exception to the `<style is:global>` convention, plus the `/proposals/` and prototype-link conventions and a pointer to DESIGN.md's section-header rule.
+- **Next steps is now a full-width surface band** (`--color-surface` with top and bottom borders), matching the $500 offer section.
+- Issues table: now full container width (the 860px cap is gone). Problem column 38%. The Solution label and text share a 64px (`--space-3xl`) left inset as the gap between columns. Row titles went from 32px to 28px Bebas; solutions from 14px to 16px for the longer line. Row padding is now `--space-xl`.
+- **Page rhythm tightened** (Hunter: sections up to a third of a phone screen apart):
+  - All proposal content is wrapped in `.lcp-page`. Sections there use 64px top/bottom on desktop and 40px on phones, instead of the shared `.section`'s 96px.
+  - The hero hands off with almost no bottom padding. Hero button → next section label is now 80px on desktop and 40px on phones.
+  - Smaller inner margins on phones (bundle, groups, tables, steps).
+- **Phones section:** the two figures share a subgrid (captions row, frames row), so the frames always start on the same line (verified, same top). The caption `min-height` hack is gone.
+- **Mobile type:** body copy steps down to 16px (subs and ledes 17px, table solutions 15px, small meta 14px), scoped to `.lcp-page` under 600px.
+- **Mobile table:** stacked rows' title and text now share one 24px inset (the title was indented 8px further).
+- **Optional upgrades:** the big title is now "Optional upgrades" with the subline "Add what's useful, skip what isn't." The small label and the "Ballpark prices. You get a fixed quote before any work starts." line were removed, per Hunter.
+
+## 2026-10-01 — Sitewide: section headers, rhythm, mobile type (uncommitted, on main)
+Hunter liked the proposal's changes and asked for them on the main site (all of them, every page).
+
+**Shared CSS (`public/css/styles.css`)**
+- New `.section-label` / `.section-title` / `.section-sub` (the proposal's header pattern, promoted). `.section-title` uses a doubled class to beat page-scoped `X h2` rules.
+- `.section`: 96 → 64px desktop, 40px phones. `.section--sm`: 64 → 48 (32 phones). `.contact-section`: 96 → 64. Closing CTAs are 48px on phones.
+- Phones: `p` steps down to 16px.
+- A plain `<p>` directly after a section title gets `--space-md`.
+
+**Pages**
+- 37 section-opening h2s converted on home, /build, /about, Super.com, Game UI, Mutual, Tava, Tree Service:
+  - added `section-title`; dropped `display-lg` / `display-md` / `section-intro` and inline `margin-top` / `font-size`;
+  - the label right before each one changed from `.label` to `.section-label`.
+  - **Copy unchanged.**
+- Not touched: page heroes (h1), blog post body headings, blog card titles, h3 card titles.
+- Closing sections (home, /build, Mutual, Tree Service, Super.com) widened from `container--narrow` to `container` so titles fit on one line. Their paragraphs already cap their own width.
+- Section paddings: `.big-cta` / `.home-closing` 128 → 64px; `.sc-closing` 96 → 64px.
+- Tree Service: `.ts-section-head` lost its 38ch max-width and its extra 96px top margin; the `--left` variant lost its own clamp/nowrap sizing.
+- **Pre-existing bug fixed:** the homepage "Four things I do at depth" grid kept 12 columns with 48px gaps on phones, so it was 544px wide on a 375px screen and clipped (the body hides x-overflow). It's now one column under 480px.
+- Proposal switched from `.lcp-head__*` to the shared classes; its `.section` overrides were removed (now global).
+
+**Verified** (1280px and 375px, all pages): every section title is 72px on desktop and 40px on phones; no horizontal overflow except a pre-existing 13px overhang from a `.ts-frame--landscape` screenshot on Tree Service (not fixed).
+
+**Titles that still wrap to two lines on desktop** (copy longer than one line; Hunter to decide):
+- /build: "You didn't start a business to manage software." (47 chars)
+- Super.com: "Deep systems craft, at the moment Atlas goes AI-native." (55)
+- Tree Service: "Your business has its own Tupperware of receipts." (49); "One tool, four subscriptions retired." (in the 800px reading column)
+- Tava: "And if you do want someone new."; "Motion, because it's the whole question." (both in the 800px reading column)
+
+**Docs:** DESIGN.md "Section headers" rewritten for the shared classes, plus a new "Section rhythm" section.
+**Backups** of pre-change `src/` and `styles.css` are in the Lehi session scratchpad (temporary). Git also has the last committed state.
+
+## 2026-10-01 — Committed sitewide design (75f72e9), proposal compare slider
+- **Committed on main, not pushed:** `75f72e9 style: one big section header and tighter rhythm sitewide` (styles.css, 8 pages, DESIGN.md). Left uncommitted: CLAUDE.md (references the uncommitted pitch files), WORK_STATUS.md (had Hunter's own pending edits), and all Lehi pitch files.
+- **Proposal: the "On a phone" section is replaced by a before/after compare slider** ("Same clinic, new first impression") using Hunter's matching device screenshots (2 phones + desktop):
+  - Images: `public/assets/projects/lehi-chiropractic/compare-before.webp` and `compare-after.webp`, 1878×994, identical framing.
+  - The after image is clipped with `clip-path: inset(0 0 0 var(--pos))`. An invisible full-size `<input type="range">` drives `--pos`, so drag, click-to-jump and arrow keys all work, with a focus ring on the stage.
+  - "Today" / "New site" tags in the corners.
+  - The old `mobile-before/after.webp` and the `.lcp-phone*` CSS were removed.
+- **Link preview:** Open Graph and Twitter meta on the proposal. `og-proposal.jpg` (1200×630, cropped from the "after" shot) makes a texted or emailed link show the new site. It only resolves once deployed (absolute paramore.design URL).
+- **Pitch URLs simplified:**
+  - Concept: `paramore.design/lehichiropractic`, rendered raw from `src/pitches/lehichiropractic/concept.html` by `src/pages/lehichiropractic/index.astro`.
+  - Proposal: `paramore.design/lehichiropractic/pricing` (moved from `src/pages/proposals/lehi-chiropractic.astro`).
+  - Concept images moved to `public/assets/projects/lehi-chiropractic/site/`. The old `public/prototypes/lehi-chiropractic/` was removed (never deployed, so no redirects needed).
+  - The concept's source of truth stays in the Spec Work project. Its `sync-to-portfolio.sh` copies it in and rewrites links and image paths.
+  - CLAUDE.md documents the `/<client>` + `/<client>/pricing` convention.
+- Dev-server note: the long-running `astro dev` (started 12:40) 404s on the new `/lehichiropractic` route after the HMR route errors. The production build serves both routes. Restart the dev server to see it locally.

@@ -1,0 +1,15 @@
+---
+/**
+ * paramore.design/lehichiropractic: the concept redesign for Lehi Chiropractic, shown as-is.
+ * The concept is a standalone page (own fonts, theme and scripts), so it's rendered raw with no
+ * Base layout. Source of truth lives outside this repo:
+ *   ~/Documents/Claude/Projects/Spec Work/Lehi Chiropractic/site/index.html
+ * Run that project's sync-to-portfolio.sh after editing it; don't edit concept.html here.
+ * Pricing / proposal: ./pricing.astro → /lehichiropractic/pricing
+ */
+import concept from '../../pitches/lehichiropractic/concept.html?raw';
+---
+<!doctype html>
+<html lang="en">
+<Fragment set:html={concept} />
+</html>
