@@ -21,3 +21,4 @@ projects/TreeService Assets/
 # Astro
 dist/
 .astro/
+.vercel

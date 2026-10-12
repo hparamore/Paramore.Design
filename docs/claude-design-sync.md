@@ -73,3 +73,12 @@ story → key decisions (options / why / trade-off) → outcome → looking back
 New blocks live in `site.css` as `.pd-tldr`, `.pd-owners`, `.pd-decision`, `.pd-lookback`, `.pd-lab`.
 Text in `[brackets]` is for Hunter to supply; `[Draft: …]` is Claude's inference awaiting his
 confirmation. **Neither may ship**: a push must refuse any page that still contains `[`.
+
+## Staging (set up 2026-10-12)
+- **https://staging.paramore.design**: Vercel project `paramore-design-staging` (hparamores-projects),
+  deployed from branch `redesign/staging`. Cloudflare A record `staging` → 76.76.21.21, DNS only.
+  `noindex` via `vercel.json`. Not connected to git: redeploy with `vercel deploy --prod --yes` from the
+  worktree `~/Documents/ParamoreDesign-staging`.
+- **"Push it" now means two steps.** (1) Re-port the canvas to `redesign/staging` and redeploy staging.
+  (2) Only when Hunter approves staging: PR `redesign/staging` → `main`, which GitHub Pages publishes.
+  Step 2 is blocked until no page contains `[` placeholders and Carys has OK'd her quote.
