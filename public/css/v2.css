@@ -1,0 +1,265 @@
+/* Paramore.Design — site template layer.
+   ONE file restyles every page on the canvas. Tokens first (from the Modernist
+   export), then the block classes every page is assembled from.
+   Rule of thumb: change a block's look HERE; make a one-off change on the page. */
+
+:root {
+  /* Ground + ink */
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-text-soft: #605d5d;      /* body copy on the ground: 6.0:1 */
+  --color-text-faint: #6f6b6b;     /* labels / meta: 4.8:1 */
+  --color-divider: #8f8b8a;        /* the 2px structural rules */
+  --color-hairline: #d7d3d3;
+
+  /* One accent. #ec3013 is 3.9:1 on the ground: fine for display type, rules and
+     fills; small accent TEXT uses --color-accent-ink so it passes 4.5:1. */
+  --color-accent: #ec3013;
+  --color-accent-hover: #dd2b0f;
+  --color-accent-ink: #ae1800;
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-on-accent: #ffffff;
+
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  --pd-max: 1360px;
+  --pd-gutter: clamp(20px, 4vw, 40px);
+  --pd-section: clamp(56px, 8vw, 112px);
+  --pd-rule: 2px solid var(--color-divider);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
+img { display: block; max-width: 100%; }
+p { margin: 0 0 0.85em; } p:last-child { margin-bottom: 0; }
+a { color: inherit; text-underline-offset: 3px; }
+a:hover { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: var(--color-accent-200); }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-heading); font-weight: 800; }
+
+/* ── Page frame ───────────────────────────────────────────── */
+.pd-page { min-height: 100vh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+.pd-wrap { max-width: var(--pd-max); margin: 0 auto; padding-inline: var(--pd-gutter); }
+.pd-section { padding-top: var(--pd-section); }
+.pd-section--last { padding-bottom: var(--pd-section); }
+
+/* ── Type ─────────────────────────────────────────────────── */
+.pd-kicker { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); }
+.pd-kicker--accent { color: var(--color-accent-ink); }
+.pd-display { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(44px, 10vw, 150px); line-height: 0.88; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+.pd-title { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(40px, 8vw, 120px); line-height: 0.88; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+.pd-h2 { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(32px, 5vw, 64px); line-height: 0.92; letter-spacing: -0.02em; }
+.pd-h3 { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(24px, 3vw, 32px); line-height: 0.98; letter-spacing: -0.015em; }
+.pd-lede { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; color: var(--color-text-soft); max-width: 60ch; }
+.pd-body { font-size: 16px; line-height: 1.65; color: var(--color-text-soft); max-width: 64ch; }
+.pd-body strong { color: var(--color-text); }
+.pd-accent { color: var(--color-accent); }
+
+/* ── Section head: kicker over a 2px rule ─────────────────── */
+.pd-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-bottom: 16px; border-bottom: var(--pd-rule); }
+.pd-head__count { font-family: var(--font-heading); font-weight: 800; font-size: 20px; letter-spacing: 0.02em; }
+.pd-topline { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 14px 0; border-bottom: var(--pd-rule); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ── Buttons + links ──────────────────────────────────────── */
+.pd-btn { display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px; min-height: 48px; padding: 12px 22px; font-family: var(--font-heading); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; border: 2px solid var(--color-text); color: var(--color-text); background: transparent; cursor: pointer; }
+.pd-btn:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); color: var(--color-text); }
+.pd-btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); }
+.pd-btn--primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: var(--color-on-accent); }
+.pd-btn--invert { background: var(--color-on-accent); border-color: var(--color-on-accent); color: var(--color-accent-ink); }
+.pd-btn--invert:hover { background: var(--color-accent-100); color: var(--color-accent-ink); }
+.pd-btn--ghost-invert { border-color: var(--color-on-accent); color: var(--color-on-accent); }
+.pd-btn--ghost-invert:hover { background: rgba(255,255,255,0.12); color: var(--color-on-accent); }
+.pd-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.pd-arrow-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: var(--color-accent-ink); }
+
+/* ── Nav + footer (shared components) ─────────────────────── */
+.pd-nav { position: sticky; top: 0; z-index: 50; background: var(--color-bg); border-bottom: var(--pd-rule); }
+.pd-nav__inner { max-width: var(--pd-max); margin: 0 auto; padding: 14px var(--pd-gutter); display: flex; align-items: center; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; }
+.pd-nav__brand { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; text-decoration: none; text-transform: uppercase; }
+.pd-nav__links { display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.pd-nav__links a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.pd-nav__links a.is-cta { color: var(--color-accent-ink); }
+.pd-footer { border-top: var(--pd-rule); }
+.pd-footer__inner { max-width: var(--pd-max); margin: 0 auto; padding: 20px var(--pd-gutter); display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-faint); }
+.pd-footer__links { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.pd-footer__links a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+
+/* ── Ruled cell grids (stats, steps, toolkit) ─────────────── */
+.pd-cells { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); border-top: var(--pd-rule); border-left: var(--pd-rule); }
+.pd-cells > * { border-right: var(--pd-rule); border-bottom: var(--pd-rule); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.pd-cells--wide { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.pd-cells--wide > * { padding: 40px 32px; }
+.pd-stat__value { font-family: var(--font-heading); font-weight: 800; font-size: clamp(36px, 4.5vw, 60px); line-height: 1; letter-spacing: -0.02em; }
+.pd-stat__label { margin-top: auto; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); }
+.pd-step__num { font-family: var(--font-heading); font-weight: 800; font-size: 40px; line-height: 1; color: var(--color-accent); }
+.pd-cell__text { font-size: 15px; line-height: 1.55; color: var(--color-text-soft); }
+
+/* ── Meta strip (Role / Timeline / Platform / Stack) ──────── */
+.pd-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); border-top: var(--pd-rule); border-bottom: var(--pd-rule); }
+.pd-meta > div { padding: 18px 20px 18px 0; display: flex; flex-direction: column; gap: 6px; }
+.pd-meta dt, .pd-meta .pd-meta__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); }
+.pd-meta .pd-meta__value { font-size: 15px; font-weight: 600; }
+
+/* ── Images ───────────────────────────────────────────────── */
+.pd-frame { border: var(--pd-rule); background: var(--color-surface); overflow: hidden; }
+.pd-frame img { width: 100%; height: 100%; object-fit: cover; }
+.pd-frame--contain img { object-fit: contain; }
+.pd-caption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-top: var(--pd-rule); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--color-bg); }
+.pd-caption span + span { color: var(--color-text-faint); }
+.pd-figcap { margin-top: 10px; font-size: 13px; color: var(--color-text-faint); }
+.pd-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: clamp(16px, 2.5vw, 28px); }
+.pd-gallery--phones { grid-template-columns: repeat(auto-fill, minmax(min(170px, 45%), 1fr)); }
+.pd-placeholder { display: flex; align-items: center; justify-content: center; min-height: 240px; border: 2px dashed var(--color-divider); color: var(--color-text-faint); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; padding: 24px; }
+/* A placeholder with its own aspect-ratio takes its height from that; the 240px floor would force it wider than a phone. */
+.pd-placeholder[style*="aspect-ratio"] { min-height: 0; }
+
+/* ── Layout blocks ────────────────────────────────────────── */
+/* Text section: heading column left, copy right; stacks on phones. */
+.pd-text { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 24px 64px; padding-top: 32px; }
+/* Split: image + copy side by side; add --flip to swap sides. */
+.pd-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px clamp(32px, 5vw, 72px); align-items: center; }
+.pd-split--flip > :first-child { order: 2; }
+.pd-quote { padding: clamp(32px, 5vw, 64px) 0; border-top: var(--pd-rule); border-bottom: var(--pd-rule); }
+.pd-quote__text { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(28px, 4.5vw, 60px); line-height: 0.95; letter-spacing: -0.02em; max-width: 22ch; }
+.pd-quote__by { margin-top: 20px; }
+.pd-list { list-style: none; margin: 0; padding: 0; border-top: var(--pd-rule); }
+.pd-list li { padding: 18px 0; border-bottom: 1px solid var(--color-hairline); font-size: 16px; line-height: 1.55; color: var(--color-text-soft); }
+/* Add --steps ONLY when order matters (a process); the <b> holds the step number. */
+.pd-list--steps li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; }
+.pd-list--steps li b { font-family: var(--font-heading); color: var(--color-accent); }
+.pd-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 28px); }
+
+/* Poster: the one place red runs as a field (closing CTA, next project). */
+.pd-poster { background: var(--color-accent); color: var(--color-on-accent); }
+.pd-poster a { color: var(--color-on-accent); }
+.pd-poster .pd-kicker { color: var(--color-on-accent); }
+.pd-poster__inner { max-width: var(--pd-max); margin: 0 auto; padding: var(--pd-section) var(--pd-gutter); }
+.pd-poster__title { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(40px, 8vw, 120px); line-height: 0.88; letter-spacing: -0.025em; }
+.pd-next { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; text-decoration: none; }
+.pd-next__box { flex: none; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border: 2px solid currentColor; }
+
+/* ── Case study evidence blocks ───────────────────────────────
+   Order on a case study: hero → TL;DR → role & boundaries → … → decisions → outcome → looking back.
+   These carry the argument; galleries only support it. */
+
+/* TL;DR: context / role / outcome in one row, directly under the hero. Doubles as the 30-second spoken summary. */
+.pd-tldr { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); border-top: var(--pd-rule); border-bottom: var(--pd-rule); }
+.pd-tldr > div { padding: 22px 24px 22px 0; display: flex; flex-direction: column; gap: 8px; }
+.pd-tldr > div + div { padding-left: 24px; border-left: var(--pd-rule); }
+.pd-tldr__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent-ink); }
+.pd-tldr__text { font-size: 16px; line-height: 1.5; color: var(--color-text); }
+
+/* Role & boundaries: what I owned vs. what others owned. Vague ownership reads as shallow contribution. */
+.pd-owners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: var(--pd-rule); }
+.pd-owners > div { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+.pd-owners > div + div { border-left: var(--pd-rule); background: var(--color-surface); }
+.pd-owners ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: var(--color-text-soft); }
+.pd-owners__foot { grid-column: 1 / -1; border-top: var(--pd-rule); border-left: 0 !important; background: transparent !important; padding: 16px 28px !important; font-size: 14px; color: var(--color-text-soft); }
+
+/* Decision: the decision, the options, why, and the trade-off accepted. 3–5 per case study. */
+.pd-decisions { display: flex; flex-direction: column; border-top: var(--pd-rule); }
+.pd-decision { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 16px 64px; padding: 32px 0; border-bottom: var(--pd-rule); }
+.pd-decision__title { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.4vw, 30px); line-height: 1; letter-spacing: -0.015em; }
+.pd-decision dl { margin: 0; display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 10px 20px; }
+.pd-decision dt { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); padding-top: 4px; }
+.pd-decision dd { margin: 0; font-size: 16px; line-height: 1.55; color: var(--color-text-soft); }
+.pd-decision dt.is-tradeoff { color: var(--color-accent-ink); }
+.pd-decision dd.is-tradeoff { color: var(--color-text); }
+
+/* Looking back: the hard question an interviewer would ask, answered first. */
+.pd-lookback { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 16px 64px; padding: 32px; background: var(--color-text); color: var(--color-bg); }
+.pd-lookback .pd-kicker { color: #ffc4b8; }
+.pd-lookback p { font-size: 17px; line-height: 1.6; margin: 0; }
+
+/* ── Lab: small side builds, lighter weight than case studies ── */
+.pd-lab { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); border-top: var(--pd-rule); border-left: var(--pd-rule); }
+.pd-lab > a { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-right: var(--pd-rule); border-bottom: var(--pd-rule); text-decoration: none; color: var(--color-text); }
+.pd-lab > a:hover { background: var(--color-accent-100); color: var(--color-text); }
+.pd-lab img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-hairline); }
+.pd-lab__title { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: 20px; line-height: 1; }
+.pd-lab__desc { font-size: 14px; line-height: 1.5; color: var(--color-text-soft); }
+
+/* ── Cards (work index, blog index) ───────────────────────── */
+.pd-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr)); gap: 56px clamp(24px, 3vw, 40px); }
+.pd-card { display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: var(--color-text); }
+.pd-card:hover { color: var(--color-text); }
+.pd-card:hover .pd-frame { border-color: var(--color-accent); }
+.pd-card__title { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 2.6vw, 36px); line-height: 0.95; letter-spacing: -0.015em; }
+.pd-card__desc { font-size: 15px; line-height: 1.55; color: var(--color-text-soft); }
+.pd-tag { display: inline-flex; align-items: center; padding: 4px 8px; border: 1px solid var(--color-divider); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── Article (blog post body) ─────────────────────────────── */
+.pd-article { max-width: 720px; }
+.pd-article h2 { font-size: clamp(26px, 3vw, 34px); text-transform: uppercase; letter-spacing: -0.015em; line-height: 1; margin: 48px 0 16px; }
+.pd-article h3 { font-size: 21px; margin: 32px 0 12px; }
+.pd-article p, .pd-article li { font-size: 18px; line-height: 1.7; color: var(--color-text-soft); }
+.pd-article ul, .pd-article ol { padding-left: 1.2em; margin: 0 0 1em; }
+.pd-article figure { margin: 32px 0; }
+.pd-article blockquote { margin: 32px 0; padding: 20px 0; border-top: var(--pd-rule); border-bottom: var(--pd-rule); font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: 24px; line-height: 1.1; color: var(--color-text); }
+.pd-article code { font-size: 0.9em; background: var(--color-surface); padding: 1px 5px; }
+
+/* ── Home only: pinned project panel + scrolling imagery ──── */
+.home-work { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; padding-top: 40px; }
+.home-work__panel { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 24px; padding-bottom: 64px; }
+.home-work__num { font-family: var(--font-heading); font-weight: 800; font-size: clamp(72px, 10vw, 120px); line-height: 0.85; letter-spacing: -0.03em; color: var(--color-accent); }
+.home-work__text { min-height: 300px; display: flex; flex-direction: column; gap: 12px; }
+.home-work__list { display: flex; flex-direction: column; gap: 56px; padding-bottom: 96px; }
+.home-work__item img { transition: filter .7s ease; }
+.home-work__item.is-dim img { filter: grayscale(1) contrast(1.05); }
+.home-work__mobile { display: none; }
+.home-avail { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: var(--pd-rule); font-size: 15px; color: var(--color-text-soft); }
+.home-avail__dot { flex: none; width: 10px; height: 10px; background: var(--color-accent); }
+.home-brands { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 28px; row-gap: 8px; padding: 40px 0; border-top: var(--pd-rule); border-bottom: var(--pd-rule); }
+.home-brands span { font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.01em; color: var(--color-text-faint); }
+.home-brands i { font-style: normal; font-family: var(--font-heading); font-weight: 800; font-size: 30px; color: var(--color-accent); }
+.home-secnav { position: fixed; bottom: 32px; left: max(24px, calc((100% - var(--pd-max)) / 2 + 40px)); z-index: 60; display: flex; border: var(--pd-rule); background: var(--color-bg); box-shadow: 0 3px 10px rgba(45,43,43,.16); }
+.home-secnav button { display: flex; align-items: center; justify-content: center; width: 48px; height: 46px; border: 0; border-right: var(--pd-rule); background: var(--color-bg); color: var(--color-text); cursor: pointer; }
+.home-secnav button:last-child { border-right: 0; }
+.home-secnav button:hover { background: var(--color-accent-100); color: var(--color-accent-ink); }
+
+/* ── Testimonial: one real client quote, large ─────────────── */
+.pd-testimonial { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px 64px; padding: 40px 0; border-top: var(--pd-rule); border-bottom: var(--pd-rule); }
+.pd-testimonial blockquote { margin: 0; font-family: var(--font-heading); font-weight: 800; font-size: clamp(26px, 3.2vw, 44px); line-height: 1.08; letter-spacing: -0.015em;
+  /* Hanging punctuation: the opening “ sits in the margin so the first letter aligns with the lines below.
+     Safari does it natively; everyone else gets a negative indent sized to Archivo 800's “. */
+  text-indent: -0.42em; }
+@supports (hanging-punctuation: first) { .pd-testimonial blockquote { text-indent: 0; hanging-punctuation: first; } }
+.pd-testimonial figcaption { margin-top: 20px; font-size: 14px; color: var(--color-text-soft); }
+.pd-testimonial figcaption strong { color: var(--color-text); }
+
+/* ── Phones ───────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .home-work { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .home-work__panel, .home-secnav { display: none; }
+  .home-work__list { gap: 48px; }
+  .home-work__item.is-dim img { filter: none; }
+  .home-work__mobile { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; }
+  .home-brands { flex-direction: column; gap: 6px; }
+  .home-brands i { display: none; }
+}
+
+@media (max-width: 760px) {
+  .pd-text, .pd-split, .pd-pair { grid-template-columns: minmax(0, 1fr); }
+  .pd-split--flip > :first-child { order: 0; }
+  .pd-cells > * { padding: 20px 16px; }
+  .pd-cells--wide > * { padding: 28px 20px; }
+  .pd-nav__links { gap: 0 16px; }
+  .pd-list--steps li { grid-template-columns: 40px minmax(0, 1fr); }
+  .pd-next { flex-direction: column; align-items: flex-start; }
+  .pd-tldr > div + div { padding-left: 0; border-left: 0; border-top: var(--pd-rule); }
+  .pd-owners { grid-template-columns: minmax(0, 1fr); }
+  .pd-owners > div + div { border-left: 0; border-top: var(--pd-rule); }
+  .pd-decision, .pd-lookback, .pd-testimonial { grid-template-columns: minmax(0, 1fr); }
+  .pd-decision dl { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .pd-decision dd { margin-bottom: 10px; }
+  .pd-lookback { padding: 24px 20px; }
+}
+
+/* ── Site-only additions (not on the canvas) ─────────────── */
+.pd-skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--color-text); color: var(--color-bg); font-weight: 700; text-decoration: none; }
+.pd-skip:focus { top: 12px; color: var(--color-bg); }
+.pd-nav__links a[aria-current="page"] { color: var(--color-accent-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }

@@ -1,27 +1,54 @@
 ---
-import CaseLayout from '../../components/CaseLayout.astro';
+// Ported from the Claude Design canvas artboard CaseMagnet.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-<CaseLayout
-  title="Magnet"
-  description="Fridge magnet poetry, with friends."
-  label="Personal Project // Web App"
-  cover="/assets/projects/magnet/cover.webp"
-  coverAlt="Magnet — fridge magnet poetry with friends"
-  meta={[
-    { label: 'Role', value: 'Solo, Design &amp; Build' },
-    { label: 'Platform', value: 'Installable web app' },
-  ]}
-  action={{ label: 'Open Magnet at magnet.paramore.design', href: 'https://magnet.paramore.design' }}
->
-  <p>
-    <strong>Fridge magnet poetry &mdash; with friends.</strong>
-  </p>
+<BaseV2 title="Magnet · Paramore.Design" description="Fridge magnet poetry, with friends.">
+  <!-- DRAFT: hidden from Home and Work on the live site; the page itself is live by URL. -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Personal Project // Web App</span>
+    </div>
+    <h1 class="pd-title" style="margin-top: 40px">Magnet</h1>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px; margin: 28px 0 40px">
+      <p class="pd-lede">Fridge magnet poetry, with friends.</p>
+      <a href="https://magnet.paramore.design" target="_blank" rel="noopener" class="pd-btn pd-btn--primary">Open Magnet →</a>
+    </div>
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Solo, Design &amp; Build</span></div>
+      <div><span class="pd-meta__label">Platform</span><span class="pd-meta__value">Installable web app</span></div>
+      <div><span class="pd-meta__label">Live at</span><span class="pd-meta__value">magnet.paramore.design</span></div>
+      <div><span class="pd-meta__label">Status</span><span class="pd-meta__value">Draft, not listed</span></div>
+    </div>
+  </section>
 
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/projects/magnet/hero.jpg" alt="Magnet, fridge magnet poetry with friends" style="aspect-ratio: 16 / 9"></div>
+  </section>
 
-  <p>
-    Another idea I had kicked around for years. The first generated version gave me a working
-    board and very little feeling. Everything after that was design work: how a tile lifts when
-    you take it, how a phrase settles into place, and what it looks like when someone else moves
-    a word while you are still looking at it.
-  </p>
-</CaseLayout>
+  <section class="pd-wrap pd-section" data-screen-label="Story">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Why it exists</div><h2 class="pd-h2">Fridge magnet poetry, <span class="pd-accent">with friends.</span></h2></div>
+      <p class="pd-body" style="font-size: 17px">Another idea I had kicked around for years. The first generated version gave me a working board and very little feeling. Everything after that was design work: how a tile lifts when you take it, how a phrase settles into place, and what it looks like when someone else moves a word while you are still looking at it.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Motion study (needs video) -->
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Motion">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">Motion</span></div>
+    <div class="pd-gallery">
+      <figure style="margin: 0"><div class="pd-placeholder" style="aspect-ratio: 4 / 3">[Loop: a tile lifting]</div><figcaption class="pd-figcap">How a tile lifts when you take it</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-placeholder" style="aspect-ratio: 4 / 3">[Loop: a phrase settling]</div><figcaption class="pd-figcap">How a phrase settles into place</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-placeholder" style="aspect-ratio: 4 / 3">[Loop: a friend moving a word live]</div><figcaption class="pd-figcap">Someone else moving a word while you watch</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="pd-poster" data-screen-label="Next project">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/tain" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">Tain</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+</BaseV2>

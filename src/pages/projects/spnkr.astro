@@ -1,87 +1,186 @@
 ---
-import CaseLayout from '../../components/CaseLayout.astro';
+// Ported from the Claude Design canvas artboard CaseSpnkr.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-<CaseLayout
-  title="SPNKr"
-  description="Replacing a $30/month game server rental with a spare PC, then redesigning the dashboard out of default AI output."
-  label="Personal Work // Self-Hosted Tooling"
-  cover="/assets/projects/spnkr/cover.webp"
-  coverAlt="SPNKr, game server control"
-  meta={[
-    { label: 'Role', value: 'Solo, Design &amp; Build' },
-    { label: 'Discipline', value: 'Product Design · Art Direction · Frontend' },
-    { label: 'Stack', value: 'Node · Socket.IO · SQLite · Vanilla JS' },
-    { label: 'Status', value: 'Running in production, at home' },
-  ]}
-  action={{ label: 'View on GitHub', href: 'https://github.com/hparamore/SPNKr-gameserver-selfhosted-dashboard' }}
->
-  <p>
-    Replaced a <strong>$30/month</strong> game server rental with a spare PC running eight
-    games, controllable from Discord. Then redesigned the dashboard out of default AI
-    output &mdash; warm gunmetal instead of consumer blue-black, borders doing the work
-    instead of shadows &mdash; with the art direction spec enforced by a script that checks
-    sixteen rules against the code on every run.
-  </p>
+<BaseV2 title="SPNKr · Paramore.Design" description="Self-hosted game servers, and a dashboard redesigned out of default AI output.">
+  <!-- BLOCK: Case hero -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Personal Work // Self-Hosted Tooling</span>
+    </div>
+    <h1 class="pd-title" style="margin-top: 40px">SPNKr</h1>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px; margin: 28px 0 40px">
+      <p class="pd-lede">Replacing a $30/month game server rental with a spare PC, then redesigning the dashboard out of default AI output.</p>
+      <a href="https://github.com/hparamore/SPNKr-gameserver-selfhosted-dashboard" target="_blank" rel="noopener" class="pd-btn pd-btn--primary">View on GitHub →</a>
+    </div>
+    <!-- BLOCK: Meta strip -->
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Solo, Design &amp; Build</span></div>
+      <div><span class="pd-meta__label">Discipline</span><span class="pd-meta__value">Product Design · Art Direction · Frontend</span></div>
+      <div><span class="pd-meta__label">Stack</span><span class="pd-meta__value">Node · Socket.IO · SQLite · Vanilla JS</span></div>
+      <div><span class="pd-meta__label">Status</span><span class="pd-meta__value">Running in production, at home</span></div>
+    </div>
+  </section>
 
-  <p>
-    <a href="https://github.com/hparamore/SPNKr-gameserver-selfhosted-dashboard"
-       class="btn btn--primary" target="_blank" rel="noopener"
-       style="display: inline-flex; margin-top: var(--space-md);">Download for free on GitHub</a>
-  </p>
+  <!-- BLOCK: TL;DR -->
+  <section class="pd-wrap" style="margin-top: 40px" data-screen-label="TL;DR">
+    <div class="pd-tldr">
+      <div><span class="pd-tldr__label">Context</span><p class="pd-tldr__text">Paying $30 a month to rent a game server, with a spare PC sitting idle.</p></div>
+      <div><span class="pd-tldr__label">My role</span><p class="pd-tldr__text">Solo: product design, art direction, and the build on Node, Socket.IO, SQLite and vanilla JS.</p></div>
+      <div><span class="pd-tldr__label">Outcome</span><p class="pd-tldr__text">Eight games self-hosted and controllable from Discord, open-sourced, with an art direction that a script enforces on every run.</p></div>
+    </div>
+  </section>
 
-  <section class="case-gallery" slot="gallery">
-    <div class="container">
-      <span class="label">Gallery</span>
-      <div class="case-grid">
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/00-before-original-design.jpg" alt="SPNKr, before original design" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/01-dashboard.jpg" alt="SPNKr, dashboard" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/02-dashboard-compact.jpg" alt="SPNKr, dashboard compact" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/03-configure.jpg" alt="SPNKr, configure" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/04-port-forwarding.jpg" alt="SPNKr, port forwarding" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/05-setup-agent-prompts.jpg" alt="SPNKr, setup agent prompts" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/07-image-cropper.jpg" alt="SPNKr, image cropper" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/08-states-in-flight.jpg" alt="SPNKr, states in flight" loading="lazy">
-          </div>
-          <div class="case-grid__item case-grid__item--tall">
-            <img src="/assets/projects/spnkr/11-mobile.jpg" alt="SPNKr, mobile" loading="lazy">
-          </div>
-          <div class="case-grid__item case-grid__item--tall">
-            <img src="/assets/projects/spnkr/14-compact-mobile.jpg" alt="SPNKr, compact mobile" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/15-compact-event-log.jpg" alt="SPNKr, compact event log" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/photo-IMG_0550.jpg" alt="SPNKr, photo 0550" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/photo-IMG_0553.jpg" alt="SPNKr, photo 0553" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/photo-IMG_0555.jpg" alt="SPNKr, photo 0555" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/photo-IMG_0556.jpg" alt="SPNKr, photo 0556" loading="lazy">
-          </div>
-          <div class="case-grid__item">
-            <img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="SPNKr, photo 0557" loading="lazy">
-          </div>
+  <!-- BLOCK: Hero image -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/projects/spnkr/01-dashboard.jpg" alt="The redesigned SPNKr dashboard" style="aspect-ratio: 16 / 10"></div>
+  </section>
+
+  <!-- BLOCK: Role & boundaries -->
+  <section class="pd-wrap pd-section" data-screen-label="Role and boundaries">
+    <div class="pd-head" style="margin-bottom: 24px"><span class="pd-kicker pd-kicker--accent">Role &amp; boundaries</span></div>
+    <div class="pd-owners">
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">I owned</span>
+        <ul>
+          <li>The product: install, update, back up, and restart every server</li>
+          <li>The art direction spec, and the script that enforces it</li>
+          <li>The frontend, the server, and the Discord controls</li>
+          <li>Setup instructions written for humans and AI agents</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">Constraints</span>
+        <ul>
+          <li>One spare home PC, home internet, port forwarding</li>
+          <li>The first dashboard was generated; the redesign had to undo its defaults</li>
+          <li>[Who plays on it, and what they asked for]</li>
+        </ul>
       </div>
     </div>
   </section>
-</CaseLayout>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Overview">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Overview</div><h2 class="pd-h2">Eight games on a spare PC.</h2></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p>Replaced a <strong>$30/month</strong> game server rental with a spare PC running eight games, controllable from Discord. Then redesigned the dashboard out of default AI output: warm gunmetal instead of consumer blue-black, borders doing the work instead of shadows, with the art direction spec enforced by a script that checks sixteen rules against the code on every run.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Stats band -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Stats">
+    <div class="pd-cells">
+      <div><div class="pd-stat__value">$30</div><div class="pd-stat__label">Monthly server rental retired</div></div>
+      <div><div class="pd-stat__value pd-accent">8</div><div class="pd-stat__label">Games running on one spare PC</div></div>
+      <div><div class="pd-stat__value">16</div><div class="pd-stat__label">Art direction rules checked by script on every run</div></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Before / After -->
+  <section class="pd-wrap pd-section" data-screen-label="Before and after">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">Before / After</span></div>
+    <div class="pd-pair">
+      <figure style="margin: 0"><div class="pd-frame"><img src="/assets/projects/spnkr/00-before-original-design.jpg" alt="The original SPNKr dashboard before the redesign" style="aspect-ratio: 16 / 10"></div><figcaption class="pd-figcap"><strong style="color: var(--color-text)">Before.</strong> The original design.</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame"><img src="/assets/projects/spnkr/02-dashboard-compact.jpg" alt="The redesigned compact SPNKr dashboard" style="aspect-ratio: 16 / 10"></div><figcaption class="pd-figcap"><strong style="color: var(--color-text)">After.</strong> The redesigned dashboard, compact view.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- BLOCK: Key decisions -->
+  <section class="pd-wrap pd-section" data-screen-label="Decisions">
+    <div class="pd-head" style="margin-bottom: 0"><span class="pd-kicker pd-kicker--accent">Key decisions</span></div>
+    <div class="pd-decisions" style="border-top: 0">
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Self-host instead of renting</h3>
+        <dl>
+          <dt>Options</dt><dd>Keep the $30/month rental; or run every server on a spare PC at home.</dd>
+          <dt>Why</dt><dd>[Beyond the money: control, more games, learning.] One machine now runs eight games.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Draft: I became the ops team: uptime, updates, backups, and port forwarding, which is why the dashboard walks through them.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Control it from Discord</h3>
+        <dl>
+          <dt>Options</dt><dd>A dashboard only; or Discord controls alongside it.</dd>
+          <dt>Why</dt><dd>[Why Discord: it’s where the group already is.]</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[What Discord can’t do that the dashboard can.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Redesign out of default AI output</h3>
+        <dl>
+          <dt>Options</dt><dd>Ship the first generated dashboard; or give it a real art direction.</dd>
+          <dt>Why</dt><dd>Warm gunmetal instead of consumer blue-black, borders doing the work instead of shadows. [What the default looked like and why it didn’t fit.]</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Time spent redesigning a tool only you and friends use; why it was worth it.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Enforce the spec with a script</h3>
+        <dl>
+          <dt>Options</dt><dd>A written art direction spec that people and agents are trusted to follow; or a script that checks sixteen rules against the code on every run.</dd>
+          <dt>Why</dt><dd>[Why: e.g. AI-generated changes drift back to defaults unless something checks them.]</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Rules only catch what they can see in code; what slipped through anyway.]</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Looking back -->
+  <section class="pd-wrap" data-screen-label="Looking back">
+    <div class="pd-lookback">
+      <div><div class="pd-kicker" style="margin-bottom: 12px">Looking back</div><h2 class="pd-h3" style="color: var(--color-bg)">What I’d do differently</h2></div>
+      <p>[One honest answer: e.g. a rule you’d add to the checker, or something you’d build before the redesign.]</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Gallery -->
+  <section class="pd-wrap pd-section" data-screen-label="Gallery">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">Gallery</span></div>
+    <div class="pd-gallery">
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/03-configure.jpg" alt="Configuring a game server"></div><figcaption class="pd-figcap">Configure</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/04-port-forwarding.jpg" alt="Port forwarding setup guide"></div><figcaption class="pd-figcap">Port forwarding</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/05-setup-agent-prompts.jpg" alt="Setup prompts written for AI agents"></div><figcaption class="pd-figcap">Setup agent prompts</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/07-image-cropper.jpg" alt="Server image cropper"></div><figcaption class="pd-figcap">Image cropper</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/08-states-in-flight.jpg" alt="Server cards in loading and transition states"></div><figcaption class="pd-figcap">States in flight</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/15-compact-event-log.jpg" alt="Compact event log"></div><figcaption class="pd-figcap">Compact event log</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame pd-frame--contain" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/11-mobile.jpg" alt="SPNKr on a phone"></div><figcaption class="pd-figcap">Mobile</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame pd-frame--contain" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/14-compact-mobile.jpg" alt="SPNKr compact view on a phone"></div><figcaption class="pd-figcap">Compact mobile</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- BLOCK: Gallery (photos) -->
+  <section class="pd-wrap pd-section" data-screen-label="Photos">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">In the wild</span></div>
+    <div class="pd-gallery">
+      <div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/photo-IMG_0550.jpg" alt="Photo from the SPNKr build, 1 of 5"></div>
+      <div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/photo-IMG_0553.jpg" alt="Photo from the SPNKr build, 2 of 5"></div>
+      <div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/photo-IMG_0555.jpg" alt="Photo from the SPNKr build, 3 of 5"></div>
+      <div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/photo-IMG_0556.jpg" alt="Photo from the SPNKr build, 4 of 5"></div>
+      <div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/spnkr/photo-IMG_0557.jpg" alt="Photo from the SPNKr build, 5 of 5"></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Closing CTA -->
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Closing">
+    <div class="pd-quote">
+      <p class="pd-quote__text">Free and open source.</p>
+      <p class="pd-body" style="margin-top: 20px">Setup instructions are written for humans and AI agents alike.</p>
+      <div class="pd-btns" style="margin-top: 28px">
+        <a href="https://github.com/hparamore/SPNKr-gameserver-selfhosted-dashboard" target="_blank" rel="noopener" class="pd-btn pd-btn--primary">Download on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Next project -->
+  <section class="pd-poster" data-screen-label="Next project">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/mutual" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">Mutual</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+</BaseV2>

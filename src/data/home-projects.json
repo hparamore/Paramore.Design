@@ -1,0 +1,102 @@
+[
+ {
+  "num": "01",
+  "title": "Mutual",
+  "kicker": "Founder // 10 Years // Solo Designer",
+  "platform": "iOS · Android",
+  "href": "/projects/mutual",
+  "linkLabel": "Read the case study",
+  "img": "/assets/projects/mutual/MutualHero-wide.jpg",
+  "alt": "Mutual app screens",
+  "aspect": "2564 / 1275",
+  "desc": "Co-founder and sole founding designer of the #1 LDS dating app. Ten years owning every surface: UI, brand, design system, research. Responsible for 40,000+ marriages and counting.",
+  "stats": [
+   {
+    "value": "40K+",
+    "label": "Marriages"
+   },
+   {
+    "value": "10",
+    "label": "Years"
+   },
+   {
+    "value": "#1",
+    "label": "LDS dating app"
+   }
+  ],
+  "external": false
+ },
+ {
+  "num": "02",
+  "title": "Mutual Design System",
+  "kicker": "Design System // Engineers & AI Agents",
+  "platform": "Tokens · WCAG",
+  "href": "/projects/mutual-design-system-case-study",
+  "linkLabel": "Read the case study",
+  "img": "/assets/images/projects/MutualDesignSystemHero.jpg",
+  "alt": "Mutual Design System live token explorer",
+  "aspect": "1 / 1",
+  "desc": "An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source.",
+  "stats": [
+   {
+    "value": "3",
+    "label": "Brands"
+   },
+   {
+    "value": "6",
+    "label": "Themes"
+   },
+   {
+    "value": "WCAG",
+    "label": "Live contrast"
+   }
+  ],
+  "external": false
+ },
+ {
+  "num": "03",
+  "title": "The Tree Service",
+  "kicker": "Client Project // Field Ops & AI",
+  "platform": "iPad · Web",
+  "href": "/projects/the-tree-service",
+  "linkLabel": "Read the case study",
+  "img": "/assets/images/projects/TreeServiceIpad.webp",
+  "alt": "The Tree Service field tool on iPad",
+  "aspect": "626 / 551",
+  "desc": "Field-ops tool that replaced four SaaS subscriptions with one: equipment, fuel, AI-parsed receipts, and crew safety checklists. Built solo in four weeks.",
+  "stats": [
+   {
+    "value": "4→1",
+    "label": "Subscriptions replaced"
+   },
+   {
+    "value": "4 wks",
+    "label": "Built solo"
+   }
+  ],
+  "external": false
+ },
+ {
+  "num": "04",
+  "title": "SPNKr",
+  "kicker": "Personal Work // Design & Build",
+  "platform": "Web · Discord",
+  "href": "/projects/spnkr",
+  "linkLabel": "Read the case study",
+  "img": "/assets/projects/spnkr/hero.jpg",
+  "alt": "SPNKr game server dashboard",
+  "aspect": "1 / 1",
+  "desc": "Replaced a $30/month game server rental with a spare PC running eight games, controllable from Discord. Then redesigned the dashboard out of default AI output, with the art direction spec enforced by a script.",
+  "stats": [
+   {
+    "value": "8",
+    "label": "Games hosted"
+   },
+   {
+    "value": "$30",
+    "label": "Monthly rental retired"
+   }
+  ],
+  "external": false
+ }
+]

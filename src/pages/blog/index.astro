@@ -1,76 +1,37 @@
 ---
-import Base from '../../layouts/Base.astro';
+// Ported from the Claude Design canvas artboard Blog.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-
-<Base
-  title={"Blog — Paramore.Design"}
-  description={"Thoughts on design, development, and building products — by Hunter Paramore."}
-  footerMargin
->
-<!-- Page Header -->
-  <section class="section" style="padding-top: calc(var(--space-4xl) + 80px); padding-bottom: var(--space-2xl);">
-    <div class="container container--narrow">
-      <span class="label mb-md" style="display: block;">Blog</span>
-      <h1 class="display-lg">Thoughts & Writing</h1>
-      <p class="mt-lg">
-        Notes on design, building products, and things I'm learning along the way.
-      </p>
-    </div>
+<BaseV2 title="Blog · Paramore.Design" description="Notes on design, building products, and things I’m learning along the way.">
+  <section class="pd-wrap" data-screen-label="Header">
+    <div class="pd-topline"><span>Blog</span><span style="color: var(--color-text-faint)">2 posts</span></div>
+    <h1 class="pd-title" style="margin-top: 40px">Thoughts &amp; Writing</h1>
+    <p class="pd-lede" style="margin-top: 28px">Notes on design, building products, and things I’m learning along the way.</p>
   </section>
 
-  <!-- Blog Posts -->
-  <section class="section--sm">
-    <div class="container container--narrow">
-      <div class="blog-cards">
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Posts">
+    <div class="pd-head" style="margin-bottom: 0"><span class="pd-kicker pd-kicker--accent">Newest first</span></div>
 
-        <!--
-          To add a new blog post:
-          1. Create the post HTML in blog/posts/ (duplicate an existing post)
-          2. Add its hero image (4:5 works best) to assets/images/blog/
-          3. Copy ONE .blog-card block below, newest on top, and update the
-             href, image src/alt, category label, date, title, subtitle, excerpt
-          4. Push to GitHub
-        -->
-
-        <a href="/blog/posts/building-tain" class="blog-card">
-          <div class="blog-card__image">
-            <img src="/assets/images/blog/building-tain.jpg"
-                 alt="Cover for the article: A small thing that holds worlds &mdash; why I built an app to remember everything I've loved"
-                 loading="lazy" width="1080" height="1350">
-          </div>
-          <div class="blog-card__body">
-            <div class="blog-card__meta">
-              <span class="label">Personal Project // Product Design</span>
-              <span class="blog-card__date">Jul 25, 2026</span>
-            </div>
-            <h2 class="blog-card__title">I Kept Forgetting the Things I Loved, So I Built an App to Remember Them</h2>
-            <p class="blog-card__subtitle">A diary of everything I've consumed &mdash; ranked by comparison, with notes from me to future me. Meet Tain.</p>
-            <p class="blog-card__excerpt">I've been through hundreds of audiobooks and I have real opinions about most of them &mdash; but when someone asks what to listen to next, my mind goes blank. So I built an app to hold all of it: nine categories, tier boards, and a name twenty-five years in the making.</p>
-            <span class="blog-card__more">Read article <span aria-hidden="true">&rarr;</span></span>
-          </div>
-        </a>
-
-        <a href="/blog/posts/building-with-fable-5" class="blog-card">
-          <div class="blog-card__image">
-            <img src="/assets/images/blog/building-with-fable-5.jpg"
-                 alt="Cover for the article: It's Easy to Have AI Build Things That Look Finished"
-                 loading="lazy" width="1080" height="1350">
-          </div>
-          <div class="blog-card__body">
-            <div class="blog-card__meta">
-              <span class="label">AI Tools // Game Dev</span>
-              <span class="blog-card__date">Jun 16, 2026</span>
-            </div>
-            <h2 class="blog-card__title">It's Easy to Have AI Build Things That Look Finished</h2>
-            <p class="blog-card__subtitle">I gave Fable 5 a game I'd failed to build for years &mdash; and learned what AI quietly skips.</p>
-            <p class="blog-card__excerpt">The day Fable came out, I handed it screenshots, flow sketches, and design docs, turned on bypass permissions, and walked away. When I came back, a working prototype was running in my browser &mdash; and the real lesson was just getting started.</p>
-            <span class="blog-card__more">Read article <span aria-hidden="true">&rarr;</span></span>
-          </div>
-        </a>
-
+    <a href="/blog/posts/building-tain" class="pd-card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px 48px; padding: 40px 0; border-bottom: var(--pd-rule)">
+      <div class="pd-frame" style="max-width: 420px"><img src="/assets/images/blog/building-tain.jpg" alt="Cover for the article on building Tain" style="aspect-ratio: 4 / 5"></div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; gap: 16px; flex-wrap: wrap"><span class="pd-kicker pd-kicker--accent">Personal Project // Product Design</span><span class="pd-kicker">Jul 25, 2026</span></div>
+        <h2 class="pd-card__title" style="font-size: clamp(28px, 3.4vw, 48px)">I Kept Forgetting the Things I Loved, So I Built an App to Remember Them</h2>
+        <p class="pd-lede" style="font-size: 18px">A diary of everything I’ve consumed, ranked by comparison, with notes from me to future me. Meet Tain.</p>
+        <p class="pd-card__desc">I’ve been through hundreds of audiobooks and I have real opinions about most of them, but when someone asks what to listen to next, my mind goes blank. So I built an app to hold all of it: nine categories, tier boards, and a name twenty-five years in the making.</p>
+        <span class="pd-arrow-link">Read article →</span>
       </div>
-    </div>
-  </section>
+    </a>
 
-  <!-- Footer -->
-</Base>
+    <a href="/blog/posts/building-with-fable-5" class="pd-card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px 48px; padding: 40px 0; border-bottom: var(--pd-rule)">
+      <div class="pd-frame" style="max-width: 420px"><img src="/assets/images/blog/building-with-fable-5.jpg" alt="Cover for the article on building with Fable 5" style="aspect-ratio: 4 / 5"></div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; gap: 16px; flex-wrap: wrap"><span class="pd-kicker pd-kicker--accent">AI Tools // Game Dev</span><span class="pd-kicker">Jun 16, 2026</span></div>
+        <h2 class="pd-card__title" style="font-size: clamp(28px, 3.4vw, 48px)">It’s Easy to Have AI Build Things That Look Finished</h2>
+        <p class="pd-lede" style="font-size: 18px">I gave Fable 5 a game I’d failed to build for years, and learned what AI quietly skips.</p>
+        <p class="pd-card__desc">The day Fable came out, I handed it screenshots, flow sketches, and design docs, turned on bypass permissions, and walked away. When I came back, a working prototype was running in my browser, and the real lesson was just getting started.</p>
+        <span class="pd-arrow-link">Read article →</span>
+      </div>
+    </a>
+  </section>
+</BaseV2>

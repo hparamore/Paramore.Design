@@ -1,0 +1,75 @@
+---
+/**
+ * BaseV2 — the redesigned site chrome (light Modernist system, ported from the
+ * Claude Design canvas https://claude.ai/artifact/B1kpy6E6J9gUoq5d3jQ7VU).
+ * Nav, footer, and head for every redesigned page live here and nowhere else.
+ *
+ * The old Base.astro + /css/styles.css stay untouched so pages that were NOT
+ * redesigned (the client pitches, /super-com) keep rendering exactly as before.
+ */
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Hunter Paramore, design engineer. Design systems, product design, and the code that ships them.' } = Astro.props;
+
+const nav = [
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/resume', label: 'Résumé' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const h = href.replace(/\/$/, '') || '/';
+  return h === '/' ? path === '/' : path === h || path.startsWith(h + '/');
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="/css/v2.css?v=1">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23ec3013'/></svg>">
+</head>
+<body>
+  <a href="#main" class="pd-skip">Skip to content</a>
+  <div class="pd-page">
+    <nav class="pd-nav" aria-label="Main navigation">
+      <div class="pd-nav__inner">
+        <a href="/" class="pd-nav__brand">Paramore<span class="pd-accent">.</span>Design</a>
+        <div class="pd-nav__links">
+          {nav.map((l) => (
+            <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+          ))}
+          <a href="mailto:hparamore@gmail.com" class="is-cta">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="pd-footer">
+      <div class="pd-footer__inner">
+        <span>© 2026 Paramore.Design</span>
+        <div class="pd-footer__links">
+          <a href="/build">For Business</a>
+          <a href="https://linkedin.com" rel="noopener">LinkedIn</a>
+          <a href="https://dribbble.com/HunterParamore" rel="noopener">Dribbble</a>
+          <a href="https://github.com/hparamore" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

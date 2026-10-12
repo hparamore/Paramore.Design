@@ -1,190 +1,257 @@
 ---
-import CaseLayout from '../../components/CaseLayout.astro';
-import Embed from '../../components/Embed.astro';
-import Loop from '../../components/Loop.astro';
+// Ported from the Claude Design canvas artboard CaseTava.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-<CaseLayout
-  title="Tava Health"
-  description="A design exercise for the moment people quietly stop going to therapy — a post-session check-in that turns a silent exit into a conversation."
-  label="Design Exercise // Product Design"
-  cover="/assets/projects/tava/cover.jpg"
-  coverAlt="Case Study: Tava Health — session recap, what felt off, and the options offered"
-  meta={[
-    { label: 'Role', value: 'Solo, start to finish' },
-    { label: 'Scope', value: 'Research · Flows · UI · Motion' },
-    { label: 'Tools', value: 'Whimsical · Claude Design' },
-    { label: 'Status', value: 'Design exercise · Not shipped' },
-  ]}
-  action={{ label: 'Watch the 5-minute walkthrough', href: 'https://cleanshot.com/share/NnpG0hZS' }}
-  actionBelow
->
-  <p>
-    Tava lets you switch therapists quickly, and it does that part well. The problem is the
-    people who never get that far &mdash; one or two sessions in, no rebooking, then silence.
-    They don&rsquo;t complain and they don&rsquo;t switch. They just stop.
-  </p>
-  <p>
-    This began as a design exercise. I took it well past what it asked for, because the
-    problem turned out to be more interesting than the brief:{' '}
-    <strong>a post-session check-in that turns a quiet exit into a conversation.</strong>
-  </p>
-
-  <section class="case-gallery" slot="gallery">
-    <div class="container project-content">
-      <h2 class="section-title">The two ways people <span class="accent">leave</span>.</h2>
-      <p>
-        Two failure modes, and only one of them is visible.
-      </p>
-      <p>
-        The first is switching. It works &mdash; but every switch costs a first session. You
-        restart your history with someone new, and the intake burns the hour you came for.
-        That came up constantly in research as the biggest complaint about changing providers.
-      </p>
-      <p>
-        The second is the one I wanted to solve: <strong>people who just ghost.</strong>{' '}
-        They&rsquo;re the majority, and the product never hears from them. The question
-        isn&rsquo;t &ldquo;why did they leave?&rdquo; It&rsquo;s <em>why didn&rsquo;t they
-        rebook?</em>
-      </p>
+<BaseV2 title="Tava Health · Paramore.Design" description="A post-session check-in that turns a silent exit from therapy into a conversation.">
+  <!-- BLOCK: Case hero -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Design Exercise // Product Design</span>
     </div>
-
-    <div class="container">
-      <Embed
-        src="https://whimsical.com/embed/6nyXiBadHgYp5eWFwiDqwh"
-        title="Tava research board"
-        label="Open the research board"
-        note="Whimsical — start at the green marker, top left"
-        aspect="16 / 11"
-        openHref="https://whimsical.com/hunter-s-workspace84/tava-6nyXiBadHgYp5eWFwiDqwh"
-        openLabel="Open the board in Whimsical"
-      />
-    </div>
-
-    <div class="container project-content">
-      <h2 class="section-title">Eleven directions, then <span class="accent">two</span>.</h2>
-      <p>
-        I started in Whimsical with sketches and wireframes &mdash; about eleven directions for
-        where an intervention could live. I compared all of them against the same four
-        questions: <strong>when</strong> do you ask, <strong>what</strong> do you ask for,{' '}
-        <strong>how</strong> is it framed, and <strong>who</strong> starts it.
-      </p>
-      <p>
-        Two survived. A <strong>concierge chat</strong>, where a person or an AI sits between
-        you and the problem and surfaces prebuilt cards &mdash; here&rsquo;s a fix, here are
-        people you could try, here are open times. And a <strong>post-session check-in</strong>,
-        which is simpler and lands while the feeling is still fresh.
-      </p>
-      <p>
-        I flowcharted both and compared them side by side. The check-in ran bigger as a flow,
-        and it&rsquo;s the one I picked.
-      </p>
-
-    </div>
-
-    <div class="container">
-      <Loop
-        src="/assets/projects/tava/motion/check-in.mp4"
-        poster="/assets/projects/tava/motion/check-in.jpg"
-        alt="The post-session check-in: session recap, then what felt off, then sent"
-        caption="The check-in, end to end: recap &rarr; what felt off &rarr; sent."
-      />
-    </div>
-
-    <div class="container project-content">
-      <h2 class="section-title">The part I&rsquo;m <span class="accent">proud</span> of.</h2>
-      <p>
-        Most of the time, leaving isn&rsquo;t about the therapist being wrong. It&rsquo;s about
-        one thing that never got said.
-      </p>
-      <p>
-        So the check-in offers to say it for you. <em>&ldquo;What would you like them to
-        know?&rdquo;</em> &mdash; a few starter prompts, or write your own. Then, before
-        anything sends: <strong>&ldquo;Here&rsquo;s exactly what we&rsquo;ll send.&rdquo;</strong>{' '}
-        You see the message, you can edit it, you can back out.
-      </p>
-      <div class="media-split">
-        <div class="media-split__media">
-          <Loop
-            variant="tall"
-            src="/assets/projects/tava/motion/review-send.mp4"
-            poster="/assets/projects/tava/motion/review-send.jpg"
-            alt="Review and send: the exact message, who it comes from, and when it arrives"
-          />
-        </div>
-        <div class="media-split__text">
-          <p>
-            <strong>It isn&rsquo;t anonymous, on purpose.</strong> If a provider has one
-            client, anonymity is a promise you can&rsquo;t keep &mdash; so don&rsquo;t make it.
-            What Tava can offer instead is mediation: it comes from Tava, on your behalf, and
-            there&rsquo;s a paper trail.
-          </p>
-          <p>
-            The three lines under the message are doing the real work &mdash;{' '}
-            <em>they&rsquo;ll get it before Friday, she&rsquo;ll know it&rsquo;s from you, you
-            don&rsquo;t have to bring it up.</em> Every one answers a reason somebody would
-            close the screen instead of sending.
-          </p>
-        </div>
-      </div>
-
-      <h2 class="section-title">And if you do want <span class="accent">someone new</span>.</h2>
-      <p>
-        The switch path attacks the thing that makes switching expensive: starting over. You
-        pick from a short list of providers, then choose what goes with you &mdash; past notes,
-        AI summaries, assessments. Your next therapist starts already knowing something about
-        you, so session one isn&rsquo;t spent rehashing. Then date, time, summary, and
-        it&rsquo;s on your calendar.
-      </p>
-    </div>
-
-    <div class="container">
-      <Loop
-        src="/assets/projects/tava/motion/switch-book.mp4"
-        poster="/assets/projects/tava/motion/switch-book.jpg"
-        alt="Switching: choose a provider, choose what to share, book the first session"
-        caption="Switching without starting over: pick someone, choose what goes with you, book."
-      />
-    </div>
-
-    <div class="container">
-      <Embed
-        src="/prototypes/tava/index.html"
-        title="Tava post-session flow prototype"
-        label="Open the live prototype"
-        note="Interactive — includes the motion studies"
-        poster="/assets/projects/tava/cover.jpg"
-        aspect="16 / 10"
-        openHref="/prototypes/tava/index.html"
-        openLabel="Open the prototype full screen"
-      />
-    </div>
-
-    <div class="container project-content">
-      <div class="media-split media-split--flip">
-        <div class="media-split__text">
-          <p>
-            Booking is where good intentions go to die, so it stays inside the same sheet
-            &mdash; month, day, time, confirm. No hand-off to a separate scheduler, no
-            second app, no losing the thread you just worked up the nerve to pull.
-          </p>
-        </div>
-        <div class="media-split__media">
-          <Loop
-            variant="tall"
-            src="/assets/projects/tava/motion/date-picker.mp4"
-            poster="/assets/projects/tava/motion/date-picker.jpg"
-            alt="Choosing a date and time inside the same sheet"
-          />
-        </div>
-      </div>
-
-      <h2 class="section-title">Motion, because it&rsquo;s the <span class="accent">whole question</span>.</h2>
-      <p>
-        Calm, functional motion &mdash; no celebration. Nothing cheers when you tell your
-        therapist something isn&rsquo;t working. Whether a flow like this feels gentle or
-        clinical can&rsquo;t be answered in a static frame, so every transition is a replayable
-        study in the prototype above.
-      </p>
+    <h1 class="pd-title" style="margin-top: 40px">Tava Health</h1>
+    <p class="pd-lede" style="margin: 28px 0 40px">A design exercise for the moment people quietly stop going to therapy: a post-session check-in that turns a silent exit into a conversation.</p>
+    <!-- BLOCK: Meta strip -->
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Solo, start to finish</span></div>
+      <div><span class="pd-meta__label">Scope</span><span class="pd-meta__value">Research · Flows · UI · Motion</span></div>
+      <div><span class="pd-meta__label">Tools</span><span class="pd-meta__value">Whimsical · Claude Design</span></div>
+      <div><span class="pd-meta__label">Status</span><span class="pd-meta__value">Design exercise · Not shipped</span></div>
     </div>
   </section>
-</CaseLayout>
+
+  <!-- BLOCK: TL;DR -->
+  <section class="pd-wrap" style="margin-top: 40px" data-screen-label="TL;DR">
+    <div class="pd-tldr">
+      <div><span class="pd-tldr__label">Context</span><p class="pd-tldr__text">Most people who leave therapy on Tava don’t switch or complain. One or two sessions in, they just stop, and the product never hears why.</p></div>
+      <div><span class="pd-tldr__label">My role</span><p class="pd-tldr__text">Solo, start to finish: research board, eleven directions, flows, UI, and motion. A design exercise, not shipped.</p></div>
+      <div><span class="pd-tldr__label">Outcome</span><p class="pd-tldr__text">A post-session check-in that says the unsaid thing for you, plus a switch path that doesn’t start over. A prototype with a replayable motion study for every transition.</p></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Hero image -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/projects/tava/cover.jpg" alt="Tava Health case study: session recap, what felt off, and the options offered" style="aspect-ratio: 16 / 9"></div>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Intro">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">The brief</div><h2 class="pd-h2">They just stop.</h2></div>
+      <div>
+        <div class="pd-body" style="font-size: 17px">
+          <p>Tava lets you switch therapists quickly, and it does that part well. The problem is the people who never get that far: one or two sessions in, no rebooking, then silence. They don’t complain and they don’t switch. They just stop.</p>
+          <p>This began as a design exercise. I took it well past what it asked for, because the problem turned out to be more interesting than the brief: <strong>a post-session check-in that turns a quiet exit into a conversation.</strong></p>
+        </div>
+        <a href="https://cleanshot.com/share/NnpG0hZS" target="_blank" rel="noopener" class="pd-btn pd-btn--primary" style="margin-top: 24px">Watch the 5-minute walkthrough →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Role & boundaries -->
+  <section class="pd-wrap pd-section" data-screen-label="Role and boundaries">
+    <div class="pd-head" style="margin-bottom: 24px"><span class="pd-kicker pd-kicker--accent">Role &amp; boundaries</span></div>
+    <div class="pd-owners">
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">I owned</span>
+        <ul>
+          <li>Research synthesis and the Whimsical research board</li>
+          <li>Eleven intervention directions, narrowed to two, then one</li>
+          <li>Flows, UI, and motion, built as a working prototype</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">Constraints</span>
+        <ul>
+          <li>A design exercise: no access to Tava’s data, users, or team</li>
+          <li>[Time box, and what the original brief asked for]</li>
+          <li>[Where the research came from: who you talked to, how many]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Two ways people leave">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Research</div><h2 class="pd-h2">The two ways people <span class="pd-accent">leave.</span></h2></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p>Two failure modes, and only one of them is visible.</p>
+        <p>The first is switching. It works, but every switch costs a first session. You restart your history with someone new, and the intake burns the hour you came for. That came up constantly in research as the biggest complaint about changing providers.</p>
+        <p>The second is the one I wanted to solve: <strong>people who just ghost.</strong> They’re the majority, and the product never hears from them. The question isn’t “why did they leave?” It’s <em>why didn’t they rebook?</em></p>
+      </div>
+    </div>
+    <!-- BLOCK: Link-out card (embeds on the live site) -->
+    <a href="https://whimsical.com/hunter-s-workspace84/tava-6nyXiBadHgYp5eWFwiDqwh" target="_blank" rel="noopener" class="pd-card" style="margin-top: 40px; border: var(--pd-rule); padding: 28px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap">
+      <div><div class="pd-kicker">Whimsical // start at the green marker, top left</div><div class="pd-h3" style="margin-top: 8px">Open the research board</div></div>
+      <span class="pd-next__box" aria-hidden="true" style="width: 52px; height: 52px">→</span>
+    </a>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Directions">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Exploration</div><h2 class="pd-h2">Eleven directions, then <span class="pd-accent">two.</span></h2></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p>I started in Whimsical with sketches and wireframes: about eleven directions for where an intervention could live. I compared all of them against the same four questions: <strong>when</strong> do you ask, <strong>what</strong> do you ask for, <strong>how</strong> is it framed, and <strong>who</strong> starts it.</p>
+        <p>Two survived. A <strong>concierge chat</strong>, where a person or an AI sits between you and the problem and surfaces prebuilt cards: here’s a fix, here are people you could try, here are open times. And a <strong>post-session check-in</strong>, which is simpler and lands while the feeling is still fresh.</p>
+        <p>I flowcharted both and compared them side by side. The check-in ran bigger as a flow, and it’s the one I picked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Wide video -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Check-in video">
+    <figure style="margin: 0">
+      <div class="pd-frame" style="aspect-ratio: 16 / 9"><video src="/assets/projects/tava/motion/check-in.mp4" poster="/assets/projects/tava/motion/check-in.jpg" muted="" loop="" playsinline="" preload="none" data-lazy="" aria-label="The post-session check-in: session recap, then what felt off, then sent"></video></div>
+      <figcaption class="pd-figcap">The check-in, end to end: recap → what felt off → sent.</figcaption>
+    </figure>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="The part I'm proud of">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">The key moment</div><h2 class="pd-h2">The part I’m <span class="pd-accent">proud</span> of.</h2></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p>Most of the time, leaving isn’t about the therapist being wrong. It’s about one thing that never got said.</p>
+        <p>So the check-in offers to say it for you. <em>“What would you like them to know?”</em> A few starter prompts, or write your own. Then, before anything sends: <strong>“Here’s exactly what we’ll send.”</strong> You see the message, you can edit it, you can back out.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Split (tall video + copy) -->
+  <section class="pd-wrap pd-section" data-screen-label="Review and send">
+    <div class="pd-split">
+      <div class="pd-frame" style="max-width: 360px; aspect-ratio: 9 / 19.5; justify-self: center; width: 100%"><video src="/assets/projects/tava/motion/review-send.mp4" poster="/assets/projects/tava/motion/review-send.jpg" muted="" loop="" playsinline="" preload="none" data-lazy="" aria-label="Review and send: the exact message, who it comes from, and when it arrives"></video></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p><strong>It isn’t anonymous, on purpose.</strong> If a provider has one client, anonymity is a promise you can’t keep, so don’t make it. What Tava can offer instead is mediation: it comes from Tava, on your behalf, and there’s a paper trail.</p>
+        <p>The three lines under the message are doing the real work: <em>they’ll get it before Friday, she’ll know it’s from you, you don’t have to bring it up.</em> Every one answers a reason somebody would close the screen instead of sending.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Switching">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">The other path</div><h2 class="pd-h2">And if you do want <span class="pd-accent">someone new.</span></h2></div>
+      <p class="pd-body" style="font-size: 17px">The switch path attacks the thing that makes switching expensive: starting over. You pick from a short list of providers, then choose what goes with you (past notes, AI summaries, assessments). Your next therapist starts already knowing something about you, so session one isn’t spent rehashing. Then date, time, summary, and it’s on your calendar.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Wide video -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Switch video">
+    <figure style="margin: 0">
+      <div class="pd-frame" style="aspect-ratio: 16 / 9"><video src="/assets/projects/tava/motion/switch-book.mp4" poster="/assets/projects/tava/motion/switch-book.jpg" muted="" loop="" playsinline="" preload="none" data-lazy="" aria-label="Switching: choose a provider, choose what to share, book the first session"></video></div>
+      <figcaption class="pd-figcap">Switching without starting over: pick someone, choose what goes with you, book.</figcaption>
+    </figure>
+    <a href="/prototypes/tava/index.html" class="pd-card" style="margin-top: 40px; border: var(--pd-rule); padding: 28px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap">
+      <div><div class="pd-kicker">Interactive // includes the motion studies</div><div class="pd-h3" style="margin-top: 8px">Open the live prototype</div></div>
+      <span class="pd-next__box" aria-hidden="true" style="width: 52px; height: 52px">→</span>
+    </a>
+  </section>
+
+  <!-- BLOCK: Split (copy + tall video, flipped) -->
+  <section class="pd-wrap pd-section" data-screen-label="Booking">
+    <div class="pd-split pd-split--flip">
+      <div class="pd-frame" style="max-width: 360px; aspect-ratio: 9 / 19.5; justify-self: center; width: 100%"><video src="/assets/projects/tava/motion/date-picker.mp4" poster="/assets/projects/tava/motion/date-picker.jpg" muted="" loop="" playsinline="" preload="none" data-lazy="" aria-label="Choosing a date and time inside the same sheet"></video></div>
+      <p class="pd-lede">Booking is where good intentions go to die, so it stays inside the same sheet: month, day, time, confirm. No hand-off to a separate scheduler, no second app, no losing the thread you just worked up the nerve to pull.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Key decisions -->
+  <section class="pd-wrap pd-section" data-screen-label="Decisions">
+    <div class="pd-head" style="margin-bottom: 0"><span class="pd-kicker pd-kicker--accent">Key decisions</span></div>
+    <div class="pd-decisions" style="border-top: 0">
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">A check-in, not a concierge chat</h3>
+        <dl>
+          <dt>Options</dt><dd>A concierge chat, where a person or an AI surfaces fixes, providers, and open times; or a post-session check-in.</dd>
+          <dt>Why</dt><dd>The check-in is simpler and lands while the feeling is still fresh. I flowcharted both side by side before choosing.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">The check-in ran bigger as a flow. [Draft: it also gives up the chat’s flexibility to handle anything.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Not anonymous, on purpose</h3>
+        <dl>
+          <dt>Options</dt><dd>Send feedback anonymously; or send it from Tava, on the client’s behalf, with a paper trail.</dd>
+          <dt>Why</dt><dd>If a provider has one client, anonymity is a promise you can’t keep, so don’t make it. Mediation is a promise Tava can keep.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Draft: some people won’t send anything with their name on it.] The three lines under the message each answer a reason somebody would close the screen instead of sending.</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Show exactly what sends</h3>
+        <dl>
+          <dt>Options</dt><dd>Send from the prompt choice directly; or show the full message first, editable, with a way back out.</dd>
+          <dt>Why</dt><dd>“Here’s exactly what we’ll send.” You see the message, you can edit it, you can back out.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Draft: one more screen at the moment someone is most likely to quit.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Switching carries your history</h3>
+        <dl>
+          <dt>Options</dt><dd>A fresh start with each new provider; or choose what comes with you: past notes, AI summaries, assessments.</dd>
+          <dt>Why</dt><dd>Every switch costs a first session spent rehashing. That came up constantly in research as the biggest complaint about changing providers.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Draft: sharing records is a consent decision, so the client picks each item instead of everything moving by default.]</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: What I'd measure (concept work: signals, not results) -->
+  <section class="pd-wrap" data-screen-label="What I'd measure">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Not shipped, so not measured</div><h2 class="pd-h2">What I’d measure.</h2></div>
+      <ul class="pd-list">
+        <li><strong style="color: var(--color-text)">Rebooking after a check-in.</strong> Do people who get the check-in book again more often than those who don’t?</li>
+        <li><strong style="color: var(--color-text)">Messages actually sent.</strong> Of the people who open “what would you like them to know,” how many send it?</li>
+        <li><strong style="color: var(--color-text)">Switches that keep history.</strong> How often people bring notes along, and whether second first-sessions get shorter.</li>
+        <li><strong style="color: var(--color-text)">Silent exits.</strong> The share of clients who stop after one or two sessions with no signal at all. The number this whole flow exists to shrink.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BLOCK: Looking back -->
+  <section class="pd-wrap pd-section" data-screen-label="Looking back">
+    <div class="pd-lookback">
+      <div><div class="pd-kicker" style="margin-bottom: 12px">Looking back</div><h2 class="pd-h3" style="color: var(--color-bg)">What I’d do differently</h2></div>
+      <p>[One honest answer: e.g. a direction you cut too early, or what you’d test first with real Tava clients.]</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Statement -->
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Motion">
+    <div class="pd-quote">
+      <p class="pd-quote__text">Motion, because it’s the <span class="pd-accent">whole question.</span></p>
+      <p class="pd-body" style="margin-top: 20px">Calm, functional motion, no celebration. Nothing cheers when you tell your therapist something isn’t working. Whether a flow like this feels gentle or clinical can’t be answered in a static frame, so every transition is a replayable study in the prototype above.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Next project -->
+  <section class="pd-poster" data-screen-label="Next project">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/spnkr" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">SPNKr</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+<script>
+  // Videos load and play only while on screen: four loops are ~5MB, too much for first paint.
+  const vids = document.querySelectorAll('video[data-lazy]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('IntersectionObserver' in window)) {
+    vids.forEach((v) => { v.preload = 'auto'; if (!reduce) v.play().catch(() => {}); });
+  } else {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting) { v.preload = 'auto'; if (!reduce) v.play().catch(() => {}); }
+      else v.pause();
+    }), { rootMargin: '200px' });
+    vids.forEach((v) => io.observe(v));
+  }
+</script>
+</BaseV2>
+
+<style is:global>
+video{display:block;width:100%;height:100%;object-fit:cover}
+</style>

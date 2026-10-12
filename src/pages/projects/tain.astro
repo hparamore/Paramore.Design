@@ -1,31 +1,65 @@
 ---
-import CaseLayout from '../../components/CaseLayout.astro';
+// Ported from the Claude Design canvas artboard CaseTain.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-<CaseLayout
-  title="Tain"
-  description="A personal diary of everything you have consumed — books, games, movies, trails — ranked by comparison, with notes from you to future you."
-  label="Personal Project // Web App"
-  cover="/assets/projects/tain/cover.webp"
-  coverAlt="Tain — everything you loved, in order"
-  meta={[
-    { label: 'Role', value: 'Solo, Design &amp; Build' },
-    { label: 'Platform', value: 'Installable web app' },
-  ]}
-  action={{ label: 'Open Tain at tain.paramore.design', href: 'https://tain.paramore.design' }}
->
-  <p>
-    <strong>Everything you loved, in order.</strong> Tain is a personal diary of everything
-    I&rsquo;ve consumed &mdash; books, games, movies, even hiking trails &mdash; ranked by
-    comparison rather than by star rating, with notes from me to future me attached to each
-    entry. Not a review site, not a social feed. Built because I kept forgetting the things
-    I loved. It started life as &ldquo;Ranklist&rdquo;.
-  </p>
+<BaseV2 title="Tain · Paramore.Design" description="Everything you loved, in order.">
+  <!-- DRAFT: hidden from Home and Work on the live site; the page itself is live by URL. -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Personal Project // Web App</span>
+    </div>
+    <h1 class="pd-title" style="margin-top: 40px">Tain</h1>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px; margin: 28px 0 40px">
+      <p class="pd-lede">A personal diary of everything I’ve consumed (books, games, movies, trails) ranked by comparison, with notes from me to future me.</p>
+      <a href="https://tain.paramore.design" target="_blank" rel="noopener" class="pd-btn pd-btn--primary">Open Tain →</a>
+    </div>
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Solo, Design &amp; Build</span></div>
+      <div><span class="pd-meta__label">Platform</span><span class="pd-meta__value">Installable web app</span></div>
+      <div><span class="pd-meta__label">Live at</span><span class="pd-meta__value">tain.paramore.design</span></div>
+      <div><span class="pd-meta__label">Status</span><span class="pd-meta__value">Draft, not listed</span></div>
+    </div>
+  </section>
 
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/projects/tain/hero.jpg" alt="Tain, everything you loved, in order" style="aspect-ratio: 16 / 9"></div>
+  </section>
 
-  <p>
-    This one sat as an idea for years before I built it. Getting it working was the easy half.
-    The hard half was refusing the first thing the generated design handed back &mdash; it
-    functioned, and it felt like nothing. The comparison flow in particular got pulled apart
-    and rebuilt until ranking something was genuinely satisfying rather than a chore.
-  </p>
-</CaseLayout>
+  <section class="pd-wrap pd-section" data-screen-label="Story">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">Why it exists</div><h2 class="pd-h2">Everything you loved, <span class="pd-accent">in order.</span></h2></div>
+      <div class="pd-body" style="font-size: 17px">
+        <p>Tain is a personal diary of everything I’ve consumed (books, games, movies, even hiking trails) ranked by comparison rather than by star rating, with notes from me to future me attached to each entry. Not a review site, not a social feed. Built because I kept forgetting the things I loved. It started life as “Ranklist”.</p>
+        <p>This one sat as an idea for years before I built it. Getting it working was the easy half. The hard half was refusing the first thing the generated design handed back: it functioned, and it felt like nothing. The comparison flow in particular got pulled apart and rebuilt until ranking something was genuinely satisfying rather than a chore.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Gallery (screens reused from the blog post) -->
+  <section class="pd-wrap pd-section" data-screen-label="Screens">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">Screens</span></div>
+    <div class="pd-gallery">
+      <figure style="margin: 0"><div class="pd-frame pd-frame--contain" style="aspect-ratio: 4 / 5"><img src="/assets/images/blog/tain/tain-categories.jpg" alt="Tain categories"></div><figcaption class="pd-figcap">Categories</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame pd-frame--contain" style="aspect-ratio: 4 / 5"><img src="/assets/images/blog/tain/tain-adding-games.jpg" alt="Adding games to Tain"></div><figcaption class="pd-figcap">Adding games</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame pd-frame--contain" style="aspect-ratio: 4 / 5"><img src="/assets/images/blog/tain/tain-audiobooks.jpg" alt="Ranked audiobooks in Tain"></div><figcaption class="pd-figcap">Audiobooks</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- BLOCK: Link-out card -->
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Read more">
+    <a href="/blog/posts/building-tain" class="pd-card" style="border: var(--pd-rule); padding: 28px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap">
+      <div><div class="pd-kicker">On the blog</div><div class="pd-h3" style="margin-top: 8px">Read the full story of building Tain</div></div>
+      <span class="pd-next__box" aria-hidden="true" style="width: 52px; height: 52px">→</span>
+    </a>
+  </section>
+
+  <section class="pd-poster" data-screen-label="Next project">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/mutual" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">Mutual</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+</BaseV2>

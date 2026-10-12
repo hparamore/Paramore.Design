@@ -1,53 +1,66 @@
 ---
-import fs from 'node:fs';
-import CaseLayout from '../../components/CaseLayout.astro';
-
-/**
- * The gallery reads its own folder at build time, so adding photos means
- * dropping files into public/assets/projects/paramore-real-estate/gallery/ —
- * no code change. Sorted by filename, so a NN- prefix controls order.
- */
-const DIR = 'public/assets/projects/paramore-real-estate/gallery';
-const photos = fs.existsSync(DIR)
-  ? fs.readdirSync(DIR).filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).sort()
-  : [];
-
-const altFor = (file: string) =>
-  'Paramore Real Estate, ' +
-  file.replace(/^\d+[-_]?/, '').replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').trim();
+// Ported from the Claude Design canvas artboard CaseRealEstate.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
 ---
-<CaseLayout
-  title="Paramore Real Estate"
-  description="Rebranding my father's real estate business in Burns, Oregon — from black and red that vanished into the landscape to an orange you can spot from down the street."
-  label="Family Business // Brand, Signage & Web"
-  cover="/assets/projects/paramore-real-estate/cover.jpg"
-  coverAlt="Paramore Real Estate branding"
-  meta={[
-    { label: 'Role', value: 'Brand, Signage &amp; Web' },
-    { label: 'Timeline', value: '2010 – 2023' },
-    { label: 'Client', value: 'Robert Paramore' },
-    { label: 'Location', value: 'Burns, Oregon' },
-  ]}
->
-  <p>
-    I designed the original logo for my father in 2010, as a design student. By 2018 the
-    black-and-red brand was <strong>blending into the landscape</strong>, so we rebuilt it around
-    a bright orange and a new mark. The site followed &mdash; WordPress then, a custom Wix CMS in
-    2023. Now you can look down a street and tell instantly which homes are for sale.
-  </p>
+<BaseV2 title="Paramore Real Estate · Paramore.Design" description="Rebranding a family real estate business in Burns, Oregon.">
+  <!-- BLOCK: Case hero -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Family Business // Brand, Signage &amp; Web</span>
+    </div>
+    <h1 class="pd-title" style="margin-top: 40px">Paramore Real Estate</h1>
+    <p class="pd-lede" style="margin: 28px 0 40px">Rebranding my father’s real estate business in Burns, Oregon, from black and red that vanished into the landscape to an orange you can spot from down the street.</p>
+    <!-- BLOCK: Meta strip -->
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Brand, Signage &amp; Web</span></div>
+      <div><span class="pd-meta__label">Timeline</span><span class="pd-meta__value">2010 – 2023</span></div>
+      <div><span class="pd-meta__label">Client</span><span class="pd-meta__value">Robert Paramore</span></div>
+      <div><span class="pd-meta__label">Location</span><span class="pd-meta__value">Burns, Oregon</span></div>
+    </div>
+  </section>
 
-  {photos.length > 0 && (
-    <section class="case-gallery" slot="gallery">
-      <div class="container">
-        <span class="label">Gallery</span>
-        <div class="case-grid">
-          {photos.map((f) => (
-            <div class="case-grid__item">
-              <img src={`/assets/projects/paramore-real-estate/gallery/${f}`} alt={altFor(f)} loading="lazy" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-</CaseLayout>
+  <!-- BLOCK: Hero image -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/projects/paramore-real-estate/cover.jpg" alt="Paramore Real Estate branding" style="aspect-ratio: 16 / 9"></div>
+  </section>
+
+  <!-- BLOCK: Text section -->
+  <section class="pd-wrap pd-section" data-screen-label="Story">
+    <div class="pd-text" style="border-top: var(--pd-rule)">
+      <div><div class="pd-kicker pd-kicker--accent" style="margin-bottom: 16px">The rebrand</div><h2 class="pd-h2">Visible from <span class="pd-accent">down the street.</span></h2></div>
+      <p class="pd-body" style="font-size: 17px">I designed the original logo for my father in 2010, as a design student. By 2018 the black-and-red brand was <strong>blending into the landscape</strong>, so we rebuilt it around a bright orange and a new mark. The site followed: WordPress then, a custom Wix CMS in 2023. Now you can look down a street and tell instantly which homes are for sale.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Before / After (needs images) -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Before and after">
+    <div class="pd-pair">
+      <figure style="margin: 0"><div class="pd-placeholder" style="aspect-ratio: 4 / 3">[Before: the 2010 black-and-red brand]</div><figcaption class="pd-figcap"><strong style="color: var(--color-text)">Before.</strong> Black and red, 2010.</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 4 / 3"><img src="/assets/projects/paramore-real-estate/gallery/01-hanging-wall-sign.webp" alt="The orange hanging wall sign"></div><figcaption class="pd-figcap"><strong style="color: var(--color-text)">After.</strong> The orange rebrand, 2018.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- BLOCK: Gallery -->
+  <section class="pd-wrap pd-section" data-screen-label="Gallery">
+    <div class="pd-head" style="margin-bottom: 32px"><span class="pd-kicker pd-kicker--accent">Brand in the world</span></div>
+    <div class="pd-gallery">
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 1 / 1"><img src="/assets/projects/paramore-real-estate/gallery/02-spot-uv-logo.jpg" alt="Spot UV logo on a business card"></div><figcaption class="pd-figcap">Spot UV logo</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 1 / 1"><img src="/assets/projects/paramore-real-estate/gallery/03-folder.jpg" alt="Branded closing folder"></div><figcaption class="pd-figcap">Folder</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 1 / 1"><img src="/assets/projects/paramore-real-estate/gallery/04-keychain.jpg" alt="Branded keychain"></div><figcaption class="pd-figcap">Keychain</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 1 / 1"><img src="/assets/projects/paramore-real-estate/gallery/05-blanket.jpg" alt="Branded blanket"></div><figcaption class="pd-figcap">Blanket</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-frame" style="aspect-ratio: 1 / 1"><img src="/assets/projects/paramore-real-estate/gallery/06-pens.jpg" alt="Branded pens"></div><figcaption class="pd-figcap">Pens</figcaption></figure>
+      <figure style="margin: 0"><div class="pd-placeholder" style="aspect-ratio: 1 / 1">[Website screenshot: 2023 Wix rebuild]</div><figcaption class="pd-figcap">Website</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- BLOCK: Next project -->
+  <section class="pd-poster" data-screen-label="Next project" style="margin-top: var(--pd-section)">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/keeper" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">Keeper</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+</BaseV2>

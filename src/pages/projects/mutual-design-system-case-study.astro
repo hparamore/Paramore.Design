@@ -1,0 +1,139 @@
+---
+// Ported from the Claude Design canvas artboard CaseMutualDS.dc.html. Edit the canvas, then re-port.
+import BaseV2 from '../../layouts/BaseV2.astro';
+---
+<BaseV2 title="Mutual Design System · Paramore.Design" description="One token layer, three brands, six themes, built for engineers and AI agents.">
+  <!-- BLOCK: Case hero -->
+  <section class="pd-wrap" data-screen-label="Hero">
+    <div class="pd-topline">
+      <a href="/work" style="text-decoration: none">← All projects</a>
+      <span style="color: var(--color-accent-ink)">Design System // Engineers &amp; AI Agents</span>
+    </div>
+    <h1 class="pd-title" style="margin-top: 40px">Mutual Design System</h1>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px; margin: 28px 0 40px">
+      <p class="pd-lede">One token layer. Three brands. Six themes. A system structured so engineers and AI agents can build correct, on-brand, accessible UI from one source.</p>
+      <a href="/projects/mutual-design-system.html" class="pd-btn pd-btn--primary">Open the live system →</a>
+    </div>
+    <!-- BLOCK: Meta strip -->
+    <div class="pd-meta">
+      <div><span class="pd-meta__label">Role</span><span class="pd-meta__value">Sole designer · System author</span></div>
+      <div><span class="pd-meta__label">Brands</span><span class="pd-meta__value">Mutual · Ark · ToNite (concept)</span></div>
+      <div><span class="pd-meta__label">Exports</span><span class="pd-meta__value">Swift (SwiftUI) · React</span></div>
+      <div><span class="pd-meta__label">Status</span><span class="pd-meta__value">Shipping in two products</span></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: TL;DR -->
+  <section class="pd-wrap" style="margin-top: 40px" data-screen-label="TL;DR">
+    <div class="pd-tldr">
+      <div><span class="pd-tldr__label">Context</span><p class="pd-tldr__text">Two shipping dating apps, Mutual and Ark, run off parallel clones of one codebase, plus a third concept brand.</p></div>
+      <div><span class="pd-tldr__label">My role</span><p class="pd-tldr__text">I built the system: the token architecture, every theme, the components, live contrast checks, and the explorer.</p></div>
+      <div><span class="pd-tldr__label">Outcome</span><p class="pd-tldr__text">Every brand and mode generates from one semantic layer, and an engineer or AI agent can build on-brand UI without me in the loop.</p></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Hero image -->
+  <section class="pd-wrap" style="margin-top: 48px" data-screen-label="Hero image">
+    <div class="pd-frame"><img src="/assets/images/projects/MutualDesignSystemHero.jpg" alt="The Mutual Design System live token explorer" style="aspect-ratio: 16 / 9"></div>
+  </section>
+
+  <!-- BLOCK: Role & boundaries -->
+  <section class="pd-wrap pd-section" data-screen-label="Role and boundaries">
+    <div class="pd-head" style="margin-bottom: 24px"><span class="pd-kicker pd-kicker--accent">Role &amp; boundaries</span></div>
+    <div class="pd-owners">
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">I owned</span>
+        <ul>
+          <li>The semantic token layer and how brands and modes map onto it</li>
+          <li>Three brands, each in light and dark: six themes</li>
+          <li>Type ramps, color, and components rendered live from tokens</li>
+          <li>Live WCAG contrast checking inside the system</li>
+          <li>The explorer, its AI view, and the agent hand-off prompt</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pd-kicker" style="color: var(--color-text)">Others owned</span>
+        <ul>
+          <li>[Engineers who consume the Swift and React exports]</li>
+          <li>[Who decided to run Ark off the same codebase]</li>
+        </ul>
+      </div>
+      <p class="pd-owners__foot">[One line on how engineering adopted it: what changed in their workflow once the tokens shipped.]</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Statement -->
+  <section class="pd-wrap pd-section" data-screen-label="The point">
+    <div class="pd-quote">
+      <p class="pd-quote__text">Not pretty. <span class="pd-accent">Structured.</span></p>
+      <p class="pd-body" style="margin-top: 20px">Every color, type ramp, and component in the explorer is rendered live from the tokens. Flip the brand and mode switches and the entire page re-themes from one source of truth. The point is that a new engineer, or an AI agent, can read these tokens and assemble correct, on-brand, accessible UI without me in the loop.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Stats band -->
+  <section class="pd-wrap" data-screen-label="Stats">
+    <div class="pd-cells">
+      <div><div class="pd-stat__value">1</div><div class="pd-stat__label">Semantic token layer</div></div>
+      <div><div class="pd-stat__value pd-accent">3</div><div class="pd-stat__label">Brands: Mutual, Ark, ToNite</div></div>
+      <div><div class="pd-stat__value">6</div><div class="pd-stat__label">Themes, light and dark</div></div>
+      <div><div class="pd-stat__value">2</div><div class="pd-stat__label">Export targets: Swift and React</div></div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Key decisions -->
+  <section class="pd-wrap pd-section" data-screen-label="Decisions">
+    <div class="pd-head" style="margin-bottom: 0"><span class="pd-kicker pd-kicker--accent">Key decisions</span></div>
+    <div class="pd-decisions" style="border-top: 0">
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">One semantic layer for every brand</h3>
+        <dl>
+          <dt>Options</dt><dd>Separate style files per brand; or one semantic token layer that every brand and mode maps onto.</dd>
+          <dt>Why</dt><dd>Two products already ran on parallel clones of one codebase. One layer meant a brand or mode switch re-themes everything, and the tokens export cleanly to Swift and React.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[What the abstraction cost: e.g. semantic names take longer to learn than raw values.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Check contrast while designing</h3>
+        <dl>
+          <dt>Options</dt><dd>Audit accessibility after the fact; or build WCAG contrast checking into the system itself.</dd>
+          <dt>Why</dt><dd>Accessibility problems show up while you’re designing instead of in an audit months later.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[Where passing contrast constrained a brand’s palette, and how you resolved it.]</dd>
+        </dl>
+      </div>
+      <div class="pd-decision">
+        <h3 class="pd-decision__title">Write it for AI agents, too</h3>
+        <dl>
+          <dt>Options</dt><dd>Documentation for people only; or tokens and rules an agent can read directly, plus a prompt that scaffolds the whole system into a repo.</dd>
+          <dt>Why</dt><dd>Paste the prompt into Claude, Cursor, or any coding agent, say what to build, and it builds using only that system: on-brand and accessible by default. The explorer’s AI view shows exactly which token an agent reads for each element.</dd>
+          <dt class="is-tradeoff">Trade-off</dt><dd class="is-tradeoff">[The rules had to be explicit enough for a machine. What did writing them that way cost, or teach you?]</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK: Link-out card -->
+  <section class="pd-wrap" data-screen-label="Try it">
+    <a href="/projects/mutual-design-system.html" class="pd-card" style="border: var(--pd-rule); padding: 28px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap">
+      <div><div class="pd-kicker">Live explorer // flip on AI view, then hover anything</div><div class="pd-h3" style="margin-top: 8px">See the token an agent reads</div></div>
+      <span class="pd-next__box" aria-hidden="true" style="width: 52px; height: 52px">→</span>
+    </a>
+  </section>
+
+  <!-- BLOCK: Looking back -->
+  <section class="pd-wrap pd-section pd-section--last" data-screen-label="Looking back">
+    <div class="pd-lookback">
+      <div><div class="pd-kicker" style="margin-bottom: 12px">Looking back</div><h2 class="pd-h3" style="color: var(--color-bg)">What I’d do differently</h2></div>
+      <p>[One honest answer: a token-naming choice, a component boundary, or an adoption step you’d change.]</p>
+    </div>
+  </section>
+
+  <!-- BLOCK: Next project -->
+  <section class="pd-poster" data-screen-label="Next project">
+    <div class="pd-poster__inner" style="padding-block: clamp(40px, 6vw, 72px)">
+      <a href="/projects/the-tree-service" class="pd-next">
+        <div><div class="pd-kicker" style="margin-bottom: 16px">Next project</div><div class="pd-poster__title" style="font-size: clamp(44px, 6vw, 88px)">The Tree Service</div></div>
+        <span class="pd-next__box" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+</BaseV2>
