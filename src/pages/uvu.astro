@@ -1,0 +1,250 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/workshops/uvu.css';
+
+/**
+ * Handout page for the UVU design business workshop (October 2026). The deck's closing slide
+ * has a QR code pointing here, so the URL stays short: paramore.design/uvu.
+ * Unlisted (not in nav or the work grid) and noindex, same as the client pitch pages.
+ *
+ * The two PDFs are generated from scripts/handouts/*.html by scripts/handouts/build.sh.
+ * Edit the HTML and rebuild; don't edit the PDFs.
+ */
+
+const downloads = [
+  {
+    name: 'Pricing worksheet',
+    desc: 'Six questions to answer before you quote any project, with room to write.',
+    href: '/assets/handouts/uvu/pricing-worksheet.pdf',
+    file: 'pricing-worksheet.pdf',
+  },
+  {
+    name: 'Contract checklist',
+    desc: 'The five clauses every freelance contract needs, plus what to do when a client pushes back on price.',
+    href: '/assets/handouts/uvu/contract-checklist.pdf',
+    file: 'contract-checklist.pdf',
+  },
+];
+
+// Mirrors the worksheet PDF. Change both together.
+const pricingQuestions = [
+  { q: 'Scope', a: 'What exactly is included, and what isn’t?' },
+  { q: 'Their alternative', a: 'What would they do if you didn’t exist? Wix, the nephew, doing nothing?' },
+  { q: 'The value to them', a: 'What is the problem costing them now, in their words?' },
+  { q: 'Your floor', a: 'The number below which you say no. Decide it before the conversation.' },
+  { q: 'The bundle', a: 'A starting price, a monthly line, and one or two add-ons tied to outcomes they care about.' },
+  { q: 'Time check', a: 'Hours × the rate you’d accept. A sanity check, not the price you quote.' },
+];
+
+// Mirrors the contract checklist PDF. Change both together.
+const clauses = [
+  { name: 'Scope', desc: 'Exactly what’s included, and what isn’t.' },
+  { name: 'Revisions', desc: 'How many rounds, and what extra rounds cost.' },
+  { name: 'Payment', desc: '50% up front, the rest on delivery, with due dates.' },
+  { name: 'Ownership', desc: 'Rights transfer when the final invoice is paid.' },
+  { name: 'Kill fee', desc: 'What you’re owed if they cancel partway through.' },
+];
+
+const actions = [
+  { name: 'Write your one-sentence brand', desc: 'I help [who] get [result] by [what you do]. Before you post anything else.' },
+  { name: 'Study one local business', desc: 'List five things their website gets wrong, in their words, not design words.' },
+  { name: 'Set up one account', desc: 'Contra, Gumroad, or Figma Community. Just one.' },
+  { name: 'Have one lunch', desc: 'With someone already doing the work you want to do.' },
+];
+
+const books = [
+  { title: 'Obviously Awesome', author: 'April Dunford', why: 'Positioning: what you are, compared to what, and for whom.' },
+  { title: 'Simple Marketing for Smart People', author: 'Billy Broas', why: 'Messaging: what to say to people at each stage.' },
+  { title: 'SPIN Selling', author: 'Neil Rackham', why: 'Ask questions that let the client name the problem and what it costs them.' },
+  { title: 'The Win Without Pitching Manifesto', author: 'Blair Enns', why: 'The next level: specialize, and stop giving your thinking away.' },
+];
+
+const linkGroups = [
+  {
+    title: 'Find work',
+    links: [
+      { name: 'Contra', href: 'https://contra.com', note: 'Freelance profiles and projects' },
+      { name: 'Upwork', href: 'https://www.upwork.com', note: 'Freelance marketplace' },
+      { name: 'Dribbble', href: 'https://dribbble.com', note: 'Portfolio and job board' },
+    ],
+  },
+  {
+    title: 'Sell what you make',
+    links: [
+      { name: 'Figma Community', href: 'https://www.figma.com/community', note: 'Paid and free design resources' },
+      { name: 'Framer Marketplace', href: 'https://www.framer.com/marketplace/', note: 'Website templates' },
+      { name: 'Gumroad', href: 'https://gumroad.com', note: 'Sell any digital product' },
+    ],
+  },
+  {
+    title: 'Utah & business setup',
+    links: [
+      { name: 'Utah SBDC', href: 'https://utahsbdc.org', note: 'Free small business advising' },
+      { name: 'Utah Division of Corporations', href: 'https://corporations.utah.gov', note: 'Register an LLC' },
+      { name: 'IRS: get an EIN', href: 'https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number', note: 'Free, takes minutes' },
+      { name: 'Silicon Slopes', href: 'https://www.siliconslopes.com', note: 'Utah tech community and events' },
+      { name: 'AIGA', href: 'https://www.aiga.org', note: 'Professional design association, with a Salt Lake chapter' },
+    ],
+  },
+];
+---
+
+<Base
+  title="Your First $1,000 as a Designer · UVU Resources · Paramore.Design"
+  description="Worksheets, checklists, books and links from Hunter Paramore’s design business workshop at UVU."
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <div class="uvu-page">
+
+  <!-- Hero: the two downloads are the reason people scanned the QR code, so they sit up top -->
+  <section class="project-hero uvu-hero">
+    <div class="container">
+      <span class="label project-hero__label" style="display: block;">UVU // Design Business Workshop</span>
+      <h1 class="display-lg project-hero__title">Your first <span class="accent-text">$1,000</span> as a designer</h1>
+      <p class="uvu-lede">
+        Everything from the workshop in one place: the pricing worksheet, the contract checklist,
+        the books, and the links. Print the worksheets, or fill them in on your tablet.
+      </p>
+      <div class="uvu-downloads">
+        {downloads.map((d) => (
+          <a class="uvu-download" href={d.href} download={d.file}>
+            <span class="uvu-download__tag">PDF</span>
+            <span class="uvu-download__name">{d.name}</span>
+            <span class="uvu-download__desc">{d.desc}</span>
+            <span class="uvu-download__cta">Download <span aria-hidden="true">&darr;</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The big idea, as a reminder of the thread through the talk -->
+  <section class="section uvu-idea" aria-label="The big idea">
+    <div class="container">
+      <p class="uvu-idea__quote">Marketing is teaching people how to value your work.</p>
+    </div>
+  </section>
+
+  <!-- Pricing worksheet, readable on the page too -->
+  <section class="section" aria-labelledby="uvu-pricing-heading">
+    <div class="container">
+      <span class="section-label">Pricing worksheet</span>
+      <h2 id="uvu-pricing-heading" class="section-title">Before you quote anything</h2>
+      <p class="section-sub">Price the project, not the hour. Answer these six first.</p>
+      <ol class="uvu-rows">
+        {pricingQuestions.map((item, i) => (
+          <li class="uvu-row">
+            <span class="uvu-row__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="uvu-row__name">{item.q}</span>
+            <span class="uvu-row__desc">{item.a}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contract checklist -->
+  <section class="section" aria-labelledby="uvu-contract-heading">
+    <div class="container">
+      <span class="section-label">Contract checklist</span>
+      <h2 id="uvu-contract-heading" class="section-title">Five clauses that protect you</h2>
+      <ul class="uvu-rows">
+        {clauses.map((c) => (
+          <li class="uvu-row uvu-row--check">
+            <span class="uvu-row__check" aria-hidden="true"></span>
+            <span class="uvu-row__name">{c.name}</span>
+            <span class="uvu-row__desc">{c.desc}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="uvu-note">Not legal advice. For anything big, have a lawyer look at your template once.</p>
+    </div>
+  </section>
+
+  <!-- The objection script from the talk -->
+  <section class="section uvu-band" aria-labelledby="uvu-objection-heading">
+    <div class="container">
+      <span class="section-label">When they say “I can get it cheaper”</span>
+      <h2 id="uvu-objection-heading" class="section-title">Agree, then ask</h2>
+      <blockquote class="uvu-script">
+        <p>“He probably can, and that might be the right call.</p>
+        <p class="uvu-script__ask">What made you reach out to me?”</p>
+      </blockquote>
+      <p class="section-sub">Don’t defend your value and don’t drop your price. Listen to the answer: it’s your value, in their words. If the budget really is lower, cut the scope, not the price.</p>
+    </div>
+  </section>
+
+  <!-- One thing this week -->
+  <section class="section" aria-labelledby="uvu-action-heading">
+    <div class="container">
+      <span class="section-label">The promise, kept</span>
+      <h2 id="uvu-action-heading" class="section-title">Pick your one thing this week</h2>
+      <div class="uvu-grid uvu-grid--4">
+        {actions.map((a) => (
+          <div class="uvu-card">
+            <h3 class="uvu-card__title">{a.name}</h3>
+            <p class="uvu-card__body">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading list -->
+  <section class="section" aria-labelledby="uvu-books-heading">
+    <div class="container">
+      <span class="section-label">Keep learning</span>
+      <h2 id="uvu-books-heading" class="section-title">Four books, in this order</h2>
+      <ol class="uvu-books">
+        {books.map((b, i) => (
+          <li class="uvu-book">
+            <span class="uvu-row__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="uvu-book__title">{b.title}</h3>
+              <p class="uvu-book__author">{b.author}</p>
+              <p class="uvu-book__why">{b.why}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="section" aria-labelledby="uvu-links-heading">
+    <div class="container">
+      <span class="section-label">Where to start</span>
+      <h2 id="uvu-links-heading" class="section-title">Links from the talk</h2>
+      <div class="uvu-grid uvu-grid--3">
+        {linkGroups.map((g) => (
+          <div class="uvu-links">
+            <h3 class="uvu-links__title">{g.title}</h3>
+            <ul>
+              {g.links.map((l) => (
+                <li>
+                  <a href={l.href} target="_blank" rel="noopener">{l.name} <span aria-hidden="true">&nearr;</span></a>
+                  <span class="uvu-links__note">{l.note}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section uvu-band" style="text-align: center;" aria-labelledby="uvu-contact-heading">
+    <div class="container">
+      <span class="section-label">Questions after the talk?</span>
+      <h2 id="uvu-contact-heading" class="section-title">Say hi</h2>
+      <p class="section-sub">I’m happy to look at a portfolio or a first proposal.</p>
+      <div class="hero__cta uvu-contact">
+        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">Email Hunter <span class="btn__arrow">&rarr;</span></a>
+        <a href="/work" class="btn btn--secondary">See my work</a>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</Base>

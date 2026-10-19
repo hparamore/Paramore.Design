@@ -1,0 +1,43 @@
+/*
+ * Shared print styles for the workshop handout PDFs (scripts/handouts/*.html → build.sh).
+ * Light paper on purpose: the site is dark-only, but these get printed, and a black page
+ * burns toner and photocopies badly. Same type and accent as the site so they still read as Paramore.Design.
+ */
+@font-face { font-family: 'Bebas Neue'; src: url('../../public/fonts/BebasNeue-Bold.ttf') format('truetype'); }
+
+@page { size: Letter; margin: 0.45in 0.6in; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Space Grotesk', Arial, sans-serif; color: #141414; font-size: 10.5pt; line-height: 1.45; }
+
+.hd { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 3px solid #FF6B00; padding-bottom: 8pt; }
+.hd__label { font-size: 8pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
+h1 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 36pt; line-height: 0.95; text-transform: uppercase; margin-top: 12pt; }
+.intro { margin-top: 6pt; font-size: 11pt; color: #333; }
+
+.fill { display: flex; gap: 8pt; align-items: flex-end; margin-top: 12pt; font-size: 9pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #555; }
+.fill span.line { flex: 1; border-bottom: 1px solid #999; height: 14pt; }
+
+.q { display: grid; grid-template-columns: 30pt 1fr; gap: 0 8pt; padding-top: 7pt; margin-top: 7pt; border-top: 1px solid #DDD; break-inside: avoid; }
+.q__num { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 22pt; line-height: 1; color: #FF6B00; }
+.q__title { font-weight: 700; font-size: 11pt; }
+.q__prompt { color: #444; }
+.lines { grid-column: 2; margin-top: 4pt; }
+.lines i { display: block; height: 16pt; border-bottom: 1px solid #BBB; }
+
+.box { width: 13pt; height: 13pt; border: 1.5pt solid #FF6B00; border-radius: 2pt; margin-top: 2pt; }
+.example { margin-top: 3pt; padding: 5pt 8pt; background: #FFF3EA; border-radius: 3pt; font-size: 9.5pt; color: #333; }
+.example b { color: #CC5500; font-weight: 600; }
+
+.callout { margin-top: 12pt; padding: 10pt 12pt; border: 1.5pt solid #FF6B00; border-radius: 4pt; break-inside: avoid; }
+.callout h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 18pt; line-height: 1; text-transform: uppercase; }
+.callout .script { margin-top: 5pt; font-size: 12pt; font-weight: 500; }
+.callout .script em { color: #CC5500; }
+.callout p + p { margin-top: 4pt; }
+.callout ul { margin: 4pt 0 0 14pt; }
+
+.ft { margin-top: 14pt; padding-top: 6pt; border-top: 1px solid #DDD; display: flex; justify-content: space-between; font-size: 8pt; color: #666; }
+
+/* Two callouts side by side keep the checklist on one page */
+.pair { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 10pt; }
+.pair .callout { margin-top: 12pt; }

@@ -1,0 +1,77 @@
+/*
+ * UVU workshop handout page: page-scoped styles (prefix uvu-).
+ * Imported from src/pages/uvu.astro, same pattern as src/styles/proposals/ (imported .css
+ * hot-reloads reliably in astro dev; big in-page <style is:global> blocks did not).
+ * Section headers use the shared .section-label / .section-title / .section-sub.
+ */
+
+.uvu-lede { max-width: 60ch; margin-top: var(--space-xl); font-size: var(--text-lg); }
+
+/* ---------- Downloads: two big tappable tiles, the reason people scanned in ---------- */
+.uvu-downloads { margin-top: var(--space-2xl); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); }
+.uvu-download {
+  display: grid; gap: var(--space-sm); align-content: start;
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text-primary); text-decoration: none;
+  transition: border-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+.uvu-download:hover { border-color: var(--color-accent); background: var(--color-surface-elevated); }
+.uvu-download:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.uvu-download__tag { width: fit-content; padding: 4px 8px; border: 1px solid var(--color-accent); border-radius: var(--radius-sm); color: var(--color-accent); font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-wider); line-height: 1; }
+.uvu-download__name { font-family: var(--font-display); font-size: var(--text-3xl); line-height: 1; text-transform: uppercase; }
+.uvu-download__desc { color: var(--color-text-secondary); font-size: var(--text-md); line-height: var(--leading-normal); }
+.uvu-download__cta { margin-top: var(--space-sm); color: var(--color-accent); font-size: var(--text-sm); font-weight: 600; letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+
+/* ---------- The big idea, one line ---------- */
+.uvu-idea { background: var(--color-accent); }
+.uvu-idea__quote { margin: 0; max-width: none; font-family: var(--font-display); font-size: clamp(2.5rem, 6.5vw, 4.5rem); line-height: 0.95; text-transform: uppercase; color: var(--color-bg); text-wrap: balance; }
+
+/* ---------- Label / description rows (worksheet + checklist) ---------- */
+.uvu-rows { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; border-top: 1px solid var(--color-border); }
+.uvu-row { display: grid; grid-template-columns: 56px 220px minmax(0, 1fr); gap: var(--space-lg); align-items: baseline; padding-block: var(--space-lg); border-bottom: 1px solid var(--color-border); }
+.uvu-row__num { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; color: var(--color-accent); }
+.uvu-row__name { font-size: var(--text-lg); font-weight: 600; color: var(--color-text-primary); }
+.uvu-row__desc { font-size: var(--text-md); line-height: var(--leading-relaxed); color: var(--color-text-secondary); }
+/* The checklist uses an empty box where the worksheet uses a number */
+.uvu-row__check { width: 22px; height: 22px; border: 2px solid var(--color-accent); border-radius: var(--radius-sm); align-self: center; }
+.uvu-note { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-text-secondary); }
+@media (max-width: 700px) {
+  .uvu-row { grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-xs) var(--space-md); }
+  .uvu-row__desc { grid-column: 2; }
+}
+
+/* ---------- Surface band (objection script, contact) ---------- */
+.uvu-band { background: var(--color-surface); border-block: 1px solid var(--color-border); }
+.uvu-script { margin: var(--space-2xl) 0 var(--space-lg); padding: 0; }
+.uvu-script p { margin: 0; font-size: clamp(1.5rem, 3.4vw, 2.5rem); font-weight: 500; line-height: 1.25; color: var(--color-text-primary); }
+.uvu-script .uvu-script__ask { font-style: italic; color: var(--color-accent); }
+.uvu-contact { justify-content: center; margin-top: var(--space-xl); }
+
+/* ---------- Cards and grids ---------- */
+.uvu-grid { margin-top: var(--space-2xl); display: grid; gap: var(--space-lg); }
+.uvu-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.uvu-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .uvu-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .uvu-grid--3, .uvu-grid--4, .uvu-downloads { grid-template-columns: 1fr; } }
+.uvu-card { padding: var(--space-xl); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface); }
+.uvu-card__title { margin: 0 0 var(--space-sm); font-family: var(--font-body); font-size: var(--text-lg); font-weight: 600; line-height: var(--leading-snug); text-transform: none; color: var(--color-text-primary); }
+.uvu-card__body { margin: 0; font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--color-text-secondary); }
+
+/* ---------- Books ---------- */
+.uvu-books { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl) var(--space-2xl); }
+.uvu-book { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: var(--space-md); padding-top: var(--space-lg); border-top: 2px solid var(--color-accent); }
+.uvu-book__title { margin: 0; font-family: var(--font-body); font-size: var(--text-xl); font-weight: 600; line-height: var(--leading-snug); text-transform: none; color: var(--color-text-primary); }
+.uvu-book__author { margin: var(--space-xs) 0 var(--space-sm); font-size: var(--text-sm); color: var(--color-text-secondary); }
+.uvu-book__why { margin: 0; font-size: var(--text-md); line-height: var(--leading-relaxed); color: var(--color-text-primary); }
+@media (max-width: 760px) { .uvu-books { grid-template-columns: 1fr; } }
+
+/* ---------- Link lists ---------- */
+.uvu-links__title { margin: 0 0 var(--space-md); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-accent); }
+.uvu-links ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.uvu-links li { display: grid; gap: 2px; padding-block: var(--space-md); border-bottom: 1px solid var(--color-border); }
+.uvu-links a { color: var(--color-text-primary); font-size: var(--text-md); font-weight: 600; text-decoration: none; }
+.uvu-links a:hover { color: var(--color-accent); }
+.uvu-links a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.uvu-links__note { font-size: var(--text-sm); color: var(--color-text-secondary); }
