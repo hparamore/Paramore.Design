@@ -32,20 +32,52 @@ const fixes = [
   { title: 'Extra pages that go stale', done: 'Everything is on one page, so there\'s only one place to update. Easier to maintain, and easier for AI tools to read.' },
 ];
 
-// Starting bundle: the anchor for the upgrades section.
-const bundle = {
-  items: [
-    { name: 'The website', desc: 'The full new site, launched on your current hosting.', price: '$500', unit: 'one time' },
-    { name: 'Hosting, domain & updates', desc: 'I host it, renew the domain, and make small updates for you.', price: '$45/mo', unit: 'billed yearly' },
-    { name: 'Review booster', desc: 'A text after each visit asks happy patients for a Google review.', price: '$300–500', unit: 'one time' },
-  ],
-  total: '$800–1,000',
-  then: 'then $45/mo',
-};
+/**
+ * Two ways to start (2026-10-21). One decision instead of a menu of prices: website only, or
+ * Hunter on a monthly plan that steps down on its own. Internally the plan has tiers (build /
+ * grow / care); the client only ever sees this one price and its step-down.
+ */
+// Card copy is written for Dr. Miles, not about Hunter: outcomes he cares about (patients, reviews,
+// not dealing with tech). The plan borrows the shape he sells every day: a corrective care plan,
+// then maintenance. The roadmap months are items from `groups`, so keep the two in step.
+const plans = [
+  {
+    name: 'Just the Website',
+    pitch: 'The new site, launched and handed over. You take it from there.',
+    price: '$500',
+    terms: 'One time',
+    points: [
+      'The full new site, launched on your current hosting',
+      'Optional: I host it, renew the domain, and make small updates for $45/mo',
+      'Anything from the list below, quoted whenever you want it',
+    ],
+  },
+  {
+    name: 'Practice Care Plan',
+    recommended: true,
+    pitch: 'A website you never have to think about, that reassures patients and tells them exactly when they can walk in.',
+    price: '$1,500',
+    terms: 'a month for the first three months, then $299 a month',
+    analogy: 'Like a care plan for your clinic: three focused months to fix what\'s holding it back, then maintenance to keep it there.',
+    roadmap: [
+      { when: 'Month 1', what: 'The new site goes live. After every visit, patients get a text asking for a Google review.' },
+      { when: 'Month 2', what: 'You show up when people ask Google or ChatGPT for a chiropractor in Lehi, and new patients fill out intake on their phone before they walk in.' },
+      { when: 'Month 3', what: 'Fliers or signage for the gyms and shops nearby that send people your way. Or whatever\'s working best by then.' },
+      { when: 'After that', what: '$299 a month. I host it, keep it secure, and make changes, usually the same day. Something new whenever you need it.' },
+    ],
+    reassure: 'Text me a change and it\'s done. No logins, no tech calls.',
+    // The website + every one-time item in `groups` at their ballpark prices, counting the logo
+    // refresh and not the brand overhaul (they overlap). Recompute if those prices change.
+    anchor: 'Bought one at a time, the website and every one-time item below come to about $4,600–6,700.',
+  },
+];
 
 /**
- * Each tile: name → one short outcome line → optional detail (behind a toggle) → price.
- * Keep `short` to ~15 words. `wide` spans both columns so no tile sits alone in a row.
+ * The list of things we could work on. Each tile: name → one short outcome line → optional
+ * detail (behind a toggle). Keep `short` to ~15 words. `wide` spans both columns so no tile sits
+ * alone in a row.
+ * `price` / `unit` are NOT shown on the page (since 2026-10-21). They stay here as Hunter's quoting
+ * reference for website-only clients and as the source of the anchor line in `plans`.
  */
 const groups = [
   {
@@ -55,7 +87,7 @@ const groups = [
         name: 'Hosting, domain & updates',
         short: 'I host the site, renew the domain, and make small changes for you.',
         detail: 'I move the site and domain to hosting I manage and cover the bills. Includes security, backups, and small updates like holiday hours or price changes, usually same day.',
-        price: '$45/mo', unit: 'billed yearly', recommended: true,
+        price: '$45/mo', unit: 'billed yearly',
       },
       {
         name: 'Edit the site yourself',
@@ -154,7 +186,7 @@ const aiIdeas = [
 
 <Base
   title={"Proposal for Lehi Chiropractic · Paramore.Design"}
-  description={"A new website for Lehi Chiropractic, plus optional upgrades."}
+  description={"A new website for Lehi Chiropractic, and two ways to start."}
 >
   <meta slot="head" name="robots" content="noindex, nofollow" />
   <meta slot="head" property="og:title" content="A new website for Lehi Chiropractic" />
@@ -187,7 +219,7 @@ const aiIdeas = [
       <p class="lcp-lede">
         You run a walk-in clinic with honest prices and a 4.8-star rating from 211 Google reviews.
         The current website doesn't say any of that clearly. Here's a ready-to-launch replacement,
-        and a menu of optional upgrades if you want to go further.
+        and two ways to start: just the website, or me on call to keep improving it.
       </p>
       <div class="hero__cta">
         <a href={concept} class="btn btn--primary">View the new site <span class="btn__arrow">&rarr;</span></a>
@@ -249,53 +281,75 @@ const aiIdeas = [
     </div>
   </section>
 
-  <!-- The offer -->
+  <!-- The offer: one decision, two options. Both start with the same website. -->
   <section class="section lcp-offer" id="pricing" aria-labelledby="lcp-offer-heading">
-    <div class="container lcp-offer__grid">
-      <div class="lcp-offer__price">
-        <span class="section-label">The website</span>
-        <p class="lcp-price" id="lcp-offer-heading"><span class="lcp-price__currency">$</span>500</p>
-        <p class="lcp-price__terms">One time. Launched on your current hosting.</p>
-        <a href={concept} class="btn btn--ghost">See exactly what you get <span class="btn__arrow">&rarr;</span></a>
+    <div class="container">
+      <span class="section-label">Pricing</span>
+      <h2 id="lcp-offer-heading" class="section-title">Two ways to start</h2>
+      <p class="section-sub">Both start with the same new website. The difference is whether I stick around to keep improving it.</p>
+
+      <div class="lcp-plans">
+        {plans.map((plan, i) => (
+          <article class:list={['lcp-plan', { 'lcp-plan--recommended': plan.recommended }]} aria-labelledby={`lcp-plan-${i}`}>
+            <div class="lcp-plan__head">
+              {plan.recommended && <span class="lcp-tag">Recommended</span>}
+              <h3 class="lcp-plan__name" id={`lcp-plan-${i}`}>{plan.name}</h3>
+            </div>
+            <p class="lcp-plan__pitch">{plan.pitch}</p>
+            <p class="lcp-plan__price">{plan.price}</p>
+            <p class="lcp-plan__terms">{plan.terms}</p>
+            <div class="lcp-plan__body">
+              {plan.points && (
+                <ul class="lcp-checks" role="list">
+                  {plan.points.map((point) => <li>{point}</li>)}
+                </ul>
+              )}
+              {plan.analogy && <p class="lcp-plan__analogy">{plan.analogy}</p>}
+              {plan.roadmap && (
+                <ol class="lcp-roadmap" role="list">
+                  {plan.roadmap.map((step) => (
+                    <li><span class="lcp-roadmap__when">{step.when}</span><span>{step.what}</span></li>
+                  ))}
+                </ol>
+              )}
+            </div>
+            <div class="lcp-plan__foot">
+              {plan.reassure && <p class="lcp-plan__reassure">{plan.reassure}</p>}
+              {plan.anchor && <p class="lcp-plan__anchor">{plan.anchor}</p>}
+            </div>
+          </article>
+        ))}
       </div>
-      <div class="lcp-offer__detail">
-        <h2 class="lcp-h3">What's included</h2>
-        <ul class="lcp-checks" role="list">
-          {included.map((item) => <li>{item}</li>)}
-        </ul>
-        <h2 class="lcp-h3">What I need from you</h2>
-        <p class="lcp-need">
-          Your hosting login, the correct adjustment price, and a photo of Dr. Miles. I'm happy to
-          take that one myself when I come in for an adjustment.
-        </p>
+
+      <div class="lcp-offer__grid">
+        <div class="lcp-offer__detail">
+          <h3 class="lcp-h3">What's in the website</h3>
+          <ul class="lcp-checks" role="list">
+            {included.map((item) => <li>{item}</li>)}
+          </ul>
+          <a href={concept} class="btn btn--ghost">See exactly what you get <span class="btn__arrow">&rarr;</span></a>
+        </div>
+        <div class="lcp-offer__detail">
+          <h3 class="lcp-h3">What I need from you</h3>
+          <p class="lcp-need">
+            Your hosting login, the correct adjustment price, and a photo of Dr. Miles. I'm happy to
+            take that one myself when I come in for an adjustment.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Add-ons -->
+  <!-- The list: what we'd work on. No prices here on purpose; see `plans` and the note on `groups`. -->
   <section class="section lcp-addons" aria-labelledby="lcp-addons-heading">
     <div class="container">
-      <h2 id="lcp-addons-heading" class="section-title">Optional upgrades</h2>
-      <p class="section-sub">Add what's useful, skip what isn't.</p>
-
-      <!-- The anchor: one recommended starting point instead of twelve equals -->
-      <div class="lcp-bundle">
-        <div class="lcp-bundle__intro">
-          <span class="lcp-tag">Where I'd start</span>
-          <h3 class="lcp-bundle__title">The website, kept current, and a steady stream of new reviews.</h3>
-        </div>
-        <ul class="lcp-bundle__items" role="list">
-          {bundle.items.map((item) => (
-            <li>
-              <span class="lcp-bundle__name">{item.name}</span>
-              <span class="lcp-bundle__price">{item.price}</span>
-              <span class="lcp-bundle__meta">{item.desc}</span>
-              <span class="lcp-bundle__meta lcp-bundle__meta--unit">{item.unit}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="lcp-bundle__total"><span class="lcp-bundle__total-num">{bundle.total}</span><span>to start, {bundle.then}</span></p>
-      </div>
+      <span class="section-label">What we'd work on</span>
+      <h2 id="lcp-addons-heading" class="section-title">The list</h2>
+      <p class="section-sub">
+        On the plan, we work through these one at a time, starting with the ones marked below.
+        With just the website, I'll quote any of them whenever you want it. Printing, materials and
+        outside services are billed at cost either way.
+      </p>
 
       <div class="lcp-groups">
         {groups.map((group) => (
@@ -304,7 +358,7 @@ const aiIdeas = [
             <ul class="lcp-tiles" role="list">
               {group.items.map((item) => (
                 <li class:list={['lcp-tile', { 'lcp-tile--wide': item.wide }]}>
-                  {item.recommended && <span class="lcp-tag">Recommended</span>}
+                  {item.recommended && <span class="lcp-tag">Start here</span>}
                   <h4 class="lcp-tile__name">{item.name}</h4>
                   <p class="lcp-tile__short">{item.short}</p>
                   {item.detail && (
@@ -313,7 +367,6 @@ const aiIdeas = [
                       <p>{item.detail}</p>
                     </details>
                   )}
-                  <p class="lcp-tile__price">{item.price} <small>{item.unit}</small></p>
                 </li>
               ))}
             </ul>
@@ -358,9 +411,9 @@ const aiIdeas = [
       <span class="section-label">Next steps</span>
       <h2 id="lcp-next-heading" class="section-title">Three steps to <span class="accent-text">launch</span></h2>
       <ol class="lcp-steps" role="list">
-        <li><span><strong>Say yes.</strong> Reply to my email or tell me next time I'm in.</span></li>
+        <li><span><strong>Pick an option.</strong> Reply to my email or tell me next time I'm in.</span></li>
         <li><span><strong>Send the details.</strong> Hosting login, the correct price, and a photo of Dr. Miles.</span></li>
-        <li><span><strong>I launch it.</strong> Upgrades whenever you're ready, or never.</span></li>
+        <li><span><strong>I launch it.</strong> On the plan, we start on the list the same week.</span></li>
       </ol>
       <div class="hero__cta lcp-next__cta">
         <a href="mailto:hparamore@gmail.com?subject=Lehi%20Chiropractic%20website" class="btn btn--primary">
