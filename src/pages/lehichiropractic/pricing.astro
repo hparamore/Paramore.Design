@@ -36,11 +36,11 @@ const fixes = [
 const bundle = {
   items: [
     { name: 'The website', desc: 'The full new site, launched on your current hosting.', price: '$500', unit: 'one time' },
-    { name: 'Hosting, domain & updates', desc: 'I host it, renew the domain, and make small updates for you.', price: '$25/mo', unit: 'billed yearly' },
+    { name: 'Hosting, domain & updates', desc: 'I host it, renew the domain, and make small updates for you.', price: '$45/mo', unit: 'billed yearly' },
     { name: 'Review booster', desc: 'A text after each visit asks happy patients for a Google review.', price: '$300–500', unit: 'one time' },
   ],
   total: '$800–1,000',
-  then: 'then $25/mo',
+  then: 'then $45/mo',
 };
 
 /**
@@ -55,7 +55,13 @@ const groups = [
         name: 'Hosting, domain & updates',
         short: 'I host the site, renew the domain, and make small changes for you.',
         detail: 'I move the site and domain to hosting I manage and cover the bills. Includes security, backups, and small updates like holiday hours or price changes, usually same day.',
-        price: '$25/mo', unit: 'billed yearly', recommended: true, wide: true,
+        price: '$45/mo', unit: 'billed yearly', recommended: true,
+      },
+      {
+        name: 'Edit the site yourself',
+        short: 'Log in to change anything on the site, add new pages, or start a blog.',
+        detail: 'A simple editor built into the site. Update text, photos, prices and hours, add pages, or post to a blog, with no code and no waiting on me. Anything you\'d rather hand off is still covered by hosting.',
+        price: '$400+', unit: 'one time',
       },
     ],
   },
@@ -84,6 +90,11 @@ const groups = [
         name: 'Live Google rating',
         short: 'Your star rating and review count update on the site by themselves.',
         price: '$300', unit: 'one time',
+      },
+      {
+        name: 'Social media content manager',
+        short: 'Makes it easy to create, schedule, automate, and share to all your social accounts at once.',
+        price: '$50+/mo', unit: 'ongoing', wide: true,
       },
     ],
   },
