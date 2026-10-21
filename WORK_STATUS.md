@@ -1,3 +1,33 @@
+## 2026-10-21 (later) — Lehi proposal: two new upgrades (site editor, social media)
+
+**Added** to `src/pages/lehichiropractic/pricing.astro` (same change on `main` and `redesign/staging`):
+- **Edit the site yourself** — the CMS option: log in to change anything, add pages, or start a blog.
+  **$400+ one time.** In "Keep it running", next to hosting. Named in plain words because "CMS" is jargon
+  to the client.
+- **Social media content manager** — "makes it easy to create, schedule, automate, and share to all your
+  social accounts at once." **$50+/mo, ongoing.** Last tile in "Get found".
+
+**Layout:** following the file's rule that `wide` is only for a tile that would sit alone in a row,
+hosting lost `wide` (it now shares its row with the editor; it keeps the Recommended badge) and the
+social tile is `wide` (fifth tile in Get found).
+
+**Open:** neither new tile is in the starting bundle. The social tile has no "What's included" detail
+yet; add one once the tool and scope are decided. No real CMS has been chosen or built yet; the price is
+a starting point.
+
+---
+
+## 2026-10-21 — Lehi Chiropractic proposal: hosting raised to $45/mo
+
+**What:** Hosting, domain & updates on `/lehichiropractic/pricing` went from $25/mo to **$45/mo** (Hunter's call).
+The same change was made on `main`, so the two copies match.
+
+**Changed:** `src/pages/lehichiropractic/pricing.astro`, in three places that must stay in sync:
+the starting-bundle line item, the bundle's "then $45/mo" line, and the "Keep it running" tile.
+The bundle total ($800–1,000) is one-time only and didn't change.
+
+---
+
 ## 2026-09-30 (later) — Merged into one document at the recruiter's request
 
 Sunil asked for "a single PDF or Word document." Hunter's call: merge the two, one after
