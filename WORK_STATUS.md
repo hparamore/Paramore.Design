@@ -1,3 +1,47 @@
+## 2026-10-21 (later still) — Lehi proposal: two-option pricing draft
+
+**Why:** Hunter wants to sell an ongoing monthly relationship (heavy build months, then a lower rate,
+like his Brandon/Carys clients), but worried that adding plan tiers on top of 13 priced upgrades would
+mean too many decisions. The fix was to make the plan *replace* decisions: one choice instead of ~15.
+
+**Changed** (`src/pages/lehichiropractic/pricing.astro`, `src/styles/proposals/lehi-chiropractic.css`):
+- **Pricing section is now "Two ways to start"**: two cards from the `plans` array.
+  - *Just the website*: $500 one time; hosting optional at $45/mo; list items quoted on request.
+  - *Practice care plan* (Recommended, accent card): **$1,500/mo for three months, then $299/mo on its own**.
+    First drafted as "Me on call" with feature bullets; Hunter felt it didn't sell to this audience, so it
+    was rewritten around Dr. Miles's outcomes:
+    - Headline (Hunter's line): "A website you never have to think about, that reassures patients and
+      tells them exactly when they can walk in."
+    - Framed as a chiropractic care plan (focused months, then maintenance), the structure he sells daily.
+    - A dated roadmap instead of "we work through the list": Month 1 site + review texts, Month 2 Google/
+      ChatGPT search + phone intake, Month 3 fliers/signage, then $299/mo. Every item is from `groups`.
+    - Reassurance: "Text me a change and it's done. No logins, no tech calls."
+    - Anchor line: the website plus every one-time item, bought separately, is about **$4,600–6,700**
+      (counts logo refresh, not the overlapping brand overhaul; recompute if list prices change).
+    - Dropped from the card: "busy months are agreed before the month starts." Still how Hunter should run
+      it; it's a terms conversation, not a selling point. "Stop anytime after three months" was suggested
+      but left out until Hunter decides he'd honor it.
+  - "What's in the website" and "What I need from you" moved under the cards (shared by both options).
+- **The upgrades menu is now "The list"**, with no prices shown. `price`/`unit` stay in the `groups` data
+  as Hunter's quoting reference and the anchor's source. The old "Where I'd start" bundle was removed.
+  Recommended tiles now read "Start here"; only Review booster has it (hosting is already in the plan).
+- Hero line, meta description and next steps say "two ways to start" / "Pick an option" instead of upgrades.
+- CSS: new `lcp-plan*` styles (subgrid, so rows line up across both cards); removed the unused
+  `lcp-bundle*`, `lcp-price*` and `lcp-tile__price` rules. `styles.css` untouched, so no `?v=` bump.
+
+**Internal only:** the build / grow / care tiers are how Hunter runs the account. The client sees one plan.
+
+**Open:**
+- $1,500 is a placeholder from the conversation; Hunter set the maintenance rate to $299/mo (was $350).
+- Idea: once the adjustment price is known, a line like "$299 a month is about X adjustments."
+- The care-plan card is much taller than the website card, leaving empty space in the left card on desktop.
+- Social media ($50+/mo) and the AI tools section: in the plan or billed separately? Not decided.
+- `src/pitches/lehichiropractic/concept.html` (line ~680) still says "a few optional upgrades". Don't
+  hand-edit it; fix it in the concept's source outside this repo and re-sync.
+- Committed on `main` (not pushed) and on `redesign/staging` (pushed for review on staging.paramore.design).
+
+---
+
 ## 2026-10-21 (later) — Lehi proposal: two new upgrades (site editor, social media)
 
 **Added** to `src/pages/lehichiropractic/pricing.astro` (same change on `main` and `redesign/staging`):
