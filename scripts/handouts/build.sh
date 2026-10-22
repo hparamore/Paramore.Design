@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 OUT="../../public/assets/handouts/uvu"
 mkdir -p "$OUT"
-for name in pricing-worksheet contract-checklist; do
+for name in pricing-worksheet contract-checklist business-setup; do
   "$CHROME" --headless=new --disable-gpu --no-pdf-header-footer \
     --virtual-time-budget=10000 \
     --print-to-pdf="$OUT/$name.pdf" "file://$PWD/$name.html"

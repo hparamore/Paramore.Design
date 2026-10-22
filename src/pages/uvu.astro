@@ -24,6 +24,12 @@ const downloads = [
     href: '/assets/handouts/uvu/contract-checklist.pdf',
     file: 'contract-checklist.pdf',
   },
+  {
+    name: 'Business setup checklist',
+    desc: 'LLC, EIN, bank account, receipts, and what to set aside for taxes, from my tax preparer.',
+    href: '/assets/handouts/uvu/business-setup.pdf',
+    file: 'business-setup.pdf',
+  },
 ];
 
 // Mirrors the worksheet PDF. Change both together.
@@ -31,9 +37,9 @@ const pricingQuestions = [
   { q: 'Scope', a: 'What exactly is included, and what isn’t?' },
   { q: 'Their alternative', a: 'What would they do if you didn’t exist? Wix, the nephew, doing nothing?' },
   { q: 'The value to them', a: 'What is the problem costing them now, in their words?' },
-  { q: 'Your floor', a: 'The number below which you say no. Decide it before the conversation.' },
+  { q: 'Your floor', a: '(What you need to keep + business costs) ÷ 0.7 for taxes ÷ about 1,000 billable hours. Never quote below it.' },
   { q: 'The bundle', a: 'A starting price, a monthly line, and one or two add-ons tied to outcomes they care about.' },
-  { q: 'Time check', a: 'Hours × the rate you’d accept. A sanity check, not the price you quote.' },
+  { q: 'Time check', a: 'Estimated hours × your floor × 1.25–1.5 for revisions and surprises. A sanity check, not the price you quote.' },
 ];
 
 // Mirrors the contract checklist PDF. Change both together.
@@ -43,6 +49,28 @@ const clauses = [
   { name: 'Payment', desc: '50% up front, the rest on delivery, with due dates.' },
   { name: 'Ownership', desc: 'Rights transfer when the final invoice is paid.' },
   { name: 'Kill fee', desc: 'What you’re owed if they cancel partway through.' },
+];
+
+// Mirrors scripts/handouts/business-setup.html. From Hunter's tax preparer, Oct 21, 2026. Change both together.
+const setup = [
+  { name: 'File direct', desc: 'Form your LLC with the Utah Division of Corporations, and get your EIN free at IRS.gov. Lookalike sites charge $250–500 for the same forms.' },
+  { name: 'Business account first', desc: 'Every client payment lands there, then you pay yourself. Never pay personal bills from it.' },
+  { name: 'Keep every receipt', desc: 'A phone photo in a folder counts. Card statements are a weak backup in an audit.' },
+  { name: 'Track your miles', desc: 'Every business drive is a deduction at the IRS standard mileage rate.' },
+  { name: 'Set money aside', desc: '25–30% of every payment if it’s just you. Closer to 20% with a spouse, kids, and real expenses.' },
+];
+
+const taxQuestions = [
+  'Should my spouse be on the LLC?',
+  'When does an S corp make sense? (Often around $40K a year; the election is due by Dec 31.)',
+  'Do I owe quarterly estimated taxes, and how much?',
+];
+
+const upsell = [
+  { name: 'Sell outcomes', desc: '“More Google reviews,” not “an SMS integration.”' },
+  { name: 'Offer options up front', desc: 'A starting bundle plus add-ons. They choose; you don’t push.' },
+  { name: 'Ask after a win', desc: 'Offer more right after the first thing works, not before.' },
+  { name: 'Stay in the relationship', desc: 'A monthly line keeps you around. That’s where the next project comes from.' },
 ];
 
 const actions = [
@@ -80,8 +108,8 @@ const linkGroups = [
     title: 'Utah & business setup',
     links: [
       { name: 'Utah SBDC', href: 'https://utahsbdc.org', note: 'Free small business advising' },
-      { name: 'Utah Division of Corporations', href: 'https://corporations.utah.gov', note: 'Register an LLC' },
-      { name: 'IRS: get an EIN', href: 'https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number', note: 'Free, takes minutes' },
+      { name: 'Utah Division of Corporations', href: 'https://corporations.utah.gov', note: 'Register or renew an LLC (go here directly)' },
+      { name: 'IRS: get an EIN', href: 'https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number', note: 'Free. Only use IRS.gov' },
       { name: 'Silicon Slopes', href: 'https://www.siliconslopes.com', note: 'Utah tech community and events' },
       { name: 'AIGA', href: 'https://www.aiga.org', note: 'Professional design association, with a Salt Lake chapter' },
     ],
@@ -90,7 +118,7 @@ const linkGroups = [
 ---
 
 <Base
-  title="Your First $1,000 as a Designer · UVU Resources · Paramore.Design"
+  title="Making Your First $1,000 as a New Designer · UVU Resources · Paramore.Design"
   description="Worksheets, checklists, books and links from Hunter Paramore’s design business workshop at UVU."
 >
   <meta slot="head" name="robots" content="noindex, nofollow" />
@@ -100,10 +128,10 @@ const linkGroups = [
   <section class="project-hero uvu-hero">
     <div class="container">
       <span class="label project-hero__label" style="display: block;">UVU // Design Business Workshop</span>
-      <h1 class="display-lg project-hero__title">Your first <span class="accent-text">$1,000</span> as a designer</h1>
+      <h1 class="display-lg project-hero__title">Making your first <span class="accent-text">$1,000</span> as a new designer</h1>
       <p class="uvu-lede">
         Everything from the workshop in one place: the pricing worksheet, the contract checklist,
-        the books, and the links. Print the worksheets, or fill them in on your tablet.
+        the business setup checklist, the books, and the links. Print the worksheets, or fill them in on your tablet.
       </p>
       <div class="uvu-downloads">
         {downloads.map((d) => (
@@ -122,6 +150,7 @@ const linkGroups = [
   <section class="section uvu-idea" aria-label="The big idea">
     <div class="container">
       <p class="uvu-idea__quote">Marketing is teaching people how to value your work.</p>
+      <p class="uvu-idea__sub">It’s making an argument for something. Not arguing. Making the case.</p>
     </div>
   </section>
 
@@ -140,6 +169,11 @@ const linkGroups = [
           </li>
         ))}
       </ol>
+      <div class="uvu-floor">
+        <p class="uvu-floor__label">Find your floor</p>
+        <p class="uvu-floor__math">(What you need to keep + costs) ÷ 0.7 ÷ ~1,000 billable hours</p>
+        <p class="uvu-floor__eg">Half a freelance week goes to finding clients, email, and admin, so plan on about 1,000 billable hours a year, not 2,080. Need $50K to live on? Bill about $75K, which is about $75 an hour. That’s the floor, not the price.</p>
+      </div>
     </div>
   </section>
 
@@ -161,6 +195,30 @@ const linkGroups = [
     </div>
   </section>
 
+  <!-- Business setup, from Hunter's tax preparer -->
+  <section class="section" aria-labelledby="uvu-setup-heading">
+    <div class="container">
+      <span class="section-label">From my tax preparer</span>
+      <h2 id="uvu-setup-heading" class="section-title">Set it up right from day one</h2>
+      <ul class="uvu-rows">
+        {setup.map((c) => (
+          <li class="uvu-row uvu-row--check">
+            <span class="uvu-row__check" aria-hidden="true"></span>
+            <span class="uvu-row__name">{c.name}</span>
+            <span class="uvu-row__desc">{c.desc}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="uvu-card uvu-questions">
+        <h3 class="uvu-card__title">Questions to ask a tax pro</h3>
+        <ul>
+          {taxQuestions.map((q) => <li>{q}</li>)}
+        </ul>
+      </div>
+      <p class="uvu-note">Not tax or legal advice. Talk to a tax professional before you choose an entity.</p>
+    </div>
+  </section>
+
   <!-- The objection script from the talk -->
   <section class="section uvu-band" aria-labelledby="uvu-objection-heading">
     <div class="container">
@@ -171,6 +229,24 @@ const linkGroups = [
         <p class="uvu-script__ask">What made you reach out to me?”</p>
       </blockquote>
       <p class="section-sub">Don’t defend your value and don’t drop your price. Listen to the answer: it’s your value, in their words. If the budget really is lower, cut the scope, not the price.</p>
+    </div>
+  </section>
+
+  <!-- Upsell -->
+  <section class="section" aria-labelledby="uvu-upsell-heading">
+    <div class="container">
+      <span class="section-label">After the yes</span>
+      <h2 id="uvu-upsell-heading" class="section-title">Upsell without the sleaze</h2>
+      <ul class="uvu-rows">
+        {upsell.map((u, i) => (
+          <li class="uvu-row">
+            <span class="uvu-row__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="uvu-row__name">{u.name}</span>
+            <span class="uvu-row__desc">{u.desc}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="uvu-note">The sleaze test: if you’d be embarrassed to explain why they need it, don’t sell it.</p>
     </div>
   </section>
 
