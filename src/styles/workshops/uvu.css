@@ -36,7 +36,7 @@
 .uvu-row__name { font-size: var(--text-lg); font-weight: 600; color: var(--color-text-primary); }
 .uvu-row__desc { font-size: var(--text-md); line-height: var(--leading-relaxed); color: var(--color-text-secondary); }
 /* The checklist uses an empty box where the worksheet uses a number */
-.uvu-row__check { width: 22px; height: 22px; border: 2px solid var(--color-accent); border-radius: var(--radius-sm); align-self: center; }
+.uvu-row__check { width: 22px; height: 22px; border: 2px solid var(--color-accent); border-radius: var(--radius-sm); align-self: start; margin-top: 4px; } /* pinned to the first text line, not the row middle, so it stays put when the description wraps */
 .uvu-note { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-text-secondary); }
 @media (max-width: 700px) {
   .uvu-row { grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-xs) var(--space-md); }
