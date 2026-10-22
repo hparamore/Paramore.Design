@@ -1,46 +1,43 @@
 ---
 import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
+import HeroFlow from '../components/HeroFlow.astro';
 import Base from '../layouts/Base.astro';
 
+// The homepage speaks to small-business owners (2026-10-22), so real client work for
+// small businesses leads; everything else keeps its usual order after it.
+const clientFirst = ['paramore-real-estate', 'the-tree-service'];
+const rank = (id: string) => (clientFirst.includes(id) ? clientFirst.indexOf(id) : clientFirst.length);
 const projects = (await getCollection('projects'))
   .filter((p) => !p.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort((a, b) => rank(a.id) - rank(b.id) || a.data.order - b.data.order);
 ---
 
 <Base
-  title={"Hunter Paramore · Product Designer & Developer · Paramore.Design"}
-  description={"Hunter Paramore — product designer and developer with 13 years across mobile apps, design systems, and AI tools. Co-founder and sole designer of Mutual, the #1 LDS dating app."}
+  title={"Hunter Paramore · AI & Tech Help for Utah Small Businesses · Paramore.Design"}
+  description={"Hunter Paramore is the AI and tech guy for Utah small businesses: websites, custom apps, and AI tools that save time and bring in customers. 13 years designing and building apps."}
 >
 <!-- Hero -->
   <section class="hero section home-hero">
-    <div class="container">
+    <div class="container home-hero__grid">
       <div class="hero__content">
-        <span class="label hero__label">Product Designer · Design Systems · Designer-Developer</span>
         <h1 class="display-xl hero__title">
-          I learn things by<br><span class="accent-text">rebuilding</span> them.
+          Your business&rsquo;s<br><span class="accent-text">AI &amp; tech guy.</span>
         </h1>
         <p class="hero__subtitle">
-          I&rsquo;m Hunter, a product designer with thirteen years of understanding things by
-          taking them apart. I work the same way on the things I ship, watching how people
-          actually use them, learning from the feedback and the analytics, and reworking whatever
-          isn&rsquo;t right until I understand <em>why</em>. Usually the only designer in the
-          room &mdash; and increasingly the one writing the code too.
-        </p>
-        <p class="hero__subtitle hero__subtitle--closer">
-          Most of that on Mutual, the #1 LDS dating app I co-founded and designed, and later
-          Ark, one of the top Christian dating apps. It&rsquo;s helped 40,000+ couples get
-          married, which still amazes me. These days I build design systems that engineers and
-          AI agents can both build from, and I use AI to take my own work from flowchart to
-          shipped &mdash; nine apps of mine are running at paramore.design.
+          I&rsquo;m Hunter. I&rsquo;ve designed and built apps for 13 years, including Mutual,
+          which has helped 40,000+ couples get married. Now I help small businesses get past
+          dabbling in AI and put it to work, so the busywork takes care of itself.
         </p>
         <div class="hero__cta">
-          <a href="/work" class="btn btn--primary">
-            See the work <span class="btn__arrow">&rarr;</span>
+          <a href="mailto:hparamore@gmail.com?subject=Here%27s%20what%27s%20slowing%20us%20down" class="btn btn--primary">
+            Tell me what&rsquo;s slowing you down <span class="btn__arrow">&rarr;</span>
           </a>
-          <a href="#how-i-work" class="btn btn--secondary">How I work</a>
+          <a href="/work" class="btn btn--secondary">See what I&rsquo;ve built</a>
         </div>
       </div>
+      <!-- Show, don't tell: one real automation, drawn as it runs -->
+      <HeroFlow />
     </div>
   </section>
 
@@ -68,15 +65,47 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
-  <!-- Availability: the question this audience actually arrived with -->
+  <!-- Availability: a business owner&apos;s first question is &quot;are you taking clients?&quot; (job search lives on /resume) -->
   <section class="home-avail">
     <div class="container">
       <p class="home-avail__text">
         <span class="home-avail__dot" aria-hidden="true"></span>
-        <strong>Open to new roles.</strong> Senior product design, design systems, or
-        designer-developer &mdash; in Utah or remote. Also taking select client work through
-        Paramore.Design. <a href="mailto:hparamore@gmail.com">Get in touch &rarr;</a>
+        <strong>Taking on new local clients.</strong> You&rsquo;ll work with me directly,
+        from the first call to whatever comes next.
+        <a href="mailto:hparamore@gmail.com">Get in touch &rarr;</a>
       </p>
+    </div>
+  </section>
+
+  <!-- Capabilities glimpse -->
+  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
+    <div class="container">
+      <span class="section-label">What I Do</span>
+      <h2 id="caps-heading" class="section-title">How I can help.</h2>
+
+      <div class="home-caps">
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">AI that saves you time</h3>
+          <p class="home-cap__desc">Follow-ups, review replies, social posts, answers for customers after hours. The stuff that eats your week, handled.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Custom apps &amp; tools</h3>
+          <p class="home-cap__desc">When off-the-shelf software doesn&rsquo;t fit, I build the thing that does, and it often replaces a few subscriptions.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Websites that bring people in</h3>
+          <p class="home-cap__desc">Hours, prices, and booking one tap away on a phone, so people who find you actually walk in.</p>
+        </div>
+        <div class="home-cap">
+          <span class="home-cap__marker" aria-hidden="true">//</span>
+          <h3 class="home-cap__name">Someone to call</h3>
+          <p class="home-cap__desc">Ongoing help when something breaks, or when you wonder if there&rsquo;s a better way to do it.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -86,7 +115,7 @@ const projects = (await getCollection('projects'))
       <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
         <div>
           <span class="section-label">Selected Work</span>
-          <h2 id="work-heading" class="section-title">A few things I&rsquo;ve built.</h2>
+          <h2 id="work-heading" class="section-title">Things I&rsquo;ve built.</h2>
         </div>
         <a href="/work" class="btn btn--ghost">All Projects <span class="btn__arrow">&rarr;</span></a>
       </div>
@@ -103,109 +132,15 @@ const projects = (await getCollection('projects'))
   <section class="section" aria-labelledby="about-heading">
     <div class="container">
       <span class="section-label">About</span>
-      <h2 id="about-heading" style="margin-bottom: var(--space-lg);" class="section-title">Design-first, but I build.</h2>
+      <h2 id="about-heading" style="margin-bottom: var(--space-lg);" class="section-title">You&rsquo;ll work with me.</h2>
       <p class="home-about__text">
-        I studied art with an emphasis on design and have spent my career in the space where{' '}
-        <strong>design meets product meets engineering</strong>. I think in systems, obsess over the
-        details that make a product feel right, and dig into user feedback to find root causes, not
-        just symptoms. Whether embedded on a team, working directly with a founder, or building
-        something of my own, I bring the same thing: a drive to make the product better and the
-        range to do whatever it takes to get there.
+        I design and build everything myself, so the person you talk to is the person doing the
+        work. I look at your business the way your customers do, find what&rsquo;s getting in
+        their way, and fix that first. A local shop gets <strong>the same care I
+        put into apps</strong> used by thousands of people.
       </p>
       <div style="margin-top: var(--space-xl);">
         <a href="/about" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities glimpse -->
-  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
-    <div class="container">
-      <span class="section-label">How I Work</span>
-      <h2 id="caps-heading" class="section-title">Four things I do at depth.</h2>
-
-      <div class="home-caps">
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Design Systems</h3>
-          <p class="home-cap__desc">Tokens, components, and patterns built as one source of truth, so the product stays consistent at scale.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Craft</h3>
-          <p class="home-cap__desc">The spacing, type, motion, and states most people skip. The details that make a product feel right.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Mentoring</h3>
-          <p class="home-cap__desc">I raise the bar for the people around me, through critique, pairing, and handing over real ownership.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Ship &amp; Learn</h3>
-          <p class="home-cap__desc">I&rsquo;d rather build the real thing and watch how people actually use it than debate it in a doc. Shipping fast is how I find what&rsquo;s true and fix what isn&rsquo;t.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- How I Lead -->
-  <section class="section" aria-labelledby="lead-heading">
-    <div class="container">
-      <div class="home-callout">
-        <div class="home-callout__head">
-          <span class="label">How I lead</span>
-          <p class="home-callout__quote" id="lead-heading">The best designers I work with <span class="accent">get better.</span></p>
-        </div>
-        <div class="home-callout__body">
-          <p>
-            Doing it solo for years taught me how a design function should actually run, but I&rsquo;m
-            always learning from the people around me. When I bring others in, I&rsquo;m not handing out
-            tasks, I&rsquo;m working alongside them to build and standardize a system that can grow and
-            influence everyone, making the work better and better. The best part is watching that happen
-            because someone else ran with it.
-          </p>
-          <p>
-            My favorite critiques and design reviews are clear, to the point, and aimed at the work
-            itself, focused on one thing: making it better. That kind of honesty only happens when the
-            relationship is there first, so that&rsquo;s what I build before anything else. Once the trust
-            is real, it&rsquo;s easier to focus on the work and improve it together, rather than defending it.
-          </p>
-        </div>
-      </div>
-
-      <!-- PLACEHOLDER HIDDEN (2026-06-27): real recommendation needed before un-commenting.
-           Need: one-sentence quote from a manager/peer/mentee about craft, systems thinking,
-           or team impact + Name, Role, Company. LinkedIn recommendations work well here.
-      <figure class="home-pullquote">
-        <blockquote>&ldquo;[Drop in a real quote from a manager, peer, or someone you mentored, one
-          sentence about your craft, your systems thinking, or your impact on the team.]&rdquo;</blockquote>
-        <cite>[Name, Role, Company]</cite>
-      </figure>
-      -->
-      <!-- /PLACEHOLDER HIDDEN -->
-    </div>
-  </section>
-
-  <!-- Toolkit -->
-  <section class="section" aria-labelledby="toolkit-heading">
-    <div class="container">
-      <span class="section-label">The Toolkit</span>
-      <h2 id="toolkit-heading" class="section-title">What I build with.</h2>
-      <div class="home-toolkit">
-        <div class="home-toolkit__row">
-          <h4>Design</h4>
-          <p>Design systems &amp; tokens · UI &amp; interaction · Product &amp; UX strategy · Research &amp; usability testing · Brand &amp; visual identity · Prototyping · Figma (expert)</p>
-        </div>
-        <div class="home-toolkit__row">
-          <h4>Build</h4>
-          <p>iOS · Swift / SwiftUI · Android · Kotlin / Compose · Web · React / HTML / CSS · Astro · Supabase · Firebase · Unity / SpriteKit · Claude Code · APIs &amp; agents</p>
-        </div>
-        <div class="home-toolkit__row">
-          <h4>Lead</h4>
-          <p>Mentoring &amp; design critique · Cross-functional influence · Design-to-eng collaboration · Roadmapping &amp; prioritization · Stakeholder communication · Hiring &amp; team-building</p>
-        </div>
       </div>
     </div>
   </section>
@@ -232,15 +167,15 @@ const projects = (await getCollection('projects'))
     <div class="container">
       <span class="section-label">Get In Touch</span>
       <h2 class="section-title">
-        Let&rsquo;s make something <span class="accent-text">worth shipping.</span>
+        What&rsquo;s <span class="accent-text">slowing you down?</span>
       </h2>
       <p>
-        Whether you&rsquo;re hiring a designer, building a team, or just want to talk product and
-        craft, I&rsquo;d like to hear from you.
+        Tell me about it, and I&rsquo;ll tell you what I&rsquo;d try first. It&rsquo;s free,
+        and I&rsquo;m happy to help.
       </p>
       <div class="hero__cta" style="justify-content: center;">
-        <a href="mailto:hparamore@gmail.com" class="btn btn--primary">
-          Email Me <span class="btn__arrow">&rarr;</span>
+        <a href="mailto:hparamore@gmail.com?subject=Here%27s%20what%27s%20slowing%20us%20down" class="btn btn--primary">
+          Tell me about it <span class="btn__arrow">&rarr;</span>
         </a>
         <a href="/resume" class="btn btn--secondary">Résumé</a>
         <a href="/work" class="btn btn--secondary">See the work</a>

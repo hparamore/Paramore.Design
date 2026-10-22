@@ -1,0 +1,166 @@
+---
+/**
+ * Homepage hero animation: the Paramore Real Estate listing automation, drawn as an
+ * isometric line-art flowchart that builds scene by scene (listing -> what it makes ->
+ * approval -> schedule -> where it posts), then holds the whole picture and loops.
+ *
+ * Drawing primitives come from the Hairline kernel (MIT, public/js/vendor/), used only for
+ * its isometric projection and rounded-solid construction; the story, labels and motion are
+ * ours. Under prefers-reduced-motion, or offscreen, it shows the finished picture standing
+ * still. The full flow is described in text for screen readers (figcaption).
+ * Styles: src/styles/home/hero-flow.css (prefix hflow-).
+ */
+import '../styles/home/hero-flow.css';
+---
+
+<figure class="hflow" id="hero-flow" aria-labelledby="hero-flow-desc">
+  <p class="label hflow__label">A recent example // A real estate office</p>
+  <svg viewBox="0 0 560 340" aria-hidden="true"></svg>
+  <p class="hflow__cap" aria-hidden="true"></p>
+  <figcaption id="hero-flow-desc" class="hflow__sr">
+    An example from a real estate office: one new listing automatically becomes social graphics,
+    reels with a voiceover, a print flyer, an email to the mailing list and an MLS listing. The agent
+    approves them, they get scheduled, and they post to Instagram, Facebook and YouTube.
+  </figcaption>
+</figure>
+
+<script is:inline src="/js/vendor/hairline-kernel.js"></script>
+<script is:inline>
+(() => {
+  const { Cam, fit, proj, facing, rings, prism, rrect, ringAt, run, hull, poly, open, clamp } = HL;
+  const NS = "http://www.w3.org/2000/svg";
+  const root = document.getElementById("hero-flow"), svg = root.querySelector("svg"), cap = root.querySelector(".hflow__cap");
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent.appendChild(n); return n; };
+
+  // Flow coordinates: u runs left to right across the screen, v runs top to bottom.
+  const W = (u, v) => [u + v, v - u];
+  
+  const NODES = [
+    { id: "listing", u: 0, v: 0, tag: "New listing", kind: "house" },
+    { id: "posts", u: 82, v: -128, tag: "Social graphics", kind: "posts" },
+    { id: "reels", u: 82, v: -64, tag: "Reels + voiceover", kind: "reel" },
+    { id: "flyer", u: 82, v: 0, tag: "Print flyer", kind: "flyer" },
+    { id: "email", u: 82, v: 64, tag: "Email to the list", kind: "email" },
+    { id: "mls", u: 82, v: 128, tag: "MLS listing", kind: "mls" },
+    { id: "approve", u: 150, v: 0, tag: "He approves", kind: "approve" },
+    { id: "schedule", u: 196, v: 0, tag: "Scheduled", kind: "schedule" },
+    { id: "ig", u: 254, v: -70, tag: "Instagram", kind: "tile" },
+    { id: "fb", u: 254, v: 0, tag: "Facebook", kind: "tile" },
+    { id: "yt", u: 254, v: 70, tag: "YouTube", kind: "tile" },
+  ];
+  const pts = [];
+  NODES.forEach((n) => { const [x, y] = W(n.u, n.v); n.x = x; n.y = y; pts.push([x - 14, y - 14, 0], [x + 14, y + 14, 30]); });
+  // pick the scale that fills the 560 x 440 frame (fit only centres), leaving room for the labels
+  const C1 = Cam(45, 0.5, 1); fit(C1, pts, 0, 0);
+  const P1 = proj(C1), sp = pts.map((q) => P1(...q));
+  const bw = Math.max(...sp.map((q) => q[0])) - Math.min(...sp.map((q) => q[0])), bh = Math.max(...sp.map((q) => q[1])) - Math.min(...sp.map((q) => q[1]));
+  const C = Cam(45, 0.5, Math.min(510 / bw, 290 / bh));
+  fit(C, pts, 280, 162);
+  const P = proj(C), front = facing(C);
+
+  // ---- solids (Hairline's construction: a silhouette and one crease per rounded solid) ----
+  const plate = (g, cx, cy, hw, hd, z0, z1) => { const p = prism(P, front, ...rings(cx - hw, cy - hd, cx + hw, cy + hd, Math.min(hw, hd) * 0.35, 0.9), z0, z1); el("path", { d: p.sil, class: "sil" }, g); el("path", { d: p.crease, class: "cr" }, g); };
+  const mark = (g, d) => el("path", { d, class: "mk" }, g);
+  const seg = (a, b) => `M${a[0]},${a[1]}L${b[0]},${b[1]}`;
+  const SHAPES = {
+    house(g, x, y) {
+      plate(g, x, y, 12, 12, 0, 13);
+      const foot = rrect(x - 13, y - 13, x + 13, y + 13, 3, 3), top = rrect(x - 13, y - 1.6, x + 13, y + 1.6, 1.2, 3), inner = rrect(x - 12.2, y - 0.8, x + 12.2, y + 0.8, 0.6, 3);
+      el("path", { d: poly(hull(ringAt(P, foot, 13).concat(ringAt(P, top, 25)))), class: "sil" }, g);
+      el("path", { d: open(ringAt(P, run(inner, front), 25)), class: "cr" }, g);
+      return 25;
+    },
+    posts(g, x, y) { [0, 4, 8].forEach((d) => plate(g, x + d / 3, y - d / 3, 9, 9, d, d + 2.2)); return 10; },
+    reel(g, x, y) { plate(g, x, y, 2.6, 9, 0, 18); mark(g, seg(P(x + 2.6, y - 3, 11), P(x + 2.6, y + 3, 8.5)) + seg(P(x + 2.6, y + 3, 8.5), P(x + 2.6, y - 3, 6))); return 18; },
+    flyer(g, x, y) { plate(g, x, y, 9, 11, 0, 1.8); mark(g, poly(ringAt(P, rrect(x - 6, y - 8, x + 6, y + 1, 1, 3), 1.8)) + seg(P(x - 6, y + 4.5, 1.8), P(x + 6, y + 4.5, 1.8)) + seg(P(x - 6, y + 7.5, 1.8), P(x + 3, y + 7.5, 1.8))); return 2; },
+    email(g, x, y) { plate(g, x, y, 11, 8, 0, 5); mark(g, seg(P(x - 11, y - 8, 5), P(x, y + 1, 5)) + seg(P(x, y + 1, 5), P(x + 11, y - 8, 5))); return 5; },
+    mls(g, x, y) { plate(g, x, y, 9, 11, 0, 7); mark(g, [-5, 0, 5].map((d) => seg(P(x - 5, y + d, 7), P(x + 5, y + d, 7))).join("")); return 7; },
+    approve(g, x, y) { plate(g, x, y, 11, 11, 0, 11); mark(g, seg(P(x - 5, y + 1, 11), P(x - 1, y + 5, 11)) + seg(P(x - 1, y + 5, 11), P(x + 6, y - 5, 11))); return 11; },
+    schedule(g, x, y) { plate(g, x, y, 11, 11, 0, 11); mark(g, seg(P(x - 11, y - 4, 11), P(x + 11, y - 4, 11)) + seg(P(x - 2, y - 4, 11), P(x - 2, y + 11, 11)) + seg(P(x + 5, y - 4, 11), P(x + 5, y + 11, 11)) + seg(P(x - 11, y + 4, 11), P(x + 11, y + 4, 11))); plate(g, x - 5, y - 9, 1.6, 1.6, 11, 15); plate(g, x + 5, y - 9, 1.6, 1.6, 11, 15); return 15; },
+    tile(g, x, y) { plate(g, x, y, 10, 10, 0, 3.5); mark(g, poly(ringAt(P, rrect(x - 4, y - 4, x + 4, y + 4, 3.5, 4), 3.5))); return 4; },
+  };
+
+  // ---- wires on the ground, painted first so every block sits on top of them ----
+  const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
+  const LINKS = [
+    ...["posts", "reels", "flyer", "email", "mls"].map((t, i) => ({ a: "listing", b: t, at: 1500 + i * 170 })),
+    ...["posts", "reels", "flyer", "email", "mls"].map((t, i) => ({ a: t, b: "approve", at: 3700 + i * 110 })),
+    { a: "approve", b: "schedule", at: 5000 },
+    ...["ig", "fb", "yt"].map((t, i) => ({ a: "schedule", b: t, at: 6100 + i * 170 })),
+  ];
+  const wiresG = el("g", {}, svg), nodesG = el("g", {}, svg), pulseG = el("g", {}, svg), tagsG = el("g", {}, svg);
+  for (const L of LINKS) {
+    const A = byId[L.a], B = byId[L.b], planned = A.planned || B.planned;
+    L.path = el("path", { d: `M${P(A.x, A.y, 0).join(",")}L${P(B.x, B.y, 0).join(",")}`, class: "wire" + (planned ? " planned" : ""), pathLength: 1 }, wiresG);
+    L.len = L.path.getTotalLength(); L.planned = planned;
+    if (!planned) L.dot = el("circle", { r: 2.4, class: "pulse", opacity: 0 }, pulseG);
+  }
+  // ---- blocks, back to front (smaller x + y is farther away) ----
+  const APPEAR = { listing: 300, posts: 1950, reels: 2120, flyer: 2290, email: 2460, mls: 2630, approve: 4350, schedule: 5450, ig: 6550, fb: 6720, yt: 6890 };
+  const STAGE = { listing: [0, 1500], posts: [1500, 3700], reels: [1500, 3700], flyer: [1500, 3700], email: [1500, 3700], mls: [1500, 3700], approve: [3700, 5000], schedule: [5000, 6100], ig: [6100, 7800], fb: [6100, 7800], yt: [6100, 7800] };
+  NODES.slice().sort((a, b) => a.x + a.y - (b.x + b.y)).forEach((n) => {
+    n.g = el("g", { class: "node" + (n.planned ? " planned" : "") }, nodesG);
+    const body = el("g", {}, n.g);
+    SHAPES[n.kind](body, n.x, n.y);
+    const base = P(n.x + 14, n.y + 14, 0);
+    // labels sit in their own top layer so a tall neighbour never covers one
+    n.tagEl = el("text", { x: base[0], y: base[1] + 15, "text-anchor": "middle", class: "tag" }, tagsG);
+    n.tagEl.textContent = n.tag;
+    n.body = body;
+  });
+
+  const CAPS = [
+    [0, "A new listing goes in."],
+    [1500, "Posts, reels, a flyer, an email and the MLS listing <b>make themselves.</b>"],
+    [3700, "He gives them a quick OK."],
+    [5000, "Everything gets scheduled, captions and links included."],
+    [6100, "Then it posts everywhere."],
+    [7800, "One listing in. <b>The rest is handled.</b>"],
+  ];
+  const LOOP = 12600, FADE = 11600;
+  const ease = (p) => 1 - Math.pow(1 - p, 3);
+
+  function render(t, still) {
+    const fade = still ? 1 : 1 - clamp((t - FADE) / 700, 0, 1);
+    svg.style.opacity = fade;
+    for (const L of LINKS) {
+      const p = still ? 1 : ease(clamp((t - L.at) / 650, 0, 1));
+      L.path.style.strokeDasharray = L.planned ? "" : "1";
+      L.path.style.strokeDashoffset = L.planned ? "" : String(1 - p);
+      if (L.planned) L.path.style.opacity = p;
+      if (L.dot) {
+        // pulses travel the finished wires during the finale
+        const on = !still && t > 7800 && t < FADE;
+        const k = ((t - 7800 - (L.at % 700)) % 1400) / 1400;
+        if (on && k >= 0) { const q = L.path.getPointAtLength(k * L.len); L.dot.setAttribute("cx", q.x); L.dot.setAttribute("cy", q.y); L.dot.setAttribute("opacity", Math.sin(k * Math.PI)); }
+        else L.dot.setAttribute("opacity", 0);
+      }
+    }
+    for (const n of NODES) {
+      const p = still ? 1 : ease(clamp((t - APPEAR[n.id]) / 450, 0, 1));
+      n.g.style.opacity = p; n.tagEl.style.opacity = p;
+      n.body.setAttribute("transform", `translate(0 ${(1 - p) * 10})`);
+      const s = STAGE[n.id];
+      const on = !still && !!s && t >= s[0] && t < s[1];
+      n.g.classList.toggle("on", on); n.tagEl.classList.toggle("on", on);
+    }
+    let c = CAPS[0][1];
+    for (const [at, text] of CAPS) if (still ? true : t >= at) c = text;
+    if (cap.innerHTML !== c) cap.innerHTML = c;
+    cap.style.opacity = fade;
+  }
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  let start = performance.now(), raf = 0, visible = true;
+  // Real time runs slower than the story's timeline, and the story holds on step two (everything the
+  // listing becomes) so it can be read before the approval step starts.
+  const PACE = 1.35, HOLD_AT = 3699, HOLD = 2400, REAL_LOOP = LOOP * PACE + HOLD;
+  const story = (r) => (r < HOLD_AT * PACE ? r / PACE : r < HOLD_AT * PACE + HOLD ? HOLD_AT : (r - HOLD) / PACE);
+  function frame(now) { render(story((now - start) % REAL_LOOP), false); raf = requestAnimationFrame(frame); }
+  function play() { cancelAnimationFrame(raf); if (reduce.matches || !visible) { render(LOOP, true); return; } start = performance.now(); raf = requestAnimationFrame(frame); }
+  new IntersectionObserver((e) => { const v = e.some((x) => x.isIntersecting); if (v !== visible) { visible = v; v ? play() : cancelAnimationFrame(raf); } }, { threshold: 0.2 }).observe(root);
+  reduce.addEventListener("change", play);
+  render(LOOP, true); // the still frame first: complete before any motion
+  play();
+})();
+</script>

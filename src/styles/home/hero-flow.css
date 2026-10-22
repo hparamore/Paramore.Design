@@ -1,0 +1,29 @@
+/*
+ * Homepage hero animation (prefix hflow-), used by src/components/HeroFlow.astro.
+ * Everything inside the svg is scoped under .hflow so its short class names (sil, cr, tag...)
+ * can't collide with site-wide styles. Colours come from the site tokens.
+ */
+.hflow { position: relative; margin: 0; }
+.hflow__label { display: block; text-align: center; margin: 0 0 var(--space-sm); }
+.hflow svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* two lines reserved, so a caption that wraps never nudges the drawing */
+.hflow__cap { min-height: 3em; line-height: 1.5; margin: var(--space-md) 0 0; max-width: none; font-size: var(--text-md); font-weight: 500; text-align: center; text-wrap: balance; color: var(--color-text-primary); transition: opacity 300ms ease; }
+.hflow__cap b { color: var(--color-accent); font-weight: 600; }
+.hflow__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* the drawing: plates filled with the ground so nearer ones cover farther ones */
+.hflow .sil { fill: var(--color-bg); stroke: rgba(255, 255, 255, 0.86); stroke-width: 1.25; stroke-linejoin: round; transition: stroke 300ms ease; }
+.hflow .cr, .hflow .mk { fill: none; stroke: rgba(255, 255, 255, 0.32); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.hflow .node.on .sil, .hflow .node.on .mk { stroke: var(--color-accent); }
+.hflow .wire { fill: none; stroke: rgba(255, 255, 255, 0.32); stroke-width: 1.25; stroke-linecap: round; }
+.hflow .tag { fill: var(--color-text-secondary); font: 500 11.5px var(--font-body); letter-spacing: .02em; paint-order: stroke; stroke: var(--color-bg); stroke-width: 5px; stroke-linejoin: round; }
+.hflow .tag.on { fill: var(--color-text-primary); }
+.hflow .pulse { fill: var(--color-accent); }
+
+/* the drawing shrinks on phones; grow the labels in viewBox units so they stay readable */
+@media (max-width: 600px) { .hflow .tag { font-size: 14px; } }
+
+/* ---------- Hero layout: text left, animation right ---------- */
+.home-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: var(--space-2xl); align-items: center; }
+.home-hero .home-hero__grid .hero__title { font-size: clamp(var(--text-4xl), 5.6vw, var(--text-6xl)); }
+@media (max-width: 960px) { .home-hero__grid { grid-template-columns: 1fr; gap: var(--space-xl); } }
