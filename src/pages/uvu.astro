@@ -48,23 +48,27 @@ const clauses = [
   { name: 'Revisions', desc: 'How many rounds, and what extra rounds cost.' },
   { name: 'Payment', desc: '50% up front, the rest on delivery, with due dates.' },
   { name: 'Ownership', desc: 'Rights transfer when the final invoice is paid.' },
-  { name: 'Kill fee', desc: 'What you’re owed if they cancel partway through.' },
+  { name: 'Kill fee', desc: 'What you’re owed if they cancel partway through. (In my opinion, not always necessary.)' },
 ];
 
 // Mirrors scripts/handouts/business-setup.html. From Hunter's tax preparer, Oct 21, 2026. Change both together.
 const setup = [
-  { name: 'File direct', desc: 'Form your LLC with the Utah Division of Corporations, and get your EIN free at IRS.gov. Lookalike sites charge $250–500 for the same forms.' },
+  { name: 'File direct', desc: 'Form your LLC with the Utah Division of Corporations ($59 to file, $18 a year to renew), and get your EIN free at IRS.gov. Lookalike sites and official-looking emails charge $200–500 for the same forms.' },
   { name: 'Business account first', desc: 'Every client payment lands there, then you pay yourself. Never pay personal bills from it.' },
   { name: 'Keep every receipt', desc: 'A phone photo in a folder counts. Card statements are a weak backup in an audit.' },
-  { name: 'Track your miles', desc: 'Every business drive is a deduction at the IRS standard mileage rate.' },
+  { name: 'Track your miles', desc: 'Every business drive is a deduction: $0.72 a mile right now.' },
   { name: 'Set money aside', desc: '25–30% of every payment if it’s just you. Closer to 20% with a spouse, kids, and real expenses.' },
 ];
 
 const taxQuestions = [
-  'Should my spouse be on the LLC?',
-  'When does an S corp make sense? (Often around $40K a year; the election is due by Dec 31.)',
-  'Do I owe quarterly estimated taxes, and how much?',
+  { q: 'Should my spouse be on the LLC?', a: 'A single-member LLC pays self-employment tax on all of its profit. A spouse as a non-working partner can cut that in half.' },
+  { q: 'When does an S corp make sense?', a: 'Often around $40K a year in freelance net income.' },
+  { q: 'Do I owe quarterly taxes?', a: 'Once you’re past your first year. A tax pro can work out the number from last year’s bill.' },
+  { q: 'What can I deduct?', a: 'One of the most important things you can do is lower the amount you’re taxed on. An LLC can deduct a lot.' },
 ];
+
+// Hunter's tax preparer, who OK'd being listed for students (Oct 21, 2026). Matches the deck.
+const taxPro = { name: 'Suzette Carter', firm: 'Oak Haven CPAs', city: 'Pleasant Grove, Utah', phone: '801.369.4752', tel: '+18013694752', email: 'Suzette@oakhavencpas.com' };
 
 const upsell = [
   { name: 'Sell outcomes', desc: '“More Google reviews,” not “an SMS integration.”' },
@@ -94,6 +98,8 @@ const linkGroups = [
       { name: 'Contra', href: 'https://contra.com', note: 'Freelance profiles and projects' },
       { name: 'Upwork', href: 'https://www.upwork.com', note: 'Freelance marketplace' },
       { name: 'Dribbble', href: 'https://dribbble.com', note: 'Portfolio and job board' },
+      { name: 'A.Team', href: 'https://www.a.team', note: 'Vetted freelance product teams' },
+      { name: 'GoFractional', href: 'https://www.gofractional.com', note: 'Part-time and fractional roles' },
     ],
   },
   {
@@ -102,6 +108,8 @@ const linkGroups = [
       { name: 'Figma Community', href: 'https://www.figma.com/community', note: 'Paid and free design resources' },
       { name: 'Framer Marketplace', href: 'https://www.framer.com/marketplace/', note: 'Website templates' },
       { name: 'Gumroad', href: 'https://gumroad.com', note: 'Sell any digital product' },
+      { name: 'Etsy', href: 'https://www.etsy.com', note: 'Printables, templates, physical goods' },
+      { name: 'Shopify', href: 'https://www.shopify.com', note: 'Your own store, when you have a product' },
     ],
   },
   {
@@ -212,8 +220,13 @@ const linkGroups = [
       <div class="uvu-card uvu-questions">
         <h3 class="uvu-card__title">Questions to ask a tax pro</h3>
         <ul>
-          {taxQuestions.map((q) => <li>{q}</li>)}
+          {taxQuestions.map((t) => <li><strong>{t.q}</strong> {t.a}</li>)}
         </ul>
+      </div>
+      <div class="uvu-taxpro">
+        <span class="uvu-taxpro__label">Who I use</span>
+        <span class="uvu-taxpro__name">{taxPro.name}</span>
+        <span class="uvu-taxpro__meta">{taxPro.firm} · {taxPro.city} · <a href={`tel:${taxPro.tel}`}>{taxPro.phone}</a> · <a href={`mailto:${taxPro.email}`}>{taxPro.email}</a></span>
       </div>
       <p class="uvu-note">Not tax or legal advice. Talk to a tax professional before you choose an entity.</p>
     </div>

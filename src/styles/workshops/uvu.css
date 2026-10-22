@@ -89,3 +89,12 @@
 
 /* Three download tiles get cramped on tablets: stack them earlier than the other grids */
 @media (max-width: 1000px) { .uvu-downloads { grid-template-columns: 1fr; } }
+
+/* ---------- Who I use: tax preparer contact under the tax-pro questions ---------- */
+.uvu-questions strong { color: var(--color-text-primary); font-weight: 600; }
+.uvu-taxpro { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 2px solid var(--color-accent); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-xs) var(--space-lg); }
+.uvu-taxpro__label { font-size: var(--text-sm); font-weight: 600; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-accent); }
+.uvu-taxpro__name { font-size: var(--text-xl); font-weight: 600; color: var(--color-text-primary); }
+.uvu-taxpro__meta { font-size: var(--text-md); color: var(--color-text-secondary); }
+.uvu-taxpro__meta a { color: var(--color-text-primary); }
+.uvu-taxpro__meta a:hover { color: var(--color-accent); }
