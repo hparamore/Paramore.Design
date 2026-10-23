@@ -3148,5 +3148,5 @@ Hunter liked the proposal's changes and asked for them on the main site (all of 
 - `public/js/analytics.js`: one shared loader. It injects GoatCounter count.js only when `GOATCOUNTER_CODE` is set, the host is paramore.design (so local dev and previews never count), and this browser has not opted out.
 - **Skip your own visits:** open any page with `#toggle-goatcounter` once per browser. This sets localStorage `skipgc=t`; repeat it to turn counting back on.
 - Included on every page: Base.astro (all Astro pages), the Lehi concept wrapper (`src/pages/lehichiropractic/index.astro`, so the concept source and artifact stay clean), and the standalone pages resume, clozd, veras, Venture-Generator, mutual-design-system and prototypes/tava (one `<script>` line each).
-- Not included: `/paramorerealestate/` (35 pages; Hunter to confirm whether to track it), the old `.html` redirect stubs, and og-cards.
+- Not included: `/paramorerealestate/` (35 pages; Hunter confirmed it already runs its own Google Analytics, so leave it out), the old `.html` redirect stubs, and og-cards.
 - Note: the repo tracks both `public/Venture-Generator.html` and `public/venture-generator.html`. On macOS they are the same file, so edits show up on both paths. This predates today.
