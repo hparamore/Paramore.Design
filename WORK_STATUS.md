@@ -1,3 +1,48 @@
+## 2026-10-22 — Homepage repositioned for small businesses + animated hero
+
+**What:** the homepage now speaks to small-business owners ("Your business's AI & tech guy") instead of
+hiring managers, and the hero shows one real automation as an animated line-art flowchart. Local only until pushed.
+
+**Changed / added:**
+- `src/pages/index.astro`: new title/meta; hero is text + animation (`home-hero__grid`); one intro paragraph
+  ending "Now I help small businesses get past dabbling in AI and put it to work..."; CTA "Tell me what's slowing
+  you down" (mailto); availability strip now "Taking on new local clients"; "How I can help" (4 services) moved
+  above Selected Work; client work (Real Estate, Tree Service) sorts first; About and closing rewritten for owners.
+  **Removed** the employer-facing "How I lead" and "Toolkit" sections (still in git history).
+- `src/components/HeroFlow.astro` + `src/styles/home/hero-flow.css` (prefix `hflow-`): the animation. Listing →
+  social graphics, reels + voiceover, flyer, email, MLS → approval → schedule → Instagram/Facebook/YouTube, then the
+  whole picture holds and loops (~12.6s). Pauses offscreen; shows the finished still under reduced motion; full
+  text description in a figcaption for screen readers.
+- `public/js/vendor/hairline-kernel.js` (+ `.LICENSE.txt`, MIT): the Hairline kernel, used only for isometric
+  projection and rounded-solid drawing. Unmodified. Also installed the `hairline-create` skill in ~/.claude/skills.
+
+**Decisions:** Hairline's own rules reject flowcharts and labels, so the animation uses its drawing engine but
+not its figure format. Real estate example is labeled "A recent example // A real estate office" (no names).
+Job-search messaging moved off the homepage; a hiring-manager page is planned later.
+
+**Open:** the dad real-estate claims are Hunter's (MLS step drawn as built per his request). Lehi Chiropractic
+stays off the homepage until the clinic agrees.
+
+---
+
+## 2026-10-21 — /uvu handout page updated to match the final talk deck
+
+- **New PDF:** `public/assets/handouts/uvu/business-setup.pdf` (source `scripts/handouts/business-setup.html`,
+  added to `build.sh`). One page: file direct with the state and IRS.gov, business account first, receipts,
+  mileage, tax set-aside, questions for a tax pro, and the floor-rate formula. Content is from Hunter's
+  Oct 21 conversation with his tax preparer (Granola note "Suzette Carter - taxes and business").
+- **Pricing worksheet:** "Your floor" and "Time check" now give the method
+  ((keep + costs) ÷ 0.7 ÷ ~1,000 billable hours; hours × floor × 1.25–1.5) instead of just naming the idea.
+- **Page (`src/pages/uvu.astro`):** title now matches the UVU flyer ("Making your first $1,000 as a new
+  designer"); third download tile; "making an argument for something" line under the big idea; floor-rate
+  callout; "Set it up right from day one" + tax-pro questions; "Upsell without the sleaze".
+- **Deliberately left off the live page:** the tax preparer's name and contact (no contact details yet), the
+  exact mileage rate (unverified), and anything about Hunter's own LLC or income.
+- **Still open:** the deck's case-study offer slide shows the old Lehi numbers; the live proposal changed on
+  Oct 21 (website $500, hosting $45/mo, $1,500/mo care plan).
+
+---
+
 ## 2026-10-21 (later still) — Lehi proposal: two-option pricing draft
 
 **Why:** Hunter wants to sell an ongoing monthly relationship (heavy build months, then a lower rate,
@@ -73,6 +118,790 @@ The bundle total ($800–1,000) is one-time only and didn't change.
 its own copy of this page, update it there too.
 
 ---
+
+## 2026-10-19 — UVU workshop handout page (`/uvu`) + printable PDFs
+
+**What:** A handout page at `paramore.design/uvu` for Hunter's one-hour design business talk to UVU
+students. The talk deck (a Claude Slides artifact, not in this repo:
+https://claude.ai/artifact/JtL1LGJzjpL1FRPHkgdNN7) ends on a QR code pointing here.
+
+**Added:**
+- `src/pages/uvu.astro`: unlisted, `noindex`, on `Base`. Sections: two PDF download tiles, the big
+  idea, pricing worksheet (6 questions), contract checklist (5 clauses), the "I can get it cheaper"
+  script, "pick your one thing this week", four-book reading list, link lists, contact.
+- `src/styles/workshops/uvu.css`: page CSS, prefix `uvu-`, imported (same pattern as the Lehi proposal).
+- `scripts/handouts/`: `pricing-worksheet.html`, `contract-checklist.html`, shared `handout.css`, and
+  `build.sh`, which prints them to `public/assets/handouts/uvu/*.pdf` with headless Chrome.
+  **Edit the HTML and run `scripts/handouts/build.sh`; never edit the PDFs.** Both are one Letter page.
+
+**Decisions:**
+- Short root URL (`/uvu`) because it's typed or scanned from a projector, same idea as the pitch pages.
+- PDFs are **light paper**, not the site's dark theme: they get printed and photocopied. Same fonts and accent.
+- The worksheet questions and contract clauses exist twice (page arrays + PDF HTML). Comments in both
+  say to change them together.
+- Links were checked on 2026-10-19. AIGA links to aiga.org because the old Salt Lake chapter domain
+  (saltlakecity.aiga.org) now redirects there.
+
+**Connections / caveats:**
+- **Not deployed yet.** Live site = GitHub Pages from `main`. The QR code 404s until this is pushed.
+- The redesign on `redesign/staging` will replace `main` later. **Port `/uvu` into the redesign** before
+  that merge or the QR code breaks. Files to carry over: the page, its CSS, and `public/assets/handouts/`.
+- `styles.css` was not changed, so no `?v=` bump.
+
+**Open:** whether the page should stay `noindex` (students may want to find it again by search).
+
+---
+
+## 2026-10-19 — Supabase egress warning (diagnosis only; no change in this repo)
+
+Supabase warned that org "RankList" went over the free egress quota (5.5 GB). Despite the name, that org's single project (`vmsdzeckdiulmjcfnnvk`) is the **shared Paramore Platform backend** for about 12 apps. The overage came from the Paramore Real Estate site re-reading every photo record on each build. The fix landed in that repo (`hparamore/paramore-real-estate`, `src/lib/data.ts`); details are in `Claude/Projects/Paramore Real Estate/WORK_STATUS.md`. Nothing in this portfolio repo changed.
+
+---
+
+## 2026-10-19 — Language Design one-pager (Church Publishing Services application)
+
+**What:** `~/Desktop/Resume/Hunter Paramore - Language Design.pdf`, one page, 380 KB.
+Source `scratchpad/print/language-design-print.html` plus `japan-hero.jpg` (session scratchpad).
+Cover-letter attachment for Job 378517, Language Designer, Publishing Services, hybrid in SLC,
+closes 2026-10-30.
+
+**Rewritten once, and the rewrite is the lesson.** The first build was generic design-systems
+positioning (one master many versions, white-label scale, "I write the code", WCAG) with the Japan
+artwork on top. Hunter pushed back on two grounds, both correct: it read AI-generated, and it was
+marketing his whole resume instead of the one job being filled. The 2x2 card grid was the specific
+visual tell. **Replaced with editorial label/body rows**, which also suits a publishing department.
+
+**The page now argues exactly one thing:** he has spent years making designs survive other languages
+and writing systems. Three rows, all language:
+- *Mutual* — owned design integration for every language shipped, ten years as sole designer.
+- *Nu Skin* — first design system for a worldwide business, stress tested against German for
+  expansion, Japanese for compression, Hebrew for right-to-left, plus screen readers. This is the
+  strongest single credential against the req's "good understanding of languages and writing systems."
+- *Production* — self-managed string files, Ditto, POEditor. Covers the pipeline half of the job.
+All three facts came from Hunter directly in this session; none were inferred.
+
+**Typographic choice that is itself the argument:** Source Serif 4 and Source Sans 3, whose CJK
+siblings are Source Han Serif and Source Han Sans, so the page is set in a family that extends into
+Japanese, Korean and Chinese from one type design. Also a quiet nod to Adobe, whose tools the req
+requires.
+
+**Claim deliberately kept off the page:** the req's "write CSS and transforms" almost certainly means
+XSLT in an XML publishing pipeline. Hunter writes CSS; XSLT is not established, so neither is claimed.
+
+**Still unconfirmed:** whether the Japan artwork is his own design and whether it shipped (the page
+carries a "Design: Hunter Paramore" credit and calls it launch creative). Also flagged for native
+review: 「ようこそ日本へ！」reads as "Welcome to Japan," addressed to an arrival.
+
+**Corrected 2026-10-19:** this entry originally recorded InDesign/Illustrator as a gap. Hunter
+confirmed he is very proficient in both, so a short "Tools" row now names InDesign, Illustrator,
+Figma and CSS. Kept to one line on purpose, so it reads as punctuation rather than competing with
+the three substantive language rows. Still unconfirmed: whether he builds InDesign templates
+specifically, and whether "transforms" in the req means XSLT and whether he writes it.
+
+**Facts added later on 2026-10-19 (from Hunter):**
+- Mutual shipped in exactly four languages: **English, Spanish, Portuguese and Japanese**. The page
+  now names them instead of saying "every language Mutual shipped." Naming them also ties the row
+  directly to the Japanese hero image above it.
+- Nu Skin covered effectively every market language. Phrased on the page as "every language Nu Skin
+  sells in," which is his claim rather than a number I could not verify.
+- Hunter is very proficient in InDesign and Illustrator (earlier logged as a gap, now corrected).
+- **Hero provenance:** the artwork is a slide graphic he created for the regional YSA event in Japan
+  where Mutual's arrival in the country was first announced, in Japanese. The caption now says so.
+  This detail is unusually valuable for this employer, since the reviewer will know what a regional
+  YSA event is.
+
+**Layout note:** the caption grew from a one-line flex row to a descriptive block, which pushed the
+page to two. Recovered by trimming 8% off the bottom of the hero (only the already-cut legs of the
+background M) rather than by squeezing type. Label column widened to 1.66in to stop "2021" orphaning.
+
+**Page rebuilt 2026-10-19** around Hunter's real language-design record instead of generic
+design-systems positioning. He supplied: design integration across every Mutual language version;
+localization run through self-managed strings, Ditto and POEditor; and the Nu Skin design system
+stress tested against German for expansion, Japanese for compression, Hebrew for right-to-left,
+plus screen readers. The 2x2 card grid became an editorial label/body row list, at his note that
+the grid read as AI-generated. Cut as off-target for this req: the Ark white-label block and the
+"I write the code" block.
+
+## 2026-10-19 — Value-first pass on the canvas ("teach people how to value working with me")
+
+Hunter's marketing lens: marketing is teaching people how to value the product. Applied to the site so
+visitors learn the yardstick (money, time, people), not just the credentials. Canvas only (v54); staging
+still shows the Oct 12 version until the next push.
+
+- **Home hero:** leads with the problem ("Most products lose quality in the handoff from design to code. I
+  don't hand off."), then two doors in the first screen: *Hiring a design engineer?* → case studies,
+  *Running a business?* → For Business. Email/Résumé became small links.
+- **New "What it's worth" section on Home** (after Selected Work): three outcome rows in client terms.
+  Mutual: Boosts, a revenue line from zero. Utah Valley Bride: the hire Carys didn't need to make, plus the
+  ~$150/mo WordPress setup retired. Tree Service: four tools retired, Versabit $50/mo, Samsara $35/mo per truck.
+  The About line "AI makes building fast. Thirteen years of design is what makes it worth using." moved here.
+- **Every case study's TL;DR gained a 4th cell, "What it was worth"** (`.pd-tldr > .is-impact`).
+- **Mutual: new Boosts section** (#boosts) with two decisions (guarantee the outcome; measure against each
+  account's own baseline) and the existing Boost / Free Boost screens.
+- **For Business: subscription audit calculator** (#audit). Visitors list their monthly tools and see monthly,
+  yearly and 2-year totals. No price from Hunter (his call: don't show pricing). Interactive in the canvas
+  via DC state; **the Astro port needs a vanilla-JS version** (add to `scripts/claude-design/port_dynamic.py`).
+  Also: UVB and Tree Service cards gained "What it was worth" lines; Hunter's `width: 1035px` became `max-width`.
+- **Work Lab** reframed: "Each of these is a full product cycle, run alone… That's the job I'd do for you."
+
+**Facts used, from Hunter on 2026-10-19:** UVB was not "25 tools" (corrected in the Utah Bridal CLAUDE.md
+too). We moved her site off a WordPress setup costing ~$150/mo. The portal lets Carys and her assistants
+reach people faster with less organizing. She'd considered hiring another assistant; when one left, she
+didn't replace her and now runs it with one assistant. Pricing for builds stays off the site.
+
+**Resolved later the same day (canvas v56), per Hunter:**
+- Tree Service: Hunter is comfortable stating Samsara was retired ("we built it in order to save on that").
+  Total uses the 7 trucks in the Brandon Tree Project notes (3 bucket, 2 chip, 2 pickups): Versabit $50 +
+  Samsara $35 × 7 = **~$295/mo, ~$3,500/yr**. Home row headline is now "About $3,500 a year, back."
+- Utah Valley Bride staffing detail: Hunter's OK ("you can count it"); pending tag removed from those lines.
+  **The quote itself still carries `[Pending Carys’s OK to quote]`.**
+- Boosts: "a 7–10% increase I believe, in a new area" → written as "grew revenue roughly 7–10%"; added a
+  stats row (7–10% / ~10x views / 4x likes) to the Mutual Boosts section.
+
+**Still open:** `[Draft]` lines on the two Boosts decisions and the research focus; Mutual Design System
+"What it was worth" is a `[Draft]`; the For Business calculator needs a vanilla-JS port before staging.
+
+## 2026-10-14 — Leave-behind one-pager for the UT SMB Summit & Expo
+
+**What:** Built a single-page client-facing handout, `~/Desktop/Resume/Hunter Paramore - What I Can Help With.pdf`,
+for the 2nd Annual Utah Small Business Summit & Expo (Mountain America Expo Center, Sandy).
+Source: `scratchpad/print/handout-print.html` (session scratchpad, not in the repo).
+
+**Why it is not a resume.** The event audience is small-business owners, operators, advisors and
+service providers, roughly 1,500 attendees and 150+ Utah businesses. Almost nobody there is a hiring
+manager for a senior product design role, so the handout is pitched at Paramore.Design client work:
+what Hunter can build for a business, with proof. The tailored resumes stay in the bag for the
+exception case.
+
+**Design decisions:**
+- Site brand fonts (Bebas Neue + Space Grotesk) and the `#FF6B00` accent rather than the IBM Plex
+  resume system, so the handout and paramore.design read as one thing.
+- Wordmark uses the same drawn-dot trick as `public/resume.html`: the page shows "Hunter.Paramore"
+  while the text layer and any copy-paste still say "Hunter Paramore".
+- Two-column item grid. This is a print brand piece, not an ATS document, so the single-column
+  constraint that governs the resumes does not apply here.
+- White paper with orange hairlines and one tinted footer block, chosen so a home inkjet can run
+  a stack of these without soaking the page.
+- QR to https://paramore.design in the footer, generated with `segno` (version 2, ECC M, 4-module
+  quiet zone). Verified by rendering the PDF at 300dpi and comparing all 625 modules against the
+  encoded matrix: exact match.
+
+**Content sourcing.** Every claim reuses facts already vetted across the resume variants. The
+unverified MAU figure and the ~$5M revenue figure are both still excluded. "Multi-million-dollar
+business" is used, which was already cleared for the Product Engineer variant.
+
+**Also:** copied the canonical general resume to `~/Desktop/Resume/Hunter Paramore - Resume (general).pdf`
+so the whole print run lives in one folder.
+
+**Note for next session:** the scratchpad `print/` folder was cleaned overnight and lost `resume.css`,
+which all six tailored print variants link to. It was restored from the Claude Design canvas
+(artifact `Tgw7ae5jSvyFozdJN5uZS1`, file `project/resume.css`). If a variant ever renders unstyled,
+that is the cause and that is the fix.
+
+## 2026-10-13 (evening) — Taxwell Senior Product Designer variant
+
+Tax software company. Nominally a Senior Product Designer req, but **roughly half the
+posting is AI fluency**, assessed across four named dimensions (Mindset, Strategy,
+Building, Accountability) with asks like "show examples of redesigning how design work
+gets done" and "experience unlocking designers to ship code in production."
+
+**Deliverable: `~/Desktop/Resume/Hunter Paramore - Taxwell.pdf`** — 2 pages, 161 KB.
+Source `scratchpad/print/taxwell-print.html`. Seventh variant.
+
+### The structural departure
+**This is the only variant with a dedicated "AI Practice" section placed above
+Experience.** Normally that would be a mistake; here the posting screens on it harder
+than on design craft, so burying it in a skills row would miss their primary filter. Six
+bullets map to their four dimensions without naming them robotically: changing the
+process rather than the tools, standards outside the model (the sixteen-rule build gate),
+agent-consumable design systems, human-in-the-loop guardrails, **what he tried and
+abandoned**, and teaching others.
+
+The "abandoned" bullet cites his published post *It's Easy to Have AI Build Things That
+Look Finished* and ties it to the generated code that invented its own data format. The
+posting explicitly asks for "a clear story of how your AI practice has evolved, what
+you've tried and abandoned" — a public artifact answers that better than a claim.
+
+### The quiet connection
+**Tax filing is the long-form abandonment problem.** The Mutual onboarding bullet is
+reframed as "fixed a long form people wouldn't finish," which is literally their product.
+
+### Keyword sweep caught three real gaps
+First build had **zero** hits for *trust*, *stakeholder* and *storytelling*, despite the
+posting having an entire "Communication & Storytelling" section and a responsible-AI
+emphasis on user trust. Added: a trust clause to the guardrails bullet, a Mutual bullet
+about persuading people who could say no, the Nu Skin migration reframed as a stakeholder
+and change-management problem, and a Communication skills row. Also confirmed *portfolio*
+appears, since the posting requires a portfolio link on the resume — it leads the contact
+line here rather than sitting at the end.
+
+Page balance 40/44.
+
+## 2026-10-13 (later still) — 9amHealth Senior Product Designer variant
+
+Hunter found the role he actually wanted on the same site: **Senior Product Designer**,
+member app for chronic condition care (diabetes, hypertension, obesity), reporting to a
+Head of Design, Eastern Time hours. This replaces the Product Engineer stretch as the
+real application; that file stays as a base for future AI-engineering roles.
+
+**Deliverable: `~/Desktop/Resume/Hunter Paramore - 9amHealth.pdf`** — 2 pages, 144 KB.
+Source `scratchpad/print/9am-print.html`. Sixth variant in that folder.
+
+### What this one leads with, and why
+The posting screens on research-into-shipped-outcomes with numbers, behavior-change
+judgment, prototyping in code with Cursor or Claude, accessibility, and awareness that
+member-facing decisions create Care Team work. So:
+
+- **Mutual leads**, not Paramore.Design, because the onboarding story is the exact shape
+  they asked for: ambiguous problem, in-person research, two competing concepts tested,
+  shipped, measured (97% / ~80%).
+- **The Boosts story is reframed around behavior design**, specifically *not punishing
+  people*: guarantee, refund, free second attempt, complaints near zero. The posting
+  warns about members vulnerable to disordered eating and asks for progress "without
+  pressure or shame", so a paid feature designed not to make failure feel like a loss is
+  the closest honest analogue he owns.
+- **The Tree Service is reframed as two-sided operations** — crew in the truck plus the
+  office reconciling records, where every field decision changed back-office work. That
+  maps to "a message your Care Team button has a queue behind it".
+- **Checkin surfaces as low-pressure presence design**, explicitly no streaks or guilt
+  mechanics, which is the behaviour-change philosophy they describe.
+- Stotion's **healthcare portals and clinical dashboards** are bolded; it is his only
+  healthcare-adjacent work.
+
+### Caught my own error mid-build
+The first draft summary said "a consumer app used by **hundreds of thousands of people**."
+**That is the unverified figure excluded from every other variant all session** — Hunter
+says it verbally but no file supports it. Replaced with the published claims (#1 LDS
+dating app, 40,000+ marriages). Verified zero occurrences after rebuild. Worth noting how
+easily it slipped back in while writing fast.
+
+Also added "behavior-change design" to the Practice row; the concept was throughout but
+the posting's own words appeared nowhere, which a keyword screen would miss.
+
+### Flag for Hunter
+**Eastern Time hours.** He is Mountain, so that is a 7am start, every day, permanently.
+
+## 2026-10-13 (later) — Product Engineer variant for 9amHealth (a real stretch, built honestly)
+
+**This one is not a design role.** 9amHealth is hiring a **Senior Product Engineer**:
+7+ years as a Software Engineer, with **AWS, Java and TypeScript** named as required
+stack, LLMs in production, backend-leaning system design, regulated healthcare.
+
+**Told Hunter plainly where the gap is before building:** he has no evidence for Java or
+AWS anywhere, and "7+ years as a Software Engineer" is not a claim he can defend. A
+technical screen surfaces that immediately. He asked for the resume anyway, which is his
+call, so it was built honestly rather than padded.
+
+**Deliverable: `~/Desktop/Resume/Hunter Paramore - Product Engineer.pdf`** — 2 pages,
+137 KB. Source `scratchpad/print/product-engineer-print.html`. Fifth variant in that
+folder.
+
+### What this version claims, and what it refuses to
+Positioned as a **product engineer who came from design**, which is the honest shape.
+Verified after rendering: **zero occurrences of Java, AWS, Kubernetes or Docker** (the
+only "Java" hit is inside "JavaScript"). Nothing in the stack section is aspirational.
+
+The engineering evidence is real but modest, so it is stated concretely rather than
+inflated: Supabase Postgres with row-level security and migrations, server-side schedule
+computation, an LLM receipt-parsing pipeline with a human review gate, a daily send-limit
+guard that totals real sends from an event ledger before calling the provider, dry-run
+mode, server actions returning errors instead of throwing in production, and the Checkin
+Firestore protocol rewrite (nested-array rejection causing a silent hang, plus a watchdog
+for stranded state). That last one is the strongest systems story he owns.
+
+Their "What We Care About (Beyond the Resume)" section is where he genuinely wins —
+shipping and iterating, not waiting for specs, AI as an abstraction layer — so a
+"Practice" row carries those in his own words.
+
+**Odds are low and he knows it.** The value of this variant is mostly that it exists as a
+reusable base if an AI-engineering or forward-deployed-engineer role comes up where the
+required stack actually matches.
+
+## 2026-10-13 — Design Systems Lead variant (workforce platform, likely Rippling)
+
+New posting: **Product Design Lead, Design Systems**, Staff/Principal IC, $200-280k base,
+remote-friendly US. Workforce software company, 40+ products across HR/IT/finance, ~18
+dedicated engineers. The description matches Rippling closely.
+
+**Deliverable: `~/Desktop/Resume/Hunter Paramore - Design Systems Lead.pdf`** — 2 pages,
+146 KB, vector. Source `scratchpad/print/design-systems-print.html`, sharing `resume.css`
+with the other print variants. Fourth positioning now in that folder: Design Engineer,
+Product Lead, ServiceNow (mobile), and this one.
+
+### Why this is the best-matched role so far
+The posting asks for "AI-driven systems that define, measure and check design quality
+against shared standards" and "code-based checks." **That is literally his sixteen-rule
+art-direction enforcement script**, which has been a minor bullet everywhere else. Here
+it is the lead bullet of the lead job, reframed as a machine-readable contract that fails
+the build on drift.
+
+**The B2B work comes back in.** For Aside it was a red flag to be minimised; this role
+wants "complex B2B platforms" and "dense product experiences," so Tree Service, the
+submissions portal and GolfSheds dashboards are now assets. Same with Stotion's
+healthcare dashboards. Worth remembering: the client work is a liability or an asset
+depending entirely on the posting.
+
+Named tools matter here — the posting lists Cursor, Claude Code and Codex by name, so all
+three appear in a dedicated **AI Tooling** skills row rather than being folded into a
+general AI line.
+
+### Two checks done after rendering
+- Keyword sweep against the posting: interaction patterns, semantic tokens, Cursor,
+  Claude Code, WCAG, agents and dashboards all present. **"Mobile" came back zero** on
+  the first build even though the posting names "the growing mobile design system" — the
+  copy said "native iOS, Android and adaptive web" but never the word. Added in three
+  places.
+- Page balance 42/33, so no near-empty second page.
+
+### Also fixed here
+**The date-overlap question** flagged in Brent's letter (the one legitimate point in it):
+Ark now reads `2023 – 2026, alongside Mutual`, which answers the concurrency question
+without a sentence of explanation.
+
+## 2026-10-12 (later) — Shortened the screening answers; AI-detector pass on the resume
+
+Someone running Hunter's resume through an AI detector prompted this. **Told him plainly
+what those tools measure**: predictability and uniform rhythm, not authorship. Polished
+human writing gets flagged routinely, OpenAI retired its own classifier for poor accuracy,
+and a resume is the worst possible input because parallel verb-led bullets are the genre.
+No score can be promised. What helps is also just better writing.
+
+### Changes to the ServiceNow resume
+Four consecutive bullets in the Mutual entry opened with a bold verb phrase — the single
+most uniform pattern in the file. Cut to two bold lead-ins, openings varied ("Ten years
+as the only designer...", "Owned the reusable patterns...", "Worked in the repo...",
+"Weekly user research..."), sentence lengths made deliberately uneven, and the summary
+broken out of one long block.
+
+**No facts were softened to do it.** Verified after rebuild: 97%, 80%, three brands and
+six themes, Liquid Glass, sixteen rules, top 5, 300k all still present. 2 pages, 143 KB.
+
+### The real mitigation, told to Hunter
+His own specifics are the strongest signal of human authorship — Liquid Glass, Jetpack
+Compose, the waffle place, sixteen rules. Generic polish reads as machine; odd concrete
+detail does not. He was also told to retype the screening answers in his own words rather
+than paste them, which doubles as protection against prompt-injection traps like the
+DuckDuckGo form.
+
+### Gotcha for future edits of these print files
+`servicenow-print.html` uses a **literal ’ apostrophe**, not `&rsquo;`. A replacement
+string assuming the entity will silently fail to match. Two edits were lost to this in one
+pass and had to be reapplied; match on a short unique marker and splice the surrounding
+`<li>` instead.
+
+## 2026-10-12 — ServiceNow variant + screening answers
+
+Recruiter Brent Orsuga (Pinnacle Growth Advisors) pitched **Sr. Staff Product Designer,
+Mobile Experience Strategy & Systems** at ServiceNow, Santa Clara, $190,900-$334,100.
+
+**Verified before doing the work:** the req is real and live on careers.servicenow.com
+with that exact title and range. Brent is a real recruiter (founder, featured on a
+Crelate recruiting podcast). **But his firm's own tagline says logistics and supply
+chain**, and the email says "a prospective opportunity," which reads like he found a
+public posting and is sourcing to submit for a fee. Hunter was told to apply direct and
+to ask whether Pinnacle is an approved ServiceNow vendor and whether he has already been
+submitted — agency ownership can block a direct application. He chose to proceed.
+
+**Deliverable: `~/Desktop/Resume/Hunter Paramore - ServiceNow.pdf`** — 2 pages, 146 KB,
+vector. Source `scratchpad/print/servicenow-print.html`, sharing `resume.css` with the
+other print variants.
+
+### How this variant differs
+Positioned as **Mobile Experience & Design Systems, senior IC** rather than design
+engineer or product lead. Leads on the three things the posting screens for: mobile
+direction across native iOS/Android plus adaptive, a design system that scaled across
+brands and themes with accessibility enforced in-system, and AI used with standards kept
+outside the model. Nu Skin is framed as **enterprise** (first Figma system at a
+multinational, DevOps partnership) and Stotion keeps the healthcare portals and
+dashboards line, both of which matter for an enterprise software company. "Influence
+without formal authority" is stated explicitly because the posting asks for it.
+
+The Ark entry **keeps the failure**: retrofitting multi-brand meant every change made
+twice and systems that drifted. A senior IC role screening for systems judgment reads
+that as evidence, not as a weakness.
+
+### Two layout fixes during the build
+- **Experience was briefly non-chronological** (Mutual first, current role third) because
+  Mutual is the relevant story. Reordered to reverse-chronological: an enterprise screener
+  reads the other order as an error, and the summary already front-loads mobile.
+- The forced `break-before: page` on Selected Work left **page 2 with 11 lines**. Removed;
+  content now flows 40/35 across two pages with sections still kept whole.
+
+## 2026-10-09 (final) — Fixed the print margins; Selected Work onward starts page 2
+
+Hunter spotted two problems with the vector PDF, both caused by my print wrapper.
+
+**1. Page 2 printed flush to the paper edge.** I had set `@page { margin: 0 }` and put
+the margin on `padding` on a single tall `.sheet` spanning both pages. **Padding applies
+only at an element's start and end, never at a page break**, so page 2 had no top margin.
+Fixed by moving margins to `@page { size: Letter; margin: 0.55in 0.58in; }` and zeroing
+the `.sheet` padding. Worth remembering for any multi-page print build.
+
+**2. The PDF was denser than the artboard he designed.** The one-page-fit overrides from
+earlier (`--leading: 1.31`, `--size-body: 11.5px`, `--gap-section: 12px`) were still in
+the wrapper, well below the canvas values (1.42 / 12px / 20px). **All spacing overrides
+removed** — the print now renders the canvas tokens unmodified, so the PDF matches what
+he sees on the artboard.
+
+**Page break is now deliberate**, per his request: `.r-section--newpage` with
+`break-before: page` on Selected Work. Page 1 is header, summary and Experience; page 2
+is Selected Work, Skills, How I Work, Education and the footer.
+
+Also gone: the `min-height: 21.2in` footer-pinning hack and its tuned constant. It only
+existed to reach the bottom of page 2 and it was what forced the zero page margin in the
+first place. **The footer now follows the content** rather than sitting on the bottom
+edge — flagged to Hunter, since he asked for bottom-pinned earlier. Pinning it under real
+page margins needs `position: fixed`, which repeats it on every page.
+
+Current: 2 pages, 132 KB, vector.
+
+## 2026-10-09 (later still) — Design Engineer: vector PDF, merged sections, print rules
+
+Hunter exported the Design Engineer artboard from the canvas and got **1.36 MB**.
+Diagnosed: a canvas export **rasterizes** — each page is a 2448x3168 JPEG at 288 dpi and
+the only font is "Glyphless", an invisible text layer over the image. It still extracts
+for an ATS, but it is a picture of a resume. Re-rendered from source instead:
+**147 KB, real vector text, two pages.**
+
+His canvas export is preserved as
+`~/Desktop/Hunter Paramore - Design Engineer (canvas export).pdf`; the vector build took
+the plain name.
+
+### Duplication he had not noticed
+He pasted the Product Lead's How I Work block into the Design Engineer artboard, which
+already had a Skills block. That double-listed **Design, AI and Education**. Merged
+rather than stacked: How I Work now keeps only the rows Skills does not cover (Product
+ownership, plus an Approach line), Education moved out of Skills into its own section,
+and the footer came along.
+
+### Print rules added (his asks)
+- `.r-section { break-inside: avoid }` so a section is never split across the page
+  break. **Experience is opted out** via `.r-section--long`: it is taller than a page, so
+  forcing it whole would push the entire block to page 2. Its `.r-entry` children already
+  avoid breaking, which is the behaviour that actually matters there.
+- Footer pinned to the bottom of the last page: `.sheet` is a flex column and `.r-foot`
+  takes `margin-top: auto`.
+- **The sheet height is a tuned constant: `min-height: 21.2in`.** The flex column has to
+  span both sheets for the auto margin to reach the bottom of page 2, but 22in (two
+  letter pages) tipped the footer onto a third page. Tested 21.9 / 21.8 / 21.6 (all 3
+  pages) and 21.2 / 21.0 / 20.8 (all 2); 21.2 is the tallest that holds, so the footer
+  sits as low as the page allows. **If content length changes, retune this number.**
+
+### Open
+Page 2 is roughly 80% empty — only How I Work and Education sit above the footer. Not
+raised with him yet. Options are moving Skills across for balance, or cutting back to one
+page. The one-page version is what existed before he added How I Work.
+
+## 2026-10-09 (later) — Design Engineer exported to PDF from the canvas source
+
+`~/Desktop/Hunter Paramore - Design Engineer.pdf` — one letter page, built from the
+canvas artboard rather than from the older Desktop variant, so it carries the IBM Plex
+styling Hunter is looking at.
+
+**How, since a `.dc.html` cannot be printed directly** (it needs `support.js`, which the
+artifact type serves and is not on disk): a print wrapper at
+`scratchpad/print/design-engineer-print.html` lifts the `<div class="sheet">` out of the
+`<x-dc>` wrapper, links a copy of `project/resume.css`, and adds a **print-only**
+`:root` override block. The canvas tokens are untouched — the override lives in the
+wrapper, so the artboard keeps its own spacing.
+
+### Two things caught in the process
+- **`overflow: hidden` on a fixed-height `.sheet` silently ate the Education row.** The
+  PDF reported one page and looked fine; the content was simply gone. Never clip to fit.
+  Replaced with `min-height` plus tightened spacing, then verified every section by
+  grepping the text layer for EXPERIENCE, SELECTED WORK, SKILLS, BYU-Idaho, Checkin,
+  Stotion and Nu Skin.
+- **IBM Plex Sans embeds as Type 3** in Chrome's print output (Plex Mono comes through as
+  CID TrueType). Type 3 is the format that wrecked the old Figma export's text layer, so
+  extraction was tested: it reads cleanly, ToUnicode maps are present, name and contact
+  parse correctly. Acceptable, but **re-test extraction after any font change here.**
+
+## 2026-10-12 (evening) — Redesign live on staging.paramore.design
+
+**https://staging.paramore.design** now serves the full redesign. paramore.design is unchanged.
+
+- **Branch `redesign/staging`**, in a separate worktree at `~/Documents/ParamoreDesign-staging`
+  (cut from origin/main, so Hunter's uncommitted résumé edits here are untouched). Commits `472a0cf`,
+  `b8df674`, pushed. GitHub Pages only deploys `main`, so the branch can't reach the live site.
+- **Port:** every canvas page now runs through the new `src/layouts/BaseV2.astro` and `public/css/v2.css`.
+  The old `Base.astro` and `styles.css` are untouched, so `/lehichiropractic`, `/paramorerealestate`
+  and `/super-com` render as before. Home's pinned project panel and Mutual's gallery toggle were
+  rebuilt as plain scripts with data in `src/data/`. Converter kept at `scripts/claude-design/` for re-syncs.
+- **Hosting:** Vercel project `paramore-design-staging`, CLI-deployed (not git-connected). Cloudflare A
+  record `staging` → 76.76.21.21, DNS only. `X-Robots-Tag: noindex` via `vercel.json`.
+- **Verified in a browser:** build passes (21 pages); every image and internal link on the redesigned
+  pages resolves; Home's panel swaps projects on scroll; Mutual's toggle goes 9 → 68; no console errors;
+  all 18 pages fit at 375px. HTTPS 200 + noindex confirmed on the staging domain.
+- **Bug found and fixed (canvas + site):** placeholders with an aspect ratio kept a 240px min-height,
+  pushing 5 pages wider than a phone.
+- **Hunter's canvas edits came through,** including the For Business header changes. His fixed
+  `width: 1035px` on the "What I Do" paragraph was ported as `max-width` so it fits phones.
+
+**Not fixed (pre-existing, not part of this work):** `/paramorerealestate` listing pages link 31 flyer
+PDFs under `/paramorerealestate/flyers/` that don't exist.
+
+**Before merging to main:** fill every `[bracket]`, get Carys's OK on her quote, add the LinkedIn URL,
+and update `DESIGN.md` + CLAUDE.md conventions (they still say dark theme / Bebas Neue).
+
+## 2026-10-12 (later) — Utah Valley Bride testimonial added to the canvas
+
+Carys (owner, Utah Valley Bride) said of the submissions portal Hunter built: "the submission thing
+right now is just like making our lives so much better I'm so so grateful for you" (voice message,
+auto-transcribed). Lightly cleaned for print to: “The submission thing right now is just making our
+lives so much better. I’m so, so grateful.”
+
+- New `.pd-testimonial` block in `site.css`. Quote placed on **Home** (proof section) and **For
+  Business** (under a new Utah Valley Bride recent-build card, which has a screenshot placeholder:
+  blur names and wedding photos, it's real client data).
+- "Utah Valley Bride" added to the client strips on Home and For Business.
+- **Tagged `[Pending Carys’s OK to quote]`**, so per the sync-doc rule it can't ship until Hunter has
+  her permission and her approval of the cleaned wording.
+- Case-study candidate: real client, live at portal.utahvalleybride.com, 663 submissions, Next.js /
+  Supabase / Resend / Vercel. Facts from `~/Documents/Claude/Projects/Utah Bridal/CLAUDE.md`.
+
+## 2026-10-12 — Portfolio-structure pass (recruiter decision-tool framing)
+
+Hunter shared superhive.co's "UX design portfolio projects: the structure recruiters want" and asked
+to apply all of it. Canvas only; the live site and `src/` are untouched.
+
+**Changed on the canvas (https://claude.ai/artifact/B1kpy6E6J9gUoq5d3jQ7VU):**
+- **Home:** role stated in the first screen ("Design engineer for consumer apps and design
+  systems. I design the product, then I ship the code."), intro cut to two lines, Email + Résumé
+  buttons in the hero, stats and availability moved below the work so projects land above the
+  fold. Selected work cut from 7 to 4: Mutual, Mutual Design System, Tree Service, SPNKr.
+- **Work:** split into **Case studies** (5) and **Lab** (6 side builds: Checkin, Screenshot
+  Maker, Keeper, Kill The Fish, Paramore Real Estate, Game UI Kits). Article: 3–5 defensible cases
+  beat 11 uneven ones; the lab keeps the design-engineer breadth without diluting.
+- **New case study: Mutual Design System** (`CaseMutualDS`), built from facts on the live explorer
+  and the About page. Previously the strongest design-engineer project had no write-up.
+- **Mutual, Tree Service, Tava, SPNKr** rebuilt on a spine: TL;DR → role & boundaries → decisions
+  (options / why / trade-off) → outcome → looking back. Mutual's 68-shot gallery now shows a
+  curated 9 with a "show all" toggle. Tree Service: Hunter's own quote moved out of the
+  testimonials and into the collaboration line. Tava: a "What I'd measure" block, explicitly
+  labeled as not measured; its 4 videos now load and play only on screen (~5MB saved on load).
+- **System:** five new blocks in `site.css` (`.pd-tldr`, `.pd-owners`, `.pd-decision`,
+  `.pd-lookback`, `.pd-lab`), added to the Block Library and the Case Template, which now marks the
+  required spine. Canvas rows reorganized: Case studies / Lab / Writing.
+- Next-project loop: Mutual → Mutual DS → Tree Service → Tava → SPNKr → Mutual.
+
+**Placeholders Hunter must fill before any push:** `[brackets]` for facts only he knows (who
+else owned what, trade-offs, "what I'd do differently" on all five cases). `[Draft: …]` marks
+Claude's inferences awaiting his confirmation (a few trade-offs on Mutual, Tava, SPNKr). Rule
+added to the sync doc: a page containing `[` doesn't ship.
+
+**Deliberately not changed:** Mutual's "we took over a local waffle place" stays "we", because the
+original already says "My part was testing two onboarding flows", which is accurate ownership.
+Unverified claims (40k+, #1, "9 apps") are still flagged, not removed.
+
+## 2026-10-09 — Whole site rebuilt as an editable Claude Design canvas
+
+Hunter asked for the live site rebuilt in Claude Design in the style of his older Claude Design
+export (`~/Documents/Claude/Projects/Paramore Design/New Website/Paramore homepage redesign.zip`),
+with templates split out, every page visible at once, and a "push it" path back to the live site.
+Positioning follows the resume thread: **design engineer**.
+
+**Canvas: https://claude.ai/artifact/B1kpy6E6J9gUoq5d3jQ7VU**, private until shared. 39 artboards in four rows:
+core pages (Home, Work, About, Blog, For Business), 10 case studies, 2 blog posts, and
+templates/system. Every page has a desktop artboard plus a 390px phone artboard beside it.
+
+**Nothing in `src/` or `public/` changed.** The live site is untouched. New repo files are only
+`docs/claude-design-sync.md` (page → source map and the "push it" procedure) and
+`docs/claude-design-assets.json` (125 uploaded image/video ids → their `public/` paths).
+
+### How it's structured, and why
+- **`project/site.css` is the template layer.** Tokens from the export's Modernist system
+  plus `pd-*` block classes (hero, meta strip, stats cells, text section, split, pair, gallery,
+  quote, list, poster, next project). Change a block there and every page follows.
+- **Pages hold literal copy**, so Hunter can retype in place and make one-off edits without
+  touching other pages. Data-driven only where a list is genuinely data (Home's pinned
+  selected-work panel; the Mutual 68-shot gallery).
+- **Nav and footer are shared components** (`<dc-import>`), edited once.
+- **Phone artboards mirror the desktop page live** via `<dc-import>` at 390px; edit desktop only.
+- `CaseTemplate` (blank, standard block order), `BlockLibrary` (every block, labeled with its
+  classes) and `StyleGuide` (live token specimen) sit in the system row.
+
+### Decisions
+- **Adopted the export's look** (light #f3f2f2 ground, red #ec3013, Archivo, 0 radius, 2px
+  rules). This contradicts the repo's "dark theme only" convention; the first push is a
+  migration that must update `styles.css`, `DESIGN.md` and `CLAUDE.md` together.
+- Added `--color-accent-ink` (#ae1800): the export's red fails 4.5:1 for small text, so
+  small red labels use the deeper step.
+- **Dropped the export's invented stats** ("#1 Best grandparent", "-5 shoeboxes", "5000+ words",
+  "24h locked" vs. 48h in the copy, etc.). Every number on the canvas already appears on the live
+  site or résumé.
+- Home features 7 projects (Mutual, Mutual DS, Tree Service, SPNKr, Tava, Checkin, Game UI);
+  Work lists all 11 non-draft ones. Magnet and Tain stay drafts but have pages.
+- Home and About now say "design engineer, design systems, or senior product design" where the
+  live site says senior/staff product design.
+- Live-site bugs fixed on the canvas only: Mutual gallery captions (".webp" leaking into every
+  title), Tree Service quote cites starting with ", ", decorative numbering removed, a
+  duplicate H2 in the Fable post renamed "What Fable skipped", em dashes in body copy swapped for
+  colons/commas per Hunter's preference.
+- Tava's iframes (Whimsical board, prototype) became link-out cards; the canvas disallows
+  iframes. Videos were uploaded and loop inline.
+
+### Open questions for Hunter
+1. Light Modernist vs. the current dark/orange: confirm the switch before the first push.
+2. Archivo-only (export) vs. bringing back Bebas Neue for display.
+3. LinkedIn links still point to bare `linkedin.com`; need the profile URL.
+4. Missing assets, marked as placeholders on the canvas: About headshot; Tree Service maintenance
+   screenshot; Real Estate "before" brand + website shot; Game UI kit screens (the
+   `/assets/projects/gameui/` folder doesn't exist); Keeper / Kill The Fish / Magnet screens;
+   Tain wordmark; a visual for the Fable post.
+5. Unverified claims still on the site: 40k+ marriages, #1 LDS app, "9 apps", 300k views /
+   17k downloads, 97% / ~80%, Tree Service dollar figures, customer quotes (permission?).
+6. Tenure: "13 years" vs. "12+ years" in places (canvas uses 13 throughout).
+7. Copy voice flags (not changed): "No bloat. No retainers…" cadence on For Business; "like
+   crack" in the Fable post for a hiring audience.
+
+### Not verified
+The canvas was published but not opened in a browser (the Design type asks not to render
+without the user's OK). Artboard heights are estimates; the phone-mirror approach is untested.
+
+## 2026-10-09 — Resume canvas in Claude Design
+
+Hunter invoked `/design` himself (it cannot be model-invoked) and asked for the two
+resume variants on a canvas with an editable style sheet beside them.
+
+**Canvas: https://claude.ai/artifact/Tgw7ae5jSvyFozdJN5uZS1** — private until he shares
+it. Three artboards: a Style Sheet panel (560x1056), Design Engineer (816x1056, one
+letter page), Product Lead (816x2112, two pages). Both resumes set `print: "flow"`,
+`paper: "letter"` so PDF export paginates.
+
+**The cascade is real, not a mock-up of one.** Both resume artboards link
+`project/resume.css` relatively, so one file holds every token and editing it restyles
+both. The Style Sheet artboard is a live specimen of that file, not a second copy of the
+values.
+
+- Source of truth lives in the canvas now; the earlier `~/Desktop/Resume Variants/`
+  folder is the print-ready pair and still builds via `build.command`. **Two copies of
+  the same content exist — if one changes, change the other.**
+- Type moved off the Helvetica stack to **IBM Plex Sans + IBM Plex Mono** (mono for
+  labels, dates, section headings). Deliberate: neutral enough for recruiters, and it
+  avoids the Inter/Roboto/Arial tells.
+- **Gotcha:** font *families* are in `resume.css`, but each artboard loads them with its
+  own Google Fonts `<link>` in `<helmet>`. Swapping to a serif means editing both places.
+
+### Design-hook findings, both classified false positive
+- `em-dash-overuse` on the Style Sheet board: 21 of the 23 hits were CSS custom property
+  names (`--size-name`, `--font-body`), which are that artboard's literal subject. The
+  two real prose dashes were replaced with colons, matching Hunter's stated no-em-dash
+  preference.
+- `single-font` on both resumes: they use two families, declared in the linked
+  stylesheet, which a single-file scan cannot see. Artifact of the shared-CSS
+  architecture, not a design defect.
+
+### Open
+Viewer state showed `dirty: true, edits: 2` when he confirmed — he has unsaved editor
+changes. **Re-read the canvas files before the next edit**, or a publish will be refused.
+
+## 2026-10-08 (later still) — Condensed both variants; Design Engineer is now one page
+
+Page 2 had been only a third full on both, which is the worst outcome. Condensed by
+cutting content, not by shrinking type.
+
+- **`design-engineer.pdf` is now ONE page.** Selected Work collapsed from three entries
+  to one line, Education folded into Skills as a row, and the release-train and
+  agent-consumption bullets merged into neighbours. The **footer was removed from this
+  file only** — on a one-pager it just repeats the header, and it was the last thing
+  forcing a second page.
+- **`product-lead.pdf` stays two pages** (page 2 now ~13 lines). The metrics are the
+  point of that variant, so cutting them to save a page would defeat it.
+- **Spacing tightened in `resume-tokens.css`**, which is exactly what the shared
+  stylesheet is for: leading 1.42 → 1.36, section gap 13 → 10px, entry gap 9 → 7px,
+  bullet gap 3 → 2px, page margins and footer spacing trimmed. One edit, both documents.
+
+**Open question raised by Hunter, not yet answered:** whether a sidebar layout is viable.
+Relevant evidence already in this repo — two-column layouts have broken PDF text
+extraction for him twice (the skills tail, then the project tags), so any sidebar version
+must be verified with `pdftotext` before it is used for an ATS application.
+
+## 2026-10-08 (later) — Two new resume tracks, plain template, shared stylesheet
+
+After a conversation with Michael (former Mutual coworker), Hunter asked whether aiming
+only at Sr/Staff **design** roles is leaving value on the table, given he owns products
+end to end. Assessed his record and built two repositioned variants.
+
+**Files live at `~/Desktop/Resume Variants/` — NOT in this repo.** `resume-tokens.css`
+(every visual decision, ~21 custom properties), `design-engineer.html`,
+`product-lead.html`, both PDFs, and `build.command` to rebuild after editing the CSS.
+The two HTML files carry content only; the stylesheet genuinely cascades into both.
+Deliberately generic look — no Bebas, no orange, black on white — per his request to
+start plain and redesign later.
+
+### The assessment behind the two tracks
+**Design Engineer / Design Technologist** was the top recommendation and was not on his
+radar. He already is one, and the title is far less saturated than Senior Product
+Designer, which is the bottleneck he is hitting.
+
+**Product Lead** is supported by evidence his resume never surfaced: he launched a second
+product line (Ark), **created a revenue line from zero** (Boosts — root-cause research,
+experiments against per-account baselines, a guaranteed outcome of ~10x views and 4x
+likes, with a refund and a free second attempt), and is **currently doing fractional
+product management** at GolfSheds. The Boosts story is his single strongest product
+credential and had never appeared on any resume.
+
+### Told him no on two things
+- **CTO.** He directs AI to build and ships real code, but the role is architecture,
+  security, infra, and hiring/managing engineers. He would be thin in those rooms.
+- **CPO / Director of Product at a funded company.** No direct reports, no hiring
+  experience. Aim at seed-stage Head of Product or fractional, where doing the work
+  outweighs having managed people.
+
+### Note for next time
+`/design` (Claude Design canvas) **cannot be invoked by the model** — it is
+disable-model-invocation and must be typed by Hunter. He typed it mid-turn but the skill
+instructions never reached this session, so the HTML + linked CSS route was used instead,
+which he then confirmed was what he wanted.
+
+**Still unverified and still excluded:** the "hundreds of thousands of monthly active
+users" figure. The product-lead variant uses only numbers with a traceable source.
+
+## 2026-10-08 — Resume revised against third-party review (kept some, rejected some)
+
+Hunter sent his resume to "Lenad Mattia" for review and got back a long critique. **The
+letter is a sales funnel** — it closes by pitching their paid Executive Resume Consultant,
+same genre as the earlier Akinola email. The observations were still partly usable.
+
+### Acted on
+- **The projects section really was broken for parsers**, and this was objective, not
+  taste. `.project` was a `1fr auto` grid with the tag as an inline `<span>` in the right
+  cell, so Chrome emitted every tag as a detached batch after the descriptions:
+  `DESIGN SYSTEMS · CONTRACT · 2025 / SENIOR PRODUCT DESIGNER · AGENCY` landed together,
+  orphaned from their projects. **Fix: `.project` is now a plain block and `.project__tag`
+  is `display:block` in source order.** Verified: each project now extracts as name, tag,
+  description. The Experience rows use a right-hand grid cell too but extract fine, so the
+  inline span was the culprit, not the grid.
+- **Positioning:** role line is now `Senior / Staff Product Designer · Design Systems ·
+  Designer-Developer` — one primary identity with two modifiers, and seniority stated.
+- **AI moved out of the skills tail** into its own leading skills group and into the
+  summary. It was the differentiator and was sitting last.
+- **Mutual scale made explicit:** startup to multi-million-dollar business, design
+  direction and standards for a company of ~30 across two shipping products.
+- **Ark expanded to two bullets** covering what he owned and what changed (second audience
+  without a second engineering team; dual systems off one build).
+- Skills trimmed (dropped Stripe/Twilio/CleverTap/InDesign/Unity/SpriteKit). Education
+  collapsed to one line. Links collapsed to one line. Footer now October 2026.
+- Caught two self-inflicted problems: a Recognition bullet that duplicated the Nu Skin job
+  entry, and a skills label "Leadership & Practice" colliding with the new section
+  "Leadership & Recognition" (renamed to "Practice & Collaboration").
+
+### Rejected, deliberately
+- **Positioning him as Product Design Director / Head of Product Design.** He has held a
+  Director title but has never managed reports. That framing invites team-size and hiring
+  questions he cannot answer well, and it mismatches the Senior/Staff/Lead IC roles he is
+  actually applying to. Kept IC positioning.
+- **"Make leadership visible: team size, mentoring, hiring involvement."** Only the real
+  parts were added (design direction and standards, the Nu Skin migration he led, teaching
+  and mentoring). **No team-size or hiring claims were invented.**
+- Their "strong 12 year background" — they misread; it is 13.
+- The entire strengths list and the consultant upsell.
+
+### Still unverified, still excluded
+The "hundreds of thousands of monthly active users" figure Hunter uses verbally is still
+not on the resume. No source for it exists in any file. Flagged to him again.
+
+**Two pages. Built and verified; not committed or deployed.**
 
 ## 2026-09-30 (later) — Merged into one document at the recruiter's request
 
