@@ -12,7 +12,7 @@
  * Do the same again to turn counting back on for that browser.
  */
 (function () {
-  var GOATCOUNTER_CODE = '';
+  var GOATCOUNTER_CODE = 'hparamore';
   var SKIP_KEY = 'skipgc';
 
   var storage;
