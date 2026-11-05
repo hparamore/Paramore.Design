@@ -7,7 +7,7 @@ import '../styles/workshops/uvu.css';
  * has a QR code pointing here, so the URL stays short: paramore.design/uvu.
  * Unlisted (not in nav or the work grid) and noindex, same as the client pitch pages.
  *
- * The two PDFs are generated from scripts/handouts/*.html by scripts/handouts/build.sh.
+ * The PDFs are generated from scripts/handouts/*.html by scripts/handouts/build.sh.
  * Edit the HTML and rebuild; don't edit the PDFs.
  */
 
@@ -29,6 +29,20 @@ const downloads = [
     desc: 'LLC, EIN, bank account, receipts, and what to set aside for taxes, from my tax preparer.',
     href: '/assets/handouts/uvu/business-setup.pdf',
     file: 'business-setup.pdf',
+  },
+  // Workshop 3 (Nov 5, 2026): a bid and a contract are separate documents, so they're separate examples.
+  // Sources: scripts/handouts/example-bid.html and example-contract.html.
+  {
+    name: 'Example bid',
+    desc: 'A one-page bid: what you’ll make, what you won’t, the timeline and the price. Sent before they say yes.',
+    href: '/assets/handouts/uvu/example-bid.pdf',
+    file: 'example-bid.pdf',
+  },
+  {
+    name: 'Example contract',
+    desc: 'A two-page design services agreement: payment, revisions, ownership and cancellation. Signed after they say yes.',
+    href: '/assets/handouts/uvu/example-contract.pdf',
+    file: 'example-contract.pdf',
   },
 ];
 
@@ -139,7 +153,7 @@ const linkGroups = [
       <h1 class="display-lg project-hero__title">Making your first <span class="accent-text">$1,000</span> as a new designer</h1>
       <p class="uvu-lede">
         Everything from the workshop in one place: the pricing worksheet, the contract checklist,
-        the business setup checklist, the books, and the links. Print the worksheets, or fill them in on your tablet.
+        the business setup checklist, an example bid and contract, the books, and the links. Print the worksheets, or fill them in on your tablet.
       </p>
       <div class="uvu-downloads">
         {downloads.map((d) => (

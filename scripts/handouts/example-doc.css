@@ -1,0 +1,39 @@
+/* Shared print styles for the two example documents. Plain and businesslike on purpose:
+   these model what a client actually receives, so they look like real paperwork, not a poster. */
+@page { size: Letter; margin: 0.5in 0.7in; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Space Grotesk', Arial, sans-serif; color: #1A1A1A; font-size: 10pt; line-height: 1.42; }
+
+.ex-banner { margin-bottom: 12pt; padding: 5pt 10pt; border: 1px dashed #B0A89E; border-radius: 3pt; font-size: 8.5pt; color: #6A6259; }
+
+.head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12pt; border-bottom: 2px solid #1A1A1A; }
+.studio { font-weight: 700; font-size: 13pt; }
+.studio-sub { font-size: 9pt; color: #555; }
+.doc-type { text-align: right; }
+.doc-type h1 { font-size: 22pt; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
+.doc-type p { font-size: 9pt; color: #555; margin-top: 4pt; }
+
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; margin-top: 14pt; }
+.meta h3 { font-size: 8pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #777; margin-bottom: 2pt; }
+
+h2 { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 11pt; margin-bottom: 3pt; }
+p + p { margin-top: 5pt; }
+ul, ol { margin: 4pt 0 0 16pt; }
+li + li { margin-top: 2pt; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 6pt; }
+th { text-align: left; font-size: 8pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #777; border-bottom: 1px solid #1A1A1A; padding: 4pt 0; }
+td { padding: 4pt 0; border-bottom: 1px solid #DDD; vertical-align: top; }
+td.amt, th.amt { text-align: right; white-space: nowrap; }
+tr.total td { border-bottom: none; border-top: 2px solid #1A1A1A; font-weight: 700; }
+.muted { color: #666; font-size: 9pt; }
+
+.accept { margin-top: 12pt; padding: 8pt 12pt; background: #F4F1EC; border-radius: 3pt; }
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 28pt; margin-top: 14pt; }
+.sign .line { height: 24pt; border-bottom: 1px solid #1A1A1A; }
+.sign p { font-size: 9pt; color: #555; margin-top: 3pt; }
+
+.clause { break-inside: avoid; }
+.clause h2 { margin-top: 12pt; }
+.foot { margin-top: 12pt; padding-top: 6pt; border-top: 1px solid #DDD; font-size: 8pt; color: #777; }
