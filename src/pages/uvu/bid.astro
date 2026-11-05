@@ -1,0 +1,350 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/workshops/uvu.css';
+import '../../styles/workshops/uvu-bid.css';
+
+/**
+ * Bid Builder: the hands-on tool for the third UVU workshop ("Build it. Bid it. Prove it.", Nov 5, 2026).
+ * Students fill in a real or made-up client and leave with a three-option bid and a five-clause
+ * agreement they can print or save as a PDF.
+ *
+ * Everything runs in the browser. Nothing typed here is sent anywhere; a draft is kept in this
+ * browser's localStorage so a refresh doesn't wipe it.
+ *
+ * The math and the clauses mirror the week 1 handouts (pricing worksheet + contract checklist on
+ * /uvu). If those change, change this too.
+ */
+---
+
+<Base
+  title="Bid Builder · UVU Workshop · Paramore.Design"
+  description="Turn a project into a three-option bid and a simple freelance agreement. From Hunter Paramore’s UVU design business workshop."
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <div class="uvu-page bid-page">
+
+  <section class="project-hero uvu-hero bid-noprint">
+    <div class="container">
+      <span class="label project-hero__label" style="display: block;">UVU // Build it. Bid it. Prove it.</span>
+      <h1 class="display-lg project-hero__title">Bid <span class="accent-text">Builder</span></h1>
+      <p class="uvu-lede">
+        Fill this in for a real or made-up client. You’ll leave with a bid and a simple agreement you can send.
+        Nothing you type leaves your browser.
+      </p>
+      <p class="bid-back"><a href="/uvu">&larr; All the workshop handouts</a></p>
+    </div>
+  </section>
+
+  <section class="section bid-main">
+    <div class="container bid-layout">
+
+      <form class="bid-form bid-noprint" id="bidForm" autocomplete="off" novalidate>
+
+        <fieldset class="bid-step">
+          <legend class="bid-step__legend"><span class="bid-step__num">01</span> The client</legend>
+          <div class="bid-grid">
+            <label class="bid-field"><span class="bid-field__label">Your name</span>
+              <input name="you" type="text" placeholder="Jordan Lee"></label>
+            <label class="bid-field"><span class="bid-field__label">Your business</span>
+              <input name="studio" type="text" placeholder="Optional: Lee Design Co."></label>
+            <label class="bid-field"><span class="bid-field__label">Client</span>
+              <input name="client" type="text" placeholder="Dr. Rivera"></label>
+            <label class="bid-field"><span class="bid-field__label">Their business</span>
+              <input name="biz" type="text" placeholder="A chiropractic office in Lehi"></label>
+          </div>
+          <label class="bid-field"><span class="bid-field__label">The problem, in their words</span>
+            <textarea name="problem" rows="3" placeholder="People try to book on our site and give up. We lose patients to the office down the street."></textarea></label>
+          <div class="bid-grid">
+            <label class="bid-field"><span class="bid-field__label">What it costs them each month</span>
+              <span class="bid-money"><input name="cost" type="number" min="0" step="50" inputmode="numeric" placeholder="1200"></span>
+              <span class="bid-hint">Rough is fine. Five missed patients × $240 = $1,200.</span></label>
+            <label class="bid-field"><span class="bid-field__label">What they’d do without you</span>
+              <select name="alt">
+                <option value="diy">Build it themselves on Wix</option>
+                <option value="nephew">Have a friend or the nephew do it</option>
+                <option value="agency">Hire a big agency</option>
+                <option value="nothing">Leave it alone</option>
+              </select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="bid-step">
+          <legend class="bid-step__legend"><span class="bid-step__num">02</span> Your floor</legend>
+          <div class="bid-grid">
+            <label class="bid-field"><span class="bid-field__label">What you need to keep a year</span>
+              <span class="bid-money"><input name="keep" type="number" min="0" step="1000" inputmode="numeric" value="50000"></span></label>
+            <label class="bid-field"><span class="bid-field__label">Business costs a year</span>
+              <span class="bid-money"><input name="costs" type="number" min="0" step="500" inputmode="numeric" value="5000"></span>
+              <span class="bid-hint">Software, hardware, insurance, gas.</span></label>
+          </div>
+          <p class="bid-floor" aria-live="polite">Your floor: <strong id="floorOut">$79</strong> an hour <span class="bid-hint">(keep + costs) ÷ 0.7 for taxes ÷ 1,000 billable hours</span></p>
+        </fieldset>
+
+        <fieldset class="bid-step">
+          <legend class="bid-step__legend"><span class="bid-step__num">03</span> The bid</legend>
+          <div class="bid-grid">
+            <label class="bid-field"><span class="bid-field__label">What’s included <span class="bid-opt">(one per line)</span></span>
+              <textarea name="included" rows="5" placeholder={'Five-page website\nOnline booking\nMobile layout\nGoogle Business profile cleanup'}></textarea></label>
+            <label class="bid-field"><span class="bid-field__label">Not included <span class="bid-opt">(one per line)</span></span>
+              <textarea name="excluded" rows="5" placeholder={'Copywriting\nPhotography\nHosting fees'}></textarea></label>
+          </div>
+
+          <div class="bid-option">
+            <p class="bid-option__title">Option A // Start here</p>
+            <div class="bid-grid">
+              <label class="bid-field"><span class="bid-field__label">What they get</span>
+                <input name="startWhat" type="text" placeholder="A one-page site you can launch this week"></label>
+              <label class="bid-field"><span class="bid-field__label">Price</span>
+                <span class="bid-money"><input name="startPrice" type="number" min="0" step="50" inputmode="numeric" placeholder="500"></span>
+                <span class="bid-hint">Small and easy to say yes to. Still above your floor.</span></label>
+            </div>
+          </div>
+
+          <div class="bid-option">
+            <p class="bid-option__title">Option B // The full project</p>
+            <div class="bid-grid">
+              <label class="bid-field"><span class="bid-field__label">Your hours, honestly</span>
+                <input name="hours" type="number" min="0" step="1" inputmode="numeric" value="30"></label>
+              <label class="bid-field"><span class="bid-field__label">Price</span>
+                <span class="bid-money"><input name="fullPrice" type="number" min="0" step="50" inputmode="numeric" placeholder="3300"></span>
+                <span class="bid-hint" id="timeCheck">Time check: $3,000–$3,600</span></label>
+            </div>
+          </div>
+
+          <div class="bid-option">
+            <p class="bid-option__title">Option C // Monthly</p>
+            <div class="bid-grid">
+              <label class="bid-field"><span class="bid-field__label">What’s included each month</span>
+                <input name="monthlyWhat" type="text" placeholder="Hosting, updates, and new reviews every week"></label>
+              <label class="bid-field"><span class="bid-field__label">Price a month</span>
+                <span class="bid-money"><input name="monthlyPrice" type="number" min="0" step="25" inputmode="numeric" placeholder="150"></span>
+                <span class="bid-hint">This keeps you in the relationship.</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bid-step">
+          <legend class="bid-step__legend"><span class="bid-step__num">04</span> The agreement</legend>
+          <div class="bid-grid bid-grid--3">
+            <label class="bid-field"><span class="bid-field__label">Revision rounds</span>
+              <input name="rounds" type="number" min="0" step="1" inputmode="numeric" value="2"></label>
+            <label class="bid-field"><span class="bid-field__label">Deposit</span>
+              <span class="bid-pct"><input name="deposit" type="number" min="0" max="100" step="5" inputmode="numeric" value="50"></span></label>
+            <label class="bid-field"><span class="bid-field__label">Pay within (days)</span>
+              <input name="due" type="number" min="0" step="1" inputmode="numeric" value="14"></label>
+          </div>
+          <label class="bid-check"><input name="killFee" type="checkbox" checked> <span>Include a kill fee <span class="bid-hint">(not always necessary)</span></span></label>
+        </fieldset>
+
+      </form>
+
+      <div class="bid-output">
+        <div class="bid-actions bid-noprint">
+          <button type="button" class="btn btn--primary" id="printBtn">Save as PDF</button>
+          <button type="button" class="btn btn--secondary" id="copyBtn">Copy text</button>
+          <button type="button" class="btn btn--ghost" id="resetBtn">Start over</button>
+          <span class="bid-status" id="status" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="bid-proof bid-noprint" aria-live="polite">
+          <p class="bid-proof__label">Prove it in numbers</p>
+          <ul class="bid-proof__list" id="proof"></ul>
+        </div>
+
+        <article class="bid-doc" id="doc" aria-label="Your bid and agreement"></article>
+      </div>
+
+    </div>
+  </section>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('bidForm') as HTMLFormElement;
+    const doc = document.getElementById('doc') as HTMLElement;
+    const proof = document.getElementById('proof') as HTMLElement;
+    const floorOut = document.getElementById('floorOut') as HTMLElement;
+    const timeCheck = document.getElementById('timeCheck') as HTMLElement;
+    const status = document.getElementById('status') as HTMLElement;
+    const STORE = 'uvu-bid-draft-v1';
+    const BILLABLE_HOURS = 1000; // half of a 2,080-hour year, from the week 1 pricing slide
+    const TAX_KEEP = 0.7;
+
+    const money = (n: number) =>
+      n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const roundUp50 = (n: number) => Math.ceil(n / 50) * 50;
+    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+    const text = (name: string) => field(name).value.trim();
+    const num = (name: string) => {
+      const v = parseFloat(field(name).value);
+      return Number.isFinite(v) && v >= 0 ? v : 0;
+    };
+    const lines = (name: string) => text(name).split('\n').map((l) => l.trim()).filter(Boolean);
+    // Empty inputs fall back to their placeholder, so the preview is never blank while someone types.
+    const orHint = (name: string) => text(name) || field(name).placeholder || '';
+
+    // Builds elements with textContent only, so nothing a student types is ever parsed as HTML.
+    function el(tag: string, cls?: string, ...kids: (Node | string | null | false)[]) {
+      const node = document.createElement(tag);
+      if (cls) node.className = cls;
+      for (const k of kids) if (k) node.append(k);
+      return node;
+    }
+
+    const altLine: Record<string, string> = {
+      diy: 'Building it yourself on Wix costs you nights and weekends, and the problem stays.',
+      nephew: 'A friend can build a site. This is about fixing what’s costing you customers.',
+      agency: 'An agency would do this well, for several times the price and on their schedule.',
+      nothing: 'Leaving it alone keeps costing you the same amount every month.',
+    };
+
+    function calc() {
+      const floor = (num('keep') + num('costs')) / TAX_KEEP / BILLABLE_HOURS;
+      const hours = num('hours');
+      const low = roundUp50(hours * floor * 1.25);
+      const high = roundUp50(hours * floor * 1.5);
+      const full = num('fullPrice') || roundUp50(hours * floor * 1.4);
+      return { floor, low, high, full, cost: num('cost') };
+    }
+
+    function render() {
+      const c = calc();
+      const you = orHint('you');
+      const studio = text('studio');
+      const client = orHint('client');
+      const start = num('startPrice') || parseFloat(field('startPrice').placeholder) || 0;
+      const monthly = num('monthlyPrice') || parseFloat(field('monthlyPrice').placeholder) || 0;
+      const rounds = num('rounds');
+      const deposit = Math.min(num('deposit'), 100);
+      const due = num('due');
+      const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const included = lines('included').length ? lines('included') : field('included').placeholder.split('\n');
+      const excluded = lines('excluded').length ? lines('excluded') : field('excluded').placeholder.split('\n');
+
+      floorOut.textContent = money(Math.round(c.floor));
+      timeCheck.textContent = `Time check: ${money(c.low)}–${money(c.high)}`;
+      field('fullPrice').placeholder = String(roundUp50(num('hours') * c.floor * 1.4));
+
+      // ---- Prove it in numbers (on screen only) ----
+      proof.replaceChildren();
+      const addProof = (txt: string, warn = false) => proof.append(el('li', warn ? 'is-warn' : '', txt));
+      addProof(`Your floor is ${money(Math.round(c.floor))} an hour. Never quote below it.`);
+      if (c.cost > 0) {
+        addProof(`The problem costs them about ${money(c.cost * 12)} a year.`);
+        const months = c.full / c.cost;
+        addProof(`The full project pays for itself in about ${months < 1 ? 'one month' : Math.ceil(months) + ' months'}.`);
+      } else {
+        addProof('Add what the problem costs them each month to show the payback.');
+      }
+      if (num('fullPrice') && num('fullPrice') < c.low) {
+        addProof(`Option B is under your time check (${money(c.low)}). Cut scope, not price.`, true);
+      }
+
+      // ---- The document ----
+      const opt = (label: string, what: string, price: string, note?: string) =>
+        el('div', 'bid-doc__option',
+          el('p', 'bid-doc__option-label', label),
+          el('p', 'bid-doc__option-price', price),
+          el('p', 'bid-doc__option-what', what),
+          note ? el('p', 'bid-doc__option-note', note) : null);
+
+      const list = (items: string[]) => {
+        const ul = el('ul', 'bid-doc__list');
+        items.forEach((i) => ul.append(el('li', '', i)));
+        return ul;
+      };
+
+      const clause = (n: number, title: string, ...body: (Node | string)[]) =>
+        el('div', 'bid-doc__clause', el('h4', '', `${n}. ${title}`), ...body.map((b) => (typeof b === 'string' ? el('p', '', b) : b)));
+
+      let n = 0;
+      const agreement = el('section', 'bid-doc__part',
+        el('h3', 'bid-doc__h', 'Agreement'),
+        el('p', '', `Between ${studio ? `${you} (${studio})` : you} (“Designer”) and ${client} (“Client”), for the full project in Option B, ${date}.`),
+        clause(++n, 'Scope', 'The Designer will deliver:', list(included), 'Not included:', list(excluded), 'Anything else is a new project with its own quote.'),
+        clause(++n, 'Revisions', `${rounds === 1 ? 'One round' : `${rounds} rounds`} of revisions per deliverable are included. Extra rounds are billed at ${money(Math.round(c.floor))} an hour.`),
+        clause(++n, 'Payment', `${deposit}% (${money(c.full * deposit / 100)}) is due before work begins. The remaining ${money(c.full * (100 - deposit) / 100)} is due on delivery, within ${due} days.`),
+        clause(++n, 'Ownership', 'All rights to the final design transfer to the Client once the final invoice is paid in full. The Designer may show the work in a portfolio.'),
+        (field('killFee') as HTMLInputElement).checked
+          ? clause(++n, 'Cancellation', `If the Client cancels after work begins, the deposit is non-refundable and completed work beyond it is billed at ${money(Math.round(c.floor))} an hour.`)
+          : null,
+        el('div', 'bid-doc__sign',
+          el('div', '', el('span', 'bid-doc__line', ''), el('p', '', `${you}, Designer`)),
+          el('div', '', el('span', 'bid-doc__line', ''), el('p', '', `${client}, Client`))),
+        el('p', 'bid-doc__fine', 'A starting template, not legal advice. Have a lawyer look at yours once.'));
+
+      const cost = c.cost > 0
+        ? el('p', 'bid-doc__cost', `Right now this is costing you about ${money(c.cost)} a month, or ${money(c.cost * 12)} a year.`)
+        : null;
+
+      doc.replaceChildren(
+        el('header', 'bid-doc__head',
+          el('p', 'bid-doc__eyebrow', studio || you),
+          el('h2', 'bid-doc__title', `A proposal for ${client}`),
+          el('p', 'bid-doc__meta', `${orHint('biz')} // Prepared by ${you} // ${date}`)),
+        el('section', 'bid-doc__part',
+          el('h3', 'bid-doc__h', 'What we heard'),
+          el('blockquote', 'bid-doc__quote', `“${orHint('problem')}”`),
+          cost,
+          el('p', '', altLine[field('alt').value] ?? '')),
+        el('section', 'bid-doc__part',
+          el('h3', 'bid-doc__h', 'Three ways to start'),
+          el('div', 'bid-doc__options',
+            opt('Option A // Start here', orHint('startWhat'), money(start)),
+            opt('Option B // The full project', included.join(', '), money(c.full), c.cost > 0 ? `Pays for itself in about ${Math.max(1, Math.ceil(c.full / c.cost))} months.` : undefined),
+            opt('Option C // Monthly', orHint('monthlyWhat'), `${money(monthly)}/mo`))),
+        agreement);
+    }
+
+    // ---- Draft persistence: per-browser convenience only, so every access is guarded ----
+    function save() {
+      try {
+        const data: Record<string, string | boolean> = {};
+        for (const elx of Array.from(form.elements) as HTMLInputElement[]) {
+          if (!elx.name) continue;
+          data[elx.name] = elx.type === 'checkbox' ? elx.checked : elx.value;
+        }
+        localStorage.setItem(STORE, JSON.stringify(data));
+      } catch { /* private mode or blocked storage: the page still works */ }
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORE);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        for (const [k, v] of Object.entries(data)) {
+          const elx = field(k);
+          if (!elx) continue;
+          if (elx.type === 'checkbox') elx.checked = Boolean(v);
+          else elx.value = String(v);
+        }
+      } catch { /* ignore a bad or missing draft */ }
+    }
+
+    function flash(msg: string) {
+      status.textContent = msg;
+      window.setTimeout(() => { if (status.textContent === msg) status.textContent = ''; }, 2500);
+    }
+
+    form.addEventListener('input', () => { render(); save(); });
+    document.getElementById('printBtn')!.addEventListener('click', () => window.print());
+    document.getElementById('copyBtn')!.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(doc.innerText);
+        flash('Copied');
+      } catch {
+        flash('Copy didn’t work here. Use Save as PDF.');
+      }
+    });
+    document.getElementById('resetBtn')!.addEventListener('click', () => {
+      if (!window.confirm('Clear everything and start over?')) return;
+      form.reset();
+      try { localStorage.removeItem(STORE); } catch { /* nothing to clear */ }
+      render();
+      flash('Cleared');
+    });
+
+    load();
+    render();
+  </script>
+</Base>
