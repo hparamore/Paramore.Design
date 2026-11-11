@@ -1,0 +1,122 @@
+<!doctype html>
+<!-- Source for the "Set up Claude like I do" handout (UVU workshop follow-up, Nov 2026).
+     Print with headless Chrome like the other handouts (see build.sh). Facts checked against
+     code.claude.com docs, developers.figma.com and claude.com/product/design on 2026-11-11.
+     These products change fast: re-check commands and menu names before reprinting. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set Up Claude Like I Do · Paramore.Design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="handout.css">
+<style>
+  @page { margin: 0.45in 0.55in; }
+  body { font-size: 9.5pt; line-height: 1.42; }
+  h1 { font-size: 34pt; margin-top: 10pt; }
+  .intro { font-size: 10.5pt; }
+  .sec { margin-top: 11pt; padding-top: 8pt; border-top: 1px solid #DDD; break-inside: avoid; }
+  .sec h2 { display: flex; gap: 8pt; align-items: baseline; font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 19pt; line-height: 1; text-transform: uppercase; }
+  .sec h2 span { color: #FF6B00; }
+  .sec p { margin-top: 4pt; }
+  .sec ul { margin: 4pt 0 0 14pt; }
+  .sec li + li { margin-top: 2pt; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18pt; }
+  code { font-family: 'SF Mono', Menlo, monospace; font-size: 8.3pt; background: #F2EEE8; padding: 1pt 4pt; border-radius: 2pt; }
+  .cmd { display: block; margin-top: 4pt; padding: 5pt 8pt; background: #F2EEE8; border-radius: 3pt; font-family: 'SF Mono', Menlo, monospace; font-size: 8.3pt; white-space: pre-wrap; }
+  .try { margin-top: 5pt; padding: 5pt 8pt; background: #FFF3EA; border-radius: 3pt; }
+  .try b { color: #CC5500; }
+  .need { display: flex; flex-wrap: wrap; gap: 4pt 14pt; margin-top: 6pt; font-size: 9pt; }
+  .need b { color: #CC5500; }
+  .tips { margin: 4pt 0 0 0; padding: 0; list-style: none; counter-reset: t; display: grid; grid-template-columns: 1fr 1fr; gap: 5pt 18pt; }
+  .tips li { counter-increment: t; display: grid; grid-template-columns: 16pt 1fr; }
+  .tips li::before { content: counter(t, decimal-leading-zero); font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 13pt; line-height: 1; color: #FF6B00; }
+  .tips li + li { margin-top: 0; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+<header class="hd"><span class="hd__label">Paramore.Design // UVU Design Business Workshop</span><span class="hd__label">paramore.design/uvu</span></header>
+<h1>Set up Claude like I do</h1>
+<p class="intro">Last time I showed you how I paint. This is the paint and the brushes: the setup behind everything I demoed, in the order I’d do it.</p>
+<p class="need"><span><b>You need:</b> a paid Claude plan (Pro or above) for Claude Code</span><span>The Claude desktop app (claude.com/download)</span><span>Figma, for the Figma part</span></p>
+
+<section class="sec">
+  <h2><span>01</span> Claude Code: Claude that can touch your files</h2>
+  <p>Regular Claude chats with you. <b>Claude Code</b> works inside a folder on your computer: it reads your files, edits them, runs commands and builds things. Most of what I showed you happened here.</p>
+  <div class="two">
+    <div>
+      <p><b>Start it.</b> Easiest: open the desktop app and click the <b>Code</b> tab. Or in Terminal:</p>
+      <span class="cmd">curl -fsSL https://claude.ai/install.sh | bash
+cd ~/Documents/my-project
+claude</span>
+    </div>
+    <div>
+      <p><b>Folders.</b> Claude works in the folder you open it in, and nothing outside it unless you add more: <b>+ › Add folder</b> in the app, or <code>/add-dir</code>.</p>
+      <p><b>Permissions.</b> It asks before it acts. <b>Shift+Tab</b> switches modes: ask every time, auto-accept edits, or <b>Plan</b> (it proposes and changes nothing). Start in Plan.</p>
+    </div>
+  </div>
+  <p><b>CLAUDE.md is the most important file you’ll write.</b> It’s plain-text instructions Claude reads at the start of every session. Put yours at <code>~/.claude/CLAUDE.md</code> for every project (who you are, how you like to work), and a <code>CLAUDE.md</code> in each project folder for that project’s rules. Run <code>/init</code> to have Claude draft one.</p>
+</section>
+
+<section class="sec">
+  <h2><span>02</span> Connect Figma</h2>
+  <p>Figma’s <b>MCP server</b> is a plug that lets Claude see your Figma files: the selected frame, its layout, variables, components and a screenshot. You can point at a frame and say “build this,” or have it check that the code matches the design. The online version can also create and edit layers in Figma.</p>
+  <div class="two">
+    <div>
+      <p><b>Easiest (Claude Code):</b> install Figma’s plugin, which adds the server and Figma’s own skills. Then run <code>/mcp</code> and sign in to Figma.</p>
+      <span class="cmd">claude plugin install figma@claude-plugins-official</span>
+    </div>
+    <div>
+      <p><b>From the Figma desktop app:</b> open a file, press <b>Shift+D</b> for Dev Mode, then click <b>Enable desktop MCP server</b> in the right panel (read-only, needs a paid Dev or Full seat).</p>
+      <span class="cmd">claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp</span>
+    </div>
+  </div>
+  <p class="try"><b>Try:</b> select a frame in Figma, then ask “Build the frame I have selected in Figma as a web page, and use my colors as variables.”</p>
+</section>
+
+<section class="sec">
+  <h2><span>03</span> Claude Design</h2>
+  <p>Claude Design is Anthropic’s tool for visual work: describe a page, deck or design and it makes a first version you can edit by chatting, commenting or changing it directly. It can read your code or design files to match your colors, type and components. I use it for fast first versions, then make them look less like Claude made them in twenty minutes. Finished designs export to PDF, PowerPoint or HTML, or go to Claude Code to be built for real. Find it at <b>claude.com/product/design</b>; what your plan includes may change.</p>
+</section>
+
+<section class="sec page-break">
+  <h2><span>04</span> Skills: teach Claude your process once</h2>
+  <p>A <b>skill</b> is a folder holding a <code>SKILL.md</code> file: a name, a one-line description of when to use it, and the instructions. Claude reads the description and uses the skill when your request matches, or you call it by name with <code>/skill-name</code>.</p>
+  <div class="two">
+    <div>
+      <p><b>Install other people’s skills.</b> Type <code>/plugin</code> in Claude Code to browse and install plugins, which bundle skills. Or drop a skill folder into <code>~/.claude/skills/</code>.</p>
+      <span class="cmd">---
+name: art-direction
+description: Set a deliberate visual direction
+  before building any UI. Use when starting a
+  page, or when it looks AI-generated.
+---
+1. Ask for 2–4 reference screenshots…</span>
+    </div>
+    <div>
+      <p><b>Make your own.</b> Notice something you explain to Claude over and over. Write the steps down the way you’d teach a junior designer, including the mistakes to avoid. Save it as a skill, use it on a real project, then fix it where it went wrong. The official <b>skill-creator</b> plugin will interview you and write it for you:</p>
+      <span class="cmd">/plugin install skill-creator@claude-plugins-official</span>
+    </div>
+  </div>
+  <p><b>How I made mine.</b> AI-made UI kept coming out looking the same: centered hero, three cards, soft shadows. So <b>art-direction</b> walks through layout, type, color, finish and motion. For each one, it names the default it would reach for and makes me pick something on purpose, then writes an <code>ART-DIRECTION.md</code> that the build has to follow. <b>/kickoff</b> is the checklist I was repeating at the start of every project: ask the scope, pick the platform, run art direction, check for an existing design system, choose the right tools, then write the project’s CLAUDE.md and a work log. Both started as notes I kept retyping.</p>
+</section>
+
+<section class="sec">
+  <h2><span>05</span> Tips I use every day</h2>
+  <ol class="tips">
+    <li><span><b>Plan before you prompt.</b> Say who it’s for, what it does and what done looks like. Use Plan mode for anything big.</span></li>
+    <li><span><b>Ask it to ask you.</b> End with “Ask me anything you’re unsure of before you start.”</span></li>
+    <li><span><b>Show, don’t describe.</b> Drop in screenshots, a Figma frame or a site you like. One picture beats a paragraph.</span></li>
+    <li><span><b>Keep a work log.</b> I have Claude update a <code>WORK_STATUS.md</code> after every session, so the next one picks up where it left off.</span></li>
+    <li><span><b>Make it check its own work.</b> “Open it in the browser, take a screenshot, fix anything off.” Then look yourself.</span></li>
+    <li><span><b>Get a second opinion.</b> Have a fresh session, or a different AI, review the work for bugs and security problems.</span></li>
+    <li><span><b>Save often with Git.</b> Ask Claude to commit after each working step, so any mistake is one undo away.</span></li>
+    <li><span><b>Fix the look by hand.</b> Let AI do the first 80%. The last 20%, the part that doesn’t look AI-made, is your job, and it’s why clients pay you.</span></li>
+    <li><span><b>Start fresh when it gets confused.</b> A long, tangled chat gets worse. Open a new session and point it at your CLAUDE.md and log.</span></li>
+    <li><span><b>Turn repeats into skills.</b> The third time you explain something, save it as a skill.</span></li>
+  </ol>
+</section>
+
+<footer class="ft"><span>Hunter Paramore · hparamore@gmail.com</span><span>Checked Nov 11, 2026. These tools change fast; menus and commands may move.</span></footer>
+</body>
+</html>

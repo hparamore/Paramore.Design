@@ -44,6 +44,13 @@ const downloads = [
     href: '/assets/handouts/uvu/example-contract.pdf',
     file: 'example-contract.pdf',
   },
+  // Follow-up after workshop 3 (Nov 11, 2026): the setup behind the demos. Source: scripts/handouts/claude-setup.html.
+  {
+    name: 'Set up Claude like I do',
+    desc: 'Claude Code, connecting Figma, Claude Design, installing and making skills, and ten tips I use every day.',
+    href: '/assets/handouts/uvu/claude-setup.pdf',
+    file: 'claude-setup.pdf',
+  },
 ];
 
 // Mirrors the worksheet PDF. Change both together.
@@ -153,7 +160,7 @@ const linkGroups = [
       <h1 class="display-lg project-hero__title">Making your first <span class="accent-text">$1,000</span> as a new designer</h1>
       <p class="uvu-lede">
         Everything from the workshop in one place: the pricing worksheet, the contract checklist,
-        the business setup checklist, an example bid and contract, the books, and the links. Print the worksheets, or fill them in on your tablet.
+        the business setup checklist, an example bid and contract, a guide to setting up Claude, the books, and the links. Print the worksheets, or fill them in on your tablet.
       </p>
       <div class="uvu-downloads">
         {downloads.map((d) => (
