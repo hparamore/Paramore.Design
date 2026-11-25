@@ -17,29 +17,10 @@ const projects = (await getCollection('projects'))
   title={"Hunter Paramore · AI & Tech Help for Utah Small Businesses · Paramore.Design"}
   description={"Hunter Paramore is the AI and tech guy for Utah small businesses: websites, custom apps, and AI tools that save time and bring in customers. 13 years designing and building apps."}
 >
-<!-- Hero -->
-  <section class="hero section home-hero">
-    <div class="container home-hero__grid">
-      <div class="hero__content">
-        <h1 class="display-xl hero__title">
-          Your business&rsquo;s<br><span class="accent-text">AI &amp; tech guy.</span>
-        </h1>
-        <p class="hero__subtitle">
-          I&rsquo;m Hunter. I&rsquo;ve designed and built apps for 13 years, including Mutual,
-          which has helped 40,000+ couples get married. Now I help small businesses get past
-          dabbling in AI and put it to work, so the busywork takes care of itself.
-        </p>
-        <div class="hero__cta">
-          <a href="mailto:hparamore@gmail.com?subject=Here%27s%20what%27s%20slowing%20us%20down" class="btn btn--primary">
-            Tell me what&rsquo;s slowing you down <span class="btn__arrow">&rarr;</span>
-          </a>
-          <a href="/work" class="btn btn--secondary">See what I&rsquo;ve built</a>
-        </div>
-      </div>
-      <!-- Show, don't tell: one real automation, drawn as it runs -->
-      <HeroFlow />
-    </div>
-  </section>
+<!-- Hunter (2026-11-24): the work leads and should show above the fold, so the page opens on the
+     numbers and the availability line, and the headline moves below the work. The h1 stays first
+     for screen readers and search. -->
+  <h1 class="visually-hidden">Hunter Paramore, AI and tech help for Utah small businesses</h1>
 
   <!-- Proof strip: the numbers, scannable, before anything else -->
   <section class="home-proof">
@@ -47,7 +28,7 @@ const projects = (await getCollection('projects'))
       <div class="home-stats">
         <div class="home-stat">
           <div class="home-stat__value">13 yrs</div>
-          <div class="home-stat__label">Designing and shipping product.</div>
+          <div class="home-stat__label">Designing and shipping products.</div>
         </div>
         <div class="home-stat">
           <div class="home-stat__value">40k+</div>
@@ -55,62 +36,24 @@ const projects = (await getCollection('projects'))
         </div>
         <div class="home-stat">
           <div class="home-stat__value">#1</div>
-          <div class="home-stat__label">LDS dating app worldwide. Sole designer, ten years.</div>
+          <div class="home-stat__label">LDS dating app worldwide. I was its only designer for ten years.</div>
         </div>
         <div class="home-stat">
           <div class="home-stat__value">9</div>
-          <div class="home-stat__label">Apps of my own, designed, built and deployed solo.</div>
+          <div class="home-stat__label">Apps of my own that I designed, built and launched myself.</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Availability: a business owner&apos;s first question is &quot;are you taking clients?&quot; (job search lives on /resume) -->
-  <section class="home-avail">
-    <div class="container">
+      <!-- Availability: a business owner&apos;s first question is &quot;are you taking clients?&quot; (job search lives on /resume) -->
       <p class="home-avail__text">
         <span class="home-avail__dot" aria-hidden="true"></span>
-        <strong>Taking on new local clients.</strong> You&rsquo;ll work with me directly,
-        from the first call to whatever comes next.
+        <strong>Taking on new local clients.</strong> You work with me directly, from the first call on.
         <a href="mailto:hparamore@gmail.com">Get in touch &rarr;</a>
       </p>
     </div>
   </section>
 
-  <!-- Capabilities glimpse -->
-  <section class="section" id="how-i-work" aria-labelledby="caps-heading">
-    <div class="container">
-      <span class="section-label">What I Do</span>
-      <h2 id="caps-heading" class="section-title">How I can help.</h2>
-
-      <div class="home-caps">
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">AI that saves you time</h3>
-          <p class="home-cap__desc">Follow-ups, review replies, social posts, answers for customers after hours. The stuff that eats your week, handled.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Custom apps &amp; tools</h3>
-          <p class="home-cap__desc">When off-the-shelf software doesn&rsquo;t fit, I build the thing that does, and it often replaces a few subscriptions.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Websites that bring people in</h3>
-          <p class="home-cap__desc">Hours, prices, and booking one tap away on a phone, so people who find you actually walk in.</p>
-        </div>
-        <div class="home-cap">
-          <span class="home-cap__marker" aria-hidden="true">//</span>
-          <h3 class="home-cap__name">Someone to call</h3>
-          <p class="home-cap__desc">Ongoing help when something breaks, or when you wonder if there&rsquo;s a better way to do it.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- Selected Work -->
-  <section class="section" aria-labelledby="work-heading">
+  <section class="section home-work" aria-labelledby="work-heading">
     <div class="container">
       <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
         <div>
@@ -128,6 +71,60 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
+  <!-- How I can help: one compact band (Hunter, 2026-11-24: "way way smaller"). Same hairline
+       frame as the proof strip, heading on the left, four short items on the right. -->
+  <section class="home-help" id="how-i-work" aria-labelledby="help-heading">
+    <div class="container">
+      <div class="home-help__band">
+        <div class="home-help__head">
+          <span class="section-label">What I Do</span>
+          <h2 id="help-heading" class="home-help__title">How I can help.</h2>
+        </div>
+        <ul class="home-help__list" role="list">
+          <li class="home-help__item">
+            <h3 class="home-help__name">AI that saves you time</h3>
+            <p class="home-help__desc">Follow-ups, review replies, social posts and after-hours answers for customers, written for you.</p>
+          </li>
+          <li class="home-help__item">
+            <h3 class="home-help__name">Custom apps &amp; tools</h3>
+            <p class="home-help__desc">When off-the-shelf software doesn&rsquo;t fit, I build one that does. It often replaces a few subscriptions.</p>
+          </li>
+          <li class="home-help__item">
+            <h3 class="home-help__name">Websites that bring people in</h3>
+            <p class="home-help__desc">Hours, prices and booking one tap away on a phone, so the people who find you come in.</p>
+          </li>
+          <li class="home-help__item">
+            <h3 class="home-help__name">Someone to call</h3>
+            <p class="home-help__desc">Ongoing help when something breaks, or when you suspect there&rsquo;s a better way to do it.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero, now below the work -->
+  <section class="hero section home-hero" aria-labelledby="hero-heading">
+    <div class="container home-hero__grid">
+      <div class="hero__content">
+        <h2 id="hero-heading" class="display-xl hero__title">
+          Your business&rsquo;s<br><span class="accent-text">AI &amp; tech guy.</span>
+        </h2>
+        <p class="hero__subtitle">
+          I&rsquo;m Hunter. I&rsquo;ve designed and built apps for 13 years, including Mutual,
+          which has helped more than 40,000 couples get married. Now I help small businesses go
+          from trying AI to actually using it for their busywork.
+        </p>
+        <div class="hero__cta">
+          <a href="mailto:hparamore@gmail.com?subject=Here%27s%20what%27s%20slowing%20us%20down" class="btn btn--primary">
+            Tell me what&rsquo;s slowing you down <span class="btn__arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+      <!-- Show, don't tell: one real automation, drawn as it runs -->
+      <HeroFlow />
+    </div>
+  </section>
+
   <!-- About teaser -->
   <section class="section" aria-labelledby="about-heading">
     <div class="container">
@@ -135,9 +132,9 @@ const projects = (await getCollection('projects'))
       <h2 id="about-heading" style="margin-bottom: var(--space-lg);" class="section-title">You&rsquo;ll work with me.</h2>
       <p class="home-about__text">
         I design and build everything myself, so the person you talk to is the person doing the
-        work. I look at your business the way your customers do, find what&rsquo;s getting in
-        their way, and fix that first. A local shop gets <strong>the same care I
-        put into apps</strong> used by thousands of people.
+        work. I start by looking at your business the way a customer would, and I fix whatever
+        gets in their way first. A local shop gets the same care I&rsquo;ve put into apps used by
+        thousands of people.
       </p>
       <div style="margin-top: var(--space-xl);">
         <a href="/about" class="btn btn--ghost">More about me <span class="btn__arrow">&rarr;</span></a>
@@ -149,7 +146,7 @@ const projects = (await getCollection('projects'))
   <section class="section home-brands" aria-labelledby="brands-heading">
     <div class="container" style="text-align: center;">
       <span class="section-label">Worked With</span>
-      <h2 id="brands-heading" class="section-title">12+ years across brands you know.</h2>
+      <h2 id="brands-heading" class="section-title">Brands I&rsquo;ve worked with.</h2>
       <div class="home-brands__logos">
         <span class="home-brands__logo">Mutual</span>
         <span class="home-brands__logo">Ark Dating</span>
@@ -170,8 +167,7 @@ const projects = (await getCollection('projects'))
         What&rsquo;s <span class="accent-text">slowing you down?</span>
       </h2>
       <p>
-        Tell me about it, and I&rsquo;ll tell you what I&rsquo;d try first. It&rsquo;s free,
-        and I&rsquo;m happy to help.
+        Tell me about it and I&rsquo;ll tell you what I&rsquo;d try first. That part is free.
       </p>
       <div class="hero__cta" style="justify-content: center;">
         <a href="mailto:hparamore@gmail.com?subject=Here%27s%20what%27s%20slowing%20us%20down" class="btn btn--primary">
@@ -192,7 +188,8 @@ const projects = (await getCollection('projects'))
        center (the "stacked + floating" feel). Fill the container so the hero
        left-aligns to the page like every other section. */
     .home-hero .container { width: 100%; }
-    .home-hero { padding-top: calc(var(--space-4xl) + 16px); padding-bottom: var(--space-lg); }
+    /* Below the work now, so normal section rhythm instead of clearing the nav. */
+    .home-hero { padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); }
     .home-hero .hero__content { max-width: 1080px; }
     .home-hero .hero__title {
       max-width: none;
@@ -200,74 +197,66 @@ const projects = (await getCollection('projects'))
     }
     .home-hero .hero__subtitle { max-width: 64ch; text-wrap: pretty; }
     .home-hero .accent-text { color: var(--color-accent); }
-    /* Pull Selected Work up so it peeks into the hero, momentum, not a tall stack */
-    .home-hero + .section { padding-top: var(--space-xl); }
+    /* The work follows the proof strip closely, so its first row shows above the fold. */
+    .home-work { padding-top: var(--space-xl); }
 
-    /* ---------- Capabilities: asymmetric / broken grid ----------
-       Four parallel capabilities laid on a 12-col grid with deliberately uneven
-       spans, type scale, and vertical offsets. No 01-04 numbers, no identical
-       boxes. The orange "//" marker echoes the brand's label-separator motif.
-       The irregularity is the point: it reads "designed", not templated. */
-    .home-caps {
+    /* ---------- How I can help: one compact band ----------
+       Hairline top and bottom like the proof strip. A small display heading on the left,
+       four short items on the right in body type, so it reads as a quiet index, not a
+       second hero. */
+    .home-help { padding: var(--space-xl) 0; }
+    .home-help__band {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: var(--space-2xl);
-      row-gap: var(--space-4xl);
-      margin-top: var(--space-3xl);
+      grid-template-columns: minmax(180px, 1fr) 3fr;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) 0;
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+      align-items: start;
     }
-    .home-cap__marker {
-      display: block;
+    .home-help__head .section-label { margin-bottom: var(--space-sm); }
+    .home-help__title {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
-      line-height: 1;
-      letter-spacing: var(--tracking-display);
-      color: var(--color-accent);
-      margin-bottom: var(--space-sm);
-    }
-    .home-cap__name {
-      font-family: var(--font-display);
-      font-size: var(--text-3xl);
       text-transform: uppercase;
       letter-spacing: var(--tracking-display);
-      line-height: 0.9;
-      text-wrap: balance;
-      margin-bottom: var(--space-md);
+      line-height: 1;
+      margin: 0;
     }
-    .home-cap__desc {
-      font-size: var(--text-md);
+    .home-help__list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-xl);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .home-help__name {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-xs);
+    }
+    /* The brand's "//" separator, small, as the only ornament. */
+    .home-help__name::before {
+      content: "// ";
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+    .home-help__desc {
+      font-size: var(--text-sm);
+      line-height: 1.5;
       color: var(--color-text-secondary);
-      line-height: 1.55;
-      max-width: 46ch;
+      margin: 0;
     }
-
-    /* Broken placement: uneven widths + staggered baselines */
-    .home-cap:nth-child(1) { grid-column: 1 / 8; }
-    .home-cap:nth-child(1) .home-cap__name {
-      font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+    @media (max-width: 1000px) {
+      .home-help__band { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .home-help__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-    .home-cap:nth-child(2) { grid-column: 9 / 13; align-self: end; }
-    .home-cap:nth-child(3) { grid-column: 1 / 5; }
-    .home-cap:nth-child(4) { grid-column: 6 / 13; margin-top: var(--space-2xl); }
-    .home-cap:nth-child(4) .home-cap__name {
-      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
-    }
-    .home-cap:nth-child(4) .home-cap__desc { max-width: 54ch; }
-
-    /* Tablet: 2-up, gentler offsets */
-    @media (max-width: 900px) {
-      .home-caps { row-gap: var(--space-3xl); }
-      .home-cap:nth-child(1) { grid-column: 1 / 13; }
-      .home-cap:nth-child(2) { grid-column: 1 / 7; align-self: auto; }
-      .home-cap:nth-child(3) { grid-column: 7 / 13; }
-      .home-cap:nth-child(4) { grid-column: 1 / 13; margin-top: 0; }
-      .home-cap__name { font-size: var(--text-4xl) !important; }
-    }
-    /* Mobile: single column */
     @media (max-width: 560px) {
-      /* One column on phones: 12 tracks with 48px gaps were wider than the screen and got clipped */
-      .home-caps { row-gap: var(--space-2xl); grid-template-columns: minmax(0, 1fr); column-gap: 0; }
-      .home-cap { grid-column: 1 / -1 !important; margin-top: 0 !important; }
-      .home-cap__name { font-size: var(--text-3xl) !important; }
+      .home-help__list { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
     }
 
     /* ---------- Proof strip ----------
@@ -275,14 +264,14 @@ const projects = (await getCollection('projects'))
        Four across on desktop, two on tablet, two on phones — never one column,
        because a single stack reads as a list instead of a scoreboard. */
     .home-proof {
-      padding-top: var(--space-xl);
-      padding-bottom: var(--space-xl);
+      padding-top: calc(var(--space-4xl) + var(--space-lg));  /* clears the fixed nav (84px) with room */
+      padding-bottom: 0;
     }
     .home-stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-2xl);
-      padding: var(--space-2xl) 0;
+      padding: var(--space-xl) 0;
       border-top: 1px solid var(--color-border-subtle);
       border-bottom: 1px solid var(--color-border-subtle);
     }
@@ -311,15 +300,15 @@ const projects = (await getCollection('projects'))
     /* ---------- Availability ----------
        A single quiet line. It answers "are you even looking?" without turning the
        page into a job board. The dot is the only ornament it gets. */
-    .home-avail { padding: var(--space-lg) 0 0; }
     .home-avail__text {
+      margin-top: var(--space-lg);
       font-size: var(--text-base);
       color: var(--color-text-secondary);
       line-height: 1.6;
       max-width: 78ch;
     }
     .home-avail__text strong { color: var(--color-text-primary); }
-    .home-avail__text a { color: var(--color-accent); }
+    .home-avail__text a { color: var(--color-accent); margin-left: 0.35em; white-space: nowrap; }
     .home-avail__dot {
       display: inline-block;
       width: 8px; height: 8px;

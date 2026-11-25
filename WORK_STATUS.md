@@ -1,3 +1,31 @@
+## 2026-11-24 — Homepage reordered: work first, compact help band, humanized copy
+
+**Hunter's ask:** move the hero below the work, keep the stats ("13 yrs" …) and the availability line at the
+top, make "How I can help" much smaller and more tasteful and put it between the work and the hero, run the
+humanizer over all homepage text, and get "Things I've built" showing above the fold.
+
+**New order (`src/pages/index.astro`):** proof strip with the availability line inside it → Selected Work →
+How I can help → hero (headline + HeroFlow) → About → Worked With → closing.
+- The first project card now starts 505 px down a 1440x900 window, and 595 px down a 390x844 phone.
+- The h1 is now visually hidden at the top ("Hunter Paramore, AI and tech help for Utah small businesses").
+  The hero headline became an h2 with the same classes, so heading order stays right for screen readers and
+  search.
+- The hero's "See what I've built" button was removed, because the work is now above it.
+- **How I can help** is now one band (`home-help`, replacing the old `home-cap` broken grid): the same hairlines
+  as the proof strip, a small display heading on the left, and four items in body type with a small orange `//`.
+  It goes to 2 columns at ≤1000px and 1 column at ≤560px.
+- Fixed the missing space before "Get in touch →" (it was already missing before this change).
+
+**Copy (humanizer pass):**
+- Stat labels, the availability line, the help items, the hero subtitle, the About paragraph (bold removed),
+  and the closing ("That part is free.").
+- HeroFlow's last caption is now "All of it from one listing, with one OK from him."
+- Card descriptions in `src/content/projects/` for checkin, mutual-design-system, mutual, screenshot-maker,
+  spnkr and tava. These also show on `/work`.
+- The Hex Quest card now says pre-orders open Nov 25, instead of "launching".
+- The Worked With heading lost "12+ years" (now "Brands I've worked with."), because it clashed with the
+  "13 yrs" stat directly above.
+
 ## 2026-11-24 — Hex Quest on the homepage, four mixer songs
 
 **Hunter's answers:** put the card on the homepage too, and feature Bramble, Night Drive, Hive and Showdown, in

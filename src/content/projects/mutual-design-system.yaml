@@ -1,6 +1,6 @@
 title: Mutual Design System
 label: "Design System // Engineers & AI Agents"
-description: "An interactive design system: 3 brands, 6 themes, semantic tokens, and live WCAG contrast. Structured so engineers and AI agents alike can build correct, on-brand, accessible UI from one source. Switch themes and watch the whole thing re-skin."
+description: "An interactive design system with 3 brands, 6 themes, semantic tokens and live WCAG contrast checks. Engineers and AI agents can both build accessible, on-brand UI from it. Switching themes re-skins the whole page."
 href: /projects/mutual-design-system.html
 order: 3
 onHome: true
