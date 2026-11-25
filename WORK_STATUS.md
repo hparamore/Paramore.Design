@@ -1,3 +1,13 @@
+## 2026-11-24 — Hex Quest: live on the App Store, Android soon
+
+Hunter: drop the pre-order wording, say it's live on the App Store and Android is coming soon.
+- `src/pages/projects/hex-quest.astro`: both buttons now say "Get it on the App Store" (still linking to
+  `https://hexquest.app/get`). The hero meta "Launch: App Store, Nov 25, 2026" is now "Status: Live on the App
+  Store · Android soon". The lede, the store section ("Live on the App Store.") and the closing ("Play Hex
+  Quest.") were rewritten to match.
+- `src/content/projects/hex-quest.yaml`: the card now ends "Out now on the App Store, with Android coming soon."
+- No pre-order or Nov 25 mention is left on the page, the card or the homepage.
+
 ## 2026-11-24 — Homepage: client work moved down, short intro on top
 
 - **Card order (`src/pages/index.astro`):** Paramore Real Estate and The Tree Service no longer lead the grid
