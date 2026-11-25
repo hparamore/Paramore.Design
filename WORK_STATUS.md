@@ -1,3 +1,15 @@
+## 2026-11-24 — Hex Quest buttons link straight to the App Store
+
+Hunter tapped "Get it on the App Store" and landed on TestFlight. The buttons went through
+`https://hexquest.app/get`, HexGame's redirect worker (`site-worker/get.js`). It sends iPhones to TestFlight
+until it sees the App Store listing as live. Apple's lookup already says the listing is live (app ID
+`6828168685`), but `/get` still answered with TestFlight.
+
+Both buttons on `/projects/hex-quest` now link to
+`https://apps.apple.com/app/id6828168685?pt=128269715&ct=paramore-design&mt=8`. `pt`/`ct` are Apple campaign
+parameters (the same provider token hexquest.app uses), so these taps show as `paramore-design` in App Store
+Connect. The `/get` lag is a HexGame issue, flagged to Hunter.
+
 ## 2026-11-24 — Hex Quest page: humanizer pass, mixer line removed
 
 - **Removed** "Nothing loads early…" from the mixer notes. Hunter found it odd to present lazy loading as a
