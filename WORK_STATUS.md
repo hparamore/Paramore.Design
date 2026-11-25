@@ -1,3 +1,13 @@
+## 2026-11-24 — Hex Quest page shipped
+
+Hunter approved the page ("Looks good, ship it"). Branch `hparamoreclaude/hexquest-case-study-0ccd36` was
+fast-forwarded onto `main` (`2c229a3..81948bd`) and the Pages deploy succeeded. It's live at
+https://paramore.design/projects/hex-quest/ and its card is first on `/work`.
+
+**Still open:** whether the card also goes on the homepage (`onHome` is false in
+`src/content/projects/hex-quest.yaml`); whether to keep the three mixer songs (Hive, Night Drive, Bramble).
+HexGame `417ef52` (the Boost edge fix the step 05 clip shows) still needs merging into the game.
+
 ## 2026-11-24 (later still) — Step 05 re-recorded with the Boost edge fix
 
 **Hunter spotted:** in the step 05 loop, the blue Boost tile lost its 3D drop edge during every turn.
@@ -34,7 +44,7 @@ session scratchpad, with one extra Debug-only Level Details scene (`turn-loop`: 
 its own DerivedData, run on the stock iPhone 17 Pro with `-mute`, and the simulator was shut down afterwards.
 The HexGame repo and its checkouts were not touched.
 
-## 2026-11-24 — Hex Quest case study page (local only, not pushed)
+## 2026-11-24 — Hex Quest case study page (shipped to paramore.design the same day, after Hunter approved)
 
 **What:** a client-facing case study for Hex Quest at `/projects/hex-quest`, plus a featured card at the top of
 `/work`. Built and previewed locally on branch `hparamoreclaude/hexquest-case-study-0ccd36`. **Not pushed or
