@@ -1,3 +1,22 @@
+## 2026-11-24 — Hex Quest page: humanizer pass, mixer line removed
+
+- **Removed** "Nothing loads early…" from the mixer notes. Hunter found it odd to present lazy loading as a
+  feature.
+- **Humanizer pass** over all copy in `src/pages/projects/hex-quest.astro`, including the data arrays. No facts
+  changed. Edits:
+  - Hero lede: the opening fragment folded into one sentence. The bold "I designed and built all of it." stays
+    as the page's one emphasis.
+  - Story lede: tighter. The beta testing is its own sentence.
+  - "Worlds & tiles": the list of fragments ("…currents, lava.") is now a sentence.
+  - Focus 01: the intro no longer repeats the "Music direction" line word for word, and it ends with what to do
+    in the mixer.
+  - Mixer notes: the bold labels ("Locked together.", "One-second crossfade.") are dropped and the notes are
+    plain sentences. The now-unused `.hq-how strong` rule is gone from `src/styles/projects/hex-quest.css`.
+  - Rotation 01 and 04 lost the fragment and the "The fix:" run-up. The closing note lost "One more catch along
+    the way:".
+- Loop captions (from the game's own copy), stats, the "Every screen", "Engine", "Servers" and "Website" items,
+  the store section and the closing were already plain and were left alone.
+
 ## 2026-11-24 — Hex Quest: live on the App Store, Android soon
 
 Hunter: drop the pre-order wording, say it's live on the App Store and Android is coming soon.

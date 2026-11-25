@@ -318,7 +318,6 @@
   color: var(--color-text-secondary);
 }
 .hq-how li:last-child { border-bottom: 0; }
-.hq-how strong { display: block; color: var(--color-text-primary); font-weight: 600; }
 
 /* Piece rotation steps */
 .hq-turns {

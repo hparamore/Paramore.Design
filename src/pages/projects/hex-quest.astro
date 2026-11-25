@@ -36,7 +36,7 @@ const turns = [
   {
     id: '1-instant',
     title: 'Instant',
-    body: 'The first version just swapped in the turned shape. It worked, but the piece jumped. Nothing showed your eye how it got there.',
+    body: 'The first version just swapped in the turned shape. It worked, but the piece jumped, and nothing showed your eye how it got there.',
     source: 'Recreated from frames of the final build',
     alt: 'A four-tile piece snapping to its new angle with no animation',
   },
@@ -57,7 +57,7 @@ const turns = [
   {
     id: '4-slow',
     title: 'Turn, then crossfade',
-    body: 'The fix: draw the old and new shapes together. Both turn around one pivot that drifts between their centers, and a correctly lit copy fades in over the middle of the turn.',
+    body: 'The fix was to draw the old and new shapes together. Both turn around one pivot that drifts between their centers, and a correctly lit copy fades in over the middle of the turn.',
     source: 'Slowed down so you can see the swap',
     alt: 'A three-tile piece turning slowly while an upright, correctly lit copy fades in over it',
   },
@@ -96,7 +96,7 @@ const worlds = [
       <span class="label project-hero__label" style="display: block;">Mobile Game // iOS &amp; Android</span>
       <h1 class="display-lg project-hero__title">Hex Quest</h1>
       <p class="hq-hero__lede">
-        A hex tile-matching adventure. Nine ways to play, global and team leaderboards, and a
+        A hex tile-matching game with nine ways to play, global and team leaderboards, and a
         soundtrack that changes with every world. <strong>I designed and built all of it.</strong>
       </p>
       <div class="hq-hero__actions">
@@ -136,10 +136,10 @@ const worlds = [
       fetchpriority="high"
     >
     <p class="hq-lede">
-      Hex Quest started as Honey Hive, a single honeycomb board. It grew into a full game:
-      nine modes, songs re-voiced for every world, one engine running on iOS and Android, live
-      leaderboards, and the website that sells it. After rounds of testing with a big group of
-      beta testers on TestFlight and Google Play, it&rsquo;s live on the App Store, and the
+      Hex Quest started as Honey Hive, a single honeycomb board. It grew into a full game with
+      nine modes, songs rearranged for every world, one engine running on iOS and Android, live
+      leaderboards and a website to sell it. A big group of beta testers played it through
+      several rounds on TestFlight and Google Play. It&rsquo;s now live on the App Store, and the
       Android version is coming soon.
     </p>
   </div>
@@ -178,7 +178,7 @@ const worlds = [
       <ul class="hq-made">
         <li>
           <span class="hq-made__name">Worlds &amp; tiles</span>
-          <span class="hq-made__desc">Nine worlds, each with its own tiles, hazards and rules. Smoke that rolls over the board, fire that spreads, ice that freezes its neighbors, currents, lava.</span>
+          <span class="hq-made__desc">Nine worlds, each with its own tiles, hazards and rules. Smoke rolls over the board, fire spreads, ice freezes its neighbors, currents shove blocks around and lava splashes into empty cells.</span>
         </li>
         <li>
           <span class="hq-made__name">Every screen</span>
@@ -249,9 +249,9 @@ const worlds = [
         <span class="section-label">Focus 01 // Music</span>
         <h2 class="section-title">Hear <span class="accent">every world.</span></h2>
         <p class="section-sub">
-          Each song is written so the instruments can change without changing the tune. Every
-          world gets its own arrangement, and they all play in sync, so switching worlds never
-          skips a beat. This is the mixer from the hexquest.app home page. Try it.
+          Every world has its own arrangement of each song, and they all play in sync, so
+          switching worlds never skips a beat. This is the mixer from the hexquest.app home page.
+          Pick a song, press play and tap through the worlds.
         </p>
       </div>
 
@@ -293,8 +293,8 @@ const worlds = [
         </div>
 
         <ul class="hq-how">
-          <li><strong>Locked together.</strong> All eight arrangements start on the same sample and loop as one.</li>
-          <li><strong>One-second crossfade.</strong> Tapping a world runs an equal-power fade, the same curve the mode cards use in the app.</li>
+          <li>All eight arrangements start on the same sample and loop together.</li>
+          <li>Tapping a world crossfades to it over one second, with the same equal-power curve the mode cards use in the app.</li>
         </ul>
       </div>
     </div>
@@ -337,8 +337,9 @@ const worlds = [
       </ol>
 
       <p class="hq-note">
-        One more catch along the way: a single frame of the finished shape flashed before each
-        turn began. It only showed up frame by frame in a slowed recording, and it's gone now.
+        There was one more bug: a single frame of the finished shape flashed before each turn
+        began. It only showed up when I stepped through a slowed recording frame by frame, and
+        it&rsquo;s fixed now.
       </p>
     </div>
   </section>
