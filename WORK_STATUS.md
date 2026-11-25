@@ -1,3 +1,22 @@
+## 2026-11-24 (later) — Hex Quest rotation step 05 re-shot as a nonstop loop
+
+**Hunter's ask:** step 05 ("Shipped") should keep turning round and round, loop where it gets back to the start,
+and show a blue Boost tile.
+
+**Changed:**
+- `public/assets/projects/hex-quest/loops/turn-5-final.mp4` / `.jpg`: an arc piece with a blue x2 Boost on one
+  end, turning in the tray every ~0.78 s. The clip is exactly six turns (4.7 s, 60 fps, 54 KB), so the last frame
+  is the first frame again and it loops with no crossfade. I checked: the frame before turn 1 and the frame
+  before turn 7 differ by 0.14/255 (noise).
+- `src/pages/projects/hex-quest.astro`: step 05's body now says a Boost stays on its own tile all the way round
+  (true: the engine's `boostCellFollowsRotation` test), and its alt text describes the arc and the Boost.
+
+**How it was recorded (no HexGame changes):** a throwaway `git archive` copy of HexGame `7aaf7a2` in the
+session scratchpad, with one extra Debug-only Level Details scene (`turn-loop`: `arc` piece,
+`setSpecial(.multiplier(2), atCellIndex: 0)`, `rotate(slot: 1)` on repeat, no drawn finger). It was built to
+its own DerivedData, run on the stock iPhone 17 Pro with `-mute`, and the simulator was shut down afterwards.
+The HexGame repo and its checkouts were not touched.
+
 ## 2026-11-24 — Hex Quest case study page (local only, not pushed)
 
 **What:** a client-facing case study for Hex Quest at `/projects/hex-quest`, plus a featured card at the top of
