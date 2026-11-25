@@ -4,8 +4,9 @@
   (the `clientFirst` override from 2026-10-22 is gone). They're now their own row right after Mutual Design
   System. The order is now Hex Quest (wide), Mutual (wide), Tava / Mutual Design System, Paramore Real Estate /
   The Tree Service, then the rest by `order`. This is homepage only; `/work` is unchanged.
-- **Intro (`.home-intro`):** a short line above the stats: "I'm Hunter. I design and build apps, and I help Utah
-  small businesses with websites, custom tools and AI that takes the busywork off their plate." The first card
+- **Intro (`.home-intro`):** a short line above the stats: "I'm Hunter. I design and build apps, games and tools,
+  and I help Utah small businesses with websites, custom software and AI that takes the busywork off their plate."
+  (Wording from Hunter's follow-up, adding games and tools.) The first card
   now starts at 658 px on a 1440x900 window, still above the fold.
 - **Gotcha seen again:** `astro dev` kept serving the old `<style is:global>` block, so the intro looked unstyled
   until the dev server restarted. The production build was fine. Moving the homepage CSS into
