@@ -1,3 +1,20 @@
+## 2026-11-24 (later still) — Step 05 re-recorded with the Boost edge fix
+
+**Hunter spotted:** in the step 05 loop, the blue Boost tile lost its 3D drop edge during every turn.
+
+**Cause:** this was a game bug, not a clip problem. `PieceTurnFrame` in HexGame's `App/Game/TrayView.swift` only
+drew per-tile edges in their own colour (Boost, hazards, Chroma) when the piece was at rest. A separate session
+fixed it: **HexGame `417ef52`** on branch `hparamoreclaude/turn-special-edges`. It is **not merged or shipped
+yet**.
+
+**Changed here:** `public/assets/projects/hex-quest/loops/turn-5-final.mp4` / `.jpg` were re-recorded from a
+scratchpad build of HexGame `7aaf7a2` with `417ef52`'s `TrayView.swift` dropped in, plus the same local
+`turn-loop` scene. The blue edge now holds through every frame of the turn. The clip is still exactly six turns:
+4.7 s, 60 fps, 52 KB, no seam.
+
+**Note:** until `417ef52` is merged and in a build, the clip shows behaviour that's on a branch, not yet in
+TestFlight.
+
 ## 2026-11-24 (later) — Hex Quest rotation step 05 re-shot as a nonstop loop
 
 **Hunter's ask:** step 05 ("Shipped") should keep turning round and round, loop where it gets back to the start,
