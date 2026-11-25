@@ -1,3 +1,58 @@
+## 2026-11-24 — Hex Quest case study page (local only, not pushed)
+
+**What:** a client-facing case study for Hex Quest at `/projects/hex-quest`, plus a featured card at the top of
+`/work`. Built and previewed locally on branch `hparamoreclaude/hexquest-case-study-0ccd36`. **Not pushed or
+deployed** — Hunter reviews first.
+
+**Added:**
+- `src/pages/projects/hex-quest.astro` — hero (App Store pre-order + hexquest.app links), stats strip, "Every
+  piece, one person" list, six gameplay loops + a sideways screenshot strip, **Focus 01** (the music mixer),
+  **Focus 02** (piece rotation in five stages), the App Store screenshot set, closing CTA.
+- `src/styles/projects/hex-quest.css` — page CSS, prefix `hq-` (imported, per the large-page-CSS exception).
+  New page-scoped pieces: `hq-mixer`/`hq-world`/`hq-round` (mixer), `hq-loop` + `hq-loop__toggle` (video loops
+  with a per-loop pause button), `hq-turns` (rotation steps), `hq-strip` (scrolling screenshots). Built from site
+  tokens only; nothing added to `styles.css`, so no `?v=` bump.
+- `src/content/projects/hex-quest.yaml` — `order: 0`, `featured: true`, **`onHome: false`** (homepage is pitched at
+  small businesses; Hunter to decide).
+- `public/assets/projects/hex-quest/` — `hero.jpg` (store header art), `screens/` (12 raw screenshots, 480w),
+  `store/` (the 10 App Store screenshots, 420w), `tiles/` (mixer icons from hexquest.app), `loops/`, `audio/`.
+
+**Media and where it came from:**
+- Gameplay loops: `~/Movies/Hex Quest Clips/*.mov`, cropped to board + tray, 400w H.264, 24 fps, seamless
+  crossfade loops (58–124 KB each). Posters are the loop's first frame.
+- Rotation stages: 02 and 03 are Hunter's slowed-down simulator recording
+  `~/Desktop/Screenshots/ParamoreScreenshot 2026-10-28 at 11.40.45.mp4` (x3 label flips, ghost tiles; the 7-tile
+  flower spins with its shine). 04 is `… at 12.12.10.mp4` (turn + crossfade, slowed). 05 is a fresh recording of
+  the current build on the iPhone 17 Pro simulator (97F29B8D, launched `-honey -mute`, one tray tap; simulator shut
+  down after). 01 "Instant" is **recreated** from 05's before/after frames — labeled as such on the page.
+  The story follows `HexGame/docs/work-status/2026-10.md` (Oct 28 rounds 3–8). Git history starts Oct 29, after
+  the turn was already fixed, so there were no older builds to record.
+- Music: 3 songs (Hive, Night Drive, Bramble) × 8 worlds from `HexGame/App/Resources/Audio/music_*_loop.m4a`,
+  `afconvert -f mp4f -d aac@32000 -b 48000` → ~390 KB a file, 9.4 MB total in the repo, ~3.1 MB fetched per song
+  and only on Play. Verified in the browser: decoded length = 68.571 s, same as the source, so loops are seamless.
+- Encoding script: kept in the session scratchpad only (`encode.sh`); the commands are summarised here.
+
+**Decisions:**
+- Mixer re-skinned in the portfolio's own system (Bebas/Space Grotesk, orange accent) rather than hexquest.app's
+  honey styling, with the game's tile icons as world buttons. Logic is a port of `site/home.js`.
+- Copy uses only facts from the HexGame repo or the brief: 9 modes + Present Rush, 8 songs, 60 hand-built Treasure
+  Hunt puzzles (from the store listing), one shared engine, iPhone/iPad/Duo. **No download or tester counts** and
+  no mention of AI. Mode captions reuse Hunter's Level Details copy.
+- Loops never autoplay from HTML: JS plays them only while on screen and never under reduced motion (posters stay);
+  each has a pause/play button (WCAG 2.2.2). A tap on a loop's button overrides reduced motion for that loop only.
+
+**Checked:** `astro build` passes; page previewed at 1440 and 390 px; no horizontal scroll on phones; mixer plays,
+crossfades, steps songs and pauses; loop pause buttons toggle.
+
+**Open questions for Hunter:**
+- Go-ahead to merge/deploy, and whether the card should also appear on the homepage (`onHome`).
+- Which 3 songs to feature (or more — each extra song adds ~3.1 MB to the repo).
+- Any real numbers he wants on the page (beta tester count, pre-orders); none are shown now.
+- "Hex Quest started as Honey Hive" — the TestFlight build 1 name; confirm he's happy to say it publicly.
+- The rotation clips show the Mac cursor from his recordings; fine as process footage, or should they be cleaned?
+
+---
+
 ## 2026-10-22 — Homepage repositioned for small businesses + animated hero
 
 **What:** the homepage now speaks to small-business owners ("Your business's AI & tech guy") instead of

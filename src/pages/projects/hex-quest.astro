@@ -1,0 +1,642 @@
+---
+import Base from '../../layouts/Base.astro';
+// Large page CSS lives in its own file so `astro dev` hot-reloads it (see CLAUDE.md → Conventions).
+import '../../styles/projects/hex-quest.css';
+
+const A = '/assets/projects/hex-quest';
+
+// Gameplay loops: real recordings of the shipping game, cropped to the board and tray.
+// Captions use the game's own Level Details copy where there is one.
+const loops = [
+  { id: 'honey', mode: 'Honey', caption: 'Clear lines, stack combos. Double, then Hat Trick.' },
+  { id: 'volcano', mode: 'Volcano', caption: 'Lava splashes into empty cells, then hardens to stone.' },
+  { id: 'underwater', mode: 'Underwater', caption: 'The current pushes blocks as far as they can go.' },
+  { id: 'chroma', mode: 'Chroma', caption: 'Complete lines of one color. Don’t mix them.' },
+  { id: 'ice', mode: 'Ice', caption: 'Ice spreads to the blocks it touches. Heaters melt it.' },
+  { id: 'climb', mode: 'Climb', caption: 'The floor is lava, and the board never stops sinking.' },
+];
+
+const screens = [
+  { id: 'honey', alt: 'Honey mode: a honeycomb board, level 6, x6 score' },
+  { id: 'forest', alt: 'Forest mode: fire spreading through log tiles' },
+  { id: 'ice', alt: 'Ice mode: a pale blue board with frozen tiles' },
+  { id: 'underwater', alt: 'Underwater mode: deep blue board under light rays' },
+  { id: 'volcano', alt: 'Volcano mode: grey stone tiles on a glowing red board' },
+  { id: 'chroma', alt: 'Chroma mode: red, blue and green tiles on a neon grid' },
+  { id: 'treasure', alt: 'Treasure Hunt: a dotted trail across the board toward an X' },
+  { id: 'expedition', alt: 'Expedition: a branching map of stops up to a boss' },
+  { id: 'climb', alt: 'Climb: a tall board sinking into lava' },
+  { id: 'present', alt: 'Present Rush: a Christmas tree of peppermint tiles' },
+  { id: 'leaderboard', alt: 'The team leaderboard, with weekly winners and a top ten' },
+  { id: 'punch', alt: 'Board clear: the whole board lit up for a big score' },
+];
+
+// Piece rotation, in the order it was built.
+const turns = [
+  {
+    id: '1-instant',
+    title: 'Instant',
+    body: 'The first version just swapped in the turned shape. It worked, but the piece jumped. Nothing showed your eye how it got there.',
+    source: 'Recreated from frames of the final build',
+    alt: 'A four-tile piece snapping to its new angle with no animation',
+  },
+  {
+    id: '2-flip',
+    title: 'Tiles on the move',
+    body: 'Then the tiles animated to their new spots one by one and slid through each other. A later pass wound up the wrong way, swung wide and left ghost tiles fading in their old spots.',
+    source: 'My slowed-down screen recording, Oct 28',
+    alt: 'A three-tile piece turning: its x3 label flips upside down while faded ghost tiles linger behind',
+  },
+  {
+    id: '3-spin',
+    title: 'One picture',
+    body: 'Turning the whole piece as one image kept the tiles together, but the light turned with it. Every highlight and shadow spun round, as if the sun had moved.',
+    source: 'Same recording',
+    alt: 'A seven-tile flower piece spinning as one image, its highlights rotating with it',
+  },
+  {
+    id: '4-slow',
+    title: 'Turn, then crossfade',
+    body: 'The fix: draw the old and new shapes together. Both turn around one pivot that drifts between their centers, and a correctly lit copy fades in over the middle of the turn.',
+    source: 'Slowed down so you can see the swap',
+    alt: 'A three-tile piece turning slowly while an upright, correctly lit copy fades in over it',
+  },
+  {
+    id: '5-final',
+    title: 'Shipped',
+    body: 'One ease-in-out turn in 0.24 seconds. The same turn plays for a tap in the tray, a second finger while dragging and Hold to Rotate, on iOS and Android.',
+    source: 'The final build, full speed',
+    alt: 'A four-tile piece turning smoothly to its new angle at full speed',
+  },
+];
+
+// The music mixer's worlds. `chiptune` is the file name for Chroma's arrangement.
+const worlds = [
+  { id: 'honey', name: 'Honey', tile: 'honey' },
+  { id: 'forest', name: 'Forest', tile: 'forest' },
+  { id: 'ice', name: 'Ice', tile: 'ice' },
+  { id: 'underwater', name: 'Underwater', tile: 'underwater' },
+  { id: 'volcano', name: 'Volcano', tile: 'volcano' },
+  { id: 'chiptune', name: 'Chroma', tile: 'chiptune' },
+  { id: 'pirate', name: 'Pirate', tile: 'pirate-world' },
+  { id: 'christmas', name: 'Christmas', tile: 'peppermint' },
+];
+---
+
+<Base
+  title={"Hex Quest · Paramore.Design"}
+  description={"Hex Quest, a hex tile-matching adventure for iPhone, iPad and Android. Nine modes, a soundtrack that changes with every world, and live leaderboards, designed and built end to end by Hunter Paramore."}
+>
+  <!-- =================== Project Hero =================== -->
+  <section class="project-hero hq-hero">
+    <div class="container">
+      <a href="/work" class="btn btn--ghost" style="margin-bottom: var(--space-xl); display: inline-flex;">
+        <span style="margin-right: var(--space-sm);">&larr;</span> All Projects
+      </a>
+      <span class="label project-hero__label" style="display: block;">Mobile Game // iOS &amp; Android</span>
+      <h1 class="display-lg project-hero__title">Hex Quest</h1>
+      <p class="hq-hero__lede">
+        A hex tile-matching adventure. Nine ways to play, global and team leaderboards, and a
+        soundtrack that changes with every world. <strong>I designed and built all of it.</strong>
+      </p>
+      <div class="hq-hero__actions">
+        <a href="https://hexquest.app/get" target="_blank" rel="noopener" class="btn btn--primary">
+          Pre-order on the App Store <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="https://hexquest.app" target="_blank" rel="noopener" class="btn btn--secondary">hexquest.app</a>
+      </div>
+      <div class="project-hero__meta">
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Role</span>
+          <span class="project-hero__meta-value">Solo designer &amp; developer</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Platforms</span>
+          <span class="project-hero__meta-value">iPhone · iPad · Android</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Stack</span>
+          <span class="project-hero__meta-value">SwiftUI · Jetpack Compose · Cloudflare Workers</span>
+        </div>
+        <div class="project-hero__meta-item">
+          <span class="project-hero__meta-label">Launch</span>
+          <span class="project-hero__meta-value">App Store, Nov 25, 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Hero image =================== -->
+  <div class="container">
+    <img
+      class="hq-hero__image"
+      src={`${A}/hero.jpg`}
+      width="1800" height="772"
+      alt="The Hex Quest logo between four phones showing Honey, Forest, Chroma and the Treasure Hunt map"
+      fetchpriority="high"
+    >
+    <p class="hq-lede">
+      Hex Quest started as Honey Hive, a single honeycomb board. It grew into a full game:
+      nine modes, songs re-voiced for every world, one engine running on iOS and Android, live
+      leaderboards, and the website that sells it. After rounds of testing with a big group of
+      beta testers on TestFlight and Google Play, it lands on the App Store November 25.
+    </p>
+  </div>
+
+  <!-- =================== Numbers =================== -->
+  <section class="section hq-stats-section">
+    <div class="container">
+      <div class="hq-stats">
+        <div>
+          <div class="hq-stat__value">9</div>
+          <div class="hq-stat__label">Game modes, plus a seasonal Present Rush.</div>
+        </div>
+        <div>
+          <div class="hq-stat__value">8</div>
+          <div class="hq-stat__label">Songs that change instruments with the world.</div>
+        </div>
+        <div>
+          <div class="hq-stat__value">60</div>
+          <div class="hq-stat__label">Hand-built Treasure Hunt puzzles.</div>
+        </div>
+        <div>
+          <div class="hq-stat__value">1</div>
+          <div class="hq-stat__label">Shared game engine behind iOS and Android.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== What I made =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="hq-head">
+        <span class="section-label">Designed &amp; built by Hunter</span>
+        <h2 class="section-title">Every piece, <span class="accent">one person.</span></h2>
+      </div>
+      <ul class="hq-made">
+        <li>
+          <span class="hq-made__name">Worlds &amp; tiles</span>
+          <span class="hq-made__desc">Nine worlds, each with its own tiles, hazards and rules. Smoke that rolls over the board, fire that spreads, ice that freezes its neighbors, currents, lava.</span>
+        </li>
+        <li>
+          <span class="hq-made__name">Every screen</span>
+          <span class="hq-made__desc">Menus, mode cards, game over, the punch card, leaderboards and settings, laid out for iPhone, iPad and the folding iPhone Duo.</span>
+        </li>
+        <li>
+          <span class="hq-made__name">Music direction</span>
+          <span class="hq-made__desc">Eight songs written so the instruments can change without changing the tune. Every world gets its own arrangement.</span>
+        </li>
+        <li>
+          <span class="hq-made__name">The engine</span>
+          <span class="hq-made__desc">The rules live in one Swift engine. The iPhone app runs it in SwiftUI, and the Android app calls the same code from Jetpack Compose.</span>
+        </li>
+        <li>
+          <span class="hq-made__name">Servers</span>
+          <span class="hq-made__desc">Global and team leaderboards and live content, running on Cloudflare Workers.</span>
+        </li>
+        <li>
+          <span class="hq-made__name">Website &amp; store</span>
+          <span class="hq-made__desc">hexquest.app and the App Store listing, screenshots included.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =================== Modes =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="hq-head">
+        <span class="section-label">The game</span>
+        <h2 class="section-title">Nine ways <span class="accent">to play.</span></h2>
+        <p class="section-sub">Every mode starts from the same idea: drop pieces, clear lines. Then each one finds a new way to mess with you.</p>
+      </div>
+
+      <div class="hq-loops">
+        {loops.map((l) => (
+          <figure class="hq-loop" data-loop>
+            <div class="hq-loop__frame">
+              <video
+                muted loop playsinline preload="none"
+                width="400" height="790"
+                poster={`${A}/loops/play-${l.id}.jpg`}
+                aria-label={`${l.mode} gameplay: ${l.caption}`}
+              >
+                <source src={`${A}/loops/play-${l.id}.mp4`} type="video/mp4">
+              </video>
+            </div>
+            <figcaption>
+              <span class="hq-loop__mode">{l.mode}</span>
+              <span class="hq-loop__caption">{l.caption}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="hq-strip" tabindex="0" role="region" aria-label="Screenshots of every mode, scrolls sideways">
+        {screens.map((s) => (
+          <img src={`${A}/screens/${s.id}.jpg`} width="480" height="1043" alt={s.alt} loading="lazy">
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Focus 01: the music mixer =================== -->
+  <section class="section hq-focus">
+    <div class="container">
+      <div class="hq-head">
+        <span class="section-label">Focus 01 // Music</span>
+        <h2 class="section-title">Hear <span class="accent">every world.</span></h2>
+        <p class="section-sub">
+          Each song is written so the instruments can change without changing the tune. Every
+          world gets its own arrangement, and they all play in sync, so switching worlds never
+          skips a beat. This is the mixer from the hexquest.app home page. Try it.
+        </p>
+      </div>
+
+      <div class="hq-mixer-wrap">
+        <div class="hq-mixer" data-mixer>
+          <div class="hq-mixer__song" role="group" aria-label="Song">
+            <button type="button" class="hq-round" data-song-prev aria-label="Previous song">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="hq-mixer__title">
+              <span class="hq-mixer__kicker">Song</span>
+              <span data-song-title aria-live="polite">Hive</span>
+            </div>
+            <button type="button" class="hq-round" data-song-next aria-label="Next song">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <button type="button" class="btn btn--primary hq-mixer__play" data-play data-state="paused" aria-label="Play the music">
+            <svg class="hq-mixer__icon-play" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>
+            <svg class="hq-mixer__icon-pause" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" rx="1" fill="currentColor"/><rect x="14" y="4" width="5" height="16" rx="1" fill="currentColor"/></svg>
+            <span data-play-text>Play</span>
+          </button>
+
+          <div class="hq-mixer__progress" aria-hidden="true"><div data-progress></div></div>
+          <p class="hq-mixer__status" data-status aria-live="polite">Press play, then tap a world.</p>
+
+          <div class="hq-mixer__worlds" role="group" aria-label="World">
+            {worlds.map((w, i) => (
+              <button
+                type="button" class="hq-world" data-world={w.id}
+                aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`${w.name} version`}
+              >
+                <img src={`${A}/tiles/${w.tile}.webp`} alt="" width="40" height="40" loading="lazy">
+                <span>{w.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <ul class="hq-how">
+          <li><strong>Locked together.</strong> All eight arrangements start on the same sample and loop as one.</li>
+          <li><strong>One-second crossfade.</strong> Tapping a world runs an equal-power fade, the same curve the mode cards use in the app.</li>
+          <li><strong>Nothing loads early.</strong> The music downloads only when you press Play, one song at a time.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Focus 02: piece rotation =================== -->
+  <section class="section hq-focus">
+    <div class="container">
+      <div class="hq-head">
+        <span class="section-label">Focus 02 // Piece rotation</span>
+        <h2 class="section-title">Making a hex <span class="accent">turn right.</span></h2>
+        <p class="section-sub">
+          Rotation is my favorite thing in Hex Quest, and the feature I rebuilt the most. A piece
+          is a handful of hexes, each with its own shine and shadow. Turning one convincingly took
+          five versions.
+        </p>
+      </div>
+
+      <ol class="hq-turns">
+        {turns.map((t, i) => (
+          <li class="hq-turn" data-loop>
+            <div class="hq-loop__frame hq-turn__frame">
+              <video
+                muted loop playsinline preload="none"
+                width="320" height="320"
+                poster={`${A}/loops/turn-${t.id}.jpg`}
+                aria-label={t.alt}
+              >
+                <source src={`${A}/loops/turn-${t.id}.mp4`} type="video/mp4">
+              </video>
+            </div>
+            <div class="hq-turn__text">
+              <span class="hq-turn__step">0{i + 1}</span>
+              <h3 class="hq-turn__title">{t.title}</h3>
+              <p>{t.body}</p>
+              <span class="hq-turn__source">{t.source}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <p class="hq-note">
+        One more catch along the way: a single frame of the finished shape flashed before each
+        turn began. It only showed up frame by frame in a slowed recording, and it's gone now.
+      </p>
+    </div>
+  </section>
+
+  <!-- =================== Store =================== -->
+  <section class="section">
+    <div class="container">
+      <div class="hq-head">
+        <span class="section-label">Launch // App Store &amp; Google Play</span>
+        <h2 class="section-title">Ready <span class="accent">for launch.</span></h2>
+        <p class="section-sub">
+          I designed the store listing too: ten screenshots, sized for iPhone, iPad and iPhone Duo.
+          Pre-orders are open on the App Store, and Android is in closed testing on Google Play.
+        </p>
+      </div>
+      <div class="hq-strip hq-strip--store" tabindex="0" role="region" aria-label="App Store screenshots, scrolls sideways">
+        <img src={`${A}/store/store-01.jpg`} width="420" height="913" loading="lazy" alt="Get the full version for free: finish a game in all 9 modes during the launch event">
+        <img src={`${A}/store/store-02.jpg`} width="420" height="913" loading="lazy" alt="Hex Quest, a tile matching adventure">
+        <img src={`${A}/store/store-03.jpg`} width="420" height="913" loading="lazy" alt="Uh oh. Fire! Put it out fast or it spreads">
+        <img src={`${A}/store/store-04.jpg`} width="420" height="913" loading="lazy" alt="Ten ways to play: every mode starts with the same idea">
+        <img src={`${A}/store/store-05.jpg`} width="420" height="913" loading="lazy" alt="Now try it in color: Chroma mode">
+        <img src={`${A}/store/store-06.jpg`} width="420" height="913" loading="lazy" alt="Hunt for treasure: 60 hand-built puzzles">
+        <img src={`${A}/store/store-07.jpg`} width="420" height="913" loading="lazy" alt="Pick a path. Beat the boss. Expedition mode">
+        <img src={`${A}/store/store-08.jpg`} width="420" height="913" loading="lazy" alt="Save the presents: Present Rush">
+        <img src={`${A}/store/store-09.jpg`} width="420" height="913" loading="lazy" alt="The floor is lava: Climb mode">
+        <img src={`${A}/store/store-10.jpg`} width="420" height="913" loading="lazy" alt="Bring the whole family: team leaderboards">
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Closing CTA =================== -->
+  <section class="hq-closing">
+    <div class="container">
+      <h2 class="section-title">Pre-order <span class="accent">Hex Quest.</span></h2>
+      <p>
+        On the App Store November 25, 2026, with Android on the way. Have a product that needs
+        designing and building end to end? I’d love to hear about it.
+      </p>
+      <div class="hq-closing__actions">
+        <a href="https://hexquest.app/get" target="_blank" rel="noopener" class="btn btn--primary">
+          Pre-order <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="mailto:hparamore@gmail.com" class="btn btn--secondary">Email Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== Next Project =================== -->
+  <section class="section" style="border-top: 1px solid var(--color-border);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <span class="label">Next Project</span>
+      <a href="/projects/mutual" class="btn btn--ghost" style="font-size: var(--text-xl);">
+        Mutual <span class="btn__arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // ---------- Loops ----------
+  // Videos have no autoplay attribute: they play only while on screen, never under
+  // reduced motion (the poster stays), and each one gets its own pause button.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const loops = Array.from(document.querySelectorAll<HTMLElement>('[data-loop]'));
+  const visible = new Set<HTMLVideoElement>();
+  // The viewer's choice per loop. Unset = follow the reduced-motion setting.
+  const choice = new Map<HTMLVideoElement, 'on' | 'off'>();
+  const wanted = (video: HTMLVideoElement) => {
+    const c = choice.get(video);
+    return c ? c === 'on' : !reduceMotion.matches;
+  };
+
+  const sync = (video: HTMLVideoElement) => {
+    const shouldPlay = visible.has(video) && wanted(video);
+    if (shouldPlay && video.paused) video.play().catch(() => { /* autoplay blocked: poster stays */ });
+    if (!shouldPlay && !video.paused) video.pause();
+  };
+
+  loops.forEach((figure) => {
+    const video = figure.querySelector('video');
+    const frame = figure.querySelector('.hq-loop__frame');
+    if (!video || !frame) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'hq-loop__toggle';
+    const label = () => {
+      const on = wanted(video);
+      button.setAttribute('aria-label', on ? 'Pause loop' : 'Play loop');
+      button.dataset.state = on ? 'playing' : 'paused';
+    };
+    button.innerHTML =
+      '<svg class="hq-i-pause" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" fill="currentColor"/><rect x="14" y="4" width="5" height="16" fill="currentColor"/></svg>' +
+      '<svg class="hq-i-play" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>';
+    // An explicit tap wins over reduced motion, for this one loop only.
+    button.addEventListener('click', () => {
+      choice.set(video, wanted(video) ? 'off' : 'on');
+      sync(video);
+      label();
+    });
+    label();
+    frame.appendChild(button);
+    reduceMotion.addEventListener('change', () => { label(); sync(video); });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const video = e.target as HTMLVideoElement;
+      if (e.isIntersecting) visible.add(video); else visible.delete(video);
+      sync(video);
+    });
+  }, { rootMargin: '120px 0px' });
+  document.querySelectorAll<HTMLVideoElement>('[data-loop] video').forEach((v) => io.observe(v));
+
+  // ---------- Music mixer ----------
+  // Ported from hexquest.app (site/home.js): every world version of a song plays from the
+  // same start sample, and tapping a world crossfades between them. Three songs here, at a
+  // lower bitrate than the game site, and nothing loads until Play.
+  const mixer = document.querySelector<HTMLElement>('[data-mixer]');
+  if (mixer) {
+    const AUDIO = '/assets/projects/hex-quest/audio';
+    const WORLDS = ['honey', 'forest', 'ice', 'underwater', 'volcano', 'chiptune', 'pirate', 'christmas'];
+    const WORLD_NAMES: Record<string, string> = {
+      honey: 'Honey', forest: 'Forest', ice: 'Ice', underwater: 'Underwater',
+      volcano: 'Volcano', chiptune: 'Chroma', pirate: 'Pirate', christmas: 'Christmas',
+    };
+    const SONGS: [string, string][] = [['hive', 'Hive'], ['nightdrive', 'Night Drive'], ['bramble', 'Bramble']];
+
+    const titleEl = mixer.querySelector<HTMLElement>('[data-song-title]')!;
+    const playButton = mixer.querySelector<HTMLButtonElement>('[data-play]')!;
+    const playText = mixer.querySelector<HTMLElement>('[data-play-text]')!;
+    const progressEl = mixer.querySelector<HTMLElement>('[data-progress]')!;
+    const statusEl = mixer.querySelector<HTMLElement>('[data-status]')!;
+    const worldButtons = Array.from(mixer.querySelectorAll<HTMLButtonElement>('[data-world]'));
+
+    type Voice = { src: AudioBufferSourceNode; gain: GainNode; world: string };
+    const state = { song: 'hive', world: 'honey', playing: false, loading: false, error: '' };
+    let ctx: AudioContext | null = null;
+    let master: GainNode | null = null;
+    let voices: Voice[] = [];
+    let voicesSong: string | null = null;
+    let t0 = 0, len = 1;
+    let loaded: { song: string; buffers: AudioBuffer[] } | null = null; // only the current song, to save memory
+    let request = 0;                          // bumps on every load, so a slow load can't start a song you've left
+    let fetching: AbortController | null = null;
+
+    const songTitle = () => (SONGS.find(([id]) => id === state.song) || SONGS[0])[1];
+
+    function render() {
+      titleEl.textContent = songTitle();
+      playButton.dataset.state = state.playing ? 'playing' : 'paused';
+      playButton.setAttribute('aria-label', state.playing ? 'Pause the music' : 'Play the music');
+      playText.textContent = state.loading ? 'Loading' : state.playing ? 'Pause' : 'Play';
+      statusEl.textContent = state.error ? state.error
+        : state.loading ? 'Loading 8 versions of the song…'
+        : state.playing ? `Now playing: ${songTitle()}, ${WORLD_NAMES[state.world]} version`
+        : 'Press play, then tap a world.';
+      worldButtons.forEach((b) => {
+        const on = b.dataset.world === state.world;
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        b.setAttribute('aria-label', `${WORLD_NAMES[b.dataset.world!]} version${on ? ', selected' : ''}`);
+      });
+    }
+
+    async function load(song: string) {
+      if (loaded && loaded.song === song) return loaded.buffers;
+      loaded = null;
+      if (fetching) fetching.abort();
+      const controller = fetching = new AbortController();
+      const responses = await Promise.all(WORLDS.map(async (w) => {
+        const url = `${AUDIO}/${song}-${w}.mp4`;
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`${res.status}`);
+        return res.arrayBuffer();
+      }));
+      // Decode one at a time to keep the memory peak down.
+      const buffers: AudioBuffer[] = [];
+      for (const data of responses) buffers.push(await ctx!.decodeAudioData(data));
+      if (controller.signal.aborted) throw new DOMException('Superseded', 'AbortError');
+      if (fetching === controller) fetching = null;
+      loaded = { song, buffers };
+      return buffers;
+    }
+
+    function stopVoices() {
+      voices.forEach((v) => {
+        try { v.src.stop(); } catch { /* already stopped */ }
+        v.src.disconnect();
+        v.gain.disconnect();
+      });
+      voices = [];
+      voicesSong = null;
+    }
+
+    async function startSong(song: string) {
+      const mine = ++request;
+      state.loading = true; state.error = '';
+      stopVoices();
+      render();
+      try {
+        const buffers = await load(song);
+        if (mine !== request) return;
+        // Every world version starts on the same sample, so they stay locked together.
+        const at = ctx!.currentTime + 0.12;
+        voices = buffers.map((buffer, i) => {
+          const src = ctx!.createBufferSource();
+          src.buffer = buffer;
+          src.loop = true;
+          const gain = ctx!.createGain();
+          gain.gain.value = WORLDS[i] === state.world ? 1 : 0;
+          src.connect(gain).connect(master!);
+          src.start(at);
+          return { src, gain, world: WORLDS[i] };
+        });
+        voicesSong = song;
+        t0 = at;
+        len = buffers[0].duration;
+        state.loading = false; state.playing = true;
+      } catch (e) {
+        const err = e as Error;
+        if (mine !== request || err.name === 'AbortError') return;
+        state.loading = false; state.playing = false;
+        state.error = 'Couldn’t load the music. Try again in a moment.';
+      }
+      render();
+    }
+
+    // Equal-power crossfade over 1 s, like the mode cards in the app.
+    function fadeTo(world: string) {
+      state.world = world;
+      render();
+      if (!ctx || !voices.length) return;
+      const now = ctx.currentTime, dur = 1.0, n = 32;
+      voices.forEach((v) => {
+        const g = v.gain.gain, from = g.value, to = v.world === world ? 1 : 0;
+        if (g.cancelAndHoldAtTime) g.cancelAndHoldAtTime(now); else g.cancelScheduledValues(now);
+        const curve = new Float32Array(n);
+        for (let i = 0; i < n; i++) {
+          const t = i / (n - 1);
+          curve[i] = to ? from + (1 - from) * Math.sin((t * Math.PI) / 2) : from * Math.cos((t * Math.PI) / 2);
+        }
+        g.setValueCurveAtTime(curve, now + 0.01, dur);
+      });
+    }
+
+    function updateProgress() {
+      if (!ctx || !state.playing) return;
+      const p = Math.max(0, ((ctx.currentTime - t0) % len) / len);
+      progressEl.style.width = `${(p * 100).toFixed(1)}%`;
+    }
+
+    async function toggle() {
+      if (state.loading) return;
+      if (!ctx) {
+        const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (!AC) { state.error = 'This browser can’t play the mixer.'; render(); return; }
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = 0.85;
+        master.connect(ctx.destination);
+        setInterval(updateProgress, 120);
+      }
+      if (state.playing) {
+        await ctx.suspend();
+        state.playing = false;
+        render();
+        return;
+      }
+      if (ctx.state === 'suspended') await ctx.resume();
+      if (voices.length && voicesSong === state.song) {
+        state.playing = true;
+        render();
+      } else {
+        await startSong(state.song);
+      }
+    }
+
+    function stepSong(dir: number) {
+      const ids = SONGS.map(([id]) => id);
+      const i = ids.indexOf(state.song);
+      state.song = ids[(i + dir + ids.length) % ids.length];
+      state.error = '';
+      if (state.playing || state.loading) {
+        startSong(state.song);
+      } else {
+        // Paused: drop the old song now; Play starts the new one.
+        request++;
+        if (fetching) { fetching.abort(); fetching = null; }
+        stopVoices();
+        progressEl.style.width = '0%';
+        render();
+      }
+    }
+
+    mixer.querySelector('[data-song-prev]')!.addEventListener('click', () => stepSong(-1));
+    mixer.querySelector('[data-song-next]')!.addEventListener('click', () => stepSong(1));
+    playButton.addEventListener('click', toggle);
+    worldButtons.forEach((b) => b.addEventListener('click', () => fadeTo(b.dataset.world!)));
+    render();
+  }
+</script>
