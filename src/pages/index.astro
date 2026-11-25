@@ -4,13 +4,20 @@ import ProjectCard from '../components/ProjectCard.astro';
 import HeroFlow from '../components/HeroFlow.astro';
 import Base from '../layouts/Base.astro';
 
-// The homepage speaks to small-business owners (2026-10-22), so real client work for
-// small businesses leads; everything else keeps its usual order after it.
-const clientFirst = ['paramore-real-estate', 'the-tree-service'];
-const rank = (id: string) => (clientFirst.includes(id) ? clientFirst.indexOf(id) : clientFirst.length);
-const projects = (await getCollection('projects'))
+// Usual order, except the small-business client work sits as its own row right after
+// Mutual Design System (Hunter, 2026-11-24: lower down than leading the grid, as it did
+// from 2026-10-22).
+const clientWork = ['paramore-real-estate', 'the-tree-service'];
+const sorted = (await getCollection('projects'))
   .filter((p) => !p.data.draft)
-  .sort((a, b) => rank(a.id) - rank(b.id) || a.data.order - b.data.order);
+  .sort((a, b) => a.data.order - b.data.order);
+const rest = sorted.filter((p) => !clientWork.includes(p.id));
+const anchor = rest.findIndex((p) => p.id === 'mutual-design-system') + 1;
+const projects = [
+  ...rest.slice(0, anchor),
+  ...clientWork.map((id) => sorted.find((p) => p.id === id)).filter((p) => p !== undefined),
+  ...rest.slice(anchor),
+];
 ---
 
 <Base
@@ -25,6 +32,11 @@ const projects = (await getCollection('projects'))
   <!-- Proof strip: the numbers, scannable, before anything else -->
   <section class="home-proof">
     <div class="container">
+      <!-- A short intro before the numbers (Hunter, 2026-11-24), kept small so the work still shows above the fold -->
+      <p class="home-intro">
+        I&rsquo;m Hunter. I design and build apps, and I help Utah small businesses with websites,
+        custom tools and AI that takes the busywork off their plate.
+      </p>
       <div class="home-stats">
         <div class="home-stat">
           <div class="home-stat__value">13 yrs</div>
@@ -266,6 +278,14 @@ const projects = (await getCollection('projects'))
     .home-proof {
       padding-top: calc(var(--space-4xl) + var(--space-lg));  /* clears the fixed nav (84px) with room */
       padding-bottom: 0;
+    }
+    .home-intro {
+      font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+      line-height: 1.45;
+      color: var(--color-text-primary);
+      max-width: 52ch;
+      text-wrap: pretty;
+      margin: 0 0 var(--space-xl);
     }
     .home-stats {
       display: grid;

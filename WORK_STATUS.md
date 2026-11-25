@@ -1,3 +1,16 @@
+## 2026-11-24 — Homepage: client work moved down, short intro on top
+
+- **Card order (`src/pages/index.astro`):** Paramore Real Estate and The Tree Service no longer lead the grid
+  (the `clientFirst` override from 2026-10-22 is gone). They're now their own row right after Mutual Design
+  System. The order is now Hex Quest (wide), Mutual (wide), Tava / Mutual Design System, Paramore Real Estate /
+  The Tree Service, then the rest by `order`. This is homepage only; `/work` is unchanged.
+- **Intro (`.home-intro`):** a short line above the stats: "I'm Hunter. I design and build apps, and I help Utah
+  small businesses with websites, custom tools and AI that takes the busywork off their plate." The first card
+  now starts at 658 px on a 1440x900 window, still above the fold.
+- **Gotcha seen again:** `astro dev` kept serving the old `<style is:global>` block, so the intro looked unstyled
+  until the dev server restarted. The production build was fine. Moving the homepage CSS into
+  `src/styles/home/` (the CLAUDE.md exception) would stop this.
+
 ## 2026-11-24 — Homepage reordered: work first, compact help band, humanized copy
 
 **Hunter's ask:** move the hero below the work, keep the stats ("13 yrs" …) and the availability line at the
