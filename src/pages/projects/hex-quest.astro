@@ -262,7 +262,7 @@ const worlds = [
             </button>
             <div class="hq-mixer__title">
               <span class="hq-mixer__kicker">Song</span>
-              <span data-song-title aria-live="polite">Hive</span>
+              <span data-song-title aria-live="polite">Bramble</span>
             </div>
             <button type="button" class="hq-round" data-song-next aria-label="Next song">
               <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -455,7 +455,7 @@ const worlds = [
 
   // ---------- Music mixer ----------
   // Ported from hexquest.app (site/home.js): every world version of a song plays from the
-  // same start sample, and tapping a world crossfades between them. Three songs here, at a
+  // same start sample, and tapping a world crossfades between them. Four songs here, at a
   // lower bitrate than the game site, and nothing loads until Play.
   const mixer = document.querySelector<HTMLElement>('[data-mixer]');
   if (mixer) {
@@ -465,7 +465,7 @@ const worlds = [
       honey: 'Honey', forest: 'Forest', ice: 'Ice', underwater: 'Underwater',
       volcano: 'Volcano', chiptune: 'Chroma', pirate: 'Pirate', christmas: 'Christmas',
     };
-    const SONGS: [string, string][] = [['hive', 'Hive'], ['nightdrive', 'Night Drive'], ['bramble', 'Bramble']];
+    const SONGS: [string, string][] = [['bramble', 'Bramble'], ['nightdrive', 'Night Drive'], ['hive', 'Hive'], ['showdown', 'Showdown']];
 
     const titleEl = mixer.querySelector<HTMLElement>('[data-song-title]')!;
     const playButton = mixer.querySelector<HTMLButtonElement>('[data-play]')!;
@@ -475,7 +475,7 @@ const worlds = [
     const worldButtons = Array.from(mixer.querySelectorAll<HTMLButtonElement>('[data-world]'));
 
     type Voice = { src: AudioBufferSourceNode; gain: GainNode; world: string };
-    const state = { song: 'hive', world: 'honey', playing: false, loading: false, error: '' };
+    const state = { song: 'bramble', world: 'honey', playing: false, loading: false, error: '' };
     let ctx: AudioContext | null = null;
     let master: GainNode | null = null;
     let voices: Voice[] = [];

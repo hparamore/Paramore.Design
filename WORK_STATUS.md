@@ -1,3 +1,19 @@
+## 2026-11-24 — Hex Quest on the homepage, four mixer songs
+
+**Hunter's answers:** put the card on the homepage too, and feature Bramble, Night Drive, Hive and Showdown, in
+that order.
+
+**Changed:**
+- `src/content/projects/hex-quest.yaml`: `onHome: true`. On the homepage it sits third, full-width (it's
+  `featured`), after Paramore Real Estate and The Tree Service, which come first because of their `order` values.
+- `src/pages/projects/hex-quest.astro`: `SONGS` is now Bramble, Night Drive, Hive, Showdown. The mixer starts on
+  Bramble (the title in the markup and `state.song`).
+- `public/assets/projects/hex-quest/audio/showdown-*.mp4`: eight new files. Same source and settings as the
+  others: `HexGame/App/Resources/Audio/music_showdown[_<world>]_loop.m4a` →
+  `afconvert -f mp4f -d aac@32000 -b 48000`. That's 3.0 MB more in the repo (12 MB of audio in total), still
+  fetched only for the song being played. In the browser each file decodes to exactly 64.000 s, so the loop is
+  seamless.
+
 ## 2026-11-24 — Hex Quest page shipped
 
 Hunter approved the page ("Looks good, ship it"). Branch `hparamoreclaude/hexquest-case-study-0ccd36` was

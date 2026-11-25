@@ -3,7 +3,7 @@ label: "Mobile Game // iOS & Android"
 description: A hex tile-matching adventure with nine modes, a soundtrack that changes with every world, and live leaderboards. Designed and built end to end, launching on the App Store Nov 25, 2026.
 href: /projects/hex-quest
 order: 0
-onHome: false
+onHome: true
 featured: true
 image: /assets/projects/hex-quest/hero.jpg
 imageAlt: The Hex Quest logo between four phones showing different game modes
